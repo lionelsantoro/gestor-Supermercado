@@ -13,7 +13,7 @@ namespace DesktopAppSupermercado
             ApplicationConfiguration.Initialize();
             // Application.Run(new VistaInventario());
 
-            Application.Run(new VistaSupervisorDeCaja());
+            Application.Run(new MenuPrincipal());
 
         }
     }

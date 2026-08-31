@@ -53,7 +53,7 @@
             // button1
             // 
             button1.Image = Properties.Resources.nuevoprodct1;
-            button1.Location = new Point(519, 50);
+            button1.Location = new Point(586, 50);
             button1.Name = "button1";
             button1.Size = new Size(176, 217);
             button1.TabIndex = 0;
@@ -65,7 +65,7 @@
             // button2
             // 
             button2.Image = Properties.Resources.nuevocateg;
-            button2.Location = new Point(738, 53);
+            button2.Location = new Point(778, 53);
             button2.Name = "button2";
             button2.Size = new Size(162, 214);
             button2.TabIndex = 1;
@@ -159,7 +159,7 @@
             dataGridView2.Location = new Point(12, 53);
             dataGridView2.Name = "dataGridView2";
             dataGridView2.RowHeadersWidth = 51;
-            dataGridView2.Size = new Size(429, 214);
+            dataGridView2.Size = new Size(554, 214);
             dataGridView2.TabIndex = 5;
             dataGridView2.CellContentClick += dataGridView2_CellContentClick;
             // 
