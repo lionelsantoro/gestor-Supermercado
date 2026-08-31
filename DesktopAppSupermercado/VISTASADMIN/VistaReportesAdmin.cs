@@ -6,11 +6,11 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace DesktopAppSupermercado
+namespace DesktopAppSupermercado.VISTASADMIN
 {
-    public partial class VistaAdmin : Form
+    public partial class VistaReportesAdmin : Form
     {
-        public VistaAdmin()
+        public VistaReportesAdmin()
         {
             InitializeComponent();
         }
