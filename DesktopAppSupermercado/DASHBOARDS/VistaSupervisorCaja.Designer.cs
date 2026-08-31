@@ -1,6 +1,6 @@
-﻿namespace DesktopAppSupermercado
+﻿namespace DesktopAppSupermercado.DASHBOARDS
 {
-    partial class VistaCajero
+    partial class VistaSupervisorCaja
     {
         /// <summary>
         /// Required designer variable.
@@ -32,7 +32,6 @@
             PanelMenu = new Panel();
             btnSalirC = new Button();
             btnReportesC = new Button();
-            btnVentas = new Button();
             PanelMenu.SuspendLayout();
             SuspendLayout();
             // 
@@ -42,27 +41,26 @@
             PanelContenedor.Dock = DockStyle.Fill;
             PanelContenedor.Location = new Point(131, 0);
             PanelContenedor.Name = "PanelContenedor";
-            PanelContenedor.Size = new Size(1601, 916);
-            PanelContenedor.TabIndex = 3;
+            PanelContenedor.Size = new Size(669, 450);
+            PanelContenedor.TabIndex = 5;
             // 
             // PanelMenu
             // 
             PanelMenu.BackColor = SystemColors.ActiveCaption;
             PanelMenu.Controls.Add(btnSalirC);
             PanelMenu.Controls.Add(btnReportesC);
-            PanelMenu.Controls.Add(btnVentas);
             PanelMenu.Dock = DockStyle.Left;
             PanelMenu.Location = new Point(0, 0);
             PanelMenu.Name = "PanelMenu";
-            PanelMenu.Size = new Size(131, 916);
-            PanelMenu.TabIndex = 2;
+            PanelMenu.Size = new Size(131, 450);
+            PanelMenu.TabIndex = 4;
             // 
             // btnSalirC
             // 
             btnSalirC.Dock = DockStyle.Bottom;
             btnSalirC.FlatStyle = FlatStyle.Flat;
             btnSalirC.ForeColor = SystemColors.ActiveCaptionText;
-            btnSalirC.Location = new Point(0, 863);
+            btnSalirC.Location = new Point(0, 397);
             btnSalirC.Name = "btnSalirC";
             btnSalirC.Size = new Size(131, 53);
             btnSalirC.TabIndex = 1;
@@ -72,33 +70,22 @@
             // btnReportesC
             // 
             btnReportesC.FlatStyle = FlatStyle.Flat;
-            btnReportesC.Location = new Point(0, 353);
+            btnReportesC.Location = new Point(13, 108);
             btnReportesC.Name = "btnReportesC";
             btnReportesC.Size = new Size(118, 52);
             btnReportesC.TabIndex = 1;
             btnReportesC.Text = "Reportes";
             btnReportesC.UseVisualStyleBackColor = true;
             // 
-            // btnVentas
-            // 
-            btnVentas.Dock = DockStyle.Top;
-            btnVentas.FlatStyle = FlatStyle.Flat;
-            btnVentas.Location = new Point(0, 0);
-            btnVentas.Name = "btnVentas";
-            btnVentas.Size = new Size(131, 45);
-            btnVentas.TabIndex = 1;
-            btnVentas.Text = "Ventas";
-            btnVentas.UseVisualStyleBackColor = true;
-            // 
-            // VistaCajero
+            // VistaSupervisorCaja
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1732, 916);
+            ClientSize = new Size(800, 450);
             Controls.Add(PanelContenedor);
             Controls.Add(PanelMenu);
-            Name = "VistaCajero";
-            Text = "VistaCajero";
+            Name = "VistaSupervisorCaja";
+            Text = "VistaSupervisorCaja";
             PanelMenu.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -109,6 +96,5 @@
         private Panel PanelMenu;
         private Button btnSalirC;
         private Button btnReportesC;
-        private Button btnVentas;
     }
 }

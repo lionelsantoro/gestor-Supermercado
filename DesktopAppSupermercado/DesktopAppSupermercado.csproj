@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="VISTASCAJERO\" />
+    <Folder Include="VISTASSUPERVISORCAJA\" />
   </ItemGroup>
 
 </Project>
