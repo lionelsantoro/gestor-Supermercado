@@ -8,9 +8,9 @@ using System.Windows.Forms;
 
 namespace DesktopAppSupermercado.VISTASCAJERO
 {
-    public partial class ViistaVentasCajero : Form
+    public partial class ViistaVentasInventario : Form
     {
-        public ViistaVentasCajero()
+        public ViistaVentasInventario()
         {
             InitializeComponent();
         }

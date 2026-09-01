@@ -1,6 +1,6 @@
 ﻿namespace DesktopAppSupermercado.VISTASCAJERO
 {
-    partial class ViistaVentasCajero
+    partial class ViistaVentasInventario
     {
         /// <summary>
         /// Required designer variable.
