@@ -213,9 +213,59 @@ namespace DesktopAppSupermercado.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap cancelarcompra1 {
+            get {
+                object obj = ResourceManager.GetObject("cancelarcompra1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap cancelarcompra2 {
+            get {
+                object obj = ResourceManager.GetObject("cancelarcompra2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap cancelarcompra3 {
+            get {
+                object obj = ResourceManager.GetObject("cancelarcompra3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap codigobarra {
             get {
                 object obj = ResourceManager.GetObject("codigobarra", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap codigobarra1 {
+            get {
+                object obj = ResourceManager.GetObject("codigobarra1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap codigobarra2 {
+            get {
+                object obj = ResourceManager.GetObject("codigobarra2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
