@@ -39,9 +39,10 @@
             // 
             PanelContenedor.BackColor = Color.FromArgb(255, 224, 192);
             PanelContenedor.Dock = DockStyle.Fill;
-            PanelContenedor.Location = new Point(131, 0);
+            PanelContenedor.Location = new Point(78, 0);
+            PanelContenedor.Margin = new Padding(2);
             PanelContenedor.Name = "PanelContenedor";
-            PanelContenedor.Size = new Size(669, 450);
+            PanelContenedor.Size = new Size(414, 257);
             PanelContenedor.TabIndex = 5;
             // 
             // PanelMenu
@@ -51,8 +52,9 @@
             PanelMenu.Controls.Add(btnReportesC);
             PanelMenu.Dock = DockStyle.Left;
             PanelMenu.Location = new Point(0, 0);
+            PanelMenu.Margin = new Padding(2);
             PanelMenu.Name = "PanelMenu";
-            PanelMenu.Size = new Size(131, 450);
+            PanelMenu.Size = new Size(78, 257);
             PanelMenu.TabIndex = 4;
             // 
             // btnSalirC
@@ -60,9 +62,10 @@
             btnSalirC.Dock = DockStyle.Bottom;
             btnSalirC.FlatStyle = FlatStyle.Flat;
             btnSalirC.ForeColor = SystemColors.ActiveCaptionText;
-            btnSalirC.Location = new Point(0, 397);
+            btnSalirC.Location = new Point(0, 224);
+            btnSalirC.Margin = new Padding(2);
             btnSalirC.Name = "btnSalirC";
-            btnSalirC.Size = new Size(131, 53);
+            btnSalirC.Size = new Size(78, 33);
             btnSalirC.TabIndex = 1;
             btnSalirC.Text = "Salir";
             btnSalirC.UseVisualStyleBackColor = true;
@@ -70,20 +73,23 @@
             // btnReportesC
             // 
             btnReportesC.FlatStyle = FlatStyle.Flat;
-            btnReportesC.Location = new Point(13, 108);
+            btnReportesC.Location = new Point(0, 138);
+            btnReportesC.Margin = new Padding(2);
             btnReportesC.Name = "btnReportesC";
-            btnReportesC.Size = new Size(118, 52);
+            btnReportesC.Size = new Size(77, 32);
             btnReportesC.TabIndex = 1;
             btnReportesC.Text = "Reportes";
             btnReportesC.UseVisualStyleBackColor = true;
+            btnReportesC.Click += btnReportesC_Click;
             // 
             // VistaSupervisorCaja
             // 
-            AutoScaleDimensions = new SizeF(13F, 32F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(492, 257);
             Controls.Add(PanelContenedor);
             Controls.Add(PanelMenu);
+            Margin = new Padding(2);
             Name = "VistaSupervisorCaja";
             Text = "VistaSupervisorCaja";
             PanelMenu.ResumeLayout(false);

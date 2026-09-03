@@ -123,6 +123,16 @@ namespace DesktopAppSupermercado.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap agregarprodct3 {
+            get {
+                object obj = ResourceManager.GetObject("agregarprodct3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap cajero {
             get {
                 object obj = ResourceManager.GetObject("cajero", resourceCulture);
@@ -146,6 +156,46 @@ namespace DesktopAppSupermercado.Properties {
         internal static System.Drawing.Bitmap cajero11 {
             get {
                 object obj = ResourceManager.GetObject("cajero11", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap cajero12 {
+            get {
+                object obj = ResourceManager.GetObject("cajero12", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap cajero13 {
+            get {
+                object obj = ResourceManager.GetObject("cajero13", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap cajero2 {
+            get {
+                object obj = ResourceManager.GetObject("cajero2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap cajero21 {
+            get {
+                object obj = ResourceManager.GetObject("cajero21", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -196,6 +246,26 @@ namespace DesktopAppSupermercado.Properties {
         internal static System.Drawing.Bitmap inventario1 {
             get {
                 object obj = ResourceManager.GetObject("inventario1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap modificar {
+            get {
+                object obj = ResourceManager.GetObject("modificar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap modificar1 {
+            get {
+                object obj = ResourceManager.GetObject("modificar1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -256,6 +326,16 @@ namespace DesktopAppSupermercado.Properties {
         internal static System.Drawing.Bitmap pagar {
             get {
                 object obj = ResourceManager.GetObject("pagar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pagar1 {
+            get {
+                object obj = ResourceManager.GetObject("pagar1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

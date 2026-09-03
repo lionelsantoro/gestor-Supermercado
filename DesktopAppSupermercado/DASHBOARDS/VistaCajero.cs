@@ -57,5 +57,10 @@ namespace DesktopAppSupermercado
             dataGridView1.Rows.Add("Gaseosa Cola 2L", "1", "$ 3.200,00");
             dataGridView1.Rows.Add("Pan Lactal", "1", "$ 1.200,00");
         }
+
+        private void btnModificarCompra_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
