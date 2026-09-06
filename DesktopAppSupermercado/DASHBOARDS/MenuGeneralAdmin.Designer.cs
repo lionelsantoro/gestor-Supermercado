@@ -1,6 +1,10 @@
-﻿namespace DesktopAppSupermercado
+﻿using System;
+using System.Drawing;
+using System.Windows.Forms;
+
+namespace DesktopAppSupermercado.DASHBOARDS
 {
-    partial class VistaAdmin
+    partial class MenuGeneralAdmin
     {
         /// <summary>
         /// Required designer variable.
@@ -108,14 +112,14 @@
             PanelContenedor.TabIndex = 1;
             PanelContenedor.Paint += PanelContenedor_Paint;
             // 
-            // VistaAdmin
+            // MenuGeneralAdmin
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(2033, 808);
             Controls.Add(PanelContenedor);
             Controls.Add(PanelMenu);
-            Name = "VistaAdmin";
+            Name = "MenuGeneralAdmin";
             Text = "Menu General Admin";
             WindowState = FormWindowState.Maximized;
             PanelMenu.ResumeLayout(false);

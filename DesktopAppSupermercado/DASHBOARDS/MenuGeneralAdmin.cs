@@ -6,14 +6,14 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace DesktopAppSupermercado
+namespace DesktopAppSupermercado.DASHBOARDS
 {
-    public partial class VistaAdmin : Form
+    public partial class MenuGeneralAdmin : Form
     {
         // 1. Variable para recordar qué formulario está abierto
         private Form formularioActivo = null;
 
-        public VistaAdmin()
+        public MenuGeneralAdmin()
         {
             InitializeComponent();
         }
