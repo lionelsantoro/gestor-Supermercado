@@ -83,6 +83,16 @@ namespace DesktopAppSupermercado.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _3890929_chart_growth_invest_market_stock_111188 {
+            get {
+                object obj = ResourceManager.GetObject("3890929-chart-growth-invest-market-stock_111188", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap admin {
             get {
                 object obj = ResourceManager.GetObject("admin", resourceCulture);
@@ -416,6 +426,16 @@ namespace DesktopAppSupermercado.Properties {
         internal static System.Drawing.Bitmap logout_90894__2_ {
             get {
                 object obj = ResourceManager.GetObject("logout_90894 (2)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap logout_90894__2_1 {
+            get {
+                object obj = ResourceManager.GetObject("logout_90894 (2)1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

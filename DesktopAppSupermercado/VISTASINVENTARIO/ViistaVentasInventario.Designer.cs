@@ -68,6 +68,20 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Vendedor";
             // 
+            // txtNombreVendedor
+            // 
+            txtNombreVendedor.Location = new Point(322, 56);
+            txtNombreVendedor.Name = "txtNombreVendedor";
+            txtNombreVendedor.Size = new Size(372, 39);
+            txtNombreVendedor.TabIndex = 1;
+            // 
+            // txtIdVendedor
+            // 
+            txtIdVendedor.Location = new Point(139, 56);
+            txtIdVendedor.Name = "txtIdVendedor";
+            txtIdVendedor.Size = new Size(177, 39);
+            txtIdVendedor.TabIndex = 1;
+            // 
             // label1
             // 
             label1.AutoSize = true;
@@ -77,20 +91,6 @@
             label1.Size = new Size(127, 32);
             label1.TabIndex = 1;
             label1.Text = "Vendedor";
-            // 
-            // txtIdVendedor
-            // 
-            txtIdVendedor.Location = new Point(139, 56);
-            txtIdVendedor.Name = "txtIdVendedor";
-            txtIdVendedor.Size = new Size(177, 39);
-            txtIdVendedor.TabIndex = 1;
-            // 
-            // txtNombreVendedor
-            // 
-            txtNombreVendedor.Location = new Point(322, 56);
-            txtNombreVendedor.Name = "txtNombreVendedor";
-            txtNombreVendedor.Size = new Size(372, 39);
-            txtNombreVendedor.TabIndex = 1;
             // 
             // groupBox2
             // 
@@ -104,6 +104,15 @@
             groupBox2.TabIndex = 1;
             groupBox2.TabStop = false;
             groupBox2.Text = "Cliente";
+            // 
+            // btnBuscarCliente
+            // 
+            btnBuscarCliente.Location = new Point(707, 67);
+            btnBuscarCliente.Name = "btnBuscarCliente";
+            btnBuscarCliente.Size = new Size(98, 44);
+            btnBuscarCliente.TabIndex = 5;
+            btnBuscarCliente.Text = "Buscar";
+            btnBuscarCliente.UseVisualStyleBackColor = true;
             // 
             // txtNombreCliente
             // 
@@ -129,15 +138,6 @@
             CLiente.TabIndex = 4;
             CLiente.Text = "Cliente";
             // 
-            // btnBuscarCliente
-            // 
-            btnBuscarCliente.Location = new Point(707, 67);
-            btnBuscarCliente.Name = "btnBuscarCliente";
-            btnBuscarCliente.Size = new Size(98, 44);
-            btnBuscarCliente.TabIndex = 5;
-            btnBuscarCliente.Text = "Buscar";
-            btnBuscarCliente.UseVisualStyleBackColor = true;
-            // 
             // groupBox3
             // 
             groupBox3.Controls.Add(button2);
@@ -154,70 +154,37 @@
             groupBox3.Controls.Add(label2);
             groupBox3.Location = new Point(45, 276);
             groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(914, 284);
+            groupBox3.Size = new Size(1067, 284);
             groupBox3.TabIndex = 2;
             groupBox3.TabStop = false;
             groupBox3.Text = "Productos";
             // 
-            // txtIdProducto
+            // button2
             // 
-            txtIdProducto.Location = new Point(25, 96);
-            txtIdProducto.Name = "txtIdProducto";
-            txtIdProducto.Size = new Size(148, 39);
-            txtIdProducto.TabIndex = 2;
+            button2.Location = new Point(812, 163);
+            button2.Name = "button2";
+            button2.Size = new Size(181, 78);
+            button2.TabIndex = 14;
+            button2.Text = "Buscar";
+            button2.UseVisualStyleBackColor = true;
             // 
-            // label2
+            // nCantidad
             // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI Black", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(35, 49);
-            label2.Name = "label2";
-            label2.Size = new Size(122, 32);
-            label2.TabIndex = 3;
-            label2.Text = "Producto";
+            nCantidad.Location = new Point(677, 163);
+            nCantidad.Name = "nCantidad";
+            nCantidad.Size = new Size(129, 39);
+            nCantidad.TabIndex = 13;
+            nCantidad.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
-            // txtDescProducto
+            // label6
             // 
-            txtDescProducto.Location = new Point(231, 96);
-            txtDescProducto.Name = "txtDescProducto";
-            txtDescProducto.Size = new Size(457, 39);
-            txtDescProducto.TabIndex = 4;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI Black", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.Location = new Point(226, 49);
-            label3.Name = "label3";
-            label3.Size = new Size(150, 32);
-            label3.TabIndex = 5;
-            label3.Text = "Descripcion";
-            // 
-            // button1
-            // 
-            button1.Location = new Point(699, 96);
-            button1.Name = "button1";
-            button1.Size = new Size(98, 44);
-            button1.TabIndex = 6;
-            button1.Text = "Buscar";
-            button1.UseVisualStyleBackColor = true;
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(94, 167);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(130, 39);
-            textBox1.TabIndex = 7;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI Black", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.Location = new Point(9, 170);
-            label4.Name = "label4";
-            label4.Size = new Size(79, 32);
-            label4.TabIndex = 8;
-            label4.Text = "Stock";
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI Black", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label6.Location = new Point(554, 167);
+            label6.Name = "label6";
+            label6.Size = new Size(117, 32);
+            label6.TabIndex = 12;
+            label6.Text = "Cantidad";
             // 
             // textBox2
             // 
@@ -236,34 +203,67 @@
             label5.TabIndex = 10;
             label5.Text = "Precio Venta";
             // 
-            // label6
+            // textBox1
             // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI Black", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label6.Location = new Point(554, 167);
-            label6.Name = "label6";
-            label6.Size = new Size(117, 32);
-            label6.TabIndex = 12;
-            label6.Text = "Cantidad";
+            textBox1.Location = new Point(94, 167);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(130, 39);
+            textBox1.TabIndex = 7;
             // 
-            // nCantidad
+            // label4
             // 
-            nCantidad.Location = new Point(677, 163);
-            nCantidad.Name = "nCantidad";
-            nCantidad.Size = new Size(129, 39);
-            nCantidad.TabIndex = 13;
-            nCantidad.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI Black", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label4.Location = new Point(9, 170);
+            label4.Name = "label4";
+            label4.Size = new Size(79, 32);
+            label4.TabIndex = 8;
+            label4.Text = "Stock";
             // 
-            // button2
+            // button1
             // 
-            button2.Location = new Point(825, 161);
-            button2.Name = "button2";
-            button2.Size = new Size(98, 44);
-            button2.TabIndex = 14;
-            button2.Text = "Buscar";
-            button2.UseVisualStyleBackColor = true;
+            button1.Location = new Point(705, 70);
+            button1.Name = "button1";
+            button1.Size = new Size(209, 76);
+            button1.TabIndex = 6;
+            button1.Text = "Buscar";
+            button1.UseVisualStyleBackColor = true;
             // 
-            // ViistaVentasCajero
+            // txtDescProducto
+            // 
+            txtDescProducto.Location = new Point(231, 96);
+            txtDescProducto.Name = "txtDescProducto";
+            txtDescProducto.Size = new Size(457, 39);
+            txtDescProducto.TabIndex = 4;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI Black", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.Location = new Point(226, 49);
+            label3.Name = "label3";
+            label3.Size = new Size(150, 32);
+            label3.TabIndex = 5;
+            label3.Text = "Descripcion";
+            // 
+            // txtIdProducto
+            // 
+            txtIdProducto.Location = new Point(25, 96);
+            txtIdProducto.Name = "txtIdProducto";
+            txtIdProducto.Size = new Size(148, 39);
+            txtIdProducto.TabIndex = 2;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI Black", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.Location = new Point(35, 49);
+            label2.Name = "label2";
+            label2.Size = new Size(122, 32);
+            label2.TabIndex = 3;
+            label2.Text = "Producto";
+            // 
+            // ViistaVentasInventario
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -272,7 +272,7 @@
             Controls.Add(groupBox3);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
-            Name = "ViistaVentasCajero";
+            Name = "ViistaVentasInventario";
             Text = "ViistaVentasCajero";
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();

@@ -280,7 +280,7 @@
             btnGuardar.ForeColor = SystemColors.ButtonHighlight;
             btnGuardar.Image = Properties.Resources.Save_37110;
             btnGuardar.ImageAlign = ContentAlignment.TopCenter;
-            btnGuardar.Location = new Point(1206, 57);
+            btnGuardar.Location = new Point(1216, 46);
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(323, 168);
             btnGuardar.TabIndex = 25;
@@ -296,7 +296,7 @@
             btnCancelar.ForeColor = SystemColors.ButtonHighlight;
             btnCancelar.Image = Properties.Resources.cancel_circle_close_delete_discard_file_x_icon_123219__1_;
             btnCancelar.ImageAlign = ContentAlignment.TopCenter;
-            btnCancelar.Location = new Point(1206, 254);
+            btnCancelar.Location = new Point(1216, 243);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(323, 175);
             btnCancelar.TabIndex = 26;

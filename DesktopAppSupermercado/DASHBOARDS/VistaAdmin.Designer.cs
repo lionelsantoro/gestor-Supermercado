@@ -106,6 +106,7 @@
             PanelContenedor.Name = "PanelContenedor";
             PanelContenedor.Size = new Size(1894, 808);
             PanelContenedor.TabIndex = 1;
+            PanelContenedor.Paint += PanelContenedor_Paint;
             // 
             // VistaAdmin
             // 

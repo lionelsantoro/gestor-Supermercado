@@ -57,5 +57,10 @@ namespace DesktopAppSupermercado
         {
             Application.Exit(); // Cierra toda la aplicación
         }
+
+        private void PanelContenedor_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
