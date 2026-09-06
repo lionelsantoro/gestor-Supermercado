@@ -27,26 +27,22 @@ namespace DesktopAppSupermercado
 
         private void button2_Click(object sender, EventArgs e)
         {
-            FormCodigoBarra vistaCodBarra = new FormCodigoBarra();
-            vistaCodBarra.Show();
+            
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            FormAnulacion vistaCancelar = new FormAnulacion();
-            vistaCancelar.Show();
+            
         }
 
         private void btnAgregarProducto_Click(object sender, EventArgs e)
         {
-            FormAgregarProducto vistaAgregar = new FormAgregarProducto();
-            vistaAgregar.Show();
+            
         }
 
         private void btnPagar_Click(object sender, EventArgs e)
         {
-            FormPagar vistaPagar = new FormPagar();
-            vistaPagar.Show();
+            
         }
 
         private void VistaCajero_Load(object sender, EventArgs e)
