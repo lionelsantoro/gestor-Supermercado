@@ -30,9 +30,8 @@
         {
             PanelContenedor = new Panel();
             PanelMenu = new Panel();
-            btnSalirC = new Button();
-            btnReportesC = new Button();
-            btnVentas = new Button();
+            btnSalirINVENTARIO = new Button();
+            btnGestionProductosyCategoriasINVENTARIO = new Button();
             PanelMenu.SuspendLayout();
             SuspendLayout();
             // 
@@ -42,59 +41,47 @@
             PanelContenedor.Dock = DockStyle.Fill;
             PanelContenedor.Location = new Point(131, 0);
             PanelContenedor.Name = "PanelContenedor";
-            PanelContenedor.Size = new Size(669, 450);
+            PanelContenedor.Size = new Size(1640, 610);
             PanelContenedor.TabIndex = 5;
             // 
             // PanelMenu
             // 
             PanelMenu.BackColor = SystemColors.ActiveCaption;
-            PanelMenu.Controls.Add(btnSalirC);
-            PanelMenu.Controls.Add(btnReportesC);
-            PanelMenu.Controls.Add(btnVentas);
+            PanelMenu.Controls.Add(btnGestionProductosyCategoriasINVENTARIO);
+            PanelMenu.Controls.Add(btnSalirINVENTARIO);
             PanelMenu.Dock = DockStyle.Left;
             PanelMenu.Location = new Point(0, 0);
             PanelMenu.Name = "PanelMenu";
-            PanelMenu.Size = new Size(131, 450);
+            PanelMenu.Size = new Size(131, 610);
             PanelMenu.TabIndex = 4;
             // 
-            // btnSalirC
+            // btnSalirINVENTARIO
             // 
-            btnSalirC.Dock = DockStyle.Bottom;
-            btnSalirC.FlatStyle = FlatStyle.Flat;
-            btnSalirC.ForeColor = SystemColors.ActiveCaptionText;
-            btnSalirC.Location = new Point(0, 397);
-            btnSalirC.Name = "btnSalirC";
-            btnSalirC.Size = new Size(131, 53);
-            btnSalirC.TabIndex = 1;
-            btnSalirC.Text = "Salir";
-            btnSalirC.UseVisualStyleBackColor = true;
+            btnSalirINVENTARIO.Dock = DockStyle.Bottom;
+            btnSalirINVENTARIO.FlatStyle = FlatStyle.Flat;
+            btnSalirINVENTARIO.ForeColor = SystemColors.ActiveCaptionText;
+            btnSalirINVENTARIO.Location = new Point(0, 323);
+            btnSalirINVENTARIO.Name = "btnSalirINVENTARIO";
+            btnSalirINVENTARIO.Size = new Size(131, 287);
+            btnSalirINVENTARIO.TabIndex = 1;
+            btnSalirINVENTARIO.Text = "Salir";
+            btnSalirINVENTARIO.UseVisualStyleBackColor = true;
             // 
-            // btnReportesC
+            // btnGestionProductosyCategoriasINVENTARIO
             // 
-            btnReportesC.FlatStyle = FlatStyle.Flat;
-            btnReportesC.Location = new Point(7, 186);
-            btnReportesC.Name = "btnReportesC";
-            btnReportesC.Size = new Size(118, 52);
-            btnReportesC.TabIndex = 1;
-            btnReportesC.Text = "Reportes";
-            btnReportesC.UseVisualStyleBackColor = true;
-            // 
-            // btnVentas
-            // 
-            btnVentas.Dock = DockStyle.Top;
-            btnVentas.FlatStyle = FlatStyle.Flat;
-            btnVentas.Location = new Point(0, 0);
-            btnVentas.Name = "btnVentas";
-            btnVentas.Size = new Size(131, 45);
-            btnVentas.TabIndex = 1;
-            btnVentas.Text = "Productos";
-            btnVentas.UseVisualStyleBackColor = true;
+            btnGestionProductosyCategoriasINVENTARIO.BackColor = SystemColors.ActiveCaption;
+            btnGestionProductosyCategoriasINVENTARIO.Location = new Point(0, 32);
+            btnGestionProductosyCategoriasINVENTARIO.Name = "btnGestionProductosyCategoriasINVENTARIO";
+            btnGestionProductosyCategoriasINVENTARIO.Size = new Size(135, 272);
+            btnGestionProductosyCategoriasINVENTARIO.TabIndex = 0;
+            btnGestionProductosyCategoriasINVENTARIO.Text = "Gestion Productos y Categorias";
+            btnGestionProductosyCategoriasINVENTARIO.UseVisualStyleBackColor = false;
             // 
             // VistaInventario
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1771, 610);
             Controls.Add(PanelContenedor);
             Controls.Add(PanelMenu);
             Name = "VistaInventario";
@@ -107,8 +94,7 @@
 
         private Panel PanelContenedor;
         private Panel PanelMenu;
-        private Button btnSalirC;
-        private Button btnReportesC;
-        private Button btnVentas;
+        private Button btnSalirINVENTARIO;
+        private Button btnGestionProductosyCategoriasINVENTARIO;
     }
 }

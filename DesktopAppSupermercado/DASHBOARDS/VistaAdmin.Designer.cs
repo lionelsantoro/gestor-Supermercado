@@ -29,10 +29,9 @@
         private void InitializeComponent()
         {
             PanelMenu = new Panel();
-            btnSalir = new Button();
-            btnReportes = new Button();
-            btnBackup = new Button();
-            btnUsuarios = new Button();
+            btnSalirADMIN = new Button();
+            btnBackupADMIN = new Button();
+            btnUsuariosADMIN = new Button();
             PanelContenedor = new Panel();
             PanelMenu.SuspendLayout();
             SuspendLayout();
@@ -40,62 +39,50 @@
             // PanelMenu
             // 
             PanelMenu.BackColor = SystemColors.ActiveCaption;
-            PanelMenu.Controls.Add(btnSalir);
-            PanelMenu.Controls.Add(btnReportes);
-            PanelMenu.Controls.Add(btnBackup);
-            PanelMenu.Controls.Add(btnUsuarios);
+            PanelMenu.Controls.Add(btnSalirADMIN);
+            PanelMenu.Controls.Add(btnBackupADMIN);
+            PanelMenu.Controls.Add(btnUsuariosADMIN);
             PanelMenu.Dock = DockStyle.Left;
             PanelMenu.Location = new Point(0, 0);
             PanelMenu.Name = "PanelMenu";
             PanelMenu.Size = new Size(131, 808);
             PanelMenu.TabIndex = 0;
             // 
-            // btnSalir
+            // btnSalirADMIN
             // 
-            btnSalir.Dock = DockStyle.Bottom;
-            btnSalir.FlatStyle = FlatStyle.Flat;
-            btnSalir.ForeColor = SystemColors.ActiveCaptionText;
-            btnSalir.Location = new Point(0, 755);
-            btnSalir.Name = "btnSalir";
-            btnSalir.Size = new Size(131, 53);
-            btnSalir.TabIndex = 1;
-            btnSalir.Text = "Salir";
-            btnSalir.UseVisualStyleBackColor = true;
-            btnSalir.Click += btnSalir_Click;
+            btnSalirADMIN.Dock = DockStyle.Bottom;
+            btnSalirADMIN.FlatStyle = FlatStyle.Flat;
+            btnSalirADMIN.ForeColor = SystemColors.ActiveCaptionText;
+            btnSalirADMIN.Location = new Point(0, 596);
+            btnSalirADMIN.Name = "btnSalirADMIN";
+            btnSalirADMIN.Size = new Size(131, 212);
+            btnSalirADMIN.TabIndex = 1;
+            btnSalirADMIN.Text = "Salir";
+            btnSalirADMIN.UseVisualStyleBackColor = true;
+            btnSalirADMIN.Click += btnSalir_Click;
             // 
-            // btnReportes
+            // btnBackupADMIN
             // 
-            btnReportes.FlatStyle = FlatStyle.Flat;
-            btnReportes.Location = new Point(3, 499);
-            btnReportes.Name = "btnReportes";
-            btnReportes.Size = new Size(118, 52);
-            btnReportes.TabIndex = 1;
-            btnReportes.Text = "Reportes";
-            btnReportes.UseVisualStyleBackColor = true;
-            btnReportes.Click += btnReportes_Click;
+            btnBackupADMIN.FlatStyle = FlatStyle.Flat;
+            btnBackupADMIN.Location = new Point(7, 297);
+            btnBackupADMIN.Name = "btnBackupADMIN";
+            btnBackupADMIN.Size = new Size(118, 265);
+            btnBackupADMIN.TabIndex = 1;
+            btnBackupADMIN.Text = "BackUp";
+            btnBackupADMIN.UseVisualStyleBackColor = true;
+            btnBackupADMIN.Click += btnBackup_Click;
             // 
-            // btnBackup
+            // btnUsuariosADMIN
             // 
-            btnBackup.FlatStyle = FlatStyle.Flat;
-            btnBackup.Location = new Point(7, 252);
-            btnBackup.Name = "btnBackup";
-            btnBackup.Size = new Size(118, 46);
-            btnBackup.TabIndex = 1;
-            btnBackup.Text = "BackUp";
-            btnBackup.UseVisualStyleBackColor = true;
-            btnBackup.Click += btnBackup_Click;
-            // 
-            // btnUsuarios
-            // 
-            btnUsuarios.Dock = DockStyle.Top;
-            btnUsuarios.FlatStyle = FlatStyle.Flat;
-            btnUsuarios.Location = new Point(0, 0);
-            btnUsuarios.Name = "btnUsuarios";
-            btnUsuarios.Size = new Size(131, 45);
-            btnUsuarios.TabIndex = 1;
-            btnUsuarios.Text = "Usuarios";
-            btnUsuarios.UseVisualStyleBackColor = true;
-            btnUsuarios.Click += btnUsuarios_Click;
+            btnUsuariosADMIN.Dock = DockStyle.Top;
+            btnUsuariosADMIN.FlatStyle = FlatStyle.Flat;
+            btnUsuariosADMIN.Location = new Point(0, 0);
+            btnUsuariosADMIN.Name = "btnUsuariosADMIN";
+            btnUsuariosADMIN.Size = new Size(131, 277);
+            btnUsuariosADMIN.TabIndex = 1;
+            btnUsuariosADMIN.Text = "Usuarios";
+            btnUsuariosADMIN.UseVisualStyleBackColor = true;
+            btnUsuariosADMIN.Click += btnUsuarios_Click;
             // 
             // PanelContenedor
             // 
@@ -123,10 +110,9 @@
         #endregion
 
         private Panel PanelMenu;
-        private Button btnUsuarios;
-        private Button btnReportes;
-        private Button btnBackup;
-        private Button btnSalir;
+        private Button btnUsuariosADMIN;
+        private Button btnBackupADMIN;
+        private Button btnSalirADMIN;
         private Panel PanelContenedor;
     }
 }

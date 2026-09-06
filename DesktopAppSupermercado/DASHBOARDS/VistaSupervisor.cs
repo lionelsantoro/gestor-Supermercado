@@ -8,11 +8,16 @@ using System.Windows.Forms;
 
 namespace DesktopAppSupermercado.DASHBOARDS
 {
-    public partial class VistaSupervisorCaja : Form
+    public partial class VistaSupervisor : Form
     {
-        public VistaSupervisorCaja()
+        public VistaSupervisor()
         {
             InitializeComponent();
+        }
+
+        private void btnSalirC_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
