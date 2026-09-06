@@ -27,7 +27,7 @@ namespace DesktopAppSupermercado
 
         private void toolStripButton4_Click(object sender, EventArgs e)
         {
-            VistaSupervisorDeCaja vistaSup = new VistaSupervisorDeCaja();
+            VistaSupervisor vistaSup = new VistaSupervisor();
             vistaSup.Show();
         }
 
