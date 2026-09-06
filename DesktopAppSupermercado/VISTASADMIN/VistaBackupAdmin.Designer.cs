@@ -41,11 +41,11 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI Black", 16.125F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Font = new Font("Arial Rounded MT Bold", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.Black;
-            label1.Location = new Point(86, 35);
+            label1.Location = new Point(50, 18);
             label1.Name = "label1";
-            label1.Size = new Size(185, 59);
+            label1.Size = new Size(280, 75);
             label1.TabIndex = 0;
             label1.Text = "BackUp";
             label1.Click += label1_Click;
@@ -54,7 +54,7 @@
             // 
             txtBaseDatos.AutoSize = true;
             txtBaseDatos.Font = new Font("Segoe UI Black", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            txtBaseDatos.Location = new Point(95, 136);
+            txtBaseDatos.Location = new Point(67, 136);
             txtBaseDatos.Name = "txtBaseDatos";
             txtBaseDatos.Size = new Size(179, 32);
             txtBaseDatos.TabIndex = 1;
@@ -65,7 +65,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI Black", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.Location = new Point(110, 207);
+            label3.Location = new Point(67, 217);
             label3.Name = "label3";
             label3.Size = new Size(161, 32);
             label3.TabIndex = 2;
@@ -74,44 +74,53 @@
             // 
             // txtBaseDato
             // 
-            txtBaseDato.Location = new Point(280, 136);
+            txtBaseDato.Location = new Point(252, 136);
             txtBaseDato.Name = "txtBaseDato";
-            txtBaseDato.Size = new Size(225, 39);
+            txtBaseDato.Size = new Size(360, 39);
             txtBaseDato.TabIndex = 3;
             // 
             // txtRuta
             // 
-            txtRuta.Location = new Point(277, 207);
+            txtRuta.Location = new Point(252, 214);
             txtRuta.Name = "txtRuta";
             txtRuta.Size = new Size(475, 39);
             txtRuta.TabIndex = 4;
             // 
             // btnConectar
             // 
-            btnConectar.Location = new Point(511, 132);
+            btnConectar.BackColor = Color.FromArgb(128, 255, 128);
+            btnConectar.ForeColor = SystemColors.ActiveCaptionText;
+            btnConectar.Location = new Point(618, 124);
             btnConectar.Name = "btnConectar";
-            btnConectar.Size = new Size(150, 46);
+            btnConectar.Size = new Size(180, 57);
             btnConectar.TabIndex = 5;
             btnConectar.Text = "Conectar";
-            btnConectar.UseVisualStyleBackColor = true;
+            btnConectar.UseVisualStyleBackColor = false;
             // 
             // btnRuta
             // 
-            btnRuta.Location = new Point(780, 203);
+            btnRuta.BackColor = Color.Yellow;
+            btnRuta.Location = new Point(750, 200);
             btnRuta.Name = "btnRuta";
-            btnRuta.Size = new Size(150, 46);
+            btnRuta.Size = new Size(166, 56);
             btnRuta.TabIndex = 6;
             btnRuta.Text = "Ruta";
-            btnRuta.UseVisualStyleBackColor = true;
+            btnRuta.UseVisualStyleBackColor = false;
             // 
             // btnEjecutarBackup
             // 
-            btnEjecutarBackup.Location = new Point(794, 291);
+            btnEjecutarBackup.BackColor = Color.MediumPurple;
+            btnEjecutarBackup.Font = new Font("Arial Black", 16.125F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnEjecutarBackup.ForeColor = SystemColors.ButtonFace;
+            btnEjecutarBackup.Image = Properties.Resources.google_backup_and_sync_macos_bigsur_icon_190135;
+            btnEjecutarBackup.ImageAlign = ContentAlignment.TopCenter;
+            btnEjecutarBackup.Location = new Point(360, 285);
             btnEjecutarBackup.Name = "btnEjecutarBackup";
-            btnEjecutarBackup.Size = new Size(329, 102);
+            btnEjecutarBackup.Size = new Size(329, 165);
             btnEjecutarBackup.TabIndex = 7;
             btnEjecutarBackup.Text = "Back Up";
-            btnEjecutarBackup.UseVisualStyleBackColor = true;
+            btnEjecutarBackup.TextAlign = ContentAlignment.BottomCenter;
+            btnEjecutarBackup.UseVisualStyleBackColor = false;
             // 
             // VistaBackupAdmin
             // 

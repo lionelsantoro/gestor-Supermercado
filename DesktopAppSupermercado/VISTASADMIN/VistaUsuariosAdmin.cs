@@ -61,5 +61,25 @@ namespace DesktopAppSupermercado.VISTASADMIN
         private void label11_Click(object sender, EventArgs e) { }
         private void textBox8_TextChanged(object sender, EventArgs e) { }
         private void label10_Click(object sender, EventArgs e) { }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label8_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtDNI_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

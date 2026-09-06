@@ -37,10 +37,10 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI Black", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(88, 67);
+            label1.Font = new Font("Arial Rounded MT Bold", 25.875F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Location = new Point(71, 39);
             label1.Name = "label1";
-            label1.Size = new Size(337, 32);
+            label1.Size = new Size(960, 80);
             label1.TabIndex = 0;
             label1.Text = "Reportes del Administrador";
             // 
@@ -72,6 +72,7 @@
             Controls.Add(label1);
             Name = "VistaReportesAdmin";
             Text = "VistaReportesAdmin";
+            Load += VistaReportesAdmin_Load;
             panel1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();

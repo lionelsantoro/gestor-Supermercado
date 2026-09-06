@@ -14,5 +14,10 @@ namespace DesktopAppSupermercado.VISTASADMIN
         {
             InitializeComponent();
         }
+
+        private void VistaReportesAdmin_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
