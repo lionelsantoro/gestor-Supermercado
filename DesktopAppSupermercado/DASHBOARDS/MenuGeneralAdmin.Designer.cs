@@ -116,7 +116,7 @@
             Controls.Add(PanelContenedor);
             Controls.Add(PanelMenu);
             Name = "VistaAdmin";
-            Text = "VistaAdmin";
+            Text = "Menu General Admin";
             WindowState = FormWindowState.Maximized;
             PanelMenu.ResumeLayout(false);
             ResumeLayout(false);

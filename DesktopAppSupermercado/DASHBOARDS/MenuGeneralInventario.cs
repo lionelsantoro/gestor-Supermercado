@@ -10,12 +10,12 @@ using DesktopAppSupermercado.VISTASINVENTARIO;
 
 namespace DesktopAppSupermercado.DASHBOARDS
 {
-    public partial class VistaInventario : Form
+    public partial class MenuGeneralInventario : Form
     {
         // 2. Variable para llevar el control del formulario que está abierto
         private Form formularioActivo = null;
 
-        public VistaInventario()
+        public MenuGeneralInventario()
         {
             InitializeComponent();
         }

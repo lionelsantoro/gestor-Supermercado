@@ -1,6 +1,6 @@
 ﻿namespace DesktopAppSupermercado.DASHBOARDS
 {
-    partial class VistaInventario
+    partial class MenuGeneralInventario
     {
         /// <summary>
         /// Required designer variable.
@@ -89,15 +89,15 @@
             btnSalirINVENTARIO.TextAlign = ContentAlignment.BottomCenter;
             btnSalirINVENTARIO.UseVisualStyleBackColor = false;
             // 
-            // VistaInventario
+            // MenuGeneralInventario
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1771, 610);
             Controls.Add(PanelContenedor);
             Controls.Add(PanelMenu);
-            Name = "VistaInventario";
-            Text = "VistaInventario";
+            Name = "MenuGeneralInventario";
+            Text = "Menu General Inventario";
             PanelMenu.ResumeLayout(false);
             ResumeLayout(false);
         }
