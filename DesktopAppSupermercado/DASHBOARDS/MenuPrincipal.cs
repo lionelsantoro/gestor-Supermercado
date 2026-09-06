@@ -58,5 +58,10 @@ namespace DesktopAppSupermercado
             VistaAdmin vistaAdmin = new VistaAdmin();
             vistaAdmin.Show();
         }
+
+        private void MenuPrincipal_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
