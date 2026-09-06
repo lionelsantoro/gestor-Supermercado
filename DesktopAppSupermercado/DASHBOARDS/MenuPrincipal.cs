@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DesktopAppSupermercado.DASHBOARDS;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -43,7 +44,7 @@ namespace DesktopAppSupermercado
 
         private void btnInventario_Click(object sender, EventArgs e)
         {
-            VistaInventario vistaInv = new VistaInventario();
+            MenuGeneralInventario vistaInv = new MenuGeneralInventario();
             vistaInv.Show();
         }
 
@@ -55,7 +56,7 @@ namespace DesktopAppSupermercado
 
         private void btnAdmin_Click(object sender, EventArgs e)
         {
-            VistaAdmin vistaAdmin = new VistaAdmin();
+            MenuGeneralAdmin vistaAdmin = new MenuGeneralAdmin();
             vistaAdmin.Show();
         }
 
