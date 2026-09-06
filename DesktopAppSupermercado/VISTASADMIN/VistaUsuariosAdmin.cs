@@ -81,5 +81,10 @@ namespace DesktopAppSupermercado.VISTASADMIN
         {
 
         }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

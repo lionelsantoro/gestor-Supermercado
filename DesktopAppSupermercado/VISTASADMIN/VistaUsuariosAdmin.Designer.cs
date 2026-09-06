@@ -52,13 +52,15 @@
             dtpFechaNacimiento = new DateTimePicker();
             radioButton1 = new RadioButton();
             radioButton2 = new RadioButton();
-            btnGuardar = new Button();
-            btnCancelar = new Button();
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
             dgvUsuarios = new DataGridView();
             tabPage2 = new TabPage();
             dgvInactivos = new DataGridView();
+            btnEliminarUsuarioAdmin = new Button();
+            btnCancelarUsuarioAdmin = new Button();
+            btnGuardarUsuariosAdmin = new Button();
+            btnModificarUsuarioAdmin = new Button();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvUsuarios).BeginInit();
@@ -272,47 +274,15 @@
             radioButton2.Text = "Mujer";
             radioButton2.UseVisualStyleBackColor = true;
             // 
-            // btnGuardar
-            // 
-            btnGuardar.BackColor = Color.YellowGreen;
-            btnGuardar.FlatStyle = FlatStyle.Flat;
-            btnGuardar.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnGuardar.ForeColor = SystemColors.ButtonHighlight;
-            btnGuardar.Image = Properties.Resources.Save_37110;
-            btnGuardar.ImageAlign = ContentAlignment.TopCenter;
-            btnGuardar.Location = new Point(1216, 46);
-            btnGuardar.Name = "btnGuardar";
-            btnGuardar.Size = new Size(323, 168);
-            btnGuardar.TabIndex = 25;
-            btnGuardar.Text = "Guardar";
-            btnGuardar.TextAlign = ContentAlignment.BottomCenter;
-            btnGuardar.UseVisualStyleBackColor = false;
-            // 
-            // btnCancelar
-            // 
-            btnCancelar.BackColor = Color.Tomato;
-            btnCancelar.FlatStyle = FlatStyle.Flat;
-            btnCancelar.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnCancelar.ForeColor = SystemColors.ButtonHighlight;
-            btnCancelar.Image = Properties.Resources.cancel_circle_close_delete_discard_file_x_icon_123219__1_;
-            btnCancelar.ImageAlign = ContentAlignment.TopCenter;
-            btnCancelar.Location = new Point(1216, 243);
-            btnCancelar.Name = "btnCancelar";
-            btnCancelar.Size = new Size(323, 175);
-            btnCancelar.TabIndex = 26;
-            btnCancelar.Text = "Cancelar";
-            btnCancelar.TextAlign = ContentAlignment.BottomCenter;
-            btnCancelar.UseVisualStyleBackColor = false;
-            // 
             // tabControl1
             // 
             tabControl1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tabControl1.Controls.Add(tabPage1);
             tabControl1.Controls.Add(tabPage2);
-            tabControl1.Location = new Point(12, 442);
+            tabControl1.Location = new Point(12, 483);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(1590, 391);
+            tabControl1.Size = new Size(1702, 350);
             tabControl1.TabIndex = 27;
             // 
             // tabPage1
@@ -321,7 +291,7 @@
             tabPage1.Location = new Point(8, 46);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(1574, 337);
+            tabPage1.Size = new Size(1686, 296);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Activos";
             tabPage1.UseVisualStyleBackColor = true;
@@ -333,7 +303,7 @@
             dgvUsuarios.Location = new Point(3, 3);
             dgvUsuarios.Name = "dgvUsuarios";
             dgvUsuarios.RowHeadersWidth = 82;
-            dgvUsuarios.Size = new Size(1568, 331);
+            dgvUsuarios.Size = new Size(1680, 290);
             dgvUsuarios.TabIndex = 0;
             // 
             // tabPage2
@@ -357,15 +327,71 @@
             dgvInactivos.Size = new Size(1568, 331);
             dgvInactivos.TabIndex = 0;
             // 
+            // btnEliminarUsuarioAdmin
+            // 
+            btnEliminarUsuarioAdmin.BackColor = Color.FromArgb(192, 0, 192);
+            btnEliminarUsuarioAdmin.Font = new Font("Arial Black", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnEliminarUsuarioAdmin.Location = new Point(1222, 239);
+            btnEliminarUsuarioAdmin.Name = "btnEliminarUsuarioAdmin";
+            btnEliminarUsuarioAdmin.Size = new Size(169, 169);
+            btnEliminarUsuarioAdmin.TabIndex = 32;
+            btnEliminarUsuarioAdmin.Text = "Eliminar Usuario";
+            btnEliminarUsuarioAdmin.UseVisualStyleBackColor = false;
+            // 
+            // btnCancelarUsuarioAdmin
+            // 
+            btnCancelarUsuarioAdmin.BackColor = Color.Tomato;
+            btnCancelarUsuarioAdmin.FlatStyle = FlatStyle.Flat;
+            btnCancelarUsuarioAdmin.Font = new Font("Arial Black", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnCancelarUsuarioAdmin.ForeColor = SystemColors.ActiveCaptionText;
+            btnCancelarUsuarioAdmin.Image = Properties.Resources.cancel_circle_close_delete_discard_file_x_icon_123219__1_;
+            btnCancelarUsuarioAdmin.ImageAlign = ContentAlignment.TopCenter;
+            btnCancelarUsuarioAdmin.Location = new Point(1418, 75);
+            btnCancelarUsuarioAdmin.Name = "btnCancelarUsuarioAdmin";
+            btnCancelarUsuarioAdmin.Size = new Size(156, 156);
+            btnCancelarUsuarioAdmin.TabIndex = 31;
+            btnCancelarUsuarioAdmin.Text = "Cancelar";
+            btnCancelarUsuarioAdmin.TextAlign = ContentAlignment.BottomCenter;
+            btnCancelarUsuarioAdmin.UseVisualStyleBackColor = false;
+            // 
+            // btnGuardarUsuariosAdmin
+            // 
+            btnGuardarUsuariosAdmin.BackColor = Color.YellowGreen;
+            btnGuardarUsuariosAdmin.FlatStyle = FlatStyle.Flat;
+            btnGuardarUsuariosAdmin.Font = new Font("Arial Black", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnGuardarUsuariosAdmin.ForeColor = Color.Black;
+            btnGuardarUsuariosAdmin.Image = Properties.Resources.Save_37110;
+            btnGuardarUsuariosAdmin.ImageAlign = ContentAlignment.TopCenter;
+            btnGuardarUsuariosAdmin.Location = new Point(1231, 75);
+            btnGuardarUsuariosAdmin.Name = "btnGuardarUsuariosAdmin";
+            btnGuardarUsuariosAdmin.Size = new Size(160, 155);
+            btnGuardarUsuariosAdmin.TabIndex = 30;
+            btnGuardarUsuariosAdmin.Text = "Guardar";
+            btnGuardarUsuariosAdmin.TextAlign = ContentAlignment.BottomCenter;
+            btnGuardarUsuariosAdmin.UseVisualStyleBackColor = false;
+            // 
+            // btnModificarUsuarioAdmin
+            // 
+            btnModificarUsuarioAdmin.BackColor = Color.Yellow;
+            btnModificarUsuarioAdmin.Font = new Font("Arial Black", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnModificarUsuarioAdmin.Location = new Point(1405, 246);
+            btnModificarUsuarioAdmin.Name = "btnModificarUsuarioAdmin";
+            btnModificarUsuarioAdmin.Size = new Size(169, 160);
+            btnModificarUsuarioAdmin.TabIndex = 33;
+            btnModificarUsuarioAdmin.Text = "Modificar Usuario";
+            btnModificarUsuarioAdmin.UseVisualStyleBackColor = false;
+            // 
             // VistaUsuariosAdmin
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(255, 192, 128);
-            ClientSize = new Size(1606, 835);
+            ClientSize = new Size(1718, 835);
+            Controls.Add(btnModificarUsuarioAdmin);
+            Controls.Add(btnEliminarUsuarioAdmin);
+            Controls.Add(btnCancelarUsuarioAdmin);
+            Controls.Add(btnGuardarUsuariosAdmin);
             Controls.Add(tabControl1);
-            Controls.Add(btnCancelar);
-            Controls.Add(btnGuardar);
             Controls.Add(radioButton2);
             Controls.Add(radioButton1);
             Controls.Add(dtpFechaNacimiento);
@@ -429,12 +455,14 @@
         private DateTimePicker dtpFechaNacimiento;
         private RadioButton radioButton1;
         private RadioButton radioButton2;
-        private Button btnGuardar;
-        private Button btnCancelar;
         private TabControl tabControl1;
         private TabPage tabPage1;
         private TabPage tabPage2;
         private DataGridView dgvUsuarios;
         private DataGridView dgvInactivos;
+        private Button btnEliminarUsuarioAdmin;
+        private Button btnCancelarUsuarioAdmin;
+        private Button btnGuardarUsuariosAdmin;
+        private Button btnModificarUsuarioAdmin;
     }
 }
