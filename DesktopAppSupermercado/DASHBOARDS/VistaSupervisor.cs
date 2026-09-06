@@ -15,6 +15,11 @@ namespace DesktopAppSupermercado.DASHBOARDS
             InitializeComponent();
         }
 
+        private void btnReportesC_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void btnSalirC_Click(object sender, EventArgs e)
         {
 

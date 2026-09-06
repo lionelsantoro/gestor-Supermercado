@@ -24,6 +24,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Iconos\" />
+    <Folder Include="VISTASSUPERVISORCAJA\" />
     <Folder Include="VISTASSUPERVISOR\" />
   </ItemGroup>
 
