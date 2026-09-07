@@ -60,7 +60,6 @@
             btnEliminarUsuarioAdmin = new Button();
             btnCancelarUsuarioAdmin = new Button();
             btnGuardarUsuariosAdmin = new Button();
-            btnModificarUsuarioAdmin = new Button();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvUsuarios).BeginInit();
@@ -312,7 +311,7 @@
             tabPage2.Location = new Point(8, 46);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(1574, 337);
+            tabPage2.Size = new Size(1686, 296);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Inactivos";
             tabPage2.UseVisualStyleBackColor = true;
@@ -324,7 +323,7 @@
             dgvInactivos.Location = new Point(3, 3);
             dgvInactivos.Name = "dgvInactivos";
             dgvInactivos.RowHeadersWidth = 82;
-            dgvInactivos.Size = new Size(1568, 331);
+            dgvInactivos.Size = new Size(1680, 290);
             dgvInactivos.TabIndex = 0;
             // 
             // btnEliminarUsuarioAdmin
@@ -370,24 +369,12 @@
             btnGuardarUsuariosAdmin.TextAlign = ContentAlignment.BottomCenter;
             btnGuardarUsuariosAdmin.UseVisualStyleBackColor = false;
             // 
-            // btnModificarUsuarioAdmin
-            // 
-            btnModificarUsuarioAdmin.BackColor = Color.Yellow;
-            btnModificarUsuarioAdmin.Font = new Font("Arial Black", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnModificarUsuarioAdmin.Location = new Point(1405, 246);
-            btnModificarUsuarioAdmin.Name = "btnModificarUsuarioAdmin";
-            btnModificarUsuarioAdmin.Size = new Size(169, 160);
-            btnModificarUsuarioAdmin.TabIndex = 33;
-            btnModificarUsuarioAdmin.Text = "Modificar Usuario";
-            btnModificarUsuarioAdmin.UseVisualStyleBackColor = false;
-            // 
             // VistaUsuariosAdmin
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(255, 192, 128);
             ClientSize = new Size(1718, 835);
-            Controls.Add(btnModificarUsuarioAdmin);
             Controls.Add(btnEliminarUsuarioAdmin);
             Controls.Add(btnCancelarUsuarioAdmin);
             Controls.Add(btnGuardarUsuariosAdmin);
@@ -463,6 +450,5 @@
         private Button btnEliminarUsuarioAdmin;
         private Button btnCancelarUsuarioAdmin;
         private Button btnGuardarUsuariosAdmin;
-        private Button btnModificarUsuarioAdmin;
     }
 }
