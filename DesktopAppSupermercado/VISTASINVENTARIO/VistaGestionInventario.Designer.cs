@@ -279,7 +279,7 @@
             gbEdicionProducto.Size = new Size(1295, 250);
             gbEdicionProducto.TabIndex = 2;
             gbEdicionProducto.TabStop = false;
-            gbEdicionProducto.Text = "Editar producto seleccionado";
+            gbEdicionProducto.Text = "Crear o Editar Productos";
             gbEdicionProducto.Enter += gbEdicionProducto_Enter;
             // 
             // btnEliminarProductoInventario
