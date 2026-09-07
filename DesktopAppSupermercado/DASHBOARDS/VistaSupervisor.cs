@@ -93,5 +93,61 @@ namespace DesktopAppSupermercado.DASHBOARDS
         {
             this.Close();
         }
+
+        private void VistaSupervisor_Load(object sender, EventArgs e)
+        {
+            // Evitar que se dupliquen las columnas visuales
+            dgvVentas.AutoGenerateColumns = false;
+            dgvProductosVendidos.AutoGenerateColumns = false;
+            dgvControlInventario.AutoGenerateColumns = false;
+
+            // --------------------------------------------------------
+            // PESTAÑA 1: Ventas Realizadas
+            // --------------------------------------------------------
+            DataTable dtVentas = new DataTable();
+            dtVentas.Columns.Add("Numero de venta", typeof(int));
+            dtVentas.Columns.Add("Total", typeof(decimal));
+            dtVentas.Columns.Add("Medio de Pago", typeof(string));
+            dtVentas.Columns.Add("Banco", typeof(string));
+
+            dtVentas.Rows.Add(1001, 15400.50m, "Tarjeta de Crédito", "Galicia");
+            dtVentas.Rows.Add(1002, 8200.00m, "Efectivo", "-");
+            dtVentas.Rows.Add(1003, 43100.75m, "Tarjeta de Débito", "Santander");
+
+            dgvVentas.DataSource = dtVentas;
+
+            // --------------------------------------------------------
+            // PESTAÑA 2: Productos Vendidos
+            // --------------------------------------------------------
+            DataTable dtProductos = new DataTable();
+            dtProductos.Columns.Add("Numero de Producto", typeof(int));
+            dtProductos.Columns.Add("Descripcion", typeof(string));
+            dtProductos.Columns.Add("Precio Unitario", typeof(decimal));
+            dtProductos.Columns.Add("Stock", typeof(int));
+            dtProductos.Columns.Add("Kilogramo", typeof(float));
+            dtProductos.Columns.Add("Unidad de Medida", typeof(string));
+
+            dtProductos.Rows.Add(10, "Harina 000", 850.00m, 45, 0, "Unidad");
+            dtProductos.Rows.Add(11, "Harina 0000", 920.00m, 30, 0, "Unidad");
+            dtProductos.Rows.Add(12, "Papas", 350.00m, 100, 2000, "Kg");
+
+            dgvProductosVendidos.DataSource = dtProductos;
+
+            // --------------------------------------------------------
+            // PESTAÑA 3: Control de Inventario
+            // --------------------------------------------------------
+            DataTable dtInventario = new DataTable();
+            dtInventario.Columns.Add("Id Historial", typeof(int));
+            dtInventario.Columns.Add("Nombre del Empleado", typeof(string));
+            dtInventario.Columns.Add("Producto Modificado", typeof(string));
+            dtInventario.Columns.Add("Accion", typeof(string));
+            dtInventario.Columns.Add("Fecha", typeof(DateTime));
+
+            dtInventario.Rows.Add(1, "Lucas Kruzolek", "Harina 000", "Cambio de Precio", DateTime.Now.AddDays(-1));
+            dtInventario.Rows.Add(2, "Pablo Fernandez", "Levadura Fresca", "Ajuste de Stock", DateTime.Now.AddHours(-5));
+            dtInventario.Rows.Add(3, "Lucas Kruzolek", "Harina 0000", "Eliminación Lote", DateTime.Now.AddMinutes(-30));
+
+            dgvControlInventario.DataSource = dtInventario;
+        }
     }
 }

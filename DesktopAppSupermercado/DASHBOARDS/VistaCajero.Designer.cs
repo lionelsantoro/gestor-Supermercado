@@ -33,10 +33,11 @@
             btnBorrarCompra = new Button();
             btnPagar = new Button();
             btnModificarCompra = new Button();
-            btnIconoCajero = new Button();
             btnCargarProducto = new Button();
+            btnIconoCajero = new Button();
             panel2 = new Panel();
             panel5 = new Panel();
+            textBox5 = new TextBox();
             label6 = new Label();
             dataGridView1 = new DataGridView();
             NombreProducto = new DataGridViewTextBoxColumn();
@@ -52,7 +53,7 @@
             label2 = new Label();
             label1 = new Label();
             contextMenuStrip1 = new ContextMenuStrip(components);
-            textBox5 = new TextBox();
+            button1 = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel5.SuspendLayout();
@@ -63,10 +64,10 @@
             // panel1
             // 
             panel1.BackColor = SystemColors.ActiveCaption;
+            panel1.Controls.Add(button1);
             panel1.Controls.Add(btnBorrarCompra);
             panel1.Controls.Add(btnPagar);
             panel1.Controls.Add(btnModificarCompra);
-            panel1.Controls.Add(btnIconoCajero);
             panel1.Controls.Add(btnCargarProducto);
             panel1.Dock = DockStyle.Left;
             panel1.Location = new Point(0, 0);
@@ -77,50 +78,53 @@
             // btnBorrarCompra
             // 
             btnBorrarCompra.Image = Properties.Resources.cancelarcompra3;
-            btnBorrarCompra.Location = new Point(12, 327);
+            btnBorrarCompra.Location = new Point(12, 252);
             btnBorrarCompra.Name = "btnBorrarCompra";
             btnBorrarCompra.Size = new Size(94, 75);
             btnBorrarCompra.TabIndex = 5;
             btnBorrarCompra.UseVisualStyleBackColor = true;
+            btnBorrarCompra.Click += btnBorrarCompra_Click;
             // 
             // btnPagar
             // 
             btnPagar.BackColor = SystemColors.ButtonFace;
             btnPagar.Image = Properties.Resources.pagar1;
-            btnPagar.Location = new Point(12, 246);
+            btnPagar.Location = new Point(12, 171);
             btnPagar.Name = "btnPagar";
             btnPagar.Size = new Size(94, 75);
             btnPagar.TabIndex = 1;
             btnPagar.UseVisualStyleBackColor = false;
+            btnPagar.Click += btnPagar_Click_1;
             // 
             // btnModificarCompra
             // 
             btnModificarCompra.Image = Properties.Resources.modificar1;
-            btnModificarCompra.Location = new Point(12, 165);
+            btnModificarCompra.Location = new Point(12, 90);
             btnModificarCompra.Name = "btnModificarCompra";
             btnModificarCompra.Size = new Size(94, 75);
             btnModificarCompra.TabIndex = 3;
             btnModificarCompra.UseVisualStyleBackColor = true;
             btnModificarCompra.Click += btnModificarCompra_Click;
             // 
-            // btnIconoCajero
-            // 
-            btnIconoCajero.Image = Properties.Resources.cajero21;
-            btnIconoCajero.Location = new Point(12, 6);
-            btnIconoCajero.Name = "btnIconoCajero";
-            btnIconoCajero.Size = new Size(94, 75);
-            btnIconoCajero.TabIndex = 4;
-            btnIconoCajero.UseVisualStyleBackColor = true;
-            btnIconoCajero.Click += btnIconoCajero_Click;
-            // 
             // btnCargarProducto
             // 
             btnCargarProducto.Image = Properties.Resources.codigobarra2;
-            btnCargarProducto.Location = new Point(12, 84);
+            btnCargarProducto.Location = new Point(12, 9);
             btnCargarProducto.Name = "btnCargarProducto";
             btnCargarProducto.Size = new Size(94, 75);
             btnCargarProducto.TabIndex = 2;
             btnCargarProducto.UseVisualStyleBackColor = true;
+            btnCargarProducto.Click += btnCargarProducto_Click;
+            // 
+            // btnIconoCajero
+            // 
+            btnIconoCajero.Image = Properties.Resources.cajero22;
+            btnIconoCajero.Location = new Point(472, 52);
+            btnIconoCajero.Name = "btnIconoCajero";
+            btnIconoCajero.Size = new Size(82, 65);
+            btnIconoCajero.TabIndex = 4;
+            btnIconoCajero.UseVisualStyleBackColor = true;
+            btnIconoCajero.Click += btnIconoCajero_Click;
             // 
             // panel2
             // 
@@ -144,6 +148,13 @@
             panel5.Name = "panel5";
             panel5.Size = new Size(850, 56);
             panel5.TabIndex = 2;
+            // 
+            // textBox5
+            // 
+            textBox5.Location = new Point(97, 16);
+            textBox5.Name = "textBox5";
+            textBox5.Size = new Size(152, 27);
+            textBox5.TabIndex = 1;
             // 
             // label6
             // 
@@ -194,6 +205,7 @@
             panel3.Controls.Add(textBox4);
             panel3.Controls.Add(textBox3);
             panel3.Controls.Add(label3);
+            panel3.Controls.Add(btnIconoCajero);
             panel3.Controls.Add(label5);
             panel3.Controls.Add(textBox2);
             panel3.Controls.Add(textBox1);
@@ -213,9 +225,9 @@
             // 
             // textBox3
             // 
-            textBox3.Location = new Point(126, 57);
+            textBox3.Location = new Point(137, 57);
             textBox3.Name = "textBox3";
-            textBox3.Size = new Size(339, 27);
+            textBox3.Size = new Size(328, 27);
             textBox3.TabIndex = 6;
             textBox3.TextChanged += textBox3_TextChanged;
             // 
@@ -233,7 +245,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.Location = new Point(23, 50);
+            label5.Location = new Point(31, 55);
             label5.Name = "label5";
             label5.Size = new Size(108, 31);
             label5.TabIndex = 4;
@@ -283,12 +295,15 @@
             contextMenuStrip1.Name = "contextMenuStrip1";
             contextMenuStrip1.Size = new Size(61, 4);
             // 
-            // textBox5
+            // button1
             // 
-            textBox5.Location = new Point(97, 16);
-            textBox5.Name = "textBox5";
-            textBox5.Size = new Size(152, 27);
-            textBox5.TabIndex = 1;
+            button1.Image = Properties.Resources.salie;
+            button1.Location = new Point(12, 520);
+            button1.Name = "button1";
+            button1.Size = new Size(94, 115);
+            button1.TabIndex = 6;
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // VistaCajero
             // 
@@ -337,5 +352,6 @@
         private Label label6;
         private Button btnBorrarCompra;
         private TextBox textBox5;
+        private Button button1;
     }
 }

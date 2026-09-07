@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DesktopAppSupermercado.DASHBOARDS;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -27,22 +28,22 @@ namespace DesktopAppSupermercado
 
         private void button2_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void btnAgregarProducto_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void btnPagar_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void VistaCajero_Load(object sender, EventArgs e)
@@ -56,7 +57,8 @@ namespace DesktopAppSupermercado
 
         private void btnModificarCompra_Click(object sender, EventArgs e)
         {
-
+            FormEditarVenta vistaSup = new FormEditarVenta();
+            vistaSup.Show();
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -112,6 +114,29 @@ namespace DesktopAppSupermercado
         private void btnIconoCajero_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnPagar_Click_1(object sender, EventArgs e)
+        {
+            FormPagar vistaSup = new FormPagar();
+            vistaSup.Show();
+        }
+
+        private void btnBorrarCompra_Click(object sender, EventArgs e)
+        {
+            FormBorrarVenta vistaSup = new FormBorrarVenta();
+            vistaSup.Show();
+        }
+
+        private void btnCargarProducto_Click(object sender, EventArgs e)
+        {
+            FormCodigoBarra vistaSup = new FormCodigoBarra();
+            vistaSup.Show();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

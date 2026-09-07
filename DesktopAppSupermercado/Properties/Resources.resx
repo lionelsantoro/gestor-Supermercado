@@ -133,9 +133,6 @@
   <data name="nuevoproducto1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\nuevoproducto1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="logout_90894" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\logout_90894.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="agregarprodct2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\agregarprodct2.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -151,9 +148,6 @@
   <data name="admin11" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\admin11.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="reporte" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\reporte.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="inventario1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\inventario1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -163,14 +157,23 @@
   <data name="supervisor11" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\supervisor11.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="cajero13" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cajero13.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="codigobarra" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\codigobarra.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="agregarprodct" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\agregarprodct.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="salie" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\salie.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="inentario" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\inentario.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pagar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pagar.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Screenshot 2026-08-31 1520083" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Screenshot 2026-08-31 1520083.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -184,9 +187,6 @@
   <data name="3499803-automatic-backups-clock-daily-scheduled-timer-web-hosting_1076361" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\3499803-automatic-backups-clock-daily-scheduled-timer-web-hosting_1076361.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="logout_90894 (2)1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\logout_90894 (2)1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="cancelarcompra" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cancelarcompra.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -196,14 +196,11 @@
   <data name="cajero2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cajero2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="cajero13" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\cajero13.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="logout_90894 (2)1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logout_90894 (2)1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Screenshot 2026-08-31 1520082" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Screenshot 2026-08-31 1520082.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="admin1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\admin1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Screenshot 2026-08-31 152008" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Screenshot 2026-08-31 152008.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -211,20 +208,26 @@
   <data name="cajero21" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cajero21.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="modificar1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\modificar1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="agregarprodct1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\agregarprodct1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="cajero12" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cajero12.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Screenshot 2026-08-31 010225" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Screenshot 2026-08-31 010225.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Save_37110" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Save_37110.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pagar1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pagar1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="logout_90894 (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\logout_90894 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Screenshot 2026-08-31 1520081" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Screenshot 2026-08-31 1520081.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="cancelarcompra3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cancelarcompra3.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -235,8 +238,8 @@
   <data name="codigobarra1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\codigobarra1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Screenshot 2026-08-31 1520081" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Screenshot 2026-08-31 1520081.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Screenshot 2026-08-31 010225" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Screenshot 2026-08-31 010225.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="inventario" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\inventario.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -256,11 +259,11 @@
   <data name="logout_908941" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\logout_908941.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Save_37110" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Save_37110.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="logout_90894" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logout_90894.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="nuevoprodct1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\nuevoprodct1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="reporte" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\reporte.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="admin" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\admin.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -289,11 +292,11 @@
   <data name="google_backup_and_sync_macos_bigsur_icon_190135" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\google_backup_and_sync_macos_bigsur_icon_190135.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="pagar" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pagar.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="nuevoprodct1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\nuevoprodct1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="modificar1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\modificar1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="admin1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\admin1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="lan_connect_icon_137456" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\lan_connect_icon_137456.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -301,7 +304,7 @@
   <data name="agregarprodct3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\agregarprodct3.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="salie" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\salie.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="cajero22" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cajero22.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

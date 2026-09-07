@@ -34,30 +34,30 @@
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
             dgvVentas = new DataGridView();
-            IdVenta = new DataGridViewTextBoxColumn();
-            Monto = new DataGridViewTextBoxColumn();
-            MedioPago = new DataGridViewTextBoxColumn();
-            VentaBanco = new DataGridViewTextBoxColumn();
             tabPage2 = new TabPage();
             dgvProductosVendidos = new DataGridView();
+            tabPage3 = new TabPage();
+            dgvControlInventario = new DataGridView();
+            PanelMenu = new Panel();
+            btnSalir = new Button();
+            button3 = new Button();
+            button2 = new Button();
+            button1 = new Button();
             IdProducto = new DataGridViewTextBoxColumn();
             Nombre = new DataGridViewTextBoxColumn();
             Precio = new DataGridViewTextBoxColumn();
             Stockk = new DataGridViewTextBoxColumn();
             Kilogramoo = new DataGridViewTextBoxColumn();
             Unidad = new DataGridViewTextBoxColumn();
-            tabPage3 = new TabPage();
-            dgvControlInventario = new DataGridView();
+            IdVenta = new DataGridViewTextBoxColumn();
+            Monto = new DataGridViewTextBoxColumn();
+            MedioPago = new DataGridViewTextBoxColumn();
+            VentaBanco = new DataGridViewTextBoxColumn();
             IdHistorial = new DataGridViewTextBoxColumn();
             NombreUsuario = new DataGridViewTextBoxColumn();
             NombreProducto = new DataGridViewTextBoxColumn();
             Cambio = new DataGridViewTextBoxColumn();
             FechaCambio = new DataGridViewTextBoxColumn();
-            PanelMenu = new Panel();
-            btnSalir = new Button();
-            button3 = new Button();
-            button2 = new Button();
-            button1 = new Button();
             PanelContenedor.SuspendLayout();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
@@ -135,34 +135,6 @@
             dgvVentas.TabIndex = 0;
             dgvVentas.SelectionChanged += dataGridView1_SelectionChanged;
             // 
-            // IdVenta
-            // 
-            IdVenta.HeaderText = "Numero de venta";
-            IdVenta.MinimumWidth = 6;
-            IdVenta.Name = "IdVenta";
-            IdVenta.Width = 125;
-            // 
-            // Monto
-            // 
-            Monto.HeaderText = "Total";
-            Monto.MinimumWidth = 6;
-            Monto.Name = "Monto";
-            Monto.Width = 125;
-            // 
-            // MedioPago
-            // 
-            MedioPago.HeaderText = "Medio de Pago";
-            MedioPago.MinimumWidth = 6;
-            MedioPago.Name = "MedioPago";
-            MedioPago.Width = 125;
-            // 
-            // VentaBanco
-            // 
-            VentaBanco.HeaderText = "Banco";
-            VentaBanco.MinimumWidth = 6;
-            VentaBanco.Name = "VentaBanco";
-            VentaBanco.Width = 125;
-            // 
             // tabPage2
             // 
             tabPage2.Controls.Add(dgvProductosVendidos);
@@ -184,48 +156,6 @@
             dgvProductosVendidos.Size = new Size(825, 684);
             dgvProductosVendidos.TabIndex = 0;
             // 
-            // IdProducto
-            // 
-            IdProducto.HeaderText = "Numero de Producto";
-            IdProducto.MinimumWidth = 6;
-            IdProducto.Name = "IdProducto";
-            IdProducto.Width = 125;
-            // 
-            // Nombre
-            // 
-            Nombre.HeaderText = "Descripcion";
-            Nombre.MinimumWidth = 6;
-            Nombre.Name = "Nombre";
-            Nombre.Width = 125;
-            // 
-            // Precio
-            // 
-            Precio.HeaderText = "Precio Unitario";
-            Precio.MinimumWidth = 6;
-            Precio.Name = "Precio";
-            Precio.Width = 125;
-            // 
-            // Stockk
-            // 
-            Stockk.HeaderText = "Stock";
-            Stockk.MinimumWidth = 6;
-            Stockk.Name = "Stockk";
-            Stockk.Width = 125;
-            // 
-            // Kilogramoo
-            // 
-            Kilogramoo.HeaderText = "Kilogramo";
-            Kilogramoo.MinimumWidth = 6;
-            Kilogramoo.Name = "Kilogramoo";
-            Kilogramoo.Width = 125;
-            // 
-            // Unidad
-            // 
-            Unidad.HeaderText = "Unidad de Medida";
-            Unidad.MinimumWidth = 6;
-            Unidad.Name = "Unidad";
-            Unidad.Width = 125;
-            // 
             // tabPage3
             // 
             tabPage3.Controls.Add(dgvControlInventario);
@@ -246,41 +176,6 @@
             dgvControlInventario.RowHeadersWidth = 51;
             dgvControlInventario.Size = new Size(828, 684);
             dgvControlInventario.TabIndex = 0;
-            // 
-            // IdHistorial
-            // 
-            IdHistorial.HeaderText = "Id Historial";
-            IdHistorial.MinimumWidth = 6;
-            IdHistorial.Name = "IdHistorial";
-            IdHistorial.Width = 125;
-            // 
-            // NombreUsuario
-            // 
-            NombreUsuario.HeaderText = "Nombre del Empleado";
-            NombreUsuario.MinimumWidth = 6;
-            NombreUsuario.Name = "NombreUsuario";
-            NombreUsuario.Width = 125;
-            // 
-            // NombreProducto
-            // 
-            NombreProducto.HeaderText = "Producto Modificado";
-            NombreProducto.MinimumWidth = 6;
-            NombreProducto.Name = "NombreProducto";
-            NombreProducto.Width = 125;
-            // 
-            // Cambio
-            // 
-            Cambio.HeaderText = "Accion";
-            Cambio.MinimumWidth = 6;
-            Cambio.Name = "Cambio";
-            Cambio.Width = 125;
-            // 
-            // FechaCambio
-            // 
-            FechaCambio.HeaderText = "Fecha";
-            FechaCambio.MinimumWidth = 6;
-            FechaCambio.Name = "FechaCambio";
-            FechaCambio.Width = 125;
             // 
             // PanelMenu
             // 
@@ -343,6 +238,126 @@
             button1.TextAlign = ContentAlignment.BottomCenter;
             button1.UseVisualStyleBackColor = true;
             // 
+            // IdProducto
+            // 
+            IdProducto.DataPropertyName = "Numero de Producto";
+            IdProducto.HeaderText = "Numero de Producto";
+            IdProducto.MinimumWidth = 6;
+            IdProducto.Name = "IdProducto";
+            IdProducto.Width = 125;
+            // 
+            // Nombre
+            // 
+            Nombre.DataPropertyName = "Descripcion";
+            Nombre.HeaderText = "Descripcion";
+            Nombre.MinimumWidth = 6;
+            Nombre.Name = "Nombre";
+            Nombre.Width = 125;
+            // 
+            // Precio
+            // 
+            Precio.DataPropertyName = "Precio unitario";
+            Precio.HeaderText = "Precio Unitario";
+            Precio.MinimumWidth = 6;
+            Precio.Name = "Precio";
+            Precio.Width = 125;
+            // 
+            // Stockk
+            // 
+            Stockk.DataPropertyName = "Stock";
+            Stockk.HeaderText = "Stock";
+            Stockk.MinimumWidth = 6;
+            Stockk.Name = "Stockk";
+            Stockk.Width = 125;
+            // 
+            // Kilogramoo
+            // 
+            Kilogramoo.DataPropertyName = "Kilogramo";
+            Kilogramoo.HeaderText = "Kilogramo";
+            Kilogramoo.MinimumWidth = 6;
+            Kilogramoo.Name = "Kilogramoo";
+            Kilogramoo.Width = 125;
+            // 
+            // Unidad
+            // 
+            Unidad.DataPropertyName = "Unidad de Medida";
+            Unidad.HeaderText = "Unidad de Medida";
+            Unidad.MinimumWidth = 6;
+            Unidad.Name = "Unidad";
+            Unidad.Width = 125;
+            // 
+            // IdVenta
+            // 
+            IdVenta.DataPropertyName = "Numero de Venta";
+            IdVenta.HeaderText = "Numero de venta";
+            IdVenta.MinimumWidth = 6;
+            IdVenta.Name = "IdVenta";
+            IdVenta.Width = 125;
+            // 
+            // Monto
+            // 
+            Monto.DataPropertyName = "Total";
+            Monto.HeaderText = "Total";
+            Monto.MinimumWidth = 6;
+            Monto.Name = "Monto";
+            Monto.Width = 125;
+            // 
+            // MedioPago
+            // 
+            MedioPago.DataPropertyName = "Medio de Pago";
+            MedioPago.HeaderText = "Medio de Pago";
+            MedioPago.MinimumWidth = 6;
+            MedioPago.Name = "MedioPago";
+            MedioPago.Width = 125;
+            // 
+            // VentaBanco
+            // 
+            VentaBanco.DataPropertyName = "Banco";
+            VentaBanco.HeaderText = "Banco";
+            VentaBanco.MinimumWidth = 6;
+            VentaBanco.Name = "VentaBanco";
+            VentaBanco.Width = 125;
+            // 
+            // IdHistorial
+            // 
+            IdHistorial.DataPropertyName = "Id Historial";
+            IdHistorial.HeaderText = "Id Historial";
+            IdHistorial.MinimumWidth = 6;
+            IdHistorial.Name = "IdHistorial";
+            IdHistorial.Width = 125;
+            // 
+            // NombreUsuario
+            // 
+            NombreUsuario.DataPropertyName = "Nombre del Empleado";
+            NombreUsuario.HeaderText = "Nombre del Empleado";
+            NombreUsuario.MinimumWidth = 6;
+            NombreUsuario.Name = "NombreUsuario";
+            NombreUsuario.Width = 125;
+            // 
+            // NombreProducto
+            // 
+            NombreProducto.DataPropertyName = "Producto Modificado";
+            NombreProducto.HeaderText = "Producto Modificado";
+            NombreProducto.MinimumWidth = 6;
+            NombreProducto.Name = "NombreProducto";
+            NombreProducto.Width = 125;
+            // 
+            // Cambio
+            // 
+            Cambio.DataPropertyName = "Accion";
+            Cambio.HeaderText = "Accion";
+            Cambio.MinimumWidth = 6;
+            Cambio.Name = "Cambio";
+            Cambio.Width = 125;
+            // 
+            // FechaCambio
+            // 
+            FechaCambio.DataPropertyName = "Fecha";
+            FechaCambio.HeaderText = "Fecha";
+            FechaCambio.MinimumWidth = 6;
+            FechaCambio.Name = "FechaCambio";
+            FechaCambio.Width = 125;
+            // 
             // VistaSupervisor
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -353,6 +368,7 @@
             Margin = new Padding(2);
             Name = "VistaSupervisor";
             Text = "VistaSupervisor";
+            Load += VistaSupervisor_Load;
             PanelContenedor.ResumeLayout(false);
             PanelContenedor.PerformLayout();
             tabControl1.ResumeLayout(false);
@@ -378,14 +394,15 @@
         private Button button3;
         private Button button2;
         private DataGridView dgvVentas;
-        private DataGridViewTextBoxColumn IdVenta;
-        private DataGridViewTextBoxColumn Monto;
-        private DataGridViewTextBoxColumn MedioPago;
-        private DataGridViewTextBoxColumn VentaBanco;
         private TextBox txtBuscar;
         private Label label1;
         private DataGridView dgvProductosVendidos;
         private DataGridView dgvControlInventario;
+        private Button btnSalir;
+        private DataGridViewTextBoxColumn IdVenta;
+        private DataGridViewTextBoxColumn Monto;
+        private DataGridViewTextBoxColumn MedioPago;
+        private DataGridViewTextBoxColumn VentaBanco;
         private DataGridViewTextBoxColumn IdProducto;
         private DataGridViewTextBoxColumn Nombre;
         private DataGridViewTextBoxColumn Precio;
@@ -397,6 +414,5 @@
         private DataGridViewTextBoxColumn NombreProducto;
         private DataGridViewTextBoxColumn Cambio;
         private DataGridViewTextBoxColumn FechaCambio;
-        private Button btnSalir;
     }
 }
