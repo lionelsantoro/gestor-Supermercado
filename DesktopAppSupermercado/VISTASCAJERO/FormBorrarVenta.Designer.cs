@@ -57,7 +57,6 @@
             label4.Name = "label4";
             label4.Size = new Size(0, 28);
             label4.TabIndex = 3;
-            label4.Click += this.label4_Click;
             // 
             // radioButton1
             // 
@@ -70,7 +69,6 @@
             radioButton1.TabStop = true;
             radioButton1.Text = "Borrar toda la compra";
             radioButton1.UseVisualStyleBackColor = true;
-            radioButton1.CheckedChanged += this.radioButton1_CheckedChanged;
             // 
             // radioButton2
             // 
@@ -121,7 +119,6 @@
             button1.TabIndex = 10;
             button1.Text = "Confirmar";
             button1.UseVisualStyleBackColor = true;
-            button1.Click += this.button1_Click;
             // 
             // button2
             // 

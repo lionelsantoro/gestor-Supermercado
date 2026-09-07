@@ -47,7 +47,6 @@
             label1.Size = new Size(191, 31);
             label1.TabIndex = 0;
             label1.Text = "Codigo de barra:";
-            label1.Click += this.label1_Click;
             // 
             // textBox1
             // 
@@ -64,7 +63,6 @@
             button1.TabIndex = 2;
             button1.Text = "Cargar Producto";
             button1.UseVisualStyleBackColor = true;
-            button1.Click += this.button1_Click;
             // 
             // btnSalir
             // 
@@ -74,7 +72,6 @@
             btnSalir.TabIndex = 3;
             btnSalir.Text = "Salir";
             btnSalir.UseVisualStyleBackColor = true;
-            btnSalir.Click += this.button2_Click;
             // 
             // label2
             // 
