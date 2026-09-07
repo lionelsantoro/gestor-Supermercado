@@ -30,6 +30,7 @@
         {
             components = new System.ComponentModel.Container();
             panel1 = new Panel();
+            button1 = new Button();
             btnBorrarCompra = new Button();
             btnPagar = new Button();
             btnModificarCompra = new Button();
@@ -53,7 +54,6 @@
             label2 = new Label();
             label1 = new Label();
             contextMenuStrip1 = new ContextMenuStrip(components);
-            button1 = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel5.SuspendLayout();
@@ -74,6 +74,16 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(117, 644);
             panel1.TabIndex = 0;
+            // 
+            // button1
+            // 
+            button1.Image = Properties.Resources.salie;
+            button1.Location = new Point(12, 520);
+            button1.Name = "button1";
+            button1.Size = new Size(94, 115);
+            button1.TabIndex = 6;
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // btnBorrarCompra
             // 
@@ -153,7 +163,7 @@
             // 
             textBox5.Location = new Point(97, 16);
             textBox5.Name = "textBox5";
-            textBox5.Size = new Size(152, 27);
+            textBox5.Size = new Size(368, 27);
             textBox5.TabIndex = 1;
             // 
             // label6
@@ -294,16 +304,6 @@
             contextMenuStrip1.ImageScalingSize = new Size(20, 20);
             contextMenuStrip1.Name = "contextMenuStrip1";
             contextMenuStrip1.Size = new Size(61, 4);
-            // 
-            // button1
-            // 
-            button1.Image = Properties.Resources.salie;
-            button1.Location = new Point(12, 520);
-            button1.Name = "button1";
-            button1.Size = new Size(94, 115);
-            button1.TabIndex = 6;
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
             // 
             // VistaCajero
             // 
