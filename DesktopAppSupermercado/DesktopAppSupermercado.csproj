@@ -25,6 +25,8 @@
 
   <ItemGroup>
     <Folder Include="Iconos\" />
+    <Folder Include="Datos\" />
+    <Folder Include="Transaciones\" />
     <Folder Include="VISTASSUPERVISORCAJA\" />
     <Folder Include="VISTASSUPERVISOR\" />
   </ItemGroup>
