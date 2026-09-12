@@ -30,10 +30,10 @@
         {
             label1 = new Label();
             label2 = new Label();
-            textBox1 = new TextBox();
             textBox2 = new TextBox();
             button1 = new Button();
             button2 = new Button();
+            comboBox1 = new ComboBox();
             SuspendLayout();
             // 
             // label1
@@ -55,13 +55,6 @@
             label2.Size = new Size(86, 31);
             label2.TabIndex = 1;
             label2.Text = "Banco:";
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(189, 22);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(230, 27);
-            textBox1.TabIndex = 2;
             // 
             // textBox2
             // 
@@ -88,16 +81,26 @@
             button2.Text = "Salir";
             button2.UseVisualStyleBackColor = true;
             // 
+            // comboBox1
+            // 
+            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Items.AddRange(new object[] { "Efectivo", "Tarjeta de debido", "Tarjeta de credito" });
+            comboBox1.Location = new Point(189, 24);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(230, 28);
+            comboBox1.TabIndex = 6;
+            // 
             // FormPagar
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveBorder;
             ClientSize = new Size(440, 169);
+            Controls.Add(comboBox1);
             Controls.Add(button2);
             Controls.Add(button1);
             Controls.Add(textBox2);
-            Controls.Add(textBox1);
             Controls.Add(label2);
             Controls.Add(label1);
             Name = "FormPagar";
@@ -110,9 +113,9 @@
 
         private Label label1;
         private Label label2;
-        private TextBox textBox1;
         private TextBox textBox2;
         private Button button1;
         private Button button2;
+        private ComboBox comboBox1;
     }
 }
