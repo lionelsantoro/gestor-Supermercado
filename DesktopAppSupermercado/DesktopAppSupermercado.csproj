@@ -25,10 +25,13 @@
 
   <ItemGroup>
     <Folder Include="Iconos\" />
-    <Folder Include="Datos\" />
     <Folder Include="Transaciones\" />
     <Folder Include="VISTASSUPERVISORCAJA\" />
     <Folder Include="VISTASSUPERVISOR\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="7.0.3" />
   </ItemGroup>
 
 </Project>

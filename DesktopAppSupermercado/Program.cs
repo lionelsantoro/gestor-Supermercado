@@ -12,9 +12,7 @@ namespace DesktopAppSupermercado
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             Application.Run(new MenuPrincipal());
-            // Application.Run(new VistaInventario());
-            //Application.Run(new DesktopAppSupermercado.DASHBOARDS.MenuGeneralAdmin());
-            //Application.Run(new DesktopAppSupermercado.DASHBOARDS.MenuGeneralInventario());
+            
         }
     }
 }
