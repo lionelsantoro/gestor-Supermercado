@@ -101,16 +101,3 @@ CREATE TABLE detalle_venta (
     CONSTRAINT FK_Detalle_Ventas FOREIGN KEY (id_venta) REFERENCES ventas(id_venta),
     CONSTRAINT FK_Detalle_Productos FOREIGN KEY (id_producto) REFERENCES productos(id_producto)
 );
-
--- 9. Tabla Historial Productos
-CREATE TABLE Historial_Productos (
-    id_historial INT IDENTITY(1,1) PRIMARY KEY,
-    id_usuario INT NOT NULL,
-    id_producto INT NOT NULL,
-    accion VARCHAR(100) NOT NULL,
-    creado_en DATETIME DEFAULT GETDATE(),
-    
-    -- Llaves Foráneas (N a 1)
-    CONSTRAINT FK_Historial_Usuarios FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario),
-    CONSTRAINT FK_Historial_Productos FOREIGN KEY (id_producto) REFERENCES productos(id_producto)
-);
