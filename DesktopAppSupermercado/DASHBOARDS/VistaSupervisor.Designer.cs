@@ -38,36 +38,36 @@
             Monto = new DataGridViewTextBoxColumn();
             MedioPago = new DataGridViewTextBoxColumn();
             VentaBanco = new DataGridViewTextBoxColumn();
-            tabPage2 = new TabPage();
-            dgvProductosVendidos = new DataGridView();
-            PanelMenu = new Panel();
-            btnSalir = new Button();
-            button3 = new Button();
-            button2 = new Button();
-            button1 = new Button();
-            tabPage4 = new TabPage();
-            dataGridView1 = new DataGridView();
-            IdEmpleado = new DataGridViewTextBoxColumn();
-            NombreUsuario = new DataGridViewTextBoxColumn();
-            ApellidoUsuario = new DataGridViewTextBoxColumn();
-            RolUsuario = new DataGridViewTextBoxColumn();
             CajaVenta = new DataGridViewTextBoxColumn();
             CajeroVenta = new DataGridViewTextBoxColumn();
+            tabPage2 = new TabPage();
+            dgvProductosVendidos = new DataGridView();
             IdProducto = new DataGridViewTextBoxColumn();
             Nombre = new DataGridViewTextBoxColumn();
             Precio = new DataGridViewTextBoxColumn();
             Cantidadd = new DataGridViewTextBoxColumn();
             Kilogramoo = new DataGridViewTextBoxColumn();
             Unidad = new DataGridViewTextBoxColumn();
+            tabPage4 = new TabPage();
+            dataGridView1 = new DataGridView();
+            IdEmpleado = new DataGridViewTextBoxColumn();
+            NombreUsuario = new DataGridViewTextBoxColumn();
+            ApellidoUsuario = new DataGridViewTextBoxColumn();
+            RolUsuario = new DataGridViewTextBoxColumn();
+            PanelMenu = new Panel();
+            btnSalir = new Button();
+            button3 = new Button();
+            button2 = new Button();
+            button1 = new Button();
             PanelContenedor.SuspendLayout();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvVentas).BeginInit();
             tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvProductosVendidos).BeginInit();
-            PanelMenu.SuspendLayout();
             tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            PanelMenu.SuspendLayout();
             SuspendLayout();
             // 
             // PanelContenedor
@@ -168,6 +168,20 @@
             VentaBanco.Name = "VentaBanco";
             VentaBanco.Width = 125;
             // 
+            // CajaVenta
+            // 
+            CajaVenta.HeaderText = "Numero de Caja";
+            CajaVenta.MinimumWidth = 6;
+            CajaVenta.Name = "CajaVenta";
+            CajaVenta.Width = 125;
+            // 
+            // CajeroVenta
+            // 
+            CajeroVenta.HeaderText = "Cajero";
+            CajeroVenta.MinimumWidth = 6;
+            CajeroVenta.Name = "CajeroVenta";
+            CajeroVenta.Width = 125;
+            // 
             // tabPage2
             // 
             tabPage2.Controls.Add(dgvProductosVendidos);
@@ -189,66 +203,53 @@
             dgvProductosVendidos.Size = new Size(1091, 684);
             dgvProductosVendidos.TabIndex = 0;
             // 
-            // PanelMenu
+            // IdProducto
             // 
-            PanelMenu.BackColor = SystemColors.ActiveCaption;
-            PanelMenu.Controls.Add(btnSalir);
-            PanelMenu.Controls.Add(button3);
-            PanelMenu.Controls.Add(button2);
-            PanelMenu.Controls.Add(button1);
-            PanelMenu.Dock = DockStyle.Left;
-            PanelMenu.Location = new Point(0, 0);
-            PanelMenu.Margin = new Padding(2);
-            PanelMenu.Name = "PanelMenu";
-            PanelMenu.Size = new Size(115, 781);
-            PanelMenu.TabIndex = 4;
+            IdProducto.DataPropertyName = "Numero de Producto";
+            IdProducto.HeaderText = "Numero de Producto";
+            IdProducto.MinimumWidth = 6;
+            IdProducto.Name = "IdProducto";
+            IdProducto.Width = 125;
             // 
-            // btnSalir
+            // Nombre
             // 
-            btnSalir.Image = Properties.Resources.salie;
-            btnSalir.Location = new Point(13, 642);
-            btnSalir.Name = "btnSalir";
-            btnSalir.Size = new Size(97, 127);
-            btnSalir.TabIndex = 3;
-            btnSalir.Text = "Salir";
-            btnSalir.TextAlign = ContentAlignment.BottomCenter;
-            btnSalir.UseVisualStyleBackColor = true;
-            btnSalir.Click += btnSalir_Click_1;
+            Nombre.DataPropertyName = "Descripcion";
+            Nombre.HeaderText = "Descripcion";
+            Nombre.MinimumWidth = 6;
+            Nombre.Name = "Nombre";
+            Nombre.Width = 125;
             // 
-            // button3
+            // Precio
             // 
-            button3.Image = Properties.Resources.reporte;
-            button3.Location = new Point(13, 278);
-            button3.Name = "button3";
-            button3.Size = new Size(97, 127);
-            button3.TabIndex = 2;
-            button3.Text = "Inventario";
-            button3.TextAlign = ContentAlignment.BottomCenter;
-            button3.UseVisualStyleBackColor = true;
-            button3.Click += button3_Click;
+            Precio.DataPropertyName = "Precio unitario";
+            Precio.HeaderText = "Precio Unitario";
+            Precio.MinimumWidth = 6;
+            Precio.Name = "Precio";
+            Precio.Width = 125;
             // 
-            // button2
+            // Cantidadd
             // 
-            button2.Image = Properties.Resources.reporte;
-            button2.Location = new Point(13, 145);
-            button2.Name = "button2";
-            button2.Size = new Size(97, 127);
-            button2.TabIndex = 1;
-            button2.Text = "Productos";
-            button2.TextAlign = ContentAlignment.BottomCenter;
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
+            Cantidadd.DataPropertyName = "Cantidad";
+            Cantidadd.HeaderText = "Cantidad";
+            Cantidadd.MinimumWidth = 6;
+            Cantidadd.Name = "Cantidadd";
+            Cantidadd.Width = 125;
             // 
-            // button1
+            // Kilogramoo
             // 
-            button1.Image = Properties.Resources.reporte;
-            button1.Location = new Point(12, 12);
-            button1.Name = "button1";
-            button1.Size = new Size(97, 127);
-            button1.TabIndex = 0;
-            button1.Text = "Ventas";
-            button1.TextAlign = ContentAlignment.BottomCenter;
-            button1.UseVisualStyleBackColor = true;
+            Kilogramoo.DataPropertyName = "Kilogramo";
+            Kilogramoo.HeaderText = "Kilogramo";
+            Kilogramoo.MinimumWidth = 6;
+            Kilogramoo.Name = "Kilogramoo";
+            Kilogramoo.Width = 125;
+            // 
+            // Unidad
+            // 
+            Unidad.DataPropertyName = "Unidad de Medida";
+            Unidad.HeaderText = "Unidad de Medida";
+            Unidad.MinimumWidth = 6;
+            Unidad.Name = "Unidad";
+            Unidad.Width = 125;
             // 
             // tabPage4
             // 
@@ -299,67 +300,66 @@
             RolUsuario.Name = "RolUsuario";
             RolUsuario.Width = 125;
             // 
-            // CajaVenta
+            // PanelMenu
             // 
-            CajaVenta.HeaderText = "Numero de Caja";
-            CajaVenta.MinimumWidth = 6;
-            CajaVenta.Name = "CajaVenta";
-            CajaVenta.Width = 125;
+            PanelMenu.BackColor = SystemColors.ActiveCaption;
+            PanelMenu.Controls.Add(btnSalir);
+            PanelMenu.Controls.Add(button3);
+            PanelMenu.Controls.Add(button2);
+            PanelMenu.Controls.Add(button1);
+            PanelMenu.Dock = DockStyle.Left;
+            PanelMenu.Location = new Point(0, 0);
+            PanelMenu.Margin = new Padding(2);
+            PanelMenu.Name = "PanelMenu";
+            PanelMenu.Size = new Size(115, 781);
+            PanelMenu.TabIndex = 4;
             // 
-            // CajeroVenta
+            // btnSalir
             // 
-            CajeroVenta.HeaderText = "Cajero";
-            CajeroVenta.MinimumWidth = 6;
-            CajeroVenta.Name = "CajeroVenta";
-            CajeroVenta.Width = 125;
+            btnSalir.Image = Properties.Resources.salie;
+            btnSalir.Location = new Point(13, 642);
+            btnSalir.Name = "btnSalir";
+            btnSalir.Size = new Size(97, 127);
+            btnSalir.TabIndex = 3;
+            btnSalir.Text = "Salir";
+            btnSalir.TextAlign = ContentAlignment.BottomCenter;
+            btnSalir.UseVisualStyleBackColor = true;
+            btnSalir.Click += btnSalir_Click_1;
             // 
-            // IdProducto
+            // button3
             // 
-            IdProducto.DataPropertyName = "Numero de Producto";
-            IdProducto.HeaderText = "Numero de Producto";
-            IdProducto.MinimumWidth = 6;
-            IdProducto.Name = "IdProducto";
-            IdProducto.Width = 125;
+            button3.Image = Properties.Resources.reporte;
+            button3.Location = new Point(13, 278);
+            button3.Name = "button3";
+            button3.Size = new Size(97, 127);
+            button3.TabIndex = 2;
+            button3.Text = "Usuarios";
+            button3.TextAlign = ContentAlignment.BottomCenter;
+            button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
             // 
-            // Nombre
+            // button2
             // 
-            Nombre.DataPropertyName = "Descripcion";
-            Nombre.HeaderText = "Descripcion";
-            Nombre.MinimumWidth = 6;
-            Nombre.Name = "Nombre";
-            Nombre.Width = 125;
+            button2.Image = Properties.Resources.reporte;
+            button2.Location = new Point(13, 145);
+            button2.Name = "button2";
+            button2.Size = new Size(97, 127);
+            button2.TabIndex = 1;
+            button2.Text = "Productos";
+            button2.TextAlign = ContentAlignment.BottomCenter;
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
             // 
-            // Precio
+            // button1
             // 
-            Precio.DataPropertyName = "Precio unitario";
-            Precio.HeaderText = "Precio Unitario";
-            Precio.MinimumWidth = 6;
-            Precio.Name = "Precio";
-            Precio.Width = 125;
-            // 
-            // Cantidadd
-            // 
-            Cantidadd.DataPropertyName = "Cantidad";
-            Cantidadd.HeaderText = "Cantidad";
-            Cantidadd.MinimumWidth = 6;
-            Cantidadd.Name = "Cantidadd";
-            Cantidadd.Width = 125;
-            // 
-            // Kilogramoo
-            // 
-            Kilogramoo.DataPropertyName = "Kilogramo";
-            Kilogramoo.HeaderText = "Kilogramo";
-            Kilogramoo.MinimumWidth = 6;
-            Kilogramoo.Name = "Kilogramoo";
-            Kilogramoo.Width = 125;
-            // 
-            // Unidad
-            // 
-            Unidad.DataPropertyName = "Unidad de Medida";
-            Unidad.HeaderText = "Unidad de Medida";
-            Unidad.MinimumWidth = 6;
-            Unidad.Name = "Unidad";
-            Unidad.Width = 125;
+            button1.Image = Properties.Resources.reporte;
+            button1.Location = new Point(12, 12);
+            button1.Name = "button1";
+            button1.Size = new Size(97, 127);
+            button1.TabIndex = 0;
+            button1.Text = "Ventas";
+            button1.TextAlign = ContentAlignment.BottomCenter;
+            button1.UseVisualStyleBackColor = true;
             // 
             // VistaSupervisor
             // 
@@ -379,9 +379,9 @@
             ((System.ComponentModel.ISupportInitialize)dgvVentas).EndInit();
             tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvProductosVendidos).EndInit();
-            PanelMenu.ResumeLayout(false);
             tabPage4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            PanelMenu.ResumeLayout(false);
             ResumeLayout(false);
         }
 

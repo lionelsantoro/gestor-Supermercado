@@ -81,12 +81,7 @@ namespace DesktopAppSupermercado.DASHBOARDS
             {
                 dtProductos.DefaultView.RowFilter = $"nombre LIKE '%{filtro}%'";
             }
-            // Pestaña 2: Auditoría
-            else if (tabControl1.SelectedIndex == 2 && dgvControlInventario.DataSource is DataTable dtInventario)
-            {
-                // Nota: vi en tu imagen que tu grilla se llama dgvControlInventario, no dgvAuditoria
-                dtInventario.DefaultView.RowFilter = $"accion LIKE '%{filtro}%'";
-            }
+            
         }
 
         private void btnSalir_Click_1(object sender, EventArgs e)
@@ -99,7 +94,6 @@ namespace DesktopAppSupermercado.DASHBOARDS
             // Evitar que se dupliquen las columnas visuales
             dgvVentas.AutoGenerateColumns = false;
             dgvProductosVendidos.AutoGenerateColumns = false;
-            dgvControlInventario.AutoGenerateColumns = false;
 
             // --------------------------------------------------------
             // PESTAÑA 1: Ventas Realizadas
@@ -147,7 +141,6 @@ namespace DesktopAppSupermercado.DASHBOARDS
             dtInventario.Rows.Add(2, "Pablo Fernandez", "Levadura Fresca", "Ajuste de Stock", DateTime.Now.AddHours(-5));
             dtInventario.Rows.Add(3, "Lucas Kruzolek", "Harina 0000", "Eliminación Lote", DateTime.Now.AddMinutes(-30));
 
-            dgvControlInventario.DataSource = dtInventario;
         }
     }
 }
