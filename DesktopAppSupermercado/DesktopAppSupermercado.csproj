@@ -9,6 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="VISTASSUPERVISORCAJA\**" />
+    <Compile Remove="VISTASSUPERVISOR\**" />
+    <EmbeddedResource Remove="VISTASSUPERVISORCAJA\**" />
+    <EmbeddedResource Remove="VISTASSUPERVISOR\**" />
+    <None Remove="VISTASSUPERVISORCAJA\**" />
+    <None Remove="VISTASSUPERVISOR\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -24,10 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Iconos\" />
     <Folder Include="Transaciones\" />
-    <Folder Include="VISTASSUPERVISORCAJA\" />
-    <Folder Include="VISTASSUPERVISOR\" />
   </ItemGroup>
 
   <ItemGroup>
