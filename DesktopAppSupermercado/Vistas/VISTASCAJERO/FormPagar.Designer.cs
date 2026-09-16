@@ -30,10 +30,10 @@
         {
             label1 = new Label();
             label2 = new Label();
-            textBox2 = new TextBox();
-            button1 = new Button();
+            txtBanco = new TextBox();
+            btnConfirmar = new Button();
             button2 = new Button();
-            comboBox1 = new ComboBox();
+            cmbMedioPago = new ComboBox();
             SuspendLayout();
             // 
             // label1
@@ -56,21 +56,22 @@
             label2.TabIndex = 1;
             label2.Text = "Banco:";
             // 
-            // textBox2
+            // txtBanco
             // 
-            textBox2.Location = new Point(189, 67);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(230, 27);
-            textBox2.TabIndex = 3;
+            txtBanco.Location = new Point(189, 67);
+            txtBanco.Name = "txtBanco";
+            txtBanco.Size = new Size(230, 27);
+            txtBanco.TabIndex = 3;
             // 
-            // button1
+            // btnConfirmar
             // 
-            button1.Location = new Point(12, 126);
-            button1.Name = "button1";
-            button1.Size = new Size(94, 29);
-            button1.TabIndex = 4;
-            button1.Text = "Confirmar";
-            button1.UseVisualStyleBackColor = true;
+            btnConfirmar.Location = new Point(12, 126);
+            btnConfirmar.Name = "btnConfirmar";
+            btnConfirmar.Size = new Size(94, 29);
+            btnConfirmar.TabIndex = 4;
+            btnConfirmar.Text = "Confirmar";
+            btnConfirmar.UseVisualStyleBackColor = true;
+            btnConfirmar.Click += btnConfirmar_Click;
             // 
             // button2
             // 
@@ -80,16 +81,17 @@
             button2.TabIndex = 5;
             button2.Text = "Salir";
             button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
             // 
-            // comboBox1
+            // cmbMedioPago
             // 
-            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "Efectivo", "Tarjeta de debido", "Tarjeta de credito" });
-            comboBox1.Location = new Point(189, 24);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(230, 28);
-            comboBox1.TabIndex = 6;
+            cmbMedioPago.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbMedioPago.FormattingEnabled = true;
+            cmbMedioPago.Items.AddRange(new object[] { "Efectivo", "Tarjeta de debido", "Tarjeta de credito" });
+            cmbMedioPago.Location = new Point(189, 24);
+            cmbMedioPago.Name = "cmbMedioPago";
+            cmbMedioPago.Size = new Size(230, 28);
+            cmbMedioPago.TabIndex = 6;
             // 
             // FormPagar
             // 
@@ -97,10 +99,10 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveBorder;
             ClientSize = new Size(440, 169);
-            Controls.Add(comboBox1);
+            Controls.Add(cmbMedioPago);
             Controls.Add(button2);
-            Controls.Add(button1);
-            Controls.Add(textBox2);
+            Controls.Add(btnConfirmar);
+            Controls.Add(txtBanco);
             Controls.Add(label2);
             Controls.Add(label1);
             Name = "FormPagar";
@@ -113,9 +115,9 @@
 
         private Label label1;
         private Label label2;
-        private TextBox textBox2;
-        private Button button1;
+        private TextBox txtBanco;
+        private Button btnConfirmar;
         private Button button2;
-        private ComboBox comboBox1;
+        private ComboBox cmbMedioPago;
     }
 }

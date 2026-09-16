@@ -116,10 +116,33 @@ namespace DesktopAppSupermercado
 
         }
 
+        private void BloquearPantallaParaTicket()
+        {
+            // Deshabilitamos todo el panel izquierdo y controles de carga
+            btnNuevaVenta.Enabled = false;
+            btnIngresarCodigo.Enabled = false;
+            btnPagar.Enabled = false;
+            btnBorrarVenta.Enabled = false;
+            btnAgregarProducto.Enabled = false;
+            btnSalir.Enabled = false;
+
+            // Aseguramos que el de PDF sea el único activo y lo resaltamos (opcional)
+            btnGenerarPDF.Enabled = true;
+            btnGenerarPDF.Focus();
+
+            MessageBox.Show("Pago registrado. Por favor, genere el ticket para finalizar la operación.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
         private void btnPagar_Click_1(object sender, EventArgs e)
         {
-            FormPagar vistaSup = new FormPagar();
-            vistaSup.Show();
+            FormPagar formPago = new FormPagar();
+
+            // ShowDialog detiene el código hasta que FormPagar se cierre.
+            // Si se cerró con éxito (DialogResult.OK), procedemos a bloquear todo.
+            if (formPago.ShowDialog() == DialogResult.OK)
+            {
+                BloquearPantallaParaTicket();
+            }
         }
 
         private void btnBorrarCompra_Click(object sender, EventArgs e)
@@ -134,9 +157,32 @@ namespace DesktopAppSupermercado
             vistaSup.Show();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnSalir_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void LiberarPantalla()
+        {
+            // Reactivamos los botones
+            btnNuevaVenta.Enabled = true;
+            btnIngresarCodigo.Enabled = true;
+            btnPagar.Enabled = true;
+            btnBorrarVenta.Enabled = true;
+            btnAgregarProducto.Enabled = true;
+            btnSalir.Enabled = true;
+
+            // Idealmente, aquí también deberías limpiar tu DataGridView (la tabla),
+            // limpiar los TextBoxes de "Total", "Número de compra", etc.
+        }
+
+        private void btnGenerarPDF_Click(object sender, EventArgs e)
+        {
+            // Tu simulación de creación de PDF
+            MessageBox.Show("¡Ticket generado exitosamente!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            // Volvemos a habilitar la caja para la próxima venta
+            LiberarPantalla();
         }
     }
 }

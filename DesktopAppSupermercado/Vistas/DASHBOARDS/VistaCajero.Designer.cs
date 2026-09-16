@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
-            button1 = new Button();
-            btnBorrarCompra = new Button();
+            btnSalir = new Button();
+            btnBorrarVenta = new Button();
             btnPagar = new Button();
-            btnCargarProducto = new Button();
-            btnIconoCajero = new Button();
+            btnNuevaVenta = new Button();
+            btnIngresarCodigo = new Button();
             panel2 = new Panel();
             panel5 = new Panel();
             textBox5 = new TextBox();
@@ -42,7 +42,10 @@
             NombreProducto = new DataGridViewTextBoxColumn();
             Cantidad = new DataGridViewTextBoxColumn();
             PrecioUnitario = new DataGridViewTextBoxColumn();
+            Eliminado = new DataGridViewButtonColumn();
             panel3 = new Panel();
+            btnAgregarProducto = new Button();
+            btnGenerarPDF = new Button();
             textBox4 = new TextBox();
             textBox3 = new TextBox();
             label3 = new Label();
@@ -51,7 +54,6 @@
             textBox1 = new TextBox();
             label2 = new Label();
             label1 = new Label();
-            button2 = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel5.SuspendLayout();
@@ -62,41 +64,41 @@
             // panel1
             // 
             panel1.BackColor = SystemColors.ActiveCaption;
-            panel1.Controls.Add(button1);
-            panel1.Controls.Add(btnBorrarCompra);
+            panel1.Controls.Add(btnSalir);
+            panel1.Controls.Add(btnBorrarVenta);
             panel1.Controls.Add(btnPagar);
-            panel1.Controls.Add(btnIconoCajero);
-            panel1.Controls.Add(btnCargarProducto);
+            panel1.Controls.Add(btnNuevaVenta);
+            panel1.Controls.Add(btnIngresarCodigo);
             panel1.Dock = DockStyle.Left;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
             panel1.Size = new Size(117, 644);
             panel1.TabIndex = 0;
             // 
-            // button1
+            // btnSalir
             // 
-            button1.Image = Properties.Resources.salie;
-            button1.Location = new Point(12, 499);
-            button1.Name = "button1";
-            button1.Size = new Size(94, 124);
-            button1.TabIndex = 6;
-            button1.Text = "Salir";
-            button1.TextAlign = ContentAlignment.BottomCenter;
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            btnSalir.Image = Properties.Resources.salie;
+            btnSalir.Location = new Point(12, 499);
+            btnSalir.Name = "btnSalir";
+            btnSalir.Size = new Size(94, 124);
+            btnSalir.TabIndex = 6;
+            btnSalir.Text = "Salir";
+            btnSalir.TextAlign = ContentAlignment.BottomCenter;
+            btnSalir.UseVisualStyleBackColor = true;
+            btnSalir.Click += btnSalir_Click;
             // 
-            // btnBorrarCompra
+            // btnBorrarVenta
             // 
-            btnBorrarCompra.Image = Properties.Resources.cancelarcompra3;
-            btnBorrarCompra.ImageAlign = ContentAlignment.TopCenter;
-            btnBorrarCompra.Location = new Point(12, 382);
-            btnBorrarCompra.Name = "btnBorrarCompra";
-            btnBorrarCompra.Size = new Size(94, 111);
-            btnBorrarCompra.TabIndex = 5;
-            btnBorrarCompra.Text = "Eliminar productos";
-            btnBorrarCompra.TextAlign = ContentAlignment.BottomCenter;
-            btnBorrarCompra.UseVisualStyleBackColor = true;
-            btnBorrarCompra.Click += btnBorrarCompra_Click;
+            btnBorrarVenta.Image = Properties.Resources.cancelarcompra3;
+            btnBorrarVenta.ImageAlign = ContentAlignment.TopCenter;
+            btnBorrarVenta.Location = new Point(12, 382);
+            btnBorrarVenta.Name = "btnBorrarVenta";
+            btnBorrarVenta.Size = new Size(94, 111);
+            btnBorrarVenta.TabIndex = 5;
+            btnBorrarVenta.Text = "Vaciar la venta";
+            btnBorrarVenta.TextAlign = ContentAlignment.BottomCenter;
+            btnBorrarVenta.UseVisualStyleBackColor = true;
+            btnBorrarVenta.Click += btnBorrarCompra_Click;
             // 
             // btnPagar
             // 
@@ -112,31 +114,31 @@
             btnPagar.UseVisualStyleBackColor = false;
             btnPagar.Click += btnPagar_Click_1;
             // 
-            // btnCargarProducto
+            // btnNuevaVenta
             // 
-            btnCargarProducto.Image = Properties.Resources.codigobarra2;
-            btnCargarProducto.ImageAlign = ContentAlignment.TopCenter;
-            btnCargarProducto.Location = new Point(12, 123);
-            btnCargarProducto.Name = "btnCargarProducto";
-            btnCargarProducto.Size = new Size(94, 144);
-            btnCargarProducto.TabIndex = 2;
-            btnCargarProducto.Text = "Ingresar Codido de barra";
-            btnCargarProducto.TextAlign = ContentAlignment.BottomCenter;
-            btnCargarProducto.UseVisualStyleBackColor = true;
-            btnCargarProducto.Click += btnCargarProducto_Click;
+            btnNuevaVenta.Image = Properties.Resources.cajero22;
+            btnNuevaVenta.ImageAlign = ContentAlignment.TopCenter;
+            btnNuevaVenta.Location = new Point(12, 17);
+            btnNuevaVenta.Name = "btnNuevaVenta";
+            btnNuevaVenta.Size = new Size(94, 100);
+            btnNuevaVenta.TabIndex = 4;
+            btnNuevaVenta.Text = "Nueva Venta";
+            btnNuevaVenta.TextAlign = ContentAlignment.BottomCenter;
+            btnNuevaVenta.UseVisualStyleBackColor = true;
+            btnNuevaVenta.Click += btnIconoCajero_Click;
             // 
-            // btnIconoCajero
+            // btnIngresarCodigo
             // 
-            btnIconoCajero.Image = Properties.Resources.cajero22;
-            btnIconoCajero.ImageAlign = ContentAlignment.TopCenter;
-            btnIconoCajero.Location = new Point(12, 17);
-            btnIconoCajero.Name = "btnIconoCajero";
-            btnIconoCajero.Size = new Size(94, 100);
-            btnIconoCajero.TabIndex = 4;
-            btnIconoCajero.Text = "Agregar producto";
-            btnIconoCajero.TextAlign = ContentAlignment.BottomCenter;
-            btnIconoCajero.UseVisualStyleBackColor = true;
-            btnIconoCajero.Click += btnIconoCajero_Click;
+            btnIngresarCodigo.Image = Properties.Resources.codigobarra2;
+            btnIngresarCodigo.ImageAlign = ContentAlignment.TopCenter;
+            btnIngresarCodigo.Location = new Point(12, 123);
+            btnIngresarCodigo.Name = "btnIngresarCodigo";
+            btnIngresarCodigo.Size = new Size(94, 144);
+            btnIngresarCodigo.TabIndex = 2;
+            btnIngresarCodigo.Text = "Ingresar Codido de barra";
+            btnIngresarCodigo.TextAlign = ContentAlignment.BottomCenter;
+            btnIngresarCodigo.UseVisualStyleBackColor = true;
+            btnIngresarCodigo.Click += btnCargarProducto_Click;
             // 
             // panel2
             // 
@@ -182,7 +184,7 @@
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { NombreProducto, Cantidad, PrecioUnitario });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { NombreProducto, Cantidad, PrecioUnitario, Eliminado });
             dataGridView1.Location = new Point(0, 133);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
@@ -211,10 +213,18 @@
             PrecioUnitario.Name = "PrecioUnitario";
             PrecioUnitario.Width = 125;
             // 
+            // Eliminado
+            // 
+            Eliminado.HeaderText = "Borrar Producto";
+            Eliminado.MinimumWidth = 6;
+            Eliminado.Name = "Eliminado";
+            Eliminado.Width = 125;
+            // 
             // panel3
             // 
             panel3.BackColor = Color.FromArgb(255, 224, 192);
-            panel3.Controls.Add(button2);
+            panel3.Controls.Add(btnAgregarProducto);
+            panel3.Controls.Add(btnGenerarPDF);
             panel3.Controls.Add(textBox4);
             panel3.Controls.Add(textBox3);
             panel3.Controls.Add(label3);
@@ -227,6 +237,25 @@
             panel3.Name = "panel3";
             panel3.Size = new Size(850, 133);
             panel3.TabIndex = 0;
+            // 
+            // btnAgregarProducto
+            // 
+            btnAgregarProducto.Location = new Point(484, 55);
+            btnAgregarProducto.Name = "btnAgregarProducto";
+            btnAgregarProducto.Size = new Size(94, 62);
+            btnAgregarProducto.TabIndex = 9;
+            btnAgregarProducto.Text = "Agregar producto";
+            btnAgregarProducto.UseVisualStyleBackColor = true;
+            // 
+            // btnGenerarPDF
+            // 
+            btnGenerarPDF.Location = new Point(600, 55);
+            btnGenerarPDF.Name = "btnGenerarPDF";
+            btnGenerarPDF.Size = new Size(94, 62);
+            btnGenerarPDF.TabIndex = 8;
+            btnGenerarPDF.Text = "Generar Ticket";
+            btnGenerarPDF.UseVisualStyleBackColor = true;
+            btnGenerarPDF.Click += btnGenerarPDF_Click;
             // 
             // textBox4
             // 
@@ -301,15 +330,6 @@
             label1.Text = "Fecha:";
             label1.Click += label1_Click_1;
             // 
-            // button2
-            // 
-            button2.Location = new Point(484, 55);
-            button2.Name = "button2";
-            button2.Size = new Size(94, 62);
-            button2.TabIndex = 8;
-            button2.Text = "Generar PDF";
-            button2.UseVisualStyleBackColor = true;
-            // 
             // VistaCajero
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -336,8 +356,8 @@
         private Panel panel1;
         private Button btnPagar;
         private Panel panel2;
-        private Button btnCargarProducto;
-        private Button btnIconoCajero;
+        private Button btnIngresarCodigo;
+        private Button btnNuevaVenta;
         private Panel panel3;
         private TextBox textBox2;
         private TextBox textBox1;
@@ -353,9 +373,11 @@
         private Label label5;
         private Panel panel5;
         private Label label6;
-        private Button btnBorrarCompra;
         private TextBox textBox5;
-        private Button button1;
-        private Button button2;
+        private Button btnSalir;
+        private Button btnGenerarPDF;
+        private Button btnBorrarVenta;
+        private DataGridViewButtonColumn Eliminado;
+        private Button btnAgregarProducto;
     }
 }

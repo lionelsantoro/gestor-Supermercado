@@ -32,8 +32,6 @@
             textBox1 = new TextBox();
             button1 = new Button();
             btnSalir = new Button();
-            label2 = new Label();
-            textBox2 = new TextBox();
             label3 = new Label();
             textBox3 = new TextBox();
             SuspendLayout();
@@ -57,7 +55,7 @@
             // 
             // button1
             // 
-            button1.Location = new Point(1, 157);
+            button1.Location = new Point(3, 110);
             button1.Name = "button1";
             button1.Size = new Size(139, 29);
             button1.TabIndex = 2;
@@ -66,35 +64,19 @@
             // 
             // btnSalir
             // 
-            btnSalir.Location = new Point(388, 157);
+            btnSalir.Location = new Point(388, 110);
             btnSalir.Name = "btnSalir";
             btnSalir.Size = new Size(94, 29);
             btnSalir.TabIndex = 3;
             btnSalir.Text = "Salir";
             btnSalir.UseVisualStyleBackColor = true;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(1, 65);
-            label2.Name = "label2";
-            label2.Size = new Size(252, 31);
-            label2.TabIndex = 4;
-            label2.Text = "Nombre del producto:";
-            // 
-            // textBox2
-            // 
-            textBox2.Location = new Point(259, 69);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(223, 27);
-            textBox2.TabIndex = 5;
+            btnSalir.Click += btnSalir_Click;
             // 
             // label3
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.Location = new Point(137, 111);
+            label3.Location = new Point(137, 65);
             label3.Name = "label3";
             label3.Size = new Size(116, 31);
             label3.TabIndex = 6;
@@ -102,7 +84,7 @@
             // 
             // textBox3
             // 
-            textBox3.Location = new Point(259, 115);
+            textBox3.Location = new Point(259, 69);
             textBox3.Name = "textBox3";
             textBox3.Size = new Size(223, 27);
             textBox3.TabIndex = 7;
@@ -112,11 +94,9 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveBorder;
-            ClientSize = new Size(494, 189);
+            ClientSize = new Size(494, 153);
             Controls.Add(textBox3);
             Controls.Add(label3);
-            Controls.Add(textBox2);
-            Controls.Add(label2);
             Controls.Add(btnSalir);
             Controls.Add(button1);
             Controls.Add(textBox1);
@@ -133,8 +113,6 @@
         private TextBox textBox1;
         private Button button1;
         private Button btnSalir;
-        private Label label2;
-        private TextBox textBox2;
         private Label label3;
         private TextBox textBox3;
     }
