@@ -39,10 +39,6 @@
             textBox5 = new TextBox();
             label6 = new Label();
             dataGridView1 = new DataGridView();
-            NombreProducto = new DataGridViewTextBoxColumn();
-            Cantidad = new DataGridViewTextBoxColumn();
-            PrecioUnitario = new DataGridViewTextBoxColumn();
-            Eliminado = new DataGridViewButtonColumn();
             panel3 = new Panel();
             btnAgregarProducto = new Button();
             btnGenerarPDF = new Button();
@@ -54,6 +50,9 @@
             textBox1 = new TextBox();
             label2 = new Label();
             label1 = new Label();
+            NombreProducto = new DataGridViewTextBoxColumn();
+            Cantidad = new DataGridViewTextBoxColumn();
+            PrecioUnitario = new DataGridViewTextBoxColumn();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel5.SuspendLayout();
@@ -184,41 +183,13 @@
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { NombreProducto, Cantidad, PrecioUnitario, Eliminado });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { NombreProducto, Cantidad, PrecioUnitario });
             dataGridView1.Location = new Point(0, 133);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.Size = new Size(850, 465);
             dataGridView1.TabIndex = 1;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick_1;
-            // 
-            // NombreProducto
-            // 
-            NombreProducto.HeaderText = "Nombre";
-            NombreProducto.MinimumWidth = 6;
-            NombreProducto.Name = "NombreProducto";
-            NombreProducto.Width = 125;
-            // 
-            // Cantidad
-            // 
-            Cantidad.HeaderText = "Cantidad";
-            Cantidad.MinimumWidth = 6;
-            Cantidad.Name = "Cantidad";
-            Cantidad.Width = 125;
-            // 
-            // PrecioUnitario
-            // 
-            PrecioUnitario.HeaderText = "Precio_Unitario";
-            PrecioUnitario.MinimumWidth = 6;
-            PrecioUnitario.Name = "PrecioUnitario";
-            PrecioUnitario.Width = 125;
-            // 
-            // Eliminado
-            // 
-            Eliminado.HeaderText = "Borrar Producto";
-            Eliminado.MinimumWidth = 6;
-            Eliminado.Name = "Eliminado";
-            Eliminado.Width = 125;
             // 
             // panel3
             // 
@@ -330,6 +301,27 @@
             label1.Text = "Fecha:";
             label1.Click += label1_Click_1;
             // 
+            // NombreProducto
+            // 
+            NombreProducto.HeaderText = "Nombre";
+            NombreProducto.MinimumWidth = 6;
+            NombreProducto.Name = "NombreProducto";
+            NombreProducto.Width = 125;
+            // 
+            // Cantidad
+            // 
+            Cantidad.HeaderText = "Cantidad";
+            Cantidad.MinimumWidth = 6;
+            Cantidad.Name = "Cantidad";
+            Cantidad.Width = 125;
+            // 
+            // PrecioUnitario
+            // 
+            PrecioUnitario.HeaderText = "Precio_Unitario";
+            PrecioUnitario.MinimumWidth = 6;
+            PrecioUnitario.Name = "PrecioUnitario";
+            PrecioUnitario.Width = 125;
+            // 
             // VistaCajero
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -364,9 +356,6 @@
         private Label label2;
         private Label label1;
         private DataGridView dataGridView1;
-        private DataGridViewTextBoxColumn NombreProducto;
-        private DataGridViewTextBoxColumn Cantidad;
-        private DataGridViewTextBoxColumn PrecioUnitario;
         private TextBox textBox4;
         private TextBox textBox3;
         private Label label3;
@@ -377,7 +366,9 @@
         private Button btnSalir;
         private Button btnGenerarPDF;
         private Button btnBorrarVenta;
-        private DataGridViewButtonColumn Eliminado;
         private Button btnAgregarProducto;
+        private DataGridViewTextBoxColumn NombreProducto;
+        private DataGridViewTextBoxColumn Cantidad;
+        private DataGridViewTextBoxColumn PrecioUnitario;
     }
 }
