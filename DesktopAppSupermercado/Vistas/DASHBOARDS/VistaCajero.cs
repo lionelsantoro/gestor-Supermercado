@@ -1,4 +1,5 @@
 ﻿using DesktopAppSupermercado.DASHBOARDS;
+using DesktopAppSupermercado.ReglasNegocio;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -46,6 +47,8 @@ namespace DesktopAppSupermercado
 
         }
 
+        private AutoCompleteStringCollection coleccionProductos = new AutoCompleteStringCollection();
+
         private void VistaCajero_Load(object sender, EventArgs e)
         {
             dataGridView1.Rows.Add("Arroz Blanco 1kg", "2", "$ 2.400,00");
@@ -53,6 +56,20 @@ namespace DesktopAppSupermercado
             dataGridView1.Rows.Add("Queso Cremoso (Kg)", "1,5", "$ 12.750,00");
             dataGridView1.Rows.Add("Gaseosa Cola 2L", "1", "$ 3.200,00");
             dataGridView1.Rows.Add("Pan Lactal", "1", "$ 1.200,00");
+
+            ProductoNegocio negocio = new ProductoNegocio();
+
+            // 1. Obtenemos la lista de la base de datos
+            List<string> listaDescripciones = negocio.ObtenerListaParaBuscador();
+
+            // 2. Llenamos la colección especial de Windows Forms
+            coleccionProductos.AddRange(listaDescripciones.ToArray());
+
+            // 3. Configuramos el TextBox del Nombre (asegúrate de que se llame txtNombre)
+            txtNombre.AutoCompleteMode = AutoCompleteMode.Suggest;
+            txtNombre.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            txtNombre.AutoCompleteCustomSource = coleccionProductos;
+
         }
 
         private void btnModificarCompra_Click(object sender, EventArgs e)
@@ -126,7 +143,7 @@ namespace DesktopAppSupermercado
             btnAgregarProducto.Enabled = false;
             btnSalir.Enabled = false;
 
-            // Aseguramos que el de PDF sea el único activo y lo resaltamos (opcional)
+            // Aseguramos que el de PDF sea el único activo y lo resaltamos
             btnGenerarPDF.Enabled = true;
             btnGenerarPDF.Focus();
 
@@ -172,17 +189,30 @@ namespace DesktopAppSupermercado
             btnAgregarProducto.Enabled = true;
             btnSalir.Enabled = true;
 
-            // Idealmente, aquí también deberías limpiar tu DataGridView (la tabla),
-            // limpiar los TextBoxes de "Total", "Número de compra", etc.
         }
 
         private void btnGenerarPDF_Click(object sender, EventArgs e)
         {
-            // Tu simulación de creación de PDF
+            // Simulación de creación de PDF
             MessageBox.Show("¡Ticket generado exitosamente!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             // Volvemos a habilitar la caja para la próxima venta
             LiberarPantalla();
+        }
+
+        private void textCant_Enter(object sender, EventArgs e)
+        {
+            string productoIngresado = txtNombre.Text.Trim();
+
+            // Si está vacío o lo que escribió no está en nuestra lista de la base de datos
+            if (string.IsNullOrEmpty(productoIngresado) || !coleccionProductos.Contains(productoIngresado))
+            {
+                // Mostramos la alerta
+                MessageBox.Show("Producto no encontrado. Ingrese un producto válido primero.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                // Forzamos al cursor a volver al campo Nombre
+                txtNombre.Focus();
+            }
         }
     }
 }

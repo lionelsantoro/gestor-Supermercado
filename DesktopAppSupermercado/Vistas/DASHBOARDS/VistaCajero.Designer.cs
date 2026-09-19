@@ -39,20 +39,20 @@
             textBox5 = new TextBox();
             label6 = new Label();
             dataGridView1 = new DataGridView();
+            NombreProducto = new DataGridViewTextBoxColumn();
+            Cantidad = new DataGridViewTextBoxColumn();
+            PrecioUnitario = new DataGridViewTextBoxColumn();
             panel3 = new Panel();
             btnAgregarProducto = new Button();
             btnGenerarPDF = new Button();
-            textBox4 = new TextBox();
-            textBox3 = new TextBox();
+            textCant = new TextBox();
+            txtNombre = new TextBox();
             label3 = new Label();
             label5 = new Label();
             textBox2 = new TextBox();
             textBox1 = new TextBox();
             label2 = new Label();
             label1 = new Label();
-            NombreProducto = new DataGridViewTextBoxColumn();
-            Cantidad = new DataGridViewTextBoxColumn();
-            PrecioUnitario = new DataGridViewTextBoxColumn();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel5.SuspendLayout();
@@ -191,13 +191,34 @@
             dataGridView1.TabIndex = 1;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick_1;
             // 
+            // NombreProducto
+            // 
+            NombreProducto.HeaderText = "Nombre";
+            NombreProducto.MinimumWidth = 6;
+            NombreProducto.Name = "NombreProducto";
+            NombreProducto.Width = 125;
+            // 
+            // Cantidad
+            // 
+            Cantidad.HeaderText = "Cantidad";
+            Cantidad.MinimumWidth = 6;
+            Cantidad.Name = "Cantidad";
+            Cantidad.Width = 125;
+            // 
+            // PrecioUnitario
+            // 
+            PrecioUnitario.HeaderText = "Precio_Unitario";
+            PrecioUnitario.MinimumWidth = 6;
+            PrecioUnitario.Name = "PrecioUnitario";
+            PrecioUnitario.Width = 125;
+            // 
             // panel3
             // 
             panel3.BackColor = Color.FromArgb(255, 224, 192);
             panel3.Controls.Add(btnAgregarProducto);
             panel3.Controls.Add(btnGenerarPDF);
-            panel3.Controls.Add(textBox4);
-            panel3.Controls.Add(textBox3);
+            panel3.Controls.Add(textCant);
+            panel3.Controls.Add(txtNombre);
             panel3.Controls.Add(label3);
             panel3.Controls.Add(label5);
             panel3.Controls.Add(textBox2);
@@ -228,20 +249,21 @@
             btnGenerarPDF.UseVisualStyleBackColor = true;
             btnGenerarPDF.Click += btnGenerarPDF_Click;
             // 
-            // textBox4
+            // textCant
             // 
-            textBox4.Location = new Point(136, 90);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(329, 27);
-            textBox4.TabIndex = 7;
+            textCant.Location = new Point(136, 90);
+            textCant.Name = "textCant";
+            textCant.Size = new Size(329, 27);
+            textCant.TabIndex = 7;
+            textCant.Enter += textCant_Enter;
             // 
-            // textBox3
+            // txtNombre
             // 
-            textBox3.Location = new Point(137, 57);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(328, 27);
-            textBox3.TabIndex = 6;
-            textBox3.TextChanged += textBox3_TextChanged;
+            txtNombre.Location = new Point(137, 57);
+            txtNombre.Name = "txtNombre";
+            txtNombre.Size = new Size(328, 27);
+            txtNombre.TabIndex = 6;
+            txtNombre.TextChanged += textBox3_TextChanged;
             // 
             // label3
             // 
@@ -301,27 +323,6 @@
             label1.Text = "Fecha:";
             label1.Click += label1_Click_1;
             // 
-            // NombreProducto
-            // 
-            NombreProducto.HeaderText = "Nombre";
-            NombreProducto.MinimumWidth = 6;
-            NombreProducto.Name = "NombreProducto";
-            NombreProducto.Width = 125;
-            // 
-            // Cantidad
-            // 
-            Cantidad.HeaderText = "Cantidad";
-            Cantidad.MinimumWidth = 6;
-            Cantidad.Name = "Cantidad";
-            Cantidad.Width = 125;
-            // 
-            // PrecioUnitario
-            // 
-            PrecioUnitario.HeaderText = "Precio_Unitario";
-            PrecioUnitario.MinimumWidth = 6;
-            PrecioUnitario.Name = "PrecioUnitario";
-            PrecioUnitario.Width = 125;
-            // 
             // VistaCajero
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -356,8 +357,8 @@
         private Label label2;
         private Label label1;
         private DataGridView dataGridView1;
-        private TextBox textBox4;
-        private TextBox textBox3;
+        private TextBox textCant;
+        private TextBox txtNombre;
         private Label label3;
         private Label label5;
         private Panel panel5;
