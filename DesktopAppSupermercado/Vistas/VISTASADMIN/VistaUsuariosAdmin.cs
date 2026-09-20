@@ -1,8 +1,5 @@
-﻿using DesktopAppSupermercado.Datos;
-using Microsoft.Data.SqlClient;
-using System;
+﻿using System;
 using System.Data;
-using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;

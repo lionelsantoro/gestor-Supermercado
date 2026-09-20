@@ -7,7 +7,6 @@ namespace DesktopAppSupermercado
 {
     public partial class MenuPrincipal : Form
     {
-        // Instanciamos la capa de negocio
         private LoginNegocio loginNegocio = new LoginNegocio();
 
         public MenuPrincipal()
