@@ -51,5 +51,10 @@ namespace DesktopAppSupermercado.DASHBOARDS
         {
             this.Close();
         }
+
+        private void MenuGeneralInventario_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

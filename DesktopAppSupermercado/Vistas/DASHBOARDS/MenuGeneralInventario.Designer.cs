@@ -40,7 +40,7 @@
             PanelContenedor.BackColor = Color.FromArgb(255, 224, 192);
             PanelContenedor.Dock = DockStyle.Fill;
             PanelContenedor.Location = new Point(96, 0);
-            PanelContenedor.Margin = new Padding(2, 2, 2, 2);
+            PanelContenedor.Margin = new Padding(2);
             PanelContenedor.Name = "PanelContenedor";
             PanelContenedor.Size = new Size(994, 381);
             PanelContenedor.TabIndex = 5;
@@ -53,7 +53,7 @@
             PanelMenu.Controls.Add(btnSalirINVENTARIO);
             PanelMenu.Dock = DockStyle.Left;
             PanelMenu.Location = new Point(0, 0);
-            PanelMenu.Margin = new Padding(2, 2, 2, 2);
+            PanelMenu.Margin = new Padding(2);
             PanelMenu.Name = "PanelMenu";
             PanelMenu.Size = new Size(96, 381);
             PanelMenu.TabIndex = 4;
@@ -66,7 +66,7 @@
             btnGestionProductosyCategoriasINVENTARIO.Image = Properties.Resources._3890929_chart_growth_invest_market_stock_111188;
             btnGestionProductosyCategoriasINVENTARIO.ImageAlign = ContentAlignment.TopCenter;
             btnGestionProductosyCategoriasINVENTARIO.Location = new Point(0, 20);
-            btnGestionProductosyCategoriasINVENTARIO.Margin = new Padding(2, 2, 2, 2);
+            btnGestionProductosyCategoriasINVENTARIO.Margin = new Padding(2);
             btnGestionProductosyCategoriasINVENTARIO.Name = "btnGestionProductosyCategoriasINVENTARIO";
             btnGestionProductosyCategoriasINVENTARIO.Size = new Size(96, 170);
             btnGestionProductosyCategoriasINVENTARIO.TabIndex = 0;
@@ -85,7 +85,7 @@
             btnSalirINVENTARIO.Image = Properties.Resources.logout_90894__2_1;
             btnSalirINVENTARIO.ImageAlign = ContentAlignment.TopCenter;
             btnSalirINVENTARIO.Location = new Point(0, 202);
-            btnSalirINVENTARIO.Margin = new Padding(2, 2, 2, 2);
+            btnSalirINVENTARIO.Margin = new Padding(2);
             btnSalirINVENTARIO.Name = "btnSalirINVENTARIO";
             btnSalirINVENTARIO.Size = new Size(96, 179);
             btnSalirINVENTARIO.TabIndex = 1;
@@ -101,9 +101,10 @@
             ClientSize = new Size(1090, 381);
             Controls.Add(PanelContenedor);
             Controls.Add(PanelMenu);
-            Margin = new Padding(2, 2, 2, 2);
+            Margin = new Padding(2);
             Name = "MenuGeneralInventario";
             Text = "Menu General Inventario";
+            Load += MenuGeneralInventario_Load;
             PanelMenu.ResumeLayout(false);
             ResumeLayout(false);
         }
