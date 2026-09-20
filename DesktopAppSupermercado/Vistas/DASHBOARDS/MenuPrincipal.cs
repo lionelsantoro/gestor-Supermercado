@@ -1,19 +1,15 @@
 ﻿using DesktopAppSupermercado.DASHBOARDS;
-using DesktopAppSupermercado.Datos;
-using Microsoft.Data.SqlClient;
+using DesktopAppSupermercado.ReglasNegocio;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Security.Cryptography;
-using System.Text;
 using System.Windows.Forms;
 
 namespace DesktopAppSupermercado
 {
     public partial class MenuPrincipal : Form
     {
+        // Instanciamos la capa de negocio
+        private LoginNegocio loginNegocio = new LoginNegocio();
+
         public MenuPrincipal()
         {
             InitializeComponent();
@@ -27,33 +23,6 @@ namespace DesktopAppSupermercado
         private void txtUsuario_TextChanged(object sender, EventArgs e) { }
 
         // ============================================================
-        // BOTONES DE ACCESO DIRECTO (los usás para probar sin login)
-        // ============================================================
-        private void toolStripButton4_Click(object sender, EventArgs e)
-        {
-            VistaSupervisor vistaSup = new VistaSupervisor();
-            vistaSup.Show();
-        }
-
-        private void btnInventario_Click(object sender, EventArgs e)
-        {
-            MenuGeneralInventario vistaInv = new MenuGeneralInventario();
-            vistaInv.Show();
-        }
-
-        private void btnCajero_Click(object sender, EventArgs e)
-        {
-            VistaCajero vistaCaj = new VistaCajero();
-            vistaCaj.Show();
-        }
-
-        private void btnAdmin_Click(object sender, EventArgs e)
-        {
-            MenuGeneralAdmin vistaAdmin = new MenuGeneralAdmin();
-            vistaAdmin.Show();
-        }
-
-        // ============================================================
         // BOTÓN LIMPIAR
         // ============================================================
         private void btnLimpiar_Click(object sender, EventArgs e)
@@ -64,11 +33,8 @@ namespace DesktopAppSupermercado
         }
 
         // ============================================================
-        // BOTÓN INGRESAR (LOGIN CON HASH)
+        // BOTÓN INGRESAR
         // ============================================================
-        // Ahora la contraseña ingresada se hashea antes de compararla
-        // contra la base. Los usuarios creados desde el formulario admin
-        // ya guardan el hash, así que la comparación funciona.
         private void btnIngresar_Click(object sender, EventArgs e)
         {
             string usuario = txtUsuario.Text;
@@ -80,39 +46,18 @@ namespace DesktopAppSupermercado
                 return;
             }
 
-            // Hasheamos la contraseña ingresada por el usuario para
-            // compararla contra el hash guardado en la base
-            string contrasenaHash = HashearSHA256(contrasena);
-
-            Conexion miConexion = new Conexion();
-
             try
             {
-                using (SqlConnection conexionFisica = miConexion.ObtenerConexion())
+                // Llamamos a la capa de negocio, ella se encarga de hashear y consultar a Datos
+                int idRol = loginNegocio.AutenticarUsuario(usuario, contrasena);
+
+                if (idRol > 0)
                 {
-                    conexionFisica.Open();
-                    string query = @"SELECT id_rol FROM usuarios 
-                                     WHERE nombre_usuario = @usuario 
-                                       AND contrasena = @contrasena 
-                                       AND eliminado = 0";
-
-                    using (SqlCommand comando = new SqlCommand(query, conexionFisica))
-                    {
-                        comando.Parameters.AddWithValue("@usuario", usuario);
-                        comando.Parameters.AddWithValue("@contrasena", contrasenaHash);
-
-                        object resultado = comando.ExecuteScalar();
-
-                        if (resultado != null)
-                        {
-                            int idRol = Convert.ToInt32(resultado);
-                            AbrirVistaSegunRol(idRol, usuario);
-                        }
-                        else
-                        {
-                            MessageBox.Show("Usuario o contraseña incorrectos.");
-                        }
-                    }
+                    AbrirVistaSegunRol(idRol, usuario);
+                }
+                else
+                {
+                    MessageBox.Show("Usuario o contraseña incorrectos.");
                 }
             }
             catch (Exception ex)
@@ -126,9 +71,8 @@ namespace DesktopAppSupermercado
         // ============================================================
         private void AbrirVistaSegunRol(int idRol, string usuario)
         {
-            Form vistaAAbrir = null;
+            Form? vistaAAbrir = null;
 
-            // 1. Instanciamos la ventana correcta según tus nombres de clases
             switch (idRol)
             {
                 case 1:
@@ -145,36 +89,22 @@ namespace DesktopAppSupermercado
                     break;
                 default:
                     MessageBox.Show($"Rol no reconocido (id = {idRol}).");
-                    return; // Si el rol no existe, cortamos la ejecución aquí
+                    return;
             }
 
-            // 2. Si se asignó una ventana válida, ocultamos el login y abrimos la nueva
             if (vistaAAbrir != null)
             {
-                this.Hide(); // Oculta MenuPrincipal
+                this.Hide();
 
-                // Cuando la vista nueva se cierre, se ejecuta esto automáticamente
                 vistaAAbrir.FormClosed += (sender, e) =>
                 {
                     txtUsuario.Clear();
                     txtContrasena.Clear();
-                    this.Show(); // Vuelve a mostrar MenuPrincipal
+                    this.Show();
                     txtUsuario.Focus();
                 };
 
                 vistaAAbrir.Show();
-            }
-        }
-
-        private string HashearSHA256(string texto)
-        {
-            using (SHA256 sha256 = SHA256.Create())
-            {
-                byte[] bytes = Encoding.UTF8.GetBytes(texto);
-                byte[] hash = sha256.ComputeHash(bytes);
-                StringBuilder sb = new StringBuilder();
-                foreach (byte b in hash) sb.Append(b.ToString("x2"));
-                return sb.ToString();
             }
         }
     }

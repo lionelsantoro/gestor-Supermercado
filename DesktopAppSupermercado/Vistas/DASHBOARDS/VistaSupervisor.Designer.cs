@@ -35,12 +35,6 @@
             tabControlSupervisor = new TabControl();
             tabPage1 = new TabPage();
             dgvVentas = new DataGridView();
-            IdVenta = new DataGridViewTextBoxColumn();
-            Monto = new DataGridViewTextBoxColumn();
-            MedioPago = new DataGridViewTextBoxColumn();
-            VentaBanco = new DataGridViewTextBoxColumn();
-            CajaVenta = new DataGridViewTextBoxColumn();
-            CajeroVenta = new DataGridViewTextBoxColumn();
             tabPage2 = new TabPage();
             dgvProductosVendidos = new DataGridView();
             IdProducto = new DataGridViewTextBoxColumn();
@@ -60,6 +54,12 @@
             button3 = new Button();
             button2 = new Button();
             button1 = new Button();
+            IdVenta = new DataGridViewTextBoxColumn();
+            Monto = new DataGridViewTextBoxColumn();
+            MedioPago = new DataGridViewTextBoxColumn();
+            VentaBanco = new DataGridViewTextBoxColumn();
+            CajaVenta = new DataGridViewTextBoxColumn();
+            CajeroVenta = new DataGridViewTextBoxColumn();
             PanelContenedor.SuspendLayout();
             tabControlSupervisor.SuspendLayout();
             tabPage1.SuspendLayout();
@@ -146,52 +146,6 @@
             dgvVentas.Size = new Size(1091, 734);
             dgvVentas.TabIndex = 0;
             dgvVentas.SelectionChanged += dataGridView1_SelectionChanged;
-            // 
-            // IdVenta
-            // 
-            IdVenta.DataPropertyName = "Numero de Venta";
-            IdVenta.HeaderText = "Numero de venta";
-            IdVenta.MinimumWidth = 6;
-            IdVenta.Name = "IdVenta";
-            IdVenta.Width = 125;
-            // 
-            // Monto
-            // 
-            Monto.DataPropertyName = "Total";
-            Monto.HeaderText = "Total";
-            Monto.MinimumWidth = 6;
-            Monto.Name = "Monto";
-            Monto.Width = 125;
-            // 
-            // MedioPago
-            // 
-            MedioPago.DataPropertyName = "Medio de Pago";
-            MedioPago.HeaderText = "Medio de Pago";
-            MedioPago.MinimumWidth = 6;
-            MedioPago.Name = "MedioPago";
-            MedioPago.Width = 125;
-            // 
-            // VentaBanco
-            // 
-            VentaBanco.DataPropertyName = "Banco";
-            VentaBanco.HeaderText = "Banco";
-            VentaBanco.MinimumWidth = 6;
-            VentaBanco.Name = "VentaBanco";
-            VentaBanco.Width = 125;
-            // 
-            // CajaVenta
-            // 
-            CajaVenta.HeaderText = "Numero de Caja";
-            CajaVenta.MinimumWidth = 6;
-            CajaVenta.Name = "CajaVenta";
-            CajaVenta.Width = 125;
-            // 
-            // CajeroVenta
-            // 
-            CajeroVenta.HeaderText = "Cajero";
-            CajeroVenta.MinimumWidth = 6;
-            CajeroVenta.Name = "CajeroVenta";
-            CajeroVenta.Width = 125;
             // 
             // tabPage2
             // 
@@ -376,6 +330,54 @@
             button1.TextAlign = ContentAlignment.BottomCenter;
             button1.UseVisualStyleBackColor = true;
             // 
+            // IdVenta
+            // 
+            IdVenta.DataPropertyName = "Numero de Venta";
+            IdVenta.HeaderText = "Numero de venta";
+            IdVenta.MinimumWidth = 6;
+            IdVenta.Name = "IdVenta";
+            IdVenta.Width = 125;
+            // 
+            // Monto
+            // 
+            Monto.DataPropertyName = "Total";
+            Monto.HeaderText = "Total";
+            Monto.MinimumWidth = 6;
+            Monto.Name = "Monto";
+            Monto.Width = 125;
+            // 
+            // MedioPago
+            // 
+            MedioPago.DataPropertyName = "Medio de Pago";
+            MedioPago.HeaderText = "Medio de Pago";
+            MedioPago.MinimumWidth = 6;
+            MedioPago.Name = "MedioPago";
+            MedioPago.Width = 125;
+            // 
+            // VentaBanco
+            // 
+            VentaBanco.DataPropertyName = "Banco";
+            VentaBanco.HeaderText = "Banco";
+            VentaBanco.MinimumWidth = 6;
+            VentaBanco.Name = "VentaBanco";
+            VentaBanco.Width = 125;
+            // 
+            // CajaVenta
+            // 
+            CajaVenta.DataPropertyName = "Numero de caja";
+            CajaVenta.HeaderText = "Numero de Caja";
+            CajaVenta.MinimumWidth = 6;
+            CajaVenta.Name = "CajaVenta";
+            CajaVenta.Width = 125;
+            // 
+            // CajeroVenta
+            // 
+            CajeroVenta.DataPropertyName = "Cajero";
+            CajeroVenta.HeaderText = "Cajero";
+            CajeroVenta.MinimumWidth = 6;
+            CajeroVenta.Name = "CajeroVenta";
+            CajeroVenta.Width = 125;
+            // 
             // VistaSupervisor
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -415,14 +417,8 @@
         private Label label1;
         private DataGridView dgvProductosVendidos;
         private Button btnSalir;
-        private DataGridViewTextBoxColumn IdVenta;
-        private DataGridViewTextBoxColumn Monto;
-        private DataGridViewTextBoxColumn MedioPago;
-        private DataGridViewTextBoxColumn VentaBanco;
         private TabPage tabPage4;
         private DataGridView dgvUsuarios;
-        private DataGridViewTextBoxColumn CajaVenta;
-        private DataGridViewTextBoxColumn CajeroVenta;
         private DataGridViewTextBoxColumn IdProducto;
         private DataGridViewTextBoxColumn Nombre;
         private DataGridViewTextBoxColumn Precio;
@@ -434,5 +430,11 @@
         private DataGridViewTextBoxColumn NombreUsuario;
         private DataGridViewTextBoxColumn ApellidoUsuario;
         private DataGridViewTextBoxColumn RolUsuario;
+        private DataGridViewTextBoxColumn IdVenta;
+        private DataGridViewTextBoxColumn Monto;
+        private DataGridViewTextBoxColumn MedioPago;
+        private DataGridViewTextBoxColumn VentaBanco;
+        private DataGridViewTextBoxColumn CajaVenta;
+        private DataGridViewTextBoxColumn CajeroVenta;
     }
 }

@@ -48,8 +48,9 @@ namespace DesktopAppSupermercado.DASHBOARDS
             PanelMenu.Controls.Add(btnUsuariosADMIN);
             PanelMenu.Dock = DockStyle.Left;
             PanelMenu.Location = new Point(0, 0);
+            PanelMenu.Margin = new Padding(2, 2, 2, 2);
             PanelMenu.Name = "PanelMenu";
-            PanelMenu.Size = new Size(139, 808);
+            PanelMenu.Size = new Size(86, 505);
             PanelMenu.TabIndex = 0;
             // 
             // btnSalirADMIN
@@ -60,9 +61,10 @@ namespace DesktopAppSupermercado.DASHBOARDS
             btnSalirADMIN.ForeColor = SystemColors.ButtonHighlight;
             btnSalirADMIN.Image = Properties.Resources.logout_90894__2_;
             btnSalirADMIN.ImageAlign = ContentAlignment.TopCenter;
-            btnSalirADMIN.Location = new Point(0, 596);
+            btnSalirADMIN.Location = new Point(0, 373);
+            btnSalirADMIN.Margin = new Padding(2, 2, 2, 2);
             btnSalirADMIN.Name = "btnSalirADMIN";
-            btnSalirADMIN.Size = new Size(139, 212);
+            btnSalirADMIN.Size = new Size(86, 132);
             btnSalirADMIN.TabIndex = 1;
             btnSalirADMIN.Text = "Salir";
             btnSalirADMIN.TextAlign = ContentAlignment.BottomCenter;
@@ -76,9 +78,10 @@ namespace DesktopAppSupermercado.DASHBOARDS
             btnBackupADMIN.Font = new Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnBackupADMIN.ForeColor = SystemColors.ControlLightLight;
             btnBackupADMIN.ImageAlign = ContentAlignment.TopCenter;
-            btnBackupADMIN.Location = new Point(7, 297);
+            btnBackupADMIN.Location = new Point(4, 186);
+            btnBackupADMIN.Margin = new Padding(2, 2, 2, 2);
             btnBackupADMIN.Name = "btnBackupADMIN";
-            btnBackupADMIN.Size = new Size(118, 138);
+            btnBackupADMIN.Size = new Size(73, 86);
             btnBackupADMIN.TabIndex = 1;
             btnBackupADMIN.Text = "BackUp";
             btnBackupADMIN.TextAlign = ContentAlignment.BottomCenter;
@@ -94,8 +97,9 @@ namespace DesktopAppSupermercado.DASHBOARDS
             btnUsuariosADMIN.Font = new Font("Segoe UI Black", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnUsuariosADMIN.ForeColor = SystemColors.HighlightText;
             btnUsuariosADMIN.Location = new Point(0, 0);
+            btnUsuariosADMIN.Margin = new Padding(2, 2, 2, 2);
             btnUsuariosADMIN.Name = "btnUsuariosADMIN";
-            btnUsuariosADMIN.Size = new Size(139, 133);
+            btnUsuariosADMIN.Size = new Size(86, 83);
             btnUsuariosADMIN.TabIndex = 1;
             btnUsuariosADMIN.Text = "Usuarios";
             btnUsuariosADMIN.TextAlign = ContentAlignment.BottomCenter;
@@ -106,19 +110,21 @@ namespace DesktopAppSupermercado.DASHBOARDS
             // 
             PanelContenedor.BackColor = Color.FromArgb(255, 224, 192);
             PanelContenedor.Dock = DockStyle.Fill;
-            PanelContenedor.Location = new Point(139, 0);
+            PanelContenedor.Location = new Point(86, 0);
+            PanelContenedor.Margin = new Padding(2, 2, 2, 2);
             PanelContenedor.Name = "PanelContenedor";
-            PanelContenedor.Size = new Size(1894, 808);
+            PanelContenedor.Size = new Size(1098, 505);
             PanelContenedor.TabIndex = 1;
             PanelContenedor.Paint += PanelContenedor_Paint;
             // 
             // MenuGeneralAdmin
             // 
-            AutoScaleDimensions = new SizeF(13F, 32F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(2033, 808);
+            ClientSize = new Size(1184, 505);
             Controls.Add(PanelContenedor);
             Controls.Add(PanelMenu);
+            Margin = new Padding(2, 2, 2, 2);
             Name = "MenuGeneralAdmin";
             Text = "Menu General Admin";
             WindowState = FormWindowState.Maximized;

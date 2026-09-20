@@ -11,7 +11,7 @@ namespace DesktopAppSupermercado.DASHBOARDS
     public partial class MenuGeneralAdmin : Form
     {
         // 1. Variable para recordar qué formulario está abierto
-        private Form formularioActivo = null;
+        private Form? formularioActivo = null;
 
         public MenuGeneralAdmin()
         {
@@ -55,7 +55,7 @@ namespace DesktopAppSupermercado.DASHBOARDS
 
         private void btnSalir_Click(object sender, EventArgs e)
         {
-            Application.Exit(); // Cierra toda la aplicación
+            this.Close();
         }
 
         private void PanelContenedor_Paint(object sender, PaintEventArgs e)

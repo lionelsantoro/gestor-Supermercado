@@ -94,7 +94,7 @@ namespace DesktopAppSupermercado.DASHBOARDS
         {
             // Verificamos si salimos de la pestaña de "Control de Usuarios"
             // Cambia "tabPageUsuarios" por el nombre real de tu pestaña en (Name)
-            if (tabControlSupervisor.SelectedTab.Name != "tabPageUsuarios")
+            if (tabControlSupervisor.SelectedTab?.Name != "tabPageUsuarios")
             {
                 // Limpiamos los filtros para que al volver esté todo reseteado
                 txtBuscar.Clear();
@@ -116,10 +116,12 @@ namespace DesktopAppSupermercado.DASHBOARDS
             dtVentas.Columns.Add("Total", typeof(decimal));
             dtVentas.Columns.Add("Medio de Pago", typeof(string));
             dtVentas.Columns.Add("Banco", typeof(string));
+            dtVentas.Columns.Add("Numero de Caja", typeof(string));
+            dtVentas.Columns.Add("Cajero", typeof(string));
 
-            dtVentas.Rows.Add(1001, 15400.50m, "Tarjeta de Crédito", "Galicia");
-            dtVentas.Rows.Add(1002, 8200.00m, "Efectivo", "-");
-            dtVentas.Rows.Add(1003, 43100.75m, "Tarjeta de Débito", "Santander");
+            dtVentas.Rows.Add(1001, 15400.50m, "Tarjeta de Crédito", "Galicia", "1", "Juan");
+            dtVentas.Rows.Add(1002, 8200.00m, "Efectivo", "-", "2", "María");
+            dtVentas.Rows.Add(1003, 43100.75m, "Tarjeta de Débito", "Santander", "3", "Pedro");
 
             dgvVentas.DataSource = dtVentas;
 
@@ -130,7 +132,7 @@ namespace DesktopAppSupermercado.DASHBOARDS
             dtProductos.Columns.Add("Numero de Producto", typeof(int));
             dtProductos.Columns.Add("Descripcion", typeof(string));
             dtProductos.Columns.Add("Precio Unitario", typeof(decimal));
-            dtProductos.Columns.Add("Stock", typeof(int));
+            dtProductos.Columns.Add("Cantidad", typeof(int));
             dtProductos.Columns.Add("Kilogramo", typeof(float));
             dtProductos.Columns.Add("Unidad de Medida", typeof(string));
 
