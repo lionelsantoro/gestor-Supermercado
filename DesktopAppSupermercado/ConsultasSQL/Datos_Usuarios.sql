@@ -1,3 +1,8 @@
+admin - admin123
+cajero - caja123
+inventario - inv123
+supervisor - super123
+
 -- 1. Primero creamos los 4 roles
 INSERT INTO roles (nombre) VALUES 
 ('Administrador'),

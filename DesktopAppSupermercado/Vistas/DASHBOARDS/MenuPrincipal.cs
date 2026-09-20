@@ -126,35 +126,46 @@ namespace DesktopAppSupermercado
         // ============================================================
         private void AbrirVistaSegunRol(int idRol, string usuario)
         {
+            Form vistaAAbrir = null;
+
+            // 1. Instanciamos la ventana correcta según tus nombres de clases
             switch (idRol)
             {
                 case 1:
-                    MenuGeneralAdmin vistaAdmin = new MenuGeneralAdmin();
-                    vistaAdmin.Show();
+                    vistaAAbrir = new MenuGeneralAdmin();
                     break;
                 case 2:
-                    VistaCajero vistaCaj = new VistaCajero();
-                    vistaCaj.Show();
+                    vistaAAbrir = new VistaCajero();
                     break;
                 case 3:
-                    MenuGeneralInventario vistaInv = new MenuGeneralInventario();
-                    vistaInv.Show();
+                    vistaAAbrir = new MenuGeneralInventario();
                     break;
                 case 4:
-                    VistaSupervisor vistaSup = new VistaSupervisor();
-                    vistaSup.Show();
+                    vistaAAbrir = new VistaSupervisor();
                     break;
                 default:
                     MessageBox.Show($"Rol no reconocido (id = {idRol}).");
-                    break;
+                    return; // Si el rol no existe, cortamos la ejecución aquí
+            }
+
+            // 2. Si se asignó una ventana válida, ocultamos el login y abrimos la nueva
+            if (vistaAAbrir != null)
+            {
+                this.Hide(); // Oculta MenuPrincipal
+
+                // Cuando la vista nueva se cierre, se ejecuta esto automáticamente
+                vistaAAbrir.FormClosed += (sender, e) =>
+                {
+                    txtUsuario.Clear();
+                    txtContrasena.Clear();
+                    this.Show(); // Vuelve a mostrar MenuPrincipal
+                    txtUsuario.Focus();
+                };
+
+                vistaAAbrir.Show();
             }
         }
 
-        // ============================================================
-        // HELPER: HASH DE CONTRASEÑA (SHA-256)
-        // ============================================================
-        // Mismo método que en VistaUsuariosAdmin.cs — así ambos generan
-        // exactamente el mismo hash para la misma contraseña
         private string HashearSHA256(string texto)
         {
             using (SHA256 sha256 = SHA256.Create())

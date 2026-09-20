@@ -46,5 +46,10 @@ namespace DesktopAppSupermercado.DASHBOARDS
         {
             AbrirFormularioHijo(new VistaGestionInventario());
         }
+
+        private void btnSalirINVENTARIO_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
