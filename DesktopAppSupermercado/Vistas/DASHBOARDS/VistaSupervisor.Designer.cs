@@ -29,9 +29,10 @@
         private void InitializeComponent()
         {
             PanelContenedor = new Panel();
+            cmbFiltroRol = new ComboBox();
             txtBuscar = new TextBox();
             label1 = new Label();
-            tabControl1 = new TabControl();
+            tabControlSupervisor = new TabControl();
             tabPage1 = new TabPage();
             dgvVentas = new DataGridView();
             IdVenta = new DataGridViewTextBoxColumn();
@@ -49,7 +50,7 @@
             Kilogramoo = new DataGridViewTextBoxColumn();
             Unidad = new DataGridViewTextBoxColumn();
             tabPage4 = new TabPage();
-            dataGridView1 = new DataGridView();
+            dgvUsuarios = new DataGridView();
             IdEmpleado = new DataGridViewTextBoxColumn();
             NombreUsuario = new DataGridViewTextBoxColumn();
             ApellidoUsuario = new DataGridViewTextBoxColumn();
@@ -60,28 +61,38 @@
             button2 = new Button();
             button1 = new Button();
             PanelContenedor.SuspendLayout();
-            tabControl1.SuspendLayout();
+            tabControlSupervisor.SuspendLayout();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvVentas).BeginInit();
             tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvProductosVendidos).BeginInit();
             tabPage4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvUsuarios).BeginInit();
             PanelMenu.SuspendLayout();
             SuspendLayout();
             // 
             // PanelContenedor
             // 
             PanelContenedor.BackColor = Color.FromArgb(255, 224, 192);
+            PanelContenedor.Controls.Add(cmbFiltroRol);
             PanelContenedor.Controls.Add(txtBuscar);
             PanelContenedor.Controls.Add(label1);
-            PanelContenedor.Controls.Add(tabControl1);
+            PanelContenedor.Controls.Add(tabControlSupervisor);
             PanelContenedor.Dock = DockStyle.Fill;
             PanelContenedor.Location = new Point(115, 0);
             PanelContenedor.Margin = new Padding(2);
             PanelContenedor.Name = "PanelContenedor";
             PanelContenedor.Size = new Size(1114, 781);
             PanelContenedor.TabIndex = 5;
+            // 
+            // cmbFiltroRol
+            // 
+            cmbFiltroRol.FormattingEnabled = true;
+            cmbFiltroRol.Location = new Point(475, 14);
+            cmbFiltroRol.Name = "cmbFiltroRol";
+            cmbFiltroRol.Size = new Size(224, 28);
+            cmbFiltroRol.TabIndex = 3;
+            cmbFiltroRol.SelectedIndexChanged += cmbFiltroRol_SelectedIndexChanged_1;
             // 
             // txtBuscar
             // 
@@ -101,17 +112,17 @@
             label1.TabIndex = 1;
             label1.Text = "Buscar:";
             // 
-            // tabControl1
+            // tabControlSupervisor
             // 
-            tabControl1.Controls.Add(tabPage1);
-            tabControl1.Controls.Add(tabPage2);
-            tabControl1.Controls.Add(tabPage4);
-            tabControl1.Location = new Point(0, 50);
-            tabControl1.Name = "tabControl1";
-            tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(1111, 731);
-            tabControl1.TabIndex = 0;
-            tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
+            tabControlSupervisor.Controls.Add(tabPage1);
+            tabControlSupervisor.Controls.Add(tabPage2);
+            tabControlSupervisor.Controls.Add(tabPage4);
+            tabControlSupervisor.Location = new Point(0, 50);
+            tabControlSupervisor.Name = "tabControlSupervisor";
+            tabControlSupervisor.SelectedIndex = 0;
+            tabControlSupervisor.Size = new Size(1111, 731);
+            tabControlSupervisor.TabIndex = 0;
+            tabControlSupervisor.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
             // 
             // tabPage1
             // 
@@ -253,7 +264,7 @@
             // 
             // tabPage4
             // 
-            tabPage4.Controls.Add(dataGridView1);
+            tabPage4.Controls.Add(dgvUsuarios);
             tabPage4.Location = new Point(4, 29);
             tabPage4.Name = "tabPage4";
             tabPage4.Padding = new Padding(3);
@@ -262,18 +273,19 @@
             tabPage4.Text = "Control de Usuarios";
             tabPage4.UseVisualStyleBackColor = true;
             // 
-            // dataGridView1
+            // dgvUsuarios
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { IdEmpleado, NombreUsuario, ApellidoUsuario, RolUsuario });
-            dataGridView1.Location = new Point(1, 3);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(1096, 692);
-            dataGridView1.TabIndex = 0;
+            dgvUsuarios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvUsuarios.Columns.AddRange(new DataGridViewColumn[] { IdEmpleado, NombreUsuario, ApellidoUsuario, RolUsuario });
+            dgvUsuarios.Location = new Point(1, 3);
+            dgvUsuarios.Name = "dgvUsuarios";
+            dgvUsuarios.RowHeadersWidth = 51;
+            dgvUsuarios.Size = new Size(1096, 692);
+            dgvUsuarios.TabIndex = 0;
             // 
             // IdEmpleado
             // 
+            IdEmpleado.DataPropertyName = "Id Empleado";
             IdEmpleado.HeaderText = "Id Empleado";
             IdEmpleado.MinimumWidth = 6;
             IdEmpleado.Name = "IdEmpleado";
@@ -281,6 +293,7 @@
             // 
             // NombreUsuario
             // 
+            NombreUsuario.DataPropertyName = "Nombre";
             NombreUsuario.HeaderText = "Nombre";
             NombreUsuario.MinimumWidth = 6;
             NombreUsuario.Name = "NombreUsuario";
@@ -288,6 +301,7 @@
             // 
             // ApellidoUsuario
             // 
+            ApellidoUsuario.DataPropertyName = "Apellido";
             ApellidoUsuario.HeaderText = "Apellido";
             ApellidoUsuario.MinimumWidth = 6;
             ApellidoUsuario.Name = "ApellidoUsuario";
@@ -295,6 +309,7 @@
             // 
             // RolUsuario
             // 
+            RolUsuario.DataPropertyName = "Rol";
             RolUsuario.HeaderText = "Rol";
             RolUsuario.MinimumWidth = 6;
             RolUsuario.Name = "RolUsuario";
@@ -374,13 +389,13 @@
             Load += VistaSupervisor_Load;
             PanelContenedor.ResumeLayout(false);
             PanelContenedor.PerformLayout();
-            tabControl1.ResumeLayout(false);
+            tabControlSupervisor.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvVentas).EndInit();
             tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvProductosVendidos).EndInit();
             tabPage4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvUsuarios).EndInit();
             PanelMenu.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -390,7 +405,7 @@
         private Panel PanelContenedor;
         private Panel PanelMenu;
         private Button button1;
-        private TabControl tabControl1;
+        private TabControl tabControlSupervisor;
         private TabPage tabPage1;
         private TabPage tabPage2;
         private Button button3;
@@ -405,11 +420,7 @@
         private DataGridViewTextBoxColumn MedioPago;
         private DataGridViewTextBoxColumn VentaBanco;
         private TabPage tabPage4;
-        private DataGridView dataGridView1;
-        private DataGridViewTextBoxColumn IdEmpleado;
-        private DataGridViewTextBoxColumn NombreUsuario;
-        private DataGridViewTextBoxColumn ApellidoUsuario;
-        private DataGridViewTextBoxColumn RolUsuario;
+        private DataGridView dgvUsuarios;
         private DataGridViewTextBoxColumn CajaVenta;
         private DataGridViewTextBoxColumn CajeroVenta;
         private DataGridViewTextBoxColumn IdProducto;
@@ -418,5 +429,10 @@
         private DataGridViewTextBoxColumn Cantidadd;
         private DataGridViewTextBoxColumn Kilogramoo;
         private DataGridViewTextBoxColumn Unidad;
+        private ComboBox cmbFiltroRol;
+        private DataGridViewTextBoxColumn IdEmpleado;
+        private DataGridViewTextBoxColumn NombreUsuario;
+        private DataGridViewTextBoxColumn ApellidoUsuario;
+        private DataGridViewTextBoxColumn RolUsuario;
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DesktopAppSupermercado.ReglasNegocio;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -62,26 +63,12 @@ namespace DesktopAppSupermercado.DASHBOARDS
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            txtBuscar.Clear(); // Borra el texto de búsqueda anterior
+
         }
 
         private void txtBuscar_TextChanged(object sender, EventArgs e)
         {
-            string filtro = txtBuscar.Text.Trim();
-
-            if (tabControl1.SelectedTab == null) return;
-
-            // Pestaña 0: Ventas
-            if (tabControl1.SelectedIndex == 0 && dgvVentas.DataSource is DataTable dtVentas)
-            {
-                dtVentas.DefaultView.RowFilter = $"Convert(id_venta, 'System.String') LIKE '%{filtro}%'";
-            }
-            // Pestaña 1: Productos Vendidos
-            else if (tabControl1.SelectedIndex == 1 && dgvProductosVendidos.DataSource is DataTable dtProductos)
-            {
-                dtProductos.DefaultView.RowFilter = $"nombre LIKE '%{filtro}%'";
-            }
-            
+            ActualizarGrilla();
         }
 
         private void btnSalir_Click_1(object sender, EventArgs e)
@@ -89,14 +76,40 @@ namespace DesktopAppSupermercado.DASHBOARDS
             this.Close();
         }
 
+        private UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
+
+        // Método centralizado para actualizar la grilla
+        private void ActualizarGrilla()
+        {
+
+            string texto = txtBuscar.Text.Trim();
+            string rolSeleccionado = cmbFiltroRol.SelectedItem?.ToString() ?? "Todos";
+
+            // Asignamos el DataTable directamente al DataGridView
+            dgvUsuarios.DataSource = usuarioNegocio.ListarUsuarios(texto, rolSeleccionado);
+        }
+
+        // Evento: Se dispara cuando cambias de pestaña en el TabControl
+        private void tabControlSupervisor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Verificamos si salimos de la pestaña de "Control de Usuarios"
+            // Cambia "tabPageUsuarios" por el nombre real de tu pestaña en (Name)
+            if (tabControlSupervisor.SelectedTab.Name != "tabPageUsuarios")
+            {
+                // Limpiamos los filtros para que al volver esté todo reseteado
+                txtBuscar.Clear();
+                cmbFiltroRol.SelectedIndex = 0;
+            }
+        }
+
         private void VistaSupervisor_Load(object sender, EventArgs e)
         {
-            // Evitar que se dupliquen las columnas visuales
+            dgvUsuarios.AutoGenerateColumns = false;
             dgvVentas.AutoGenerateColumns = false;
             dgvProductosVendidos.AutoGenerateColumns = false;
 
             // --------------------------------------------------------
-            // PESTAÑA 1: Ventas Realizadas
+            // PESTAÑA 1: Ventas Realizadas (Datos de prueba)
             // --------------------------------------------------------
             DataTable dtVentas = new DataTable();
             dtVentas.Columns.Add("Numero de venta", typeof(int));
@@ -111,7 +124,7 @@ namespace DesktopAppSupermercado.DASHBOARDS
             dgvVentas.DataSource = dtVentas;
 
             // --------------------------------------------------------
-            // PESTAÑA 2: Productos Vendidos
+            // PESTAÑA 2: Productos Vendidos (Datos de prueba)
             // --------------------------------------------------------
             DataTable dtProductos = new DataTable();
             dtProductos.Columns.Add("Numero de Producto", typeof(int));
@@ -128,19 +141,29 @@ namespace DesktopAppSupermercado.DASHBOARDS
             dgvProductosVendidos.DataSource = dtProductos;
 
             // --------------------------------------------------------
-            // PESTAÑA 3: Control de Inventario
+            // PESTAÑA 3: Control de Usuarios (CARGA DINÁMICA DE ROLES)
             // --------------------------------------------------------
-            DataTable dtInventario = new DataTable();
-            dtInventario.Columns.Add("Id Historial", typeof(int));
-            dtInventario.Columns.Add("Nombre del Empleado", typeof(string));
-            dtInventario.Columns.Add("Producto Modificado", typeof(string));
-            dtInventario.Columns.Add("Accion", typeof(string));
-            dtInventario.Columns.Add("Fecha", typeof(DateTime));
+            RolNegocio rolNegocio = new RolNegocio();
 
-            dtInventario.Rows.Add(1, "Lucas Kruzolek", "Harina 000", "Cambio de Precio", DateTime.Now.AddDays(-1));
-            dtInventario.Rows.Add(2, "Pablo Fernandez", "Levadura Fresca", "Ajuste de Stock", DateTime.Now.AddHours(-5));
-            dtInventario.Rows.Add(3, "Lucas Kruzolek", "Harina 0000", "Eliminación Lote", DateTime.Now.AddMinutes(-30));
+            cmbFiltroRol.Items.Clear();
+            cmbFiltroRol.Items.Add("Todos");
 
+            // Traemos los roles reales desde SQL y los sumamos al ComboBox
+            List<string> rolesDB = rolNegocio.ListarNombresRoles();
+            foreach (string rol in rolesDB)
+            {
+                cmbFiltroRol.Items.Add(rol);
+            }
+
+            cmbFiltroRol.SelectedIndex = 0;
+
+            // Cargamos la grilla de usuarios
+            ActualizarGrilla();
+        }
+
+        private void cmbFiltroRol_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            ActualizarGrilla();
         }
     }
 }
