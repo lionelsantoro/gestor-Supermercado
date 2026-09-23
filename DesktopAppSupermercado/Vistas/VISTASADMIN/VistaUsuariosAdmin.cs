@@ -76,13 +76,11 @@ namespace DesktopAppSupermercado.VISTASADMIN
         {
             DataTable dtRoles = negocio.ObtenerListaRoles();
 
-            // Combo Perfil Alta
             cmbPerfil.DisplayMember = "nombre";
             cmbPerfil.ValueMember = "id_rol";
             cmbPerfil.DataSource = dtRoles;
             cmbPerfil.SelectedIndex = -1;
 
-            // Combo Filtro (Duplicamos la tabla para no cruzar datos y agregamos "Todos")
             DataTable dtFiltro = dtRoles.Copy();
             DataRow filaTodos = dtFiltro.NewRow();
             filaTodos["id_rol"] = 0;
@@ -116,7 +114,7 @@ namespace DesktopAppSupermercado.VISTASADMIN
                     // Si son incongruentes, alertamos y desmarcamos una para no trabar el buscador
                     MessageBox.Show("La fecha 'Desde' no puede ser mayor a la fecha 'Hasta' (o viceversa).", "Fechas inválidas", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     dtpFechaHasta.Checked = false;
-                    return; // Cortamos la ejecución hasta que el usuario corrija
+                    return;
                 }
             }
 
@@ -140,7 +138,7 @@ namespace DesktopAppSupermercado.VISTASADMIN
             }
         }
 
-        // 3. Filtros de fecha en tiempo real (reaccionan al chequear o cambiar el calendario)
+        // 3. Filtros de fecha en tiempo real
         private void dtpFechaDesde_ValueChanged(object sender, EventArgs e)
         {
             ActualizarGrillas();

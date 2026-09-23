@@ -17,7 +17,6 @@ namespace DesktopAppSupermercado.Datos
             {
                 conexion.Open();
 
-                // Unimos usuarios, persona y roles para obtener los textos reales
                 string query = @"
                     SELECT 
                         u.id_usuario AS [Id Empleado], 
@@ -29,13 +28,13 @@ namespace DesktopAppSupermercado.Datos
                     INNER JOIN roles r ON u.id_rol = r.id_rol
                     WHERE u.eliminado = 0 ";
 
-                // Filtro por texto (busca en nombre o apellido)
+                // Filtro por texto
                 if (!string.IsNullOrWhiteSpace(textoBuscado))
                 {
                     query += " AND (p.nombre LIKE @buscar OR p.apellido LIKE @buscar) ";
                 }
 
-                // Filtro por rol exacto (ignoramos si dice 'Todos')
+                // Filtro por rol exacto
                 if (!string.IsNullOrWhiteSpace(nombreRol) && nombreRol != "Todos")
                 {
                     query += " AND r.nombre = @rol ";

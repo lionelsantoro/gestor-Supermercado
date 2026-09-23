@@ -109,7 +109,7 @@ namespace DesktopAppSupermercado.DASHBOARDS
             dgvProductosVendidos.AutoGenerateColumns = false;
 
             // --------------------------------------------------------
-            // PESTAÑA 1: Ventas Realizadas (Datos de prueba)
+            // PESTAÑA 1: Ventas Realizadas
             // --------------------------------------------------------
             DataTable dtVentas = new DataTable();
             dtVentas.Columns.Add("Numero de venta", typeof(int));
@@ -126,7 +126,7 @@ namespace DesktopAppSupermercado.DASHBOARDS
             dgvVentas.DataSource = dtVentas;
 
             // --------------------------------------------------------
-            // PESTAÑA 2: Productos Vendidos (Datos de prueba)
+            // PESTAÑA 2: Productos Vendidos
             // --------------------------------------------------------
             DataTable dtProductos = new DataTable();
             dtProductos.Columns.Add("Numero de Producto", typeof(int));
@@ -143,7 +143,7 @@ namespace DesktopAppSupermercado.DASHBOARDS
             dgvProductosVendidos.DataSource = dtProductos;
 
             // --------------------------------------------------------
-            // PESTAÑA 3: Control de Usuarios (CARGA DINÁMICA DE ROLES)
+            // PESTAÑA 3: Control de Usuarioss
             // --------------------------------------------------------
             RolNegocio rolNegocio = new RolNegocio();
 

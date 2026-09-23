@@ -42,7 +42,6 @@ namespace DesktopAppSupermercado.ReglasNegocio
             datos.BajaLogicaUsuario(idUsuario);
         }
 
-        // Hashing trasladado aquí por ser lógica de seguridad
         private string HashearSHA256(string texto)
         {
             using (SHA256 sha256 = SHA256.Create())

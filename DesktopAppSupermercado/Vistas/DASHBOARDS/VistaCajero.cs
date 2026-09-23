@@ -65,7 +65,7 @@ namespace DesktopAppSupermercado
             // 2. Llenamos la colección especial de Windows Forms
             coleccionProductos.AddRange(listaDescripciones.ToArray());
 
-            // 3. Configuramos el TextBox del Nombre (asegúrate de que se llame txtNombre)
+            // 3. Configuramos el TextBox del Nombre
             txtNombre.AutoCompleteMode = AutoCompleteMode.Suggest;
             txtNombre.AutoCompleteSource = AutoCompleteSource.CustomSource;
             txtNombre.AutoCompleteCustomSource = coleccionProductos;
@@ -154,8 +154,6 @@ namespace DesktopAppSupermercado
         {
             FormPagar formPago = new FormPagar();
 
-            // ShowDialog detiene el código hasta que FormPagar se cierre.
-            // Si se cerró con éxito (DialogResult.OK), procedemos a bloquear todo.
             if (formPago.ShowDialog() == DialogResult.OK)
             {
                 BloquearPantallaParaTicket();
