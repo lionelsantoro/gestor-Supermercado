@@ -85,5 +85,13 @@ namespace DesktopAppSupermercado.VISTASINVENTARIO
             dgvProductos.Rows.Add("77998765", "Queso Cremoso", "4500.00", "15", "Kg", "1.0");
             dgvProductos.Rows.Add("77900011", "Lavandina Ayudín", "900.00", "35", "Unidad", "1.0");
         }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            dataGridView1.Rows.Add("Bebidas");
+            dataGridView1.Rows.Add("Almacén");
+            dataGridView1.Rows.Add("Lácteos");
+            dataGridView1.Rows.Add("Limpieza");
+        }
     }
 }

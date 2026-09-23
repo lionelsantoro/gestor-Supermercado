@@ -149,6 +149,7 @@
             dataGridView1.RowHeadersWidth = 82;
             dataGridView1.Size = new Size(402, 912);
             dataGridView1.TabIndex = 3;
+            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
             // ColCategorias
             // 
