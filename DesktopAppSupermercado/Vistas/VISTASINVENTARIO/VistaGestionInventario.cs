@@ -93,5 +93,15 @@ namespace DesktopAppSupermercado.VISTASINVENTARIO
             dataGridView1.Rows.Add("Lácteos");
             dataGridView1.Rows.Add("Limpieza");
         }
+
+        private void labelCategoria_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cmbEstado_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -89,6 +89,7 @@
             // 
             splitContainer1.Dock = DockStyle.Fill;
             splitContainer1.Location = new Point(0, 0);
+            splitContainer1.Margin = new Padding(2, 2, 2, 2);
             splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -108,8 +109,9 @@
             splitContainer1.Panel2.Controls.Add(panelSuperior);
             splitContainer1.Panel2.Controls.Add(btnCancelarProducto);
             splitContainer1.Panel2.Controls.Add(btnGuardarProducto);
-            splitContainer1.Size = new Size(1701, 1026);
-            splitContainer1.SplitterDistance = 402;
+            splitContainer1.Size = new Size(1437, 641);
+            splitContainer1.SplitterDistance = 339;
+            splitContainer1.SplitterWidth = 2;
             splitContainer1.TabIndex = 0;
             // 
             // btnEliminarCategoria
@@ -117,9 +119,10 @@
             btnEliminarCategoria.BackColor = Color.Red;
             btnEliminarCategoria.Dock = DockStyle.Bottom;
             btnEliminarCategoria.Font = new Font("Arial Black", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnEliminarCategoria.Location = new Point(0, 684);
+            btnEliminarCategoria.Location = new Point(0, 428);
+            btnEliminarCategoria.Margin = new Padding(2, 2, 2, 2);
             btnEliminarCategoria.Name = "btnEliminarCategoria";
-            btnEliminarCategoria.Size = new Size(402, 114);
+            btnEliminarCategoria.Size = new Size(339, 71);
             btnEliminarCategoria.TabIndex = 5;
             btnEliminarCategoria.Text = "Eliminar Categoria";
             btnEliminarCategoria.UseVisualStyleBackColor = false;
@@ -129,9 +132,10 @@
             btnModificarCategoria.BackColor = Color.Yellow;
             btnModificarCategoria.Dock = DockStyle.Bottom;
             btnModificarCategoria.Font = new Font("Arial Black", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnModificarCategoria.Location = new Point(0, 798);
+            btnModificarCategoria.Location = new Point(0, 499);
+            btnModificarCategoria.Margin = new Padding(2, 2, 2, 2);
             btnModificarCategoria.Name = "btnModificarCategoria";
-            btnModificarCategoria.Size = new Size(402, 114);
+            btnModificarCategoria.Size = new Size(339, 71);
             btnModificarCategoria.TabIndex = 4;
             btnModificarCategoria.Text = "Modificar Categoria";
             btnModificarCategoria.UseVisualStyleBackColor = false;
@@ -145,9 +149,10 @@
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { ColCategorias });
             dataGridView1.Dock = DockStyle.Fill;
             dataGridView1.Location = new Point(0, 0);
+            dataGridView1.Margin = new Padding(2, 2, 2, 2);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 82;
-            dataGridView1.Size = new Size(402, 912);
+            dataGridView1.Size = new Size(339, 570);
             dataGridView1.TabIndex = 3;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
@@ -166,10 +171,11 @@
             dgvCategorias.Columns.AddRange(new DataGridViewColumn[] { colCatNombre });
             dgvCategorias.Dock = DockStyle.Fill;
             dgvCategorias.Location = new Point(0, 0);
+            dgvCategorias.Margin = new Padding(2, 2, 2, 2);
             dgvCategorias.Name = "dgvCategorias";
             dgvCategorias.RowHeadersVisible = false;
             dgvCategorias.RowHeadersWidth = 82;
-            dgvCategorias.Size = new Size(402, 912);
+            dgvCategorias.Size = new Size(339, 570);
             dgvCategorias.TabIndex = 0;
             dgvCategorias.CellContentClick += dgvCategorias_CellContentClick;
             // 
@@ -184,9 +190,10 @@
             btnNuevaCategoria.BackColor = Color.DeepSkyBlue;
             btnNuevaCategoria.Dock = DockStyle.Bottom;
             btnNuevaCategoria.Font = new Font("Arial Black", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnNuevaCategoria.Location = new Point(0, 912);
+            btnNuevaCategoria.Location = new Point(0, 570);
+            btnNuevaCategoria.Margin = new Padding(2, 2, 2, 2);
             btnNuevaCategoria.Name = "btnNuevaCategoria";
-            btnNuevaCategoria.Size = new Size(402, 114);
+            btnNuevaCategoria.Size = new Size(339, 71);
             btnNuevaCategoria.TabIndex = 0;
             btnNuevaCategoria.Text = "+ Nueva categoría";
             btnNuevaCategoria.UseVisualStyleBackColor = false;
@@ -199,10 +206,11 @@
             dgvProductos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvProductos.Columns.AddRange(new DataGridViewColumn[] { ColCodigo, ColNombre, ColPrecio, ColStock, ColUnidad, ColKg });
             dgvProductos.Dock = DockStyle.Fill;
-            dgvProductos.Location = new Point(0, 60);
+            dgvProductos.Location = new Point(0, 38);
+            dgvProductos.Margin = new Padding(2, 2, 2, 2);
             dgvProductos.Name = "dgvProductos";
             dgvProductos.RowHeadersWidth = 82;
-            dgvProductos.Size = new Size(1295, 716);
+            dgvProductos.Size = new Size(1096, 447);
             dgvProductos.TabIndex = 2;
             dgvProductos.CellContentClick += dgvProductos_CellContentClick;
             // 
@@ -246,9 +254,10 @@
             // 
             panelInferior.Controls.Add(gbEdicionProducto);
             panelInferior.Dock = DockStyle.Bottom;
-            panelInferior.Location = new Point(0, 776);
+            panelInferior.Location = new Point(0, 485);
+            panelInferior.Margin = new Padding(2, 2, 2, 2);
             panelInferior.Name = "panelInferior";
-            panelInferior.Size = new Size(1295, 250);
+            panelInferior.Size = new Size(1096, 156);
             panelInferior.TabIndex = 1;
             // 
             // gbEdicionProducto
@@ -276,8 +285,10 @@
             gbEdicionProducto.Controls.Add(labelCodigoBarra);
             gbEdicionProducto.Dock = DockStyle.Fill;
             gbEdicionProducto.Location = new Point(0, 0);
+            gbEdicionProducto.Margin = new Padding(2, 2, 2, 2);
             gbEdicionProducto.Name = "gbEdicionProducto";
-            gbEdicionProducto.Size = new Size(1295, 250);
+            gbEdicionProducto.Padding = new Padding(2, 2, 2, 2);
+            gbEdicionProducto.Size = new Size(1096, 156);
             gbEdicionProducto.TabIndex = 2;
             gbEdicionProducto.TabStop = false;
             gbEdicionProducto.Text = "Crear o Editar Productos";
@@ -287,9 +298,10 @@
             // 
             btnEliminarProductoInventario.BackColor = Color.FromArgb(192, 0, 192);
             btnEliminarProductoInventario.Font = new Font("Arial Black", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnEliminarProductoInventario.Location = new Point(1120, 81);
+            btnEliminarProductoInventario.Location = new Point(988, 41);
+            btnEliminarProductoInventario.Margin = new Padding(2, 2, 2, 2);
             btnEliminarProductoInventario.Name = "btnEliminarProductoInventario";
-            btnEliminarProductoInventario.Size = new Size(169, 160);
+            btnEliminarProductoInventario.Size = new Size(104, 100);
             btnEliminarProductoInventario.TabIndex = 29;
             btnEliminarProductoInventario.Text = "Eliminar Producto";
             btnEliminarProductoInventario.UseVisualStyleBackColor = false;
@@ -302,9 +314,10 @@
             btnCancelarProductosInventario.ForeColor = SystemColors.ActiveCaptionText;
             btnCancelarProductosInventario.Image = Properties.Resources.cancel_circle_close_delete_discard_file_x_icon_123219__1_;
             btnCancelarProductosInventario.ImageAlign = ContentAlignment.TopCenter;
-            btnCancelarProductosInventario.Location = new Point(952, 80);
+            btnCancelarProductosInventario.Location = new Point(879, 43);
+            btnCancelarProductosInventario.Margin = new Padding(2, 2, 2, 2);
             btnCancelarProductosInventario.Name = "btnCancelarProductosInventario";
-            btnCancelarProductosInventario.Size = new Size(156, 156);
+            btnCancelarProductosInventario.Size = new Size(96, 96);
             btnCancelarProductosInventario.TabIndex = 28;
             btnCancelarProductosInventario.Text = "Cancelar";
             btnCancelarProductosInventario.TextAlign = ContentAlignment.BottomCenter;
@@ -313,10 +326,12 @@
             // cmbEstado
             // 
             cmbEstado.FormattingEnabled = true;
-            cmbEstado.Location = new Point(411, 201);
+            cmbEstado.Location = new Point(329, 111);
+            cmbEstado.Margin = new Padding(2, 2, 2, 2);
             cmbEstado.Name = "cmbEstado";
-            cmbEstado.Size = new Size(175, 40);
+            cmbEstado.Size = new Size(178, 28);
             cmbEstado.TabIndex = 19;
+            cmbEstado.SelectedIndexChanged += cmbEstado_SelectedIndexChanged;
             // 
             // btnGuardarProductosInventario
             // 
@@ -326,9 +341,10 @@
             btnGuardarProductosInventario.ForeColor = Color.Black;
             btnGuardarProductosInventario.Image = Properties.Resources.Save_37110;
             btnGuardarProductosInventario.ImageAlign = ContentAlignment.TopCenter;
-            btnGuardarProductosInventario.Location = new Point(786, 81);
+            btnGuardarProductosInventario.Location = new Point(765, 41);
+            btnGuardarProductosInventario.Margin = new Padding(2, 2, 2, 2);
             btnGuardarProductosInventario.Name = "btnGuardarProductosInventario";
-            btnGuardarProductosInventario.Size = new Size(160, 155);
+            btnGuardarProductosInventario.Size = new Size(98, 98);
             btnGuardarProductosInventario.TabIndex = 27;
             btnGuardarProductosInventario.Text = "Guardar";
             btnGuardarProductosInventario.TextAlign = ContentAlignment.BottomCenter;
@@ -337,68 +353,77 @@
             // cmbUnidad
             // 
             cmbUnidad.FormattingEnabled = true;
-            cmbUnidad.Location = new Point(607, 167);
+            cmbUnidad.Location = new Point(625, 111);
+            cmbUnidad.Margin = new Padding(2, 2, 2, 2);
             cmbUnidad.Name = "cmbUnidad";
-            cmbUnidad.Size = new Size(148, 40);
+            cmbUnidad.Size = new Size(119, 28);
             cmbUnidad.TabIndex = 18;
             cmbUnidad.SelectedIndexChanged += comboBox2_SelectedIndexChanged;
             // 
             // cmbCategoria
             // 
             cmbCategoria.FormattingEnabled = true;
-            cmbCategoria.Location = new Point(744, 35);
+            cmbCategoria.Location = new Point(82, 111);
+            cmbCategoria.Margin = new Padding(2, 2, 2, 2);
             cmbCategoria.Name = "cmbCategoria";
-            cmbCategoria.Size = new Size(142, 40);
+            cmbCategoria.Size = new Size(136, 28);
             cmbCategoria.TabIndex = 17;
             // 
             // txtStock
             // 
-            txtStock.Location = new Point(417, 131);
+            txtStock.Location = new Point(329, 78);
+            txtStock.Margin = new Padding(2, 2, 2, 2);
             txtStock.Name = "txtStock";
-            txtStock.Size = new Size(169, 39);
+            txtStock.Size = new Size(178, 27);
             txtStock.TabIndex = 16;
             // 
             // txtNombreProducto
             // 
-            txtNombreProducto.Location = new Point(435, 47);
+            txtNombreProducto.Location = new Point(72, 78);
+            txtNombreProducto.Margin = new Padding(2, 2, 2, 2);
             txtNombreProducto.Name = "txtNombreProducto";
-            txtNombreProducto.Size = new Size(166, 39);
+            txtNombreProducto.Size = new Size(146, 27);
             txtNombreProducto.TabIndex = 15;
             // 
             // txtDescripcion
             // 
-            txtDescripcion.Location = new Point(1039, 35);
+            txtDescripcion.Location = new Point(329, 41);
+            txtDescripcion.Margin = new Padding(2, 2, 2, 2);
             txtDescripcion.Name = "txtDescripcion";
-            txtDescripcion.Size = new Size(256, 39);
+            txtDescripcion.Size = new Size(178, 27);
             txtDescripcion.TabIndex = 14;
             // 
             // txtPeso
             // 
-            txtPeso.Location = new Point(121, 209);
+            txtPeso.Location = new Point(625, 75);
+            txtPeso.Margin = new Padding(2, 2, 2, 2);
             txtPeso.Name = "txtPeso";
-            txtPeso.Size = new Size(194, 39);
+            txtPeso.Size = new Size(119, 27);
             txtPeso.TabIndex = 13;
             // 
             // txtPrecio
             // 
-            txtPrecio.Location = new Point(100, 128);
+            txtPrecio.Location = new Point(625, 41);
+            txtPrecio.Margin = new Padding(2, 2, 2, 2);
             txtPrecio.Name = "txtPrecio";
-            txtPrecio.Size = new Size(221, 39);
+            txtPrecio.Size = new Size(119, 27);
             txtPrecio.TabIndex = 12;
             // 
             // txtCodigoBarras
             // 
-            txtCodigoBarras.Location = new Point(183, 43);
+            txtCodigoBarras.Location = new Point(132, 44);
+            txtCodigoBarras.Margin = new Padding(2, 2, 2, 2);
             txtCodigoBarras.Name = "txtCodigoBarras";
-            txtCodigoBarras.Size = new Size(138, 39);
+            txtCodigoBarras.Size = new Size(86, 27);
             txtCodigoBarras.TabIndex = 11;
             // 
             // labelDescripcion
             // 
             labelDescripcion.AutoSize = true;
-            labelDescripcion.Location = new Point(895, 35);
+            labelDescripcion.Location = new Point(238, 48);
+            labelDescripcion.Margin = new Padding(2, 0, 2, 0);
             labelDescripcion.Name = "labelDescripcion";
-            labelDescripcion.Size = new Size(138, 32);
+            labelDescripcion.Size = new Size(87, 20);
             labelDescripcion.TabIndex = 8;
             labelDescripcion.Text = "Descripcion";
             labelDescripcion.Click += labelDescripcion_Click;
@@ -406,27 +431,30 @@
             // labelEstado
             // 
             labelEstado.AutoSize = true;
-            labelEstado.Location = new Point(321, 204);
+            labelEstado.Location = new Point(271, 119);
+            labelEstado.Margin = new Padding(2, 0, 2, 0);
             labelEstado.Name = "labelEstado";
-            labelEstado.Size = new Size(84, 32);
+            labelEstado.Size = new Size(54, 20);
             labelEstado.TabIndex = 7;
             labelEstado.Text = "Estado";
             // 
             // labelPeso
             // 
             labelPeso.AutoSize = true;
-            labelPeso.Location = new Point(3, 209);
+            labelPeso.Location = new Point(550, 82);
+            labelPeso.Margin = new Padding(2, 0, 2, 0);
             labelPeso.Name = "labelPeso";
-            labelPeso.Size = new Size(112, 32);
+            labelPeso.Size = new Size(71, 20);
             labelPeso.TabIndex = 6;
             labelPeso.Text = "Peso (Kg)";
             // 
             // labelUInidadMedida
             // 
             labelUInidadMedida.AutoSize = true;
-            labelUInidadMedida.Location = new Point(592, 113);
+            labelUInidadMedida.Location = new Point(511, 119);
+            labelUInidadMedida.Margin = new Padding(2, 0, 2, 0);
             labelUInidadMedida.Name = "labelUInidadMedida";
-            labelUInidadMedida.Size = new Size(178, 32);
+            labelUInidadMedida.Size = new Size(112, 20);
             labelUInidadMedida.TabIndex = 5;
             labelUInidadMedida.Text = "Unidad Medida";
             labelUInidadMedida.Click += labelUInidadMedida_Click;
@@ -434,36 +462,41 @@
             // labelStock
             // 
             labelStock.AutoSize = true;
-            labelStock.Location = new Point(327, 136);
+            labelStock.Location = new Point(280, 85);
+            labelStock.Margin = new Padding(2, 0, 2, 0);
             labelStock.Name = "labelStock";
-            labelStock.Size = new Size(71, 32);
+            labelStock.Size = new Size(45, 20);
             labelStock.TabIndex = 4;
             labelStock.Text = "Stock";
             // 
             // labelPrecio
             // 
             labelPrecio.AutoSize = true;
-            labelPrecio.Location = new Point(3, 131);
+            labelPrecio.Location = new Point(571, 48);
+            labelPrecio.Margin = new Padding(2, 0, 2, 0);
             labelPrecio.Name = "labelPrecio";
-            labelPrecio.Size = new Size(79, 32);
+            labelPrecio.Size = new Size(50, 20);
             labelPrecio.TabIndex = 3;
             labelPrecio.Text = "Precio";
             // 
             // labelCategoria
             // 
             labelCategoria.AutoSize = true;
-            labelCategoria.Location = new Point(607, 38);
+            labelCategoria.Location = new Point(4, 115);
+            labelCategoria.Margin = new Padding(2, 0, 2, 0);
             labelCategoria.Name = "labelCategoria";
-            labelCategoria.Size = new Size(116, 32);
+            labelCategoria.Size = new Size(74, 20);
             labelCategoria.TabIndex = 2;
             labelCategoria.Text = "Categoria";
+            labelCategoria.Click += labelCategoria_Click;
             // 
             // labelNombre
             // 
             labelNombre.AutoSize = true;
-            labelNombre.Location = new Point(327, 47);
+            labelNombre.Location = new Point(4, 81);
+            labelNombre.Margin = new Padding(2, 0, 2, 0);
             labelNombre.Name = "labelNombre";
-            labelNombre.Size = new Size(102, 32);
+            labelNombre.Size = new Size(64, 20);
             labelNombre.TabIndex = 1;
             labelNombre.Text = "Nombre";
             labelNombre.Click += labelNombre_Click;
@@ -471,10 +504,11 @@
             // labelCodigoBarra
             // 
             labelCodigoBarra.AutoSize = true;
-            labelCodigoBarra.Font = new Font("Segoe UI", 7.875F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelCodigoBarra.Location = new Point(0, 45);
+            labelCodigoBarra.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labelCodigoBarra.Location = new Point(4, 48);
+            labelCodigoBarra.Margin = new Padding(2, 0, 2, 0);
             labelCodigoBarra.Name = "labelCodigoBarra";
-            labelCodigoBarra.Size = new Size(171, 30);
+            labelCodigoBarra.Size = new Size(124, 20);
             labelCodigoBarra.TabIndex = 0;
             labelCodigoBarra.Text = "Codigo de Barras";
             labelCodigoBarra.Click += label1_Click;
@@ -485,15 +519,17 @@
             panelSuperior.Controls.Add(txtBuscarProducto);
             panelSuperior.Dock = DockStyle.Top;
             panelSuperior.Location = new Point(0, 0);
+            panelSuperior.Margin = new Padding(2, 2, 2, 2);
             panelSuperior.Name = "panelSuperior";
-            panelSuperior.Size = new Size(1295, 60);
+            panelSuperior.Size = new Size(1096, 38);
             panelSuperior.TabIndex = 0;
             // 
             // button1
             // 
-            button1.Location = new Point(1096, 11);
+            button1.Location = new Point(674, 7);
+            button1.Margin = new Padding(2, 2, 2, 2);
             button1.Name = "button1";
-            button1.Size = new Size(199, 43);
+            button1.Size = new Size(122, 27);
             button1.TabIndex = 2;
             button1.Text = "Buscar";
             button1.UseVisualStyleBackColor = true;
@@ -501,25 +537,28 @@
             // 
             // txtBuscarProducto
             // 
-            txtBuscarProducto.Location = new Point(441, 12);
+            txtBuscarProducto.Location = new Point(271, 8);
+            txtBuscarProducto.Margin = new Padding(2, 2, 2, 2);
             txtBuscarProducto.Name = "txtBuscarProducto";
-            txtBuscarProducto.Size = new Size(649, 39);
+            txtBuscarProducto.Size = new Size(401, 27);
             txtBuscarProducto.TabIndex = 1;
             // 
             // btnCancelarProducto
             // 
-            btnCancelarProducto.Location = new Point(729, 610);
+            btnCancelarProducto.Location = new Point(449, 381);
+            btnCancelarProducto.Margin = new Padding(2, 2, 2, 2);
             btnCancelarProducto.Name = "btnCancelarProducto";
-            btnCancelarProducto.Size = new Size(158, 87);
+            btnCancelarProducto.Size = new Size(97, 54);
             btnCancelarProducto.TabIndex = 9;
             btnCancelarProducto.Text = "Cancelar";
             btnCancelarProducto.UseVisualStyleBackColor = true;
             // 
             // btnGuardarProducto
             // 
-            btnGuardarProducto.Location = new Point(831, 489);
+            btnGuardarProducto.Location = new Point(511, 306);
+            btnGuardarProducto.Margin = new Padding(2, 2, 2, 2);
             btnGuardarProducto.Name = "btnGuardarProducto";
-            btnGuardarProducto.Size = new Size(179, 85);
+            btnGuardarProducto.Size = new Size(110, 53);
             btnGuardarProducto.TabIndex = 10;
             btnGuardarProducto.Text = "Guardar";
             btnGuardarProducto.UseVisualStyleBackColor = true;
@@ -532,10 +571,11 @@
             // 
             // VistaGestionInventario
             // 
-            AutoScaleDimensions = new SizeF(13F, 32F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1701, 1026);
+            ClientSize = new Size(1437, 641);
             Controls.Add(splitContainer1);
+            Margin = new Padding(2, 2, 2, 2);
             Name = "VistaGestionInventario";
             Text = "VistaGestionInventario";
             Load += VistaGestionInventario_Load;
