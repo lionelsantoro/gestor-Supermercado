@@ -32,7 +32,7 @@
             splitContainer1 = new SplitContainer();
             btnEliminarCategoria = new Button();
             btnModificarCategoria = new Button();
-            dataGridView1 = new DataGridView();
+            dataCategoria = new DataGridView();
             ColCategorias = new DataGridViewTextBoxColumn();
             dgvCategorias = new DataGridView();
             colCatNombre = new DataGridViewTextBoxColumn();
@@ -44,6 +44,7 @@
             ColStock = new DataGridViewTextBoxColumn();
             ColUnidad = new DataGridViewTextBoxColumn();
             ColKg = new DataGridViewTextBoxColumn();
+            Categoriaa = new DataGridViewTextBoxColumn();
             panelInferior = new Panel();
             gbEdicionProducto = new GroupBox();
             btnEliminarProductoInventario = new Button();
@@ -68,7 +69,13 @@
             labelNombre = new Label();
             labelCodigoBarra = new Label();
             panelSuperior = new Panel();
-            button1 = new Button();
+            btnLimpiarfiltros = new Button();
+            label2 = new Label();
+            label1 = new Label();
+            txtStockMax = new TextBox();
+            txtStockMin = new TextBox();
+            cmbFiltroCategoria = new ComboBox();
+            btnBuscar = new Button();
             txtBuscarProducto = new TextBox();
             btnCancelarProducto = new Button();
             btnGuardarProducto = new Button();
@@ -77,7 +84,7 @@
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
             splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataCategoria).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvCategorias).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvProductos).BeginInit();
             panelInferior.SuspendLayout();
@@ -89,7 +96,7 @@
             // 
             splitContainer1.Dock = DockStyle.Fill;
             splitContainer1.Location = new Point(0, 0);
-            splitContainer1.Margin = new Padding(2, 2, 2, 2);
+            splitContainer1.Margin = new Padding(2);
             splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -97,7 +104,7 @@
             splitContainer1.Panel1.BackColor = Color.FromArgb(255, 192, 128);
             splitContainer1.Panel1.Controls.Add(btnEliminarCategoria);
             splitContainer1.Panel1.Controls.Add(btnModificarCategoria);
-            splitContainer1.Panel1.Controls.Add(dataGridView1);
+            splitContainer1.Panel1.Controls.Add(dataCategoria);
             splitContainer1.Panel1.Controls.Add(dgvCategorias);
             splitContainer1.Panel1.Controls.Add(btnNuevaCategoria);
             // 
@@ -109,10 +116,11 @@
             splitContainer1.Panel2.Controls.Add(panelSuperior);
             splitContainer1.Panel2.Controls.Add(btnCancelarProducto);
             splitContainer1.Panel2.Controls.Add(btnGuardarProducto);
-            splitContainer1.Size = new Size(1437, 641);
-            splitContainer1.SplitterDistance = 339;
+            splitContainer1.Size = new Size(1625, 641);
+            splitContainer1.SplitterDistance = 382;
             splitContainer1.SplitterWidth = 2;
             splitContainer1.TabIndex = 0;
+            splitContainer1.SplitterMoved += splitContainer1_SplitterMoved;
             // 
             // btnEliminarCategoria
             // 
@@ -120,9 +128,9 @@
             btnEliminarCategoria.Dock = DockStyle.Bottom;
             btnEliminarCategoria.Font = new Font("Arial Black", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnEliminarCategoria.Location = new Point(0, 428);
-            btnEliminarCategoria.Margin = new Padding(2, 2, 2, 2);
+            btnEliminarCategoria.Margin = new Padding(2);
             btnEliminarCategoria.Name = "btnEliminarCategoria";
-            btnEliminarCategoria.Size = new Size(339, 71);
+            btnEliminarCategoria.Size = new Size(382, 71);
             btnEliminarCategoria.TabIndex = 5;
             btnEliminarCategoria.Text = "Eliminar Categoria";
             btnEliminarCategoria.UseVisualStyleBackColor = false;
@@ -133,28 +141,28 @@
             btnModificarCategoria.Dock = DockStyle.Bottom;
             btnModificarCategoria.Font = new Font("Arial Black", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnModificarCategoria.Location = new Point(0, 499);
-            btnModificarCategoria.Margin = new Padding(2, 2, 2, 2);
+            btnModificarCategoria.Margin = new Padding(2);
             btnModificarCategoria.Name = "btnModificarCategoria";
-            btnModificarCategoria.Size = new Size(339, 71);
+            btnModificarCategoria.Size = new Size(382, 71);
             btnModificarCategoria.TabIndex = 4;
             btnModificarCategoria.Text = "Modificar Categoria";
             btnModificarCategoria.UseVisualStyleBackColor = false;
             // 
-            // dataGridView1
+            // dataCategoria
             // 
-            dataGridView1.AllowUserToAddRows = false;
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridView1.BackgroundColor = Color.FromArgb(255, 192, 128);
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { ColCategorias });
-            dataGridView1.Dock = DockStyle.Fill;
-            dataGridView1.Location = new Point(0, 0);
-            dataGridView1.Margin = new Padding(2, 2, 2, 2);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 82;
-            dataGridView1.Size = new Size(339, 570);
-            dataGridView1.TabIndex = 3;
-            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
+            dataCategoria.AllowUserToAddRows = false;
+            dataCategoria.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataCategoria.BackgroundColor = Color.FromArgb(255, 192, 128);
+            dataCategoria.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataCategoria.Columns.AddRange(new DataGridViewColumn[] { ColCategorias });
+            dataCategoria.Dock = DockStyle.Fill;
+            dataCategoria.Location = new Point(0, 0);
+            dataCategoria.Margin = new Padding(2);
+            dataCategoria.Name = "dataCategoria";
+            dataCategoria.RowHeadersWidth = 82;
+            dataCategoria.Size = new Size(382, 570);
+            dataCategoria.TabIndex = 3;
+            dataCategoria.CellContentClick += dataGridView1_CellContentClick;
             // 
             // ColCategorias
             // 
@@ -171,11 +179,11 @@
             dgvCategorias.Columns.AddRange(new DataGridViewColumn[] { colCatNombre });
             dgvCategorias.Dock = DockStyle.Fill;
             dgvCategorias.Location = new Point(0, 0);
-            dgvCategorias.Margin = new Padding(2, 2, 2, 2);
+            dgvCategorias.Margin = new Padding(2);
             dgvCategorias.Name = "dgvCategorias";
             dgvCategorias.RowHeadersVisible = false;
             dgvCategorias.RowHeadersWidth = 82;
-            dgvCategorias.Size = new Size(339, 570);
+            dgvCategorias.Size = new Size(382, 570);
             dgvCategorias.TabIndex = 0;
             dgvCategorias.CellContentClick += dgvCategorias_CellContentClick;
             // 
@@ -191,9 +199,9 @@
             btnNuevaCategoria.Dock = DockStyle.Bottom;
             btnNuevaCategoria.Font = new Font("Arial Black", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnNuevaCategoria.Location = new Point(0, 570);
-            btnNuevaCategoria.Margin = new Padding(2, 2, 2, 2);
+            btnNuevaCategoria.Margin = new Padding(2);
             btnNuevaCategoria.Name = "btnNuevaCategoria";
-            btnNuevaCategoria.Size = new Size(339, 71);
+            btnNuevaCategoria.Size = new Size(382, 71);
             btnNuevaCategoria.TabIndex = 0;
             btnNuevaCategoria.Text = "+ Nueva categoría";
             btnNuevaCategoria.UseVisualStyleBackColor = false;
@@ -204,13 +212,13 @@
             dgvProductos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvProductos.BackgroundColor = Color.FromArgb(255, 192, 128);
             dgvProductos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvProductos.Columns.AddRange(new DataGridViewColumn[] { ColCodigo, ColNombre, ColPrecio, ColStock, ColUnidad, ColKg });
+            dgvProductos.Columns.AddRange(new DataGridViewColumn[] { ColCodigo, ColNombre, ColPrecio, ColStock, ColUnidad, ColKg, Categoriaa });
             dgvProductos.Dock = DockStyle.Fill;
             dgvProductos.Location = new Point(0, 38);
-            dgvProductos.Margin = new Padding(2, 2, 2, 2);
+            dgvProductos.Margin = new Padding(2);
             dgvProductos.Name = "dgvProductos";
             dgvProductos.RowHeadersWidth = 82;
-            dgvProductos.Size = new Size(1096, 447);
+            dgvProductos.Size = new Size(1241, 447);
             dgvProductos.TabIndex = 2;
             dgvProductos.CellContentClick += dgvProductos_CellContentClick;
             // 
@@ -250,14 +258,20 @@
             ColKg.MinimumWidth = 10;
             ColKg.Name = "ColKg";
             // 
+            // Categoriaa
+            // 
+            Categoriaa.HeaderText = "Categoria";
+            Categoriaa.MinimumWidth = 6;
+            Categoriaa.Name = "Categoriaa";
+            // 
             // panelInferior
             // 
             panelInferior.Controls.Add(gbEdicionProducto);
             panelInferior.Dock = DockStyle.Bottom;
             panelInferior.Location = new Point(0, 485);
-            panelInferior.Margin = new Padding(2, 2, 2, 2);
+            panelInferior.Margin = new Padding(2);
             panelInferior.Name = "panelInferior";
-            panelInferior.Size = new Size(1096, 156);
+            panelInferior.Size = new Size(1241, 156);
             panelInferior.TabIndex = 1;
             // 
             // gbEdicionProducto
@@ -285,10 +299,10 @@
             gbEdicionProducto.Controls.Add(labelCodigoBarra);
             gbEdicionProducto.Dock = DockStyle.Fill;
             gbEdicionProducto.Location = new Point(0, 0);
-            gbEdicionProducto.Margin = new Padding(2, 2, 2, 2);
+            gbEdicionProducto.Margin = new Padding(2);
             gbEdicionProducto.Name = "gbEdicionProducto";
-            gbEdicionProducto.Padding = new Padding(2, 2, 2, 2);
-            gbEdicionProducto.Size = new Size(1096, 156);
+            gbEdicionProducto.Padding = new Padding(2);
+            gbEdicionProducto.Size = new Size(1241, 156);
             gbEdicionProducto.TabIndex = 2;
             gbEdicionProducto.TabStop = false;
             gbEdicionProducto.Text = "Crear o Editar Productos";
@@ -298,8 +312,8 @@
             // 
             btnEliminarProductoInventario.BackColor = Color.FromArgb(192, 0, 192);
             btnEliminarProductoInventario.Font = new Font("Arial Black", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnEliminarProductoInventario.Location = new Point(988, 41);
-            btnEliminarProductoInventario.Margin = new Padding(2, 2, 2, 2);
+            btnEliminarProductoInventario.Location = new Point(1124, 39);
+            btnEliminarProductoInventario.Margin = new Padding(2);
             btnEliminarProductoInventario.Name = "btnEliminarProductoInventario";
             btnEliminarProductoInventario.Size = new Size(104, 100);
             btnEliminarProductoInventario.TabIndex = 29;
@@ -314,8 +328,8 @@
             btnCancelarProductosInventario.ForeColor = SystemColors.ActiveCaptionText;
             btnCancelarProductosInventario.Image = Properties.Resources.cancel_circle_close_delete_discard_file_x_icon_123219__1_;
             btnCancelarProductosInventario.ImageAlign = ContentAlignment.TopCenter;
-            btnCancelarProductosInventario.Location = new Point(879, 43);
-            btnCancelarProductosInventario.Margin = new Padding(2, 2, 2, 2);
+            btnCancelarProductosInventario.Location = new Point(1013, 41);
+            btnCancelarProductosInventario.Margin = new Padding(2);
             btnCancelarProductosInventario.Name = "btnCancelarProductosInventario";
             btnCancelarProductosInventario.Size = new Size(96, 96);
             btnCancelarProductosInventario.TabIndex = 28;
@@ -326,8 +340,8 @@
             // cmbEstado
             // 
             cmbEstado.FormattingEnabled = true;
-            cmbEstado.Location = new Point(329, 111);
-            cmbEstado.Margin = new Padding(2, 2, 2, 2);
+            cmbEstado.Location = new Point(430, 113);
+            cmbEstado.Margin = new Padding(2);
             cmbEstado.Name = "cmbEstado";
             cmbEstado.Size = new Size(178, 28);
             cmbEstado.TabIndex = 19;
@@ -341,8 +355,8 @@
             btnGuardarProductosInventario.ForeColor = Color.Black;
             btnGuardarProductosInventario.Image = Properties.Resources.Save_37110;
             btnGuardarProductosInventario.ImageAlign = ContentAlignment.TopCenter;
-            btnGuardarProductosInventario.Location = new Point(765, 41);
-            btnGuardarProductosInventario.Margin = new Padding(2, 2, 2, 2);
+            btnGuardarProductosInventario.Location = new Point(900, 42);
+            btnGuardarProductosInventario.Margin = new Padding(2);
             btnGuardarProductosInventario.Name = "btnGuardarProductosInventario";
             btnGuardarProductosInventario.Size = new Size(98, 98);
             btnGuardarProductosInventario.TabIndex = 27;
@@ -353,8 +367,8 @@
             // cmbUnidad
             // 
             cmbUnidad.FormattingEnabled = true;
-            cmbUnidad.Location = new Point(625, 111);
-            cmbUnidad.Margin = new Padding(2, 2, 2, 2);
+            cmbUnidad.Location = new Point(746, 110);
+            cmbUnidad.Margin = new Padding(2);
             cmbUnidad.Name = "cmbUnidad";
             cmbUnidad.Size = new Size(119, 28);
             cmbUnidad.TabIndex = 18;
@@ -363,64 +377,64 @@
             // cmbCategoria
             // 
             cmbCategoria.FormattingEnabled = true;
-            cmbCategoria.Location = new Point(82, 111);
-            cmbCategoria.Margin = new Padding(2, 2, 2, 2);
+            cmbCategoria.Location = new Point(107, 114);
+            cmbCategoria.Margin = new Padding(2);
             cmbCategoria.Name = "cmbCategoria";
-            cmbCategoria.Size = new Size(136, 28);
+            cmbCategoria.Size = new Size(194, 28);
             cmbCategoria.TabIndex = 17;
             // 
             // txtStock
             // 
-            txtStock.Location = new Point(329, 78);
-            txtStock.Margin = new Padding(2, 2, 2, 2);
+            txtStock.Location = new Point(430, 80);
+            txtStock.Margin = new Padding(2);
             txtStock.Name = "txtStock";
             txtStock.Size = new Size(178, 27);
             txtStock.TabIndex = 16;
             // 
             // txtNombreProducto
             // 
-            txtNombreProducto.Location = new Point(72, 78);
-            txtNombreProducto.Margin = new Padding(2, 2, 2, 2);
+            txtNombreProducto.Location = new Point(97, 81);
+            txtNombreProducto.Margin = new Padding(2);
             txtNombreProducto.Name = "txtNombreProducto";
-            txtNombreProducto.Size = new Size(146, 27);
+            txtNombreProducto.Size = new Size(204, 27);
             txtNombreProducto.TabIndex = 15;
             // 
             // txtDescripcion
             // 
-            txtDescripcion.Location = new Point(329, 41);
-            txtDescripcion.Margin = new Padding(2, 2, 2, 2);
+            txtDescripcion.Location = new Point(430, 43);
+            txtDescripcion.Margin = new Padding(2);
             txtDescripcion.Name = "txtDescripcion";
             txtDescripcion.Size = new Size(178, 27);
             txtDescripcion.TabIndex = 14;
             // 
             // txtPeso
             // 
-            txtPeso.Location = new Point(625, 75);
-            txtPeso.Margin = new Padding(2, 2, 2, 2);
+            txtPeso.Location = new Point(746, 74);
+            txtPeso.Margin = new Padding(2);
             txtPeso.Name = "txtPeso";
             txtPeso.Size = new Size(119, 27);
             txtPeso.TabIndex = 13;
             // 
             // txtPrecio
             // 
-            txtPrecio.Location = new Point(625, 41);
-            txtPrecio.Margin = new Padding(2, 2, 2, 2);
+            txtPrecio.Location = new Point(746, 40);
+            txtPrecio.Margin = new Padding(2);
             txtPrecio.Name = "txtPrecio";
             txtPrecio.Size = new Size(119, 27);
             txtPrecio.TabIndex = 12;
             // 
             // txtCodigoBarras
             // 
-            txtCodigoBarras.Location = new Point(132, 44);
-            txtCodigoBarras.Margin = new Padding(2, 2, 2, 2);
+            txtCodigoBarras.Location = new Point(157, 47);
+            txtCodigoBarras.Margin = new Padding(2);
             txtCodigoBarras.Name = "txtCodigoBarras";
-            txtCodigoBarras.Size = new Size(86, 27);
+            txtCodigoBarras.Size = new Size(144, 27);
             txtCodigoBarras.TabIndex = 11;
             // 
             // labelDescripcion
             // 
             labelDescripcion.AutoSize = true;
-            labelDescripcion.Location = new Point(238, 48);
+            labelDescripcion.Location = new Point(339, 50);
             labelDescripcion.Margin = new Padding(2, 0, 2, 0);
             labelDescripcion.Name = "labelDescripcion";
             labelDescripcion.Size = new Size(87, 20);
@@ -431,7 +445,7 @@
             // labelEstado
             // 
             labelEstado.AutoSize = true;
-            labelEstado.Location = new Point(271, 119);
+            labelEstado.Location = new Point(372, 121);
             labelEstado.Margin = new Padding(2, 0, 2, 0);
             labelEstado.Name = "labelEstado";
             labelEstado.Size = new Size(54, 20);
@@ -441,7 +455,7 @@
             // labelPeso
             // 
             labelPeso.AutoSize = true;
-            labelPeso.Location = new Point(550, 82);
+            labelPeso.Location = new Point(671, 81);
             labelPeso.Margin = new Padding(2, 0, 2, 0);
             labelPeso.Name = "labelPeso";
             labelPeso.Size = new Size(71, 20);
@@ -451,7 +465,7 @@
             // labelUInidadMedida
             // 
             labelUInidadMedida.AutoSize = true;
-            labelUInidadMedida.Location = new Point(511, 119);
+            labelUInidadMedida.Location = new Point(632, 118);
             labelUInidadMedida.Margin = new Padding(2, 0, 2, 0);
             labelUInidadMedida.Name = "labelUInidadMedida";
             labelUInidadMedida.Size = new Size(112, 20);
@@ -462,7 +476,7 @@
             // labelStock
             // 
             labelStock.AutoSize = true;
-            labelStock.Location = new Point(280, 85);
+            labelStock.Location = new Point(381, 87);
             labelStock.Margin = new Padding(2, 0, 2, 0);
             labelStock.Name = "labelStock";
             labelStock.Size = new Size(45, 20);
@@ -472,7 +486,7 @@
             // labelPrecio
             // 
             labelPrecio.AutoSize = true;
-            labelPrecio.Location = new Point(571, 48);
+            labelPrecio.Location = new Point(692, 47);
             labelPrecio.Margin = new Padding(2, 0, 2, 0);
             labelPrecio.Name = "labelPrecio";
             labelPrecio.Size = new Size(50, 20);
@@ -482,7 +496,7 @@
             // labelCategoria
             // 
             labelCategoria.AutoSize = true;
-            labelCategoria.Location = new Point(4, 115);
+            labelCategoria.Location = new Point(29, 118);
             labelCategoria.Margin = new Padding(2, 0, 2, 0);
             labelCategoria.Name = "labelCategoria";
             labelCategoria.Size = new Size(74, 20);
@@ -493,7 +507,7 @@
             // labelNombre
             // 
             labelNombre.AutoSize = true;
-            labelNombre.Location = new Point(4, 81);
+            labelNombre.Location = new Point(29, 84);
             labelNombre.Margin = new Padding(2, 0, 2, 0);
             labelNombre.Name = "labelNombre";
             labelNombre.Size = new Size(64, 20);
@@ -505,7 +519,7 @@
             // 
             labelCodigoBarra.AutoSize = true;
             labelCodigoBarra.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelCodigoBarra.Location = new Point(4, 48);
+            labelCodigoBarra.Location = new Point(29, 51);
             labelCodigoBarra.Margin = new Padding(2, 0, 2, 0);
             labelCodigoBarra.Name = "labelCodigoBarra";
             labelCodigoBarra.Size = new Size(124, 20);
@@ -515,30 +529,89 @@
             // 
             // panelSuperior
             // 
-            panelSuperior.Controls.Add(button1);
+            panelSuperior.Controls.Add(btnLimpiarfiltros);
+            panelSuperior.Controls.Add(label2);
+            panelSuperior.Controls.Add(label1);
+            panelSuperior.Controls.Add(txtStockMax);
+            panelSuperior.Controls.Add(txtStockMin);
+            panelSuperior.Controls.Add(cmbFiltroCategoria);
+            panelSuperior.Controls.Add(btnBuscar);
             panelSuperior.Controls.Add(txtBuscarProducto);
             panelSuperior.Dock = DockStyle.Top;
             panelSuperior.Location = new Point(0, 0);
-            panelSuperior.Margin = new Padding(2, 2, 2, 2);
+            panelSuperior.Margin = new Padding(2);
             panelSuperior.Name = "panelSuperior";
-            panelSuperior.Size = new Size(1096, 38);
+            panelSuperior.Size = new Size(1241, 38);
             panelSuperior.TabIndex = 0;
             // 
-            // button1
+            // btnLimpiarfiltros
             // 
-            button1.Location = new Point(674, 7);
-            button1.Margin = new Padding(2, 2, 2, 2);
-            button1.Name = "button1";
-            button1.Size = new Size(122, 27);
-            button1.TabIndex = 2;
-            button1.Text = "Buscar";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            btnLimpiarfiltros.Location = new Point(1090, 5);
+            btnLimpiarfiltros.Name = "btnLimpiarfiltros";
+            btnLimpiarfiltros.Size = new Size(138, 29);
+            btnLimpiarfiltros.TabIndex = 8;
+            btnLimpiarfiltros.Text = "Limpiar Filtros";
+            btnLimpiarfiltros.UseVisualStyleBackColor = true;
+            btnLimpiarfiltros.Click += btnLimpiarfiltros_Click;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.Location = new Point(660, 9);
+            label2.Name = "label2";
+            label2.Size = new Size(82, 20);
+            label2.TabIndex = 7;
+            label2.Text = "Stock Min:";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Location = new Point(875, 10);
+            label1.Name = "label1";
+            label1.Size = new Size(85, 20);
+            label1.TabIndex = 6;
+            label1.Text = "Stock Max:";
+            // 
+            // txtStockMax
+            // 
+            txtStockMax.Location = new Point(959, 6);
+            txtStockMax.Name = "txtStockMax";
+            txtStockMax.Size = new Size(125, 27);
+            txtStockMax.TabIndex = 5;
+            // 
+            // txtStockMin
+            // 
+            txtStockMin.Location = new Point(744, 6);
+            txtStockMin.Name = "txtStockMin";
+            txtStockMin.Size = new Size(125, 27);
+            txtStockMin.TabIndex = 4;
+            // 
+            // cmbFiltroCategoria
+            // 
+            cmbFiltroCategoria.FormattingEnabled = true;
+            cmbFiltroCategoria.Location = new Point(538, 6);
+            cmbFiltroCategoria.Name = "cmbFiltroCategoria";
+            cmbFiltroCategoria.Size = new Size(116, 28);
+            cmbFiltroCategoria.TabIndex = 3;
+            // 
+            // btnBuscar
+            // 
+            btnBuscar.Location = new Point(6, 7);
+            btnBuscar.Margin = new Padding(2);
+            btnBuscar.Name = "btnBuscar";
+            btnBuscar.Size = new Size(122, 27);
+            btnBuscar.TabIndex = 2;
+            btnBuscar.Text = "Buscar";
+            btnBuscar.UseVisualStyleBackColor = true;
+            btnBuscar.TextChanged += btnBuscar_TextChanged;
+            btnBuscar.Click += btnBuscar_Click;
             // 
             // txtBuscarProducto
             // 
-            txtBuscarProducto.Location = new Point(271, 8);
-            txtBuscarProducto.Margin = new Padding(2, 2, 2, 2);
+            txtBuscarProducto.Location = new Point(132, 7);
+            txtBuscarProducto.Margin = new Padding(2);
             txtBuscarProducto.Name = "txtBuscarProducto";
             txtBuscarProducto.Size = new Size(401, 27);
             txtBuscarProducto.TabIndex = 1;
@@ -546,7 +619,7 @@
             // btnCancelarProducto
             // 
             btnCancelarProducto.Location = new Point(449, 381);
-            btnCancelarProducto.Margin = new Padding(2, 2, 2, 2);
+            btnCancelarProducto.Margin = new Padding(2);
             btnCancelarProducto.Name = "btnCancelarProducto";
             btnCancelarProducto.Size = new Size(97, 54);
             btnCancelarProducto.TabIndex = 9;
@@ -556,7 +629,7 @@
             // btnGuardarProducto
             // 
             btnGuardarProducto.Location = new Point(511, 306);
-            btnGuardarProducto.Margin = new Padding(2, 2, 2, 2);
+            btnGuardarProducto.Margin = new Padding(2);
             btnGuardarProducto.Name = "btnGuardarProducto";
             btnGuardarProducto.Size = new Size(110, 53);
             btnGuardarProducto.TabIndex = 10;
@@ -573,9 +646,9 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1437, 641);
+            ClientSize = new Size(1625, 641);
             Controls.Add(splitContainer1);
-            Margin = new Padding(2, 2, 2, 2);
+            Margin = new Padding(2);
             Name = "VistaGestionInventario";
             Text = "VistaGestionInventario";
             Load += VistaGestionInventario_Load;
@@ -583,7 +656,7 @@
             splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
             splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataCategoria).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvCategorias).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvProductos).EndInit();
             panelInferior.ResumeLayout(false);
@@ -601,7 +674,7 @@
         private DataGridView dgvCategorias;
         private Panel panelSuperior;
         private Panel panelInferior;
-        private Button button1;
+        private Button btnBuscar;
         private TextBox txtBuscarProducto;
         private GroupBox gbEdicionProducto;
         private DataGridView dgvProductos;
@@ -631,7 +704,7 @@
         private DataGridViewTextBoxColumn colCatNombre;
         private Button btnEliminarCategoria;
         private Button btnModificarCategoria;
-        private DataGridView dataGridView1;
+        private DataGridView dataCategoria;
         private DataGridViewTextBoxColumn ColCategorias;
         private DataGridViewTextBoxColumn ColCodigo;
         private DataGridViewTextBoxColumn ColNombre;
@@ -640,5 +713,12 @@
         private DataGridViewTextBoxColumn ColUnidad;
         private DataGridViewTextBoxColumn ColKg;
         private Button btnEliminarProductoInventario;
+        private DataGridViewTextBoxColumn Categoriaa;
+        private TextBox txtStockMax;
+        private TextBox txtStockMin;
+        private ComboBox cmbFiltroCategoria;
+        private Label label2;
+        private Label label1;
+        private Button btnLimpiarfiltros;
     }
 }
