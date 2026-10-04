@@ -32,25 +32,26 @@
             btnSalir = new Button();
             btnBorrarVenta = new Button();
             btnPagar = new Button();
-            btnNuevaVenta = new Button();
+            btnRegistro = new Button();
             btnIngresarCodigo = new Button();
             panel2 = new Panel();
             panel5 = new Panel();
-            textBox5 = new TextBox();
+            txtTotal = new TextBox();
             label6 = new Label();
             dataGridView1 = new DataGridView();
             NombreProducto = new DataGridViewTextBoxColumn();
             Cantidad = new DataGridViewTextBoxColumn();
             PrecioUnitario = new DataGridViewTextBoxColumn();
             panel3 = new Panel();
+            btnNuevaVenta = new Button();
             btnAgregarProducto = new Button();
             btnGenerarPDF = new Button();
             textCant = new TextBox();
             txtNombre = new TextBox();
             label3 = new Label();
             label5 = new Label();
-            textBox2 = new TextBox();
-            textBox1 = new TextBox();
+            txtNumeroCompra = new TextBox();
+            txtFecha = new TextBox();
             label2 = new Label();
             label1 = new Label();
             panel1.SuspendLayout();
@@ -66,7 +67,7 @@
             panel1.Controls.Add(btnSalir);
             panel1.Controls.Add(btnBorrarVenta);
             panel1.Controls.Add(btnPagar);
-            panel1.Controls.Add(btnNuevaVenta);
+            panel1.Controls.Add(btnRegistro);
             panel1.Controls.Add(btnIngresarCodigo);
             panel1.Dock = DockStyle.Left;
             panel1.Location = new Point(0, 0);
@@ -113,18 +114,18 @@
             btnPagar.UseVisualStyleBackColor = false;
             btnPagar.Click += btnPagar_Click_1;
             // 
-            // btnNuevaVenta
+            // btnRegistro
             // 
-            btnNuevaVenta.Image = Properties.Resources.cajero22;
-            btnNuevaVenta.ImageAlign = ContentAlignment.TopCenter;
-            btnNuevaVenta.Location = new Point(12, 17);
-            btnNuevaVenta.Name = "btnNuevaVenta";
-            btnNuevaVenta.Size = new Size(94, 100);
-            btnNuevaVenta.TabIndex = 4;
-            btnNuevaVenta.Text = "Nueva Venta";
-            btnNuevaVenta.TextAlign = ContentAlignment.BottomCenter;
-            btnNuevaVenta.UseVisualStyleBackColor = true;
-            btnNuevaVenta.Click += btnIconoCajero_Click;
+            btnRegistro.Image = Properties.Resources.cajero21;
+            btnRegistro.ImageAlign = ContentAlignment.TopCenter;
+            btnRegistro.Location = new Point(12, 17);
+            btnRegistro.Name = "btnRegistro";
+            btnRegistro.Size = new Size(94, 100);
+            btnRegistro.TabIndex = 4;
+            btnRegistro.Text = "Registro";
+            btnRegistro.TextAlign = ContentAlignment.BottomCenter;
+            btnRegistro.UseVisualStyleBackColor = true;
+            btnRegistro.Click += btnIconoCajero_Click;
             // 
             // btnIngresarCodigo
             // 
@@ -155,19 +156,19 @@
             // panel5
             // 
             panel5.BackColor = Color.FromArgb(255, 224, 192);
-            panel5.Controls.Add(textBox5);
+            panel5.Controls.Add(txtTotal);
             panel5.Controls.Add(label6);
             panel5.Location = new Point(0, 588);
             panel5.Name = "panel5";
             panel5.Size = new Size(850, 56);
             panel5.TabIndex = 2;
             // 
-            // textBox5
+            // txtTotal
             // 
-            textBox5.Location = new Point(97, 16);
-            textBox5.Name = "textBox5";
-            textBox5.Size = new Size(368, 27);
-            textBox5.TabIndex = 1;
+            txtTotal.Location = new Point(97, 16);
+            txtTotal.Name = "txtTotal";
+            txtTotal.Size = new Size(368, 27);
+            txtTotal.TabIndex = 1;
             // 
             // label6
             // 
@@ -215,14 +216,15 @@
             // panel3
             // 
             panel3.BackColor = Color.FromArgb(255, 224, 192);
+            panel3.Controls.Add(btnNuevaVenta);
             panel3.Controls.Add(btnAgregarProducto);
             panel3.Controls.Add(btnGenerarPDF);
             panel3.Controls.Add(textCant);
             panel3.Controls.Add(txtNombre);
             panel3.Controls.Add(label3);
             panel3.Controls.Add(label5);
-            panel3.Controls.Add(textBox2);
-            panel3.Controls.Add(textBox1);
+            panel3.Controls.Add(txtNumeroCompra);
+            panel3.Controls.Add(txtFecha);
             panel3.Controls.Add(label2);
             panel3.Controls.Add(label1);
             panel3.Location = new Point(0, 0);
@@ -230,18 +232,29 @@
             panel3.Size = new Size(850, 133);
             panel3.TabIndex = 0;
             // 
+            // btnNuevaVenta
+            // 
+            btnNuevaVenta.Location = new Point(484, 57);
+            btnNuevaVenta.Name = "btnNuevaVenta";
+            btnNuevaVenta.Size = new Size(94, 60);
+            btnNuevaVenta.TabIndex = 10;
+            btnNuevaVenta.Text = "Nueva Venta";
+            btnNuevaVenta.UseVisualStyleBackColor = true;
+            btnNuevaVenta.Click += btnNuevaVenta_Click;
+            // 
             // btnAgregarProducto
             // 
-            btnAgregarProducto.Location = new Point(484, 55);
+            btnAgregarProducto.Location = new Point(584, 57);
             btnAgregarProducto.Name = "btnAgregarProducto";
             btnAgregarProducto.Size = new Size(94, 62);
             btnAgregarProducto.TabIndex = 9;
             btnAgregarProducto.Text = "Agregar producto";
             btnAgregarProducto.UseVisualStyleBackColor = true;
+            btnAgregarProducto.Click += btnAgregarProducto_Click_1;
             // 
             // btnGenerarPDF
             // 
-            btnGenerarPDF.Location = new Point(600, 55);
+            btnGenerarPDF.Location = new Point(684, 57);
             btnGenerarPDF.Name = "btnGenerarPDF";
             btnGenerarPDF.Size = new Size(94, 62);
             btnGenerarPDF.TabIndex = 8;
@@ -286,21 +299,21 @@
             label5.Text = "Nombre:";
             label5.Click += label5_Click;
             // 
-            // textBox2
+            // txtNumeroCompra
             // 
-            textBox2.Location = new Point(290, 17);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(125, 27);
-            textBox2.TabIndex = 3;
-            textBox2.TextChanged += textBox2_TextChanged;
+            txtNumeroCompra.Location = new Point(290, 17);
+            txtNumeroCompra.Name = "txtNumeroCompra";
+            txtNumeroCompra.Size = new Size(125, 27);
+            txtNumeroCompra.TabIndex = 3;
+            txtNumeroCompra.TextChanged += textBox2_TextChanged;
             // 
-            // textBox1
+            // txtFecha
             // 
-            textBox1.Location = new Point(569, 17);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(125, 27);
-            textBox1.TabIndex = 2;
-            textBox1.TextChanged += textBox1_TextChanged;
+            txtFecha.Location = new Point(569, 17);
+            txtFecha.Name = "txtFecha";
+            txtFecha.Size = new Size(125, 27);
+            txtFecha.TabIndex = 2;
+            txtFecha.TextChanged += textBox1_TextChanged;
             // 
             // label2
             // 
@@ -350,10 +363,10 @@
         private Button btnPagar;
         private Panel panel2;
         private Button btnIngresarCodigo;
-        private Button btnNuevaVenta;
+        private Button btnRegistro;
         private Panel panel3;
-        private TextBox textBox2;
-        private TextBox textBox1;
+        private TextBox txtNumeroCompra;
+        private TextBox txtFecha;
         private Label label2;
         private Label label1;
         private DataGridView dataGridView1;
@@ -363,7 +376,7 @@
         private Label label5;
         private Panel panel5;
         private Label label6;
-        private TextBox textBox5;
+        private TextBox txtTotal;
         private Button btnSalir;
         private Button btnGenerarPDF;
         private Button btnBorrarVenta;
@@ -371,5 +384,6 @@
         private DataGridViewTextBoxColumn NombreProducto;
         private DataGridViewTextBoxColumn Cantidad;
         private DataGridViewTextBoxColumn PrecioUnitario;
+        private Button btnNuevaVenta;
     }
 }

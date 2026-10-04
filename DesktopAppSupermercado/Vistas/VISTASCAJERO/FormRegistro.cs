@@ -8,9 +8,9 @@ using System.Windows.Forms;
 
 namespace DesktopAppSupermercado
 {
-    public partial class FormEditarVenta : Form
+    public partial class FormRegistro : Form
     {
-        public FormEditarVenta()
+        public FormRegistro()
         {
             InitializeComponent();
         }
