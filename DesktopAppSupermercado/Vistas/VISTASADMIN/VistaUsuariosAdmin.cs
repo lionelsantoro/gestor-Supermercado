@@ -34,6 +34,11 @@ namespace DesktopAppSupermercado.VISTASADMIN
             txtDNI.MaxLength = 8;
             txtTelefono.MaxLength = 12;
 
+            // --- CONEXIÓN DE EVENTOS PARA VALIDACIONES ---
+            txtUsuario.Leave += txtUsuario_Leave;
+            txtEmail.Leave += txtEmail_Leave;
+            // ---------------------------------------------
+
             ConfigurarColumnasDGV();
             CargarCombos();
             ActualizarGrillas();
@@ -270,6 +275,32 @@ namespace DesktopAppSupermercado.VISTASADMIN
             txtDNI.Clear(); txtDireccion.Clear(); txtTelefono.Clear(); dtpFechaNac.Value = DateTime.Today;
             rbHombre.Checked = false; rbMujer.Checked = false; cmbPerfil.SelectedIndex = -1;
             _idUsuarioActual = 0; _idPersonaActual = 0; _editandoInactivo = false; btnGuardar.Text = "Guardar";
+        }
+
+        // Validar que el Usuario no exista al salir de la caja de texto
+        private void txtUsuario_Leave(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(txtUsuario.Text))
+            {
+                if (negocio.ExisteUsuario(txtUsuario.Text, _idUsuarioActual))
+                {
+                    MessageBox.Show("Este nombre de usuario ya está en uso. Por favor, elija otro.", "Usuario Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtUsuario.Focus(); // Obliga al usuario a quedarse en esta caja hasta corregirlo
+                }
+            }
+        }
+
+        // Validar el formato del Email al salir de la caja de texto
+        private void txtEmail_Leave(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(txtEmail.Text))
+            {
+                if (!Regex.IsMatch(txtEmail.Text, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+                {
+                    MessageBox.Show("El formato del correo electrónico es incorrecto. Debe respetar el formato: ejemplo@correo.com", "Formato Inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtEmail.Focus(); // Obliga al usuario a corregir el formato antes de seguir
+                }
+            }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e) => LimpiarFormulario();
