@@ -4,26 +4,44 @@ using System.Text;
 
 namespace DesktopAppSupermercado.Entidades
 {
-    public class Entidadescs
+    public class Producto
     {
-        // Entidad para mapear el producto consultado
-        public class Producto
-        {
-            public int IdProducto { get; set; }
-            public string Nombre { get; set; }
-            public string Descripcion { get; set; }
-            public decimal Precio { get; set; }
-            public int Stock { get; set; }
-        }
+        public int IdProducto { get; set; }
+        public string Nombre { get; set; }
+        public string Descripcion { get; set; }
+        public decimal Precio { get; set; }
+        public int Stock { get; set; }
+    }
 
-        // Entidad específica para mostrar en el DataGridView de la Vista
-        public class DetalleVentaVista
+    public class DetalleVentaVista
+    {
+        public int IdProducto { get; set; }
+        public string Nombre { get; set; }
+        public int Cantidad { get; set; }
+        public decimal Precio_Unitario { get; set; }
+        public decimal Subtotal { get; set; }
+    }
+
+    public class Usuario
+    {
+        public int IdUsuario { get; set; }
+        public int IdRol { get; set; }
+        public string NombreUsuario { get; set; }
+    }
+
+    public static class Sesion
+    {
+        public static Usuario UsuarioActual { get; set; }
+
+        public static void CerrarSesion()
         {
-            public int IdProducto { get; set; }
-            public string Nombre { get; set; }
-            public int Cantidad { get; set; }
-            public decimal Precio_Unitario { get; set; }
-            public decimal Subtotal { get; set; }
+            UsuarioActual = null;
         }
+    }
+
+    public class MedioPago
+    {
+        public int IdMedioPago { get; set; }
+        public string Nombre { get; set; }
     }
 }

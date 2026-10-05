@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using static DesktopAppSupermercado.Entidades.Entidadescs;
+using DesktopAppSupermercado.Entidades;
 
 namespace DesktopAppSupermercado.Datos
 {

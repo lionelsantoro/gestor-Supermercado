@@ -107,6 +107,7 @@
             Controls.Add(label1);
             Name = "FormPagar";
             Text = "FormPagar";
+            Load += FormPagar_Load;
             ResumeLayout(false);
             PerformLayout();
         }

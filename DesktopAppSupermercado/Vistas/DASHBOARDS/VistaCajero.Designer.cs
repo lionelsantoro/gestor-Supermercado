@@ -39,9 +39,6 @@
             txtTotal = new TextBox();
             label6 = new Label();
             dataGridView1 = new DataGridView();
-            NombreProducto = new DataGridViewTextBoxColumn();
-            Cantidad = new DataGridViewTextBoxColumn();
-            PrecioUnitario = new DataGridViewTextBoxColumn();
             panel3 = new Panel();
             btnNuevaVenta = new Button();
             btnAgregarProducto = new Button();
@@ -149,7 +146,7 @@
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new Point(117, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(850, 644);
+            panel2.Size = new Size(789, 644);
             panel2.TabIndex = 1;
             panel2.Paint += panel2_Paint;
             // 
@@ -160,7 +157,7 @@
             panel5.Controls.Add(label6);
             panel5.Location = new Point(0, 588);
             panel5.Name = "panel5";
-            panel5.Size = new Size(850, 56);
+            panel5.Size = new Size(789, 56);
             panel5.TabIndex = 2;
             // 
             // txtTotal
@@ -184,34 +181,12 @@
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { NombreProducto, Cantidad, PrecioUnitario });
             dataGridView1.Location = new Point(0, 133);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(850, 465);
+            dataGridView1.Size = new Size(789, 458);
             dataGridView1.TabIndex = 1;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick_1;
-            // 
-            // NombreProducto
-            // 
-            NombreProducto.HeaderText = "Nombre";
-            NombreProducto.MinimumWidth = 6;
-            NombreProducto.Name = "NombreProducto";
-            NombreProducto.Width = 125;
-            // 
-            // Cantidad
-            // 
-            Cantidad.HeaderText = "Cantidad";
-            Cantidad.MinimumWidth = 6;
-            Cantidad.Name = "Cantidad";
-            Cantidad.Width = 125;
-            // 
-            // PrecioUnitario
-            // 
-            PrecioUnitario.HeaderText = "Precio_Unitario";
-            PrecioUnitario.MinimumWidth = 6;
-            PrecioUnitario.Name = "PrecioUnitario";
-            PrecioUnitario.Width = 125;
             // 
             // panel3
             // 
@@ -229,7 +204,7 @@
             panel3.Controls.Add(label1);
             panel3.Location = new Point(0, 0);
             panel3.Name = "panel3";
-            panel3.Size = new Size(850, 133);
+            panel3.Size = new Size(789, 133);
             panel3.TabIndex = 0;
             // 
             // btnNuevaVenta
@@ -341,7 +316,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveBorder;
-            ClientSize = new Size(967, 644);
+            ClientSize = new Size(906, 644);
             Controls.Add(panel2);
             Controls.Add(panel1);
             Name = "VistaCajero";
@@ -381,9 +356,6 @@
         private Button btnGenerarPDF;
         private Button btnBorrarVenta;
         private Button btnAgregarProducto;
-        private DataGridViewTextBoxColumn NombreProducto;
-        private DataGridViewTextBoxColumn Cantidad;
-        private DataGridViewTextBoxColumn PrecioUnitario;
         private Button btnNuevaVenta;
     }
 }
