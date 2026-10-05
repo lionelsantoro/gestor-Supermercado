@@ -32,11 +32,10 @@
             label2 = new Label();
             label3 = new Label();
             label4 = new Label();
-            cmbNumeroCajero = new ComboBox();
-            cmbNumeroCaja = new ComboBox();
             dgvRegistro = new DataGridView();
-            btnConfirmarRegistro = new Button();
-            btnLimpiarRegistro = new Button();
+            txtNombreCajero = new TextBox();
+            txtNumeroCajero = new TextBox();
+            label5 = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvRegistro).BeginInit();
             SuspendLayout();
             // 
@@ -62,11 +61,11 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.Location = new Point(5, 19);
+            label3.Location = new Point(49, 9);
             label3.Name = "label3";
-            label3.Size = new Size(214, 31);
+            label3.Size = new Size(221, 31);
             label3.TabIndex = 2;
-            label3.Text = "Numero de Cajero:";
+            label3.Text = "Numero del Cajero:";
             // 
             // label4
             // 
@@ -74,52 +73,43 @@
             label4.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label4.Location = new Point(302, 19);
             label4.Name = "label4";
-            label4.Size = new Size(191, 31);
+            label4.Size = new Size(0, 31);
             label4.TabIndex = 3;
-            label4.Text = "Numero de Caja:";
-            // 
-            // cmbNumeroCajero
-            // 
-            cmbNumeroCajero.FormattingEnabled = true;
-            cmbNumeroCajero.Location = new Point(216, 22);
-            cmbNumeroCajero.Name = "cmbNumeroCajero";
-            cmbNumeroCajero.Size = new Size(80, 28);
-            cmbNumeroCajero.TabIndex = 4;
-            // 
-            // cmbNumeroCaja
-            // 
-            cmbNumeroCaja.FormattingEnabled = true;
-            cmbNumeroCaja.Location = new Point(489, 22);
-            cmbNumeroCaja.Name = "cmbNumeroCaja";
-            cmbNumeroCaja.Size = new Size(85, 28);
-            cmbNumeroCaja.TabIndex = 5;
             // 
             // dgvRegistro
             // 
             dgvRegistro.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvRegistro.Location = new Point(5, 103);
+            dgvRegistro.Location = new Point(5, 84);
             dgvRegistro.Name = "dgvRegistro";
             dgvRegistro.RowHeadersWidth = 51;
-            dgvRegistro.Size = new Size(569, 401);
+            dgvRegistro.Size = new Size(569, 420);
             dgvRegistro.TabIndex = 6;
             // 
-            // btnConfirmarRegistro
+            // txtNombreCajero
             // 
-            btnConfirmarRegistro.Location = new Point(5, 65);
-            btnConfirmarRegistro.Name = "btnConfirmarRegistro";
-            btnConfirmarRegistro.Size = new Size(153, 29);
-            btnConfirmarRegistro.TabIndex = 7;
-            btnConfirmarRegistro.Text = "Confirmar Registro";
-            btnConfirmarRegistro.UseVisualStyleBackColor = true;
+            txtNombreCajero.Location = new Point(276, 44);
+            txtNombreCajero.Name = "txtNombreCajero";
+            txtNombreCajero.ReadOnly = true;
+            txtNombreCajero.Size = new Size(266, 27);
+            txtNombreCajero.TabIndex = 7;
             // 
-            // btnLimpiarRegistro
+            // txtNumeroCajero
             // 
-            btnLimpiarRegistro.Location = new Point(164, 65);
-            btnLimpiarRegistro.Name = "btnLimpiarRegistro";
-            btnLimpiarRegistro.Size = new Size(132, 29);
-            btnLimpiarRegistro.TabIndex = 8;
-            btnLimpiarRegistro.Text = "Limpiar Registro";
-            btnLimpiarRegistro.UseVisualStyleBackColor = true;
+            txtNumeroCajero.Location = new Point(276, 13);
+            txtNumeroCajero.Name = "txtNumeroCajero";
+            txtNumeroCajero.ReadOnly = true;
+            txtNumeroCajero.Size = new Size(266, 27);
+            txtNumeroCajero.TabIndex = 8;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label5.Location = new Point(52, 40);
+            label5.Name = "label5";
+            label5.Size = new Size(218, 31);
+            label5.TabIndex = 9;
+            label5.Text = "Nombre del cajero:";
             // 
             // FormRegistro
             // 
@@ -127,11 +117,10 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveBorder;
             ClientSize = new Size(586, 516);
-            Controls.Add(btnLimpiarRegistro);
-            Controls.Add(btnConfirmarRegistro);
+            Controls.Add(label5);
+            Controls.Add(txtNumeroCajero);
+            Controls.Add(txtNombreCajero);
             Controls.Add(dgvRegistro);
-            Controls.Add(cmbNumeroCaja);
-            Controls.Add(cmbNumeroCajero);
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(label2);
@@ -149,10 +138,9 @@
         private Label label2;
         private Label label3;
         private Label label4;
-        private ComboBox cmbNumeroCajero;
-        private ComboBox cmbNumeroCaja;
         private DataGridView dgvRegistro;
-        private Button btnConfirmarRegistro;
-        private Button btnLimpiarRegistro;
+        private TextBox txtNombreCajero;
+        private TextBox txtNumeroCajero;
+        private Label label5;
     }
 }

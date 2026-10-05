@@ -164,6 +164,7 @@
             // 
             txtTotal.Location = new Point(97, 16);
             txtTotal.Name = "txtTotal";
+            txtTotal.ReadOnly = true;
             txtTotal.Size = new Size(368, 27);
             txtTotal.TabIndex = 1;
             // 

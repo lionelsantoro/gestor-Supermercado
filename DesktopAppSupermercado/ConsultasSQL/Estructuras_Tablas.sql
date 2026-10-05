@@ -79,7 +79,7 @@ CREATE TABLE ventas (
     id_usuario INT NOT NULL,
     id_medio_pago INT NOT NULL,
     monto_total DECIMAL(18,2) NOT NULL,
-    estado VARCHAR(20) NOT NULL CHECK (estado IN ('Pendiente', 'Completada', 'Cancelada')),
+    --estado VARCHAR(20) NOT NULL CHECK (estado IN ('Pendiente', 'Completada', 'Cancelada')),
     creado_en DATETIME DEFAULT GETDATE(),
     
     -- Llaves Foráneas (N a 1 y 1 a 1)
