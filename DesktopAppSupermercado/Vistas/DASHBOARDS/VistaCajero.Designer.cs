@@ -122,7 +122,7 @@
             btnRegistro.Text = "Registro";
             btnRegistro.TextAlign = ContentAlignment.BottomCenter;
             btnRegistro.UseVisualStyleBackColor = true;
-            btnRegistro.Click += btnIconoCajero_Click;
+            btnRegistro.Click += btnRegistro_Click;
             // 
             // btnIngresarCodigo
             // 
@@ -187,6 +187,8 @@
             dataGridView1.Size = new Size(789, 458);
             dataGridView1.TabIndex = 1;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick_1;
+            dataGridView1.CellValidating += dataGridView1_CellValidating;
+            dataGridView1.CellValueChanged += dataGridView1_CellValueChanged;
             // 
             // panel3
             // 

@@ -57,8 +57,22 @@ namespace DesktopAppSupermercado
             listaDetallesVenta = new BindingList<DetalleVentaVista>();
             dataGridView1.DataSource = listaDetallesVenta;
 
+            // Quitamos la fila vacía del final (la del asterisco) para evitar errores de edición
+            dataGridView1.AllowUserToAddRows = false;
+
+            // Ocultamos las columnas de control interno
             if (dataGridView1.Columns["IdProducto"] != null)
                 dataGridView1.Columns["IdProducto"].Visible = false;
+
+            if (dataGridView1.Columns["StockActual"] != null)
+                dataGridView1.Columns["StockActual"].Visible = false;
+
+            // Bloqueamos todas las columnas para que sean de solo lectura, EXCEPTO "Cantidad"
+            foreach (DataGridViewColumn col in dataGridView1.Columns)
+            {
+                if (col.Name != "Cantidad")
+                    col.ReadOnly = true;
+            }
 
             ProductoNegocio negocio = new ProductoNegocio();
             List<string> listaDescripciones = negocio.ObtenerListaParaBuscador();
@@ -67,7 +81,6 @@ namespace DesktopAppSupermercado
             txtNombre.AutoCompleteMode = AutoCompleteMode.Suggest;
             txtNombre.AutoCompleteSource = AutoCompleteSource.CustomSource;
             txtNombre.AutoCompleteCustomSource = coleccionProductos;
-
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -120,9 +133,10 @@ namespace DesktopAppSupermercado
 
         }
 
-        private void btnIconoCajero_Click(object sender, EventArgs e)
+        private void btnRegistro_Click(object sender, EventArgs e)
         {
-
+            FormRegistro vistaSup = new FormRegistro();
+            vistaSup.Show();
         }
 
         private void BloquearPantallaParaTicket()
@@ -280,7 +294,8 @@ namespace DesktopAppSupermercado
                     Nombre = productoValidado.Nombre,
                     Cantidad = cantidadIngresada,
                     Precio_Unitario = productoValidado.Precio,
-                    Subtotal = productoValidado.Precio * cantidadIngresada
+                    Subtotal = productoValidado.Precio * cantidadIngresada,
+                    StockActual = productoValidado.Stock // Guardamos el stock aquí
                 };
 
                 listaDetallesVenta.Add(nuevoDetalle);
@@ -293,6 +308,60 @@ namespace DesktopAppSupermercado
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        // Este evento "atrapa" el dato antes de que se guarde en la celda y lo valida
+        private void dataGridView1_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            // Solo validamos si la columna que están editando es la de "Cantidad"
+            if (e.RowIndex >= 0 && dataGridView1.Columns[e.ColumnIndex].Name == "Cantidad")
+            {
+                string valorIngresado = e.FormattedValue.ToString();
+
+                // 1. Validar letras o caracteres extraños
+                if (!int.TryParse(valorIngresado, out int nuevaCantidad))
+                {
+                    MessageBox.Show("Debe ingresar un número entero válido.", "Error de formato", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    e.Cancel = true; // Cancela la edición y devuelve el valor anterior
+                    return;
+                }
+
+                // 2. Validar que no sea 0 ni un número negativo
+                if (nuevaCantidad <= 0)
+                {
+                    MessageBox.Show("La cantidad no puede ser nula ni negativa.", "Cantidad inválida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    e.Cancel = true;
+                    return;
+                }
+
+                // 3. Validar contra el stock máximo
+                var detalleActual = listaDetallesVenta[e.RowIndex];
+                if (nuevaCantidad > detalleActual.StockActual)
+                {
+                    MessageBox.Show($"Stock insuficiente. Solo dispone de {detalleActual.StockActual} unidades.", "Falta de Stock", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    e.Cancel = true;
+                    return;
+                }
+            }
+        }
+
+        // Este evento recalcula los totales una vez que la validación anterior fue exitosa
+        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && dataGridView1.Columns[e.ColumnIndex].Name == "Cantidad")
+            {
+                // Obtenemos la fila que se modificó
+                var detalleActual = listaDetallesVenta[e.RowIndex];
+
+                // Recalculamos el subtotal de ese producto
+                detalleActual.Subtotal = detalleActual.Cantidad * detalleActual.Precio_Unitario;
+
+                // Refrescamos visualmente la tabla para que muestre el nuevo subtotal
+                dataGridView1.Refresh();
+
+                // Recalculamos el total de toda la compra
+                ActualizarTotal();
             }
         }
 

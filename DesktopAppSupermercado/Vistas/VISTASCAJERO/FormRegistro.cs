@@ -14,5 +14,10 @@ namespace DesktopAppSupermercado
         {
             InitializeComponent();
         }
+
+        private void FormRegistro_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
