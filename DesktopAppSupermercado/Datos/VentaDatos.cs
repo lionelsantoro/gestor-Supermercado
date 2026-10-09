@@ -130,6 +130,13 @@ namespace DesktopAppSupermercado.Datos
                                                 
                         foreach (var item in detalles)
                         {
+                            decimal cantidadEnUnidadBase = string.Equals(
+                                item.UnidadMedida?.Trim(),
+                                "Kg",
+                                StringComparison.OrdinalIgnoreCase)
+                                ? item.Cantidad / 1000m
+                                : item.Cantidad;        
+
                             if (item.Cantidad <= 0)
                             {
                                 throw new Exception(
@@ -140,12 +147,15 @@ namespace DesktopAppSupermercado.Datos
                             using (SqlCommand cmdStock =
                                 new SqlCommand(queryStock, con, transaccion))
                             {
-                                cmdStock.Parameters.Add(
-                                    "@cantidad", SqlDbType.Int).Value = item.Cantidad;
+                                SqlParameter cantidadStock = cmdStock.Parameters.Add("@cantidad", SqlDbType.Decimal);
+
+                                cantidadStock.Precision = 12;
+                                cantidadStock.Scale = 3;
+                                cantidadStock.Value = cantidadEnUnidadBase;
 
                                 cmdStock.Parameters.Add(
-                                    "@idProducto", SqlDbType.Int).Value =
-                                    item.IdProducto;
+                                    "@idProducto",
+                                    SqlDbType.Int).Value = item.IdProducto;
 
                                 object resultadoStock = cmdStock.ExecuteScalar();
 
@@ -169,8 +179,11 @@ namespace DesktopAppSupermercado.Datos
                                     "@idProducto", SqlDbType.Int).Value =
                                     item.IdProducto;
 
-                                cmdDetalle.Parameters.Add(
-                                    "@cantidad", SqlDbType.Int).Value = item.Cantidad;
+                                SqlParameter cantidadDetalle = cmdDetalle.Parameters.Add("@cantidad", SqlDbType.Decimal);
+
+                                cantidadDetalle.Precision = 12;
+                                cantidadDetalle.Scale = 3;
+                                cantidadDetalle.Value = cantidadEnUnidadBase;
 
                                 SqlParameter precio =
                                     cmdDetalle.Parameters.Add(

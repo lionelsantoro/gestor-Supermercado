@@ -10,17 +10,28 @@ namespace DesktopAppSupermercado.Entidades
         public int IdProducto { get; set; }
         public string Nombre { get; set; }
         public decimal Precio { get; set; }
-        public int Stock { get; set; }
+        public decimal Stock { get; set; }
+        public string UnidadMedida { get; set; }
     }
 
     public class DetalleVentaVista
     {
         public int IdProducto { get; set; }
         public string Nombre { get; set; }
+
+        // Para productos Kg: gramos ingresados por el cajero.
+        // Para productos Unidad: cantidad de unidades.
         public int Cantidad { get; set; }
+
+        // Para Kg: precio por kilogramo.
+        // Para Unidad: precio por unidad.
         public decimal Precio_Unitario { get; set; }
         public decimal Subtotal { get; set; }
-        public int StockActual { get; set; }
+
+        // Stock expresado en la unidad base del producto:
+        // Kg para pesables, unidades para los demás.
+        public decimal StockActual { get; set; }
+        public string UnidadMedida { get; set; }
     }
 
     public class Usuario

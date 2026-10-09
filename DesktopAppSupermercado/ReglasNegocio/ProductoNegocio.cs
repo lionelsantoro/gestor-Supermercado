@@ -15,24 +15,43 @@ namespace DesktopAppSupermercado.ReglasNegocio
             return datos.ObtenerDescripcionesAutocomplete();
         }
 
-        public Producto ValidarYObtenerProductoParaVenta(string nombreSeleccionado, int cantidadSolicitada)
+        public Producto ValidarYObtenerProductoParaVenta(
+             string nombreSeleccionado,
+             int cantidadSolicitada)
         {
-            // 1. Validar la cantidad ingresada
             if (cantidadSolicitada <= 0)
-                throw new Exception("La cantidad debe ser mayor a cero.");
+                throw new Exception(
+                    "La cantidad debe ser mayor a cero.");
 
-            // 2. Traer el producto de la BD a través de la capa de datos
-            Producto producto = datos.ObtenerProductoPorNombre(nombreSeleccionado);
+            Producto producto =
+                datos.ObtenerProductoPorNombre(nombreSeleccionado);
 
-            // 3. Validar existencia
             if (producto == null)
-                throw new Exception("El producto no existe o fue eliminado.");
+                throw new Exception(
+                    "El producto no existe o fue eliminado.");
 
-            // 4. Validar Stock contra la cantidad solicitada
-            if (producto.Stock < cantidadSolicitada)
-                throw new Exception($"Stock insuficiente. Solo quedan {producto.Stock} unidades de este producto en el sistema.");
+            bool esKg = string.Equals(
+                producto.UnidadMedida?.Trim(),
+                "Kg",
+                StringComparison.OrdinalIgnoreCase);
 
-            // Si pasa todas las validaciones, devolvemos el producto entero a la vista
+            // Si es Kg, la cantidad ingresada está en gramos.
+            // El stock está expresado en kg.
+            decimal cantidadEnStock = esKg
+                ? cantidadSolicitada / 1000m
+                : cantidadSolicitada;
+
+            if (cantidadEnStock > producto.Stock)
+            {
+                string disponible = esKg
+                    ? $"{producto.Stock * 1000m:0} gramos"
+                    : $"{producto.Stock:0} unidades";
+
+                throw new Exception(
+                    $"Stock insuficiente para {producto.Nombre}. " +
+                    $"Disponible: {disponible}.");
+            }
+
             return producto;
         }
     }

@@ -41,7 +41,17 @@ namespace DesktopAppSupermercado.Datos
             using (SqlConnection conexion = miConexion.ObtenerConexion())
             {
                 conexion.Open();
-                string query = "SELECT id_producto, nombre, precio, stock FROM productos WHERE nombre = @nombre AND eliminado = 0";
+
+                string query = @"
+                                 SELECT
+                                        id_producto,
+                                        nombre,
+                                        precio,
+                                        stock,
+                                        unidad_medida
+                                 FROM productos
+                                 WHERE nombre = @nombre
+                                 AND eliminado = 0;";
 
                 using (SqlCommand comando = new SqlCommand(query, conexion))
                 {
@@ -53,15 +63,24 @@ namespace DesktopAppSupermercado.Datos
                         {
                             producto = new Producto
                             {
-                                IdProducto = Convert.ToInt32(lector["id_producto"]),
+                                IdProducto = Convert.ToInt32(
+                                    lector["id_producto"]),
+
                                 Nombre = lector["nombre"].ToString(),
-                                Precio = Convert.ToDecimal(lector["precio"]),
-                                Stock = Convert.ToInt32(lector["stock"])
+
+                                Precio = Convert.ToDecimal(
+                                    lector["precio"]),
+
+                                Stock = Convert.ToDecimal(
+                                    lector["stock"]),
+
+                                UnidadMedida = lector["unidad_medida"].ToString()
                             };
                         }
                     }
                 }
             }
+
             return producto;
         }
     }

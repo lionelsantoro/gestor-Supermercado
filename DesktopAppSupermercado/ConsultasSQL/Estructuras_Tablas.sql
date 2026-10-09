@@ -185,3 +185,89 @@ BEGIN
         (1, @ultimoNumero);
 END;
 GO
+
+---------------------------------------------------------------------------------------
+----------------- Cambio stock y cantidad de INT a DECIMAL ----------------------------
+---------------------------------------------------------------------------------------
+
+USE SupermercadoDB;
+GO
+
+DECLARE @NombreDefault SYSNAME;
+DECLARE @DefinicionDefault NVARCHAR(MAX);
+DECLARE @SQL NVARCHAR(MAX);
+
+-- Obtener el nombre y la definición del DEFAULT actual.
+SELECT
+    @NombreDefault = dc.name,
+    @DefinicionDefault = dc.definition
+FROM sys.default_constraints AS dc
+INNER JOIN sys.columns AS c
+    ON c.object_id = dc.parent_object_id
+   AND c.column_id = dc.parent_column_id
+WHERE dc.parent_object_id = OBJECT_ID(N'dbo.productos')
+  AND c.name = N'stock';
+
+BEGIN TRY
+    BEGIN TRANSACTION;
+
+    -- Quitar temporalmente el DEFAULT si existe.
+    IF @NombreDefault IS NOT NULL
+    BEGIN
+        SET @SQL =
+            N'ALTER TABLE dbo.productos DROP CONSTRAINT '
+            + QUOTENAME(@NombreDefault) + N';';
+
+        EXEC sys.sp_executesql @SQL;
+    END;
+
+    -- Cambiar INT por DECIMAL.
+    ALTER TABLE dbo.productos
+    ALTER COLUMN stock DECIMAL(12,3) NOT NULL;
+
+    -- Restaurar el DEFAULT original, si existía.
+    IF @NombreDefault IS NOT NULL
+    BEGIN
+        SET @SQL =
+            N'ALTER TABLE dbo.productos ADD CONSTRAINT '
+            + QUOTENAME(@NombreDefault)
+            + N' DEFAULT '
+            + @DefinicionDefault
+            + N' FOR stock;';
+
+        EXEC sys.sp_executesql @SQL;
+    END;
+
+    COMMIT TRANSACTION;
+
+    PRINT 'La columna stock fue modificada correctamente.';
+END TRY
+BEGIN CATCH
+    IF XACT_STATE() <> 0
+        ROLLBACK TRANSACTION;
+
+    THROW;
+END CATCH;
+GO
+
+USE SupermercadoDB;
+GO
+
+--- Comprobar que el codigo anterior se ejecutó correctamente y que la columna stock ahora es DECIMAL(12,3) y conserva su valor default.
+
+SELECT
+    t.name AS tabla,
+    c.name AS columna,
+    TYPE_NAME(c.user_type_id) AS tipo_dato,
+    c.precision,
+    c.scale,
+    dc.name AS restriccion_default,
+    dc.definition AS valor_default
+FROM sys.tables AS t
+INNER JOIN sys.columns AS c
+    ON c.object_id = t.object_id
+LEFT JOIN sys.default_constraints AS dc
+    ON dc.parent_object_id = c.object_id
+   AND dc.parent_column_id = c.column_id
+WHERE t.name IN ('productos', 'detalle_venta')
+  AND c.name IN ('stock', 'cantidad');

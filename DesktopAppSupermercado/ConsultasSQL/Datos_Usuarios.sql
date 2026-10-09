@@ -38,7 +38,6 @@ INSERT INTO usuarios (id_persona, id_rol, correo, nombre_usuario, contrasena, co
 
 1)  .....................
 
-
 -- ==========================================
 -- 1. CARGAR CATEGORÍAS
 -- ==========================================
@@ -121,3 +120,108 @@ INSERT INTO productos (id_categoria, descripcion, precio, stock, unidad_medida, 
 -- Verdulería y Panadería
 ((SELECT id_categoria FROM categorias WHERE nombre = 'Verdulería'), 'Papa Negra', 800, 50.0, 'Kg', '600001', NULL, NULL),
 ((SELECT id_categoria FROM categorias WHERE nombre = 'Panadería'), 'Pan Francés Mignón', 1800, 18.5, 'Kg', '700001', NULL, NULL);
+
+
+3)  .....................
+
+
+-- ==========================================
+-- 3. CARGAR CATEGORÍAS
+-- ==========================================
+INSERT INTO categorias (nombre) VALUES 
+('Bebidas'),
+('Lácteos'),
+('Almacén'),
+('Limpieza'),
+('Carnicería'),
+('Verdulería'),
+('Panadería');
+
+-- ==========================================
+-- 4. CARGAR 10 PRODUCTOS POR CATEGORÍA (70 en total)
+-- ==========================================
+INSERT INTO productos (id_categoria, nombre, precio, stock, unidad_medida, codigo_barra) VALUES 
+
+-- BEBIDAS (Códigos 100001 al 100010)
+((SELECT id_categoria FROM categorias WHERE nombre = 'Bebidas'), 'Coca-Cola 2.25L', 2500, 48, 'Unidad', '100001'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Bebidas'), 'Cerveza Quilmes Clásica 1L', 2200, 120, 'Unidad', '100002'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Bebidas'), 'Agua Mineral Kin 1.5L', 950, 60, 'Unidad', '100003'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Bebidas'), 'Sprite 2L Retornable', 1800, 30, 'Unidad', '100004'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Bebidas'), 'Fernet Branca 750ml', 8500, 24, 'Unidad', '100005'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Bebidas'), 'Jugo Cepita Naranja 1L', 1200, 40, 'Unidad', '100006'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Bebidas'), 'Cerveza Brahma 1L', 2000, 100, 'Unidad', '100007'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Bebidas'), 'Vino Toro en Caja 1L', 1500, 50, 'Unidad', '100008'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Bebidas'), 'Soda Kin 1.5L', 800, 60, 'Unidad', '100009'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Bebidas'), 'Paso de los Toros Pomelo 1.5L', 1600, 35, 'Unidad', '100010'),
+
+-- LÁCTEOS (Códigos 200001 al 200010)
+((SELECT id_categoria FROM categorias WHERE nombre = 'Lácteos'), 'Leche Entera La Serenísima 1L', 1350, 30, 'Unidad', '200001'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Lácteos'), 'Queso Cremoso Cremigal', 6500, 15.5, 'Kg', '200002'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Lácteos'), 'Yogur Firme Ilolay Frutilla', 850, 40, 'Unidad', '200003'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Lácteos'), 'Manteca Tonadita 200g', 1900, 25, 'Unidad', '200004'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Lácteos'), 'Dulce de Leche Sancor 400g', 2100, 30, 'Unidad', '200005'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Lácteos'), 'Queso Rallado La Serenísima 120g', 1800, 40, 'Unidad', '200006'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Lácteos'), 'Crema de Leche Tregar 200cc', 1400, 20, 'Unidad', '200007'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Lácteos'), 'Leche Chocolatada Cindor 1L', 2200, 25, 'Unidad', '200008'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Lácteos'), 'Queso Crema Mendicrim 300g', 2500, 20, 'Unidad', '200009'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Lácteos'), 'Postre Danette Vainilla', 900, 35, 'Unidad', '200010'),
+
+-- ALMACÉN (Códigos 300001 al 300010)
+((SELECT id_categoria FROM categorias WHERE nombre = 'Almacén'), 'Yerba Mate Playadito 1Kg', 4500, 50, 'Unidad', '300001'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Almacén'), 'Fideos Tallarines Matarazzo 500g', 1150, 80, 'Unidad', '300002'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Almacén'), 'Arroz Gallo Oro 1Kg', 2100, 40, 'Unidad', '300003'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Almacén'), 'Aceite de Girasol Natura 1.5L', 2850, 35, 'Unidad', '300004'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Almacén'), 'Azúcar Ledesma Clásica 1Kg', 950, 100, 'Unidad', '300005'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Almacén'), 'Harina Pureza 0000 1Kg', 1200, 60, 'Unidad', '300006'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Almacén'), 'Puré de Tomate Arcor 520g', 850, 90, 'Unidad', '300007'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Almacén'), 'Mayonesa Hellmanns 475g', 1600, 45, 'Unidad', '300008'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Almacén'), 'Galletitas Surtido Diversión 400g', 1500, 55, 'Unidad', '300009'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Almacén'), 'Atún Desmenuzado La Campagnola', 1900, 30, 'Unidad', '300010'),
+
+-- LIMPIEZA (Códigos 400001 al 400010)
+((SELECT id_categoria FROM categorias WHERE nombre = 'Limpieza'), 'Detergente Magistral 500ml', 1850, 25, 'Unidad', '400001'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Limpieza'), 'Lavandina Ayudín Clásica 1L', 1250, 60, 'Unidad', '400002'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Limpieza'), 'Limpiador Poett Primavera 900ml', 1400, 40, 'Unidad', '400003'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Limpieza'), 'Jabón en Polvo Ala 800g', 2200, 35, 'Unidad', '400004'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Limpieza'), 'Suavizante Vivere Clásico 900ml', 1900, 30, 'Unidad', '400005'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Limpieza'), 'Papel Higiénico Higienol 4u', 2500, 50, 'Unidad', '400006'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Limpieza'), 'Rollo de Cocina Sussex 3u', 1800, 40, 'Unidad', '400007'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Limpieza'), 'Jabón de Tocador Rexona 3u', 1500, 45, 'Unidad', '400008'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Limpieza'), 'Esponja Mortimer Multiuso', 600, 100, 'Unidad', '400009'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Limpieza'), 'Limpiavidrios Cif Gatillo 500ml', 2100, 20, 'Unidad', '400010'),
+
+-- CARNICERÍA (Códigos 500001 al 500010)
+((SELECT id_categoria FROM categorias WHERE nombre = 'Carnicería'), 'Asado de Tira Especial', 7500, 25.5, 'Kg', '500001'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Carnicería'), 'Carne Picada Especial', 6800, 10.2, 'Kg', '500002'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Carnicería'), 'Vacío de Novillo', 8200, 18.0, 'Kg', '500003'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Carnicería'), 'Matambre de Cerdo', 7900, 12.5, 'Kg', '500004'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Carnicería'), 'Nalga para Milanesa', 8500, 22.0, 'Kg', '500005'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Carnicería'), 'Pechuga de Pollo', 4500, 30.0, 'Kg', '500006'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Carnicería'), 'Chorizo de Cerdo', 4200, 15.0, 'Kg', '500007'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Carnicería'), 'Morcilla Bombón', 3500, 10.0, 'Kg', '500008'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Carnicería'), 'Costillita de Cerdo', 6500, 20.0, 'Kg', '500009'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Carnicería'), 'Osobuco', 4800, 14.5, 'Kg', '500010'),
+
+-- VERDULERÍA (Códigos 600001 al 600010)
+((SELECT id_categoria FROM categorias WHERE nombre = 'Verdulería'), 'Papa Negra', 800, 50.0, 'Kg', '600001'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Verdulería'), 'Cebolla', 900, 40.0, 'Kg', '600002'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Verdulería'), 'Tomate Perita', 1500, 30.0, 'Kg', '600003'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Verdulería'), 'Lechuga Capuchina', 1200, 15.0, 'Kg', '600004'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Verdulería'), 'Zanahoria', 1000, 25.0, 'Kg', '600005'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Verdulería'), 'Manzana Roja', 1800, 20.0, 'Kg', '600006'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Verdulería'), 'Banana Cavendish', 1600, 35.0, 'Kg', '600007'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Verdulería'), 'Naranja para Jugo', 1100, 45.0, 'Kg', '600008'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Verdulería'), 'Limón', 800, 20.0, 'Kg', '600009'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Verdulería'), 'Morrón Rojo', 2500, 10.0, 'Kg', '600010'),
+
+-- PANADERÍA (Códigos 700001 al 700010)
+((SELECT id_categoria FROM categorias WHERE nombre = 'Panadería'), 'Pan Francés Mignón', 1800, 18.5, 'Kg', '700001'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Panadería'), 'Medialunas de Manteca', 350, 120, 'Unidad', '700002'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Panadería'), 'Pan de Miga', 3500, 10.0, 'Kg', '700003'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Panadería'), 'Bizcochitos de Grasa', 4500, 15.0, 'Kg', '700004'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Panadería'), 'Facturas Surtidas', 400, 100, 'Unidad', '700005'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Panadería'), 'Pan Rallado', 1500, 25.0, 'Kg', '700006'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Panadería'), 'Prepizza', 900, 40, 'Unidad', '700007'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Panadería'), 'Pan de Hamburguesa 4u', 1200, 30, 'Unidad', '700008'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Panadería'), 'Pan para Pancho 6u', 1100, 35, 'Unidad', '700009'),
+((SELECT id_categoria FROM categorias WHERE nombre = 'Panadería'), 'Chipá de Queso', 7000, 12.0, 'Kg', '700010');

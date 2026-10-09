@@ -61,6 +61,12 @@ namespace DesktopAppSupermercado
             dataGridView1.DataSource = listaDetallesVenta;
             dataGridView1.AllowUserToAddRows = false;
 
+            if (dataGridView1.Columns["Cantidad"] != null)
+                dataGridView1.Columns["Cantidad"].HeaderText = "Cantidad (g / u)";
+
+            if (dataGridView1.Columns["UnidadMedida"] != null)
+                dataGridView1.Columns["UnidadMedida"].HeaderText = "Unidad";
+
             if (dataGridView1.Columns["IdProducto"] != null)
                 dataGridView1.Columns["IdProducto"].Visible = false;
 
@@ -397,34 +403,87 @@ namespace DesktopAppSupermercado
                     "Atención",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning);
-
                 return;
             }
 
             string descripcionIngresada = txtNombre.Text.Trim();
 
-            if (!int.TryParse(textCant.Text, out int cantidadIngresada))
+            if (!int.TryParse(textCant.Text, out int cantidadIngresada) ||
+                cantidadIngresada <= 0)
             {
-                MessageBox.Show("Ingrese una cantidad numérica válida.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(
+                    "Ingrese una cantidad entera mayor que cero.",
+                    "Cantidad inválida",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
                 return;
             }
 
             try
             {
                 ProductoNegocio productoNegocio = new ProductoNegocio();
-                Producto productoValidado = productoNegocio.ValidarYObtenerProductoParaVenta(descripcionIngresada, cantidadIngresada);
+
+                Producto producto =
+                    productoNegocio.ValidarYObtenerProductoParaVenta(
+                        descripcionIngresada,
+                        cantidadIngresada);
+
+                // Convertir a la unidad en que está expresado el stock.
+                decimal nuevaCantidad =
+                    ConvertirCantidadAStock(
+                        cantidadIngresada,
+                        producto.UnidadMedida);
+
+                // Cantidad del mismo producto que ya está en la compra.
+                decimal cantidadExistente = 0;
+
+                foreach (var detalle in listaDetallesVenta)
+                {
+                    if (detalle.IdProducto == producto.IdProducto)
+                    {
+                        cantidadExistente += ConvertirCantidadAStock(
+                            detalle.Cantidad,
+                            detalle.UnidadMedida);
+                    }
+                }
+
+                // No permitir superar el stock sumando todas las líneas.
+                if (cantidadExistente + nuevaCantidad > producto.Stock)
+                {
+                    decimal disponible =
+                        Math.Max(0, producto.Stock - cantidadExistente);
+
+                    string mensajeDisponible =
+                        EsProductoPorKg(producto.UnidadMedida)
+                            ? $"{disponible * 1000m:0} gramos"
+                            : $"{disponible:0} unidades";
+
+                    MessageBox.Show(
+                        $"Stock insuficiente para {producto.Nombre}. " +
+                        $"Disponible para agregar: {mensajeDisponible}.",
+                        "Falta de stock",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+
+                    return;
+                }
 
                 DetalleVentaVista nuevoDetalle = new DetalleVentaVista
                 {
-                    IdProducto = productoValidado.IdProducto,
-                    Nombre = productoValidado.Nombre,
+                    IdProducto = producto.IdProducto,
+                    Nombre = producto.Nombre,
                     Cantidad = cantidadIngresada,
-                    Precio_Unitario = productoValidado.Precio,
-                    Subtotal = productoValidado.Precio * cantidadIngresada,
-                    StockActual = productoValidado.Stock // Guardamos el stock aquí
+                    Precio_Unitario = producto.Precio,
+                    UnidadMedida = producto.UnidadMedida,
+                    Subtotal = CalcularSubtotal(
+                        cantidadIngresada,
+                        producto.Precio,
+                        producto.UnidadMedida),
+                    StockActual = producto.Stock
                 };
 
                 listaDetallesVenta.Add(nuevoDetalle);
+
                 ActualizarTotal();
 
                 txtNombre.Clear();
@@ -433,62 +492,139 @@ namespace DesktopAppSupermercado
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(
+                    ex.Message,
+                    "Validación",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
             }
         }
 
         // Este evento "atrapa" el dato antes de que se guarde en la celda y lo valida
-        private void dataGridView1_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        private void dataGridView1_CellValidating(
+            object sender,
+            DataGridViewCellValidatingEventArgs e)
         {
-            // Solo validamos si la columna que están editando es la de "Cantidad"
-            if (e.RowIndex >= 0 && dataGridView1.Columns[e.ColumnIndex].Name == "Cantidad")
+            if (e.RowIndex < 0 ||
+                dataGridView1.Columns[e.ColumnIndex].Name != "Cantidad")
+                return;
+
+            if (!int.TryParse(
+                    e.FormattedValue?.ToString(),
+                    out int nuevaCantidad) ||
+                nuevaCantidad <= 0)
             {
-                string valorIngresado = e.FormattedValue.ToString();
+                MessageBox.Show(
+                    "La cantidad debe ser un entero mayor que cero.",
+                    "Cantidad inválida",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
 
-                // 1. Validar letras o caracteres extraños
-                if (!int.TryParse(valorIngresado, out int nuevaCantidad))
-                {
-                    MessageBox.Show("Debe ingresar un número entero válido.", "Error de formato", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    e.Cancel = true; // Cancela la edición y devuelve el valor anterior
-                    return;
-                }
+                e.Cancel = true;
+                return;
+            }
 
-                // 2. Validar que no sea 0 ni un número negativo
-                if (nuevaCantidad <= 0)
-                {
-                    MessageBox.Show("La cantidad no puede ser nula ni negativa.", "Cantidad inválida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    e.Cancel = true;
-                    return;
-                }
+            var detalleActual = listaDetallesVenta[e.RowIndex];
 
-                // 3. Validar contra el stock máximo
-                var detalleActual = listaDetallesVenta[e.RowIndex];
-                if (nuevaCantidad > detalleActual.StockActual)
+            // Sumar las cantidades de las otras líneas del mismo producto.
+            decimal cantidadOtrasLineas = 0;
+
+            for (int i = 0; i < listaDetallesVenta.Count; i++)
+            {
+                if (i == e.RowIndex)
+                    continue;
+
+                var otroDetalle = listaDetallesVenta[i];
+
+                if (otroDetalle.IdProducto == detalleActual.IdProducto)
                 {
-                    MessageBox.Show($"Stock insuficiente. Solo dispone de {detalleActual.StockActual} unidades.", "Falta de Stock", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    e.Cancel = true;
-                    return;
+                    cantidadOtrasLineas += ConvertirCantidadAStock(
+                        otroDetalle.Cantidad,
+                        otroDetalle.UnidadMedida);
                 }
+            }
+
+            decimal nuevaCantidadEnStock =
+                ConvertirCantidadAStock(
+                    nuevaCantidad,
+                    detalleActual.UnidadMedida);
+
+            if (cantidadOtrasLineas + nuevaCantidadEnStock >
+                detalleActual.StockActual)
+            {
+                decimal disponible = Math.Max(
+                    0,
+                    detalleActual.StockActual - cantidadOtrasLineas);
+
+                string mensajeDisponible =
+                    EsProductoPorKg(detalleActual.UnidadMedida)
+                        ? $"{disponible * 1000m:0} gramos"
+                        : $"{disponible:0} unidades";
+
+                MessageBox.Show(
+                    $"Stock insuficiente para {detalleActual.Nombre}. " +
+                    $"Disponible para esta línea: {mensajeDisponible}.",
+                    "Falta de stock",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+
+                e.Cancel = true;
             }
         }
 
         // Este evento recalcula los totales una vez que la validación anterior fue exitosa
-        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        private void dataGridView1_CellValueChanged(
+            object sender,
+            DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0 && dataGridView1.Columns[e.ColumnIndex].Name == "Cantidad")
-            {
-                // Obtenemos la fila que se modificó
-                var detalleActual = listaDetallesVenta[e.RowIndex];
+            if (e.RowIndex < 0 || e.ColumnIndex < 0 || dataGridView1.Columns[e.ColumnIndex].Name != "Cantidad")
+                return;
 
-                // Recalculamos el subtotal de ese producto
-                detalleActual.Subtotal = detalleActual.Cantidad * detalleActual.Precio_Unitario;
+            var detalleActual = listaDetallesVenta[e.RowIndex];
 
-                // Refrescamos visualmente la tabla para que muestre el nuevo subtotal
-                dataGridView1.Refresh();
+            detalleActual.Subtotal = CalcularSubtotal(
+                detalleActual.Cantidad,
+                detalleActual.Precio_Unitario,
+                detalleActual.UnidadMedida);
 
-                // Recalculamos el total de toda la compra
-                ActualizarTotal();
-            }
+            dataGridView1.Refresh();
+
+            ActualizarTotal();
+        }
+
+        private bool EsProductoPorKg(string unidadMedida)
+        {
+            return string.Equals(
+                unidadMedida?.Trim(),
+                "Kg",
+                StringComparison.OrdinalIgnoreCase);
+        }
+
+        // Convierte la cantidad ingresada a la unidad del stock.
+        // Kg: gramos / 1000.
+        // Unidad: cantidad de unidades.
+        private decimal ConvertirCantidadAStock(
+            int cantidad,
+            string unidadMedida)
+        {
+            return EsProductoPorKg(unidadMedida)
+                ? cantidad / 1000m
+                : cantidad;
+        }
+
+        // Calcula el subtotal con el precio por kg o por unidad.
+        private decimal CalcularSubtotal(
+            int cantidad,
+            decimal precioUnitario,
+            string unidadMedida)
+        {
+            decimal cantidadParaCalcular =
+                ConvertirCantidadAStock(cantidad, unidadMedida);
+
+            return decimal.Round(
+                cantidadParaCalcular * precioUnitario,
+                2,
+                MidpointRounding.AwayFromZero);
         }
 
     }
