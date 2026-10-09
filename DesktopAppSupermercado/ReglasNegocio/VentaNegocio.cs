@@ -1,9 +1,7 @@
 ﻿using DesktopAppSupermercado.Datos;
 using DesktopAppSupermercado.Entidades;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
 
 namespace DesktopAppSupermercado.ReglasNegocio
 {
@@ -11,17 +9,28 @@ namespace DesktopAppSupermercado.ReglasNegocio
     {
         private VentaDatos datos = new VentaDatos();
 
-        public int GenerarIdProvisional(int idCajero)
+        public int ObtenerNumeroTicketEstimado()
         {
-            return datos.ObtenerProximoIdVenta(idCajero);
+            return datos.ObtenerNumeroTicketEstimado();
         }
 
-        public void GuardarVentaConfirmada(int idUsuario, int idMedioPago, decimal montoTotal, BindingList<DetalleVentaVista> detalles)
+        public int GuardarVentaConfirmada(
+            int idUsuario,
+            int idMedioPago,
+            decimal montoTotal,
+            BindingList<DetalleVentaVista> detalles)
         {
-            if (detalles.Count == 0)
-                throw new Exception("No se puede registrar una venta sin productos.");
+            if (detalles == null || detalles.Count == 0)
+            {
+                throw new Exception(
+                    "No se puede registrar una venta sin productos.");
+            }
 
-            datos.RegistrarVentaCompleta(idUsuario, idMedioPago, montoTotal, detalles);
+            return datos.RegistrarVentaCompleta(
+                idUsuario,
+                idMedioPago,
+                montoTotal,
+                detalles);
         }
     }
 }

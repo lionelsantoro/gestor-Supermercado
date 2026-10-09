@@ -10,14 +10,14 @@ namespace DesktopAppSupermercado.Datos
     {
         public List<string> ObtenerDescripcionesAutocomplete()
         {
-            List<string> descripciones = new List<string>();
+            List<string> nombreProducto = new List<string>();
             Conexion miConexion = new Conexion();
 
             using (SqlConnection conexion = miConexion.ObtenerConexion())
             {
                 conexion.Open();
                 // Solo traemos los productos que no estén eliminados
-                string query = "SELECT descripcion FROM productos WHERE eliminado = 0";
+                string query = "SELECT nombre FROM productos WHERE eliminado = 0";
 
                 using (SqlCommand comando = new SqlCommand(query, conexion))
                 {
@@ -25,15 +25,15 @@ namespace DesktopAppSupermercado.Datos
                     {
                         while (lector.Read())
                         {
-                            descripciones.Add(lector["descripcion"].ToString());
+                            nombreProducto.Add(lector["nombre"].ToString());
                         }
                     }
                 }
             }
-            return descripciones;
+            return nombreProducto;
         }
 
-        public Producto ObtenerProductoPorDescripcion(string descripcion)
+        public Producto ObtenerProductoPorNombre(string nombre)
         {
             Producto producto = null;
             Conexion miConexion = new Conexion();
@@ -41,11 +41,11 @@ namespace DesktopAppSupermercado.Datos
             using (SqlConnection conexion = miConexion.ObtenerConexion())
             {
                 conexion.Open();
-                string query = "SELECT id_producto, nombre, descripcion, precio, stock FROM productos WHERE descripcion = @descripcion AND eliminado = 0";
+                string query = "SELECT id_producto, nombre, precio, stock FROM productos WHERE nombre = @nombre AND eliminado = 0";
 
                 using (SqlCommand comando = new SqlCommand(query, conexion))
                 {
-                    comando.Parameters.AddWithValue("@descripcion", descripcion);
+                    comando.Parameters.AddWithValue("@nombre", nombre);
 
                     using (SqlDataReader lector = comando.ExecuteReader())
                     {
@@ -55,7 +55,6 @@ namespace DesktopAppSupermercado.Datos
                             {
                                 IdProducto = Convert.ToInt32(lector["id_producto"]),
                                 Nombre = lector["nombre"].ToString(),
-                                Descripcion = lector["descripcion"].ToString(),
                                 Precio = Convert.ToDecimal(lector["precio"]),
                                 Stock = Convert.ToInt32(lector["stock"])
                             };

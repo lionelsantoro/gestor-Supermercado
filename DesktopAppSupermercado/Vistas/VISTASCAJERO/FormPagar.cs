@@ -30,15 +30,9 @@ namespace DesktopAppSupermercado
 
         private void btnConfirmar_Click(object sender, EventArgs e)
         {
-            if (cmbMedioPago.SelectedIndex == -1 || string.IsNullOrWhiteSpace(txtBanco.Text))
+            if (cmbMedioPago.SelectedIndex == -1)
             {
                 MessageBox.Show("Por favor, seleccione un Medio de Pago y complete el Banco.", "Campos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            if (!Regex.IsMatch(txtBanco.Text, @"^[a-zA-Z\s]+$"))
-            {
-                MessageBox.Show("El campo Banco solo puede contener letras.", "Formato inválido", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 

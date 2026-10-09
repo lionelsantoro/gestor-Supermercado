@@ -15,14 +15,14 @@ namespace DesktopAppSupermercado.ReglasNegocio
             return datos.ObtenerDescripcionesAutocomplete();
         }
 
-        public Producto ValidarYObtenerProductoParaVenta(string descripcionSeleccionada, int cantidadSolicitada)
+        public Producto ValidarYObtenerProductoParaVenta(string nombreSeleccionado, int cantidadSolicitada)
         {
             // 1. Validar la cantidad ingresada
             if (cantidadSolicitada <= 0)
                 throw new Exception("La cantidad debe ser mayor a cero.");
 
             // 2. Traer el producto de la BD a través de la capa de datos
-            Producto producto = datos.ObtenerProductoPorDescripcion(descripcionSeleccionada);
+            Producto producto = datos.ObtenerProductoPorNombre(nombreSeleccionado);
 
             // 3. Validar existencia
             if (producto == null)

@@ -101,3 +101,87 @@ CREATE TABLE detalle_venta (
     CONSTRAINT FK_Detalle_Ventas FOREIGN KEY (id_venta) REFERENCES ventas(id_venta),
     CONSTRAINT FK_Detalle_Productos FOREIGN KEY (id_producto) REFERENCES productos(id_producto)
 );
+
+
+---------------------------------------------------------------------------------------
+------------- Cambios para numeración de tickets de la vista cajero -------------------
+---------------------------------------------------------------------------------------
+
+USE SupermercadoDB;
+GO
+
+-- 1. Verificar que exista la tabla ventas.
+IF OBJECT_ID(N'dbo.ventas', N'U') IS NULL
+BEGIN
+    THROW 50001, 'No existe la tabla dbo.ventas en la base actual.', 1;
+END;
+GO
+
+-- 2. Verificar que exista la columna numero_ticket.
+IF COL_LENGTH(N'dbo.ventas', N'numero_ticket') IS NULL
+BEGIN
+    THROW 50002, 'No existe la columna numero_ticket en dbo.ventas.', 1;
+END;
+GO
+
+-- 3. numero_ticket debe ser INT y no admitir NULL.
+-- La tabla debe estar vacía, como indicaste.
+ALTER TABLE dbo.ventas
+ALTER COLUMN numero_ticket INT NOT NULL;
+GO
+
+-- 4. Impedir que dos ventas confirmadas tengan el mismo ticket.
+IF NOT EXISTS
+(
+    SELECT 1
+    FROM sys.key_constraints
+    WHERE parent_object_id = OBJECT_ID(N'dbo.ventas')
+      AND name = N'UQ_ventas_numero_ticket'
+)
+BEGIN
+    ALTER TABLE dbo.ventas
+    ADD CONSTRAINT UQ_ventas_numero_ticket
+        UNIQUE (numero_ticket);
+END;
+GO
+
+-- 5. Crear el contador transaccional.
+IF OBJECT_ID(N'dbo.ControlNumeracionTicket', N'U') IS NULL
+BEGIN
+    CREATE TABLE dbo.ControlNumeracionTicket
+    (
+        id TINYINT NOT NULL,
+        ultimo_numero INT NOT NULL,
+
+        CONSTRAINT PK_ControlNumeracionTicket
+            PRIMARY KEY (id),
+
+        CONSTRAINT CK_ControlNumeracionTicket_Id
+            CHECK (id = 1),
+
+        CONSTRAINT CK_ControlNumeracionTicket_Numero
+            CHECK (ultimo_numero >= 0)
+    );
+END;
+GO
+
+-- 6. Inicializar el contador con el último ticket existente.
+-- Si ventas está vacía, el resultado es 0.
+IF NOT EXISTS
+(
+    SELECT 1
+    FROM dbo.ControlNumeracionTicket
+    WHERE id = 1
+)
+BEGIN
+    DECLARE @ultimoNumero INT;
+
+    SELECT @ultimoNumero = ISNULL(MAX(numero_ticket), 0)
+    FROM dbo.ventas;
+
+    INSERT INTO dbo.ControlNumeracionTicket
+        (id, ultimo_numero)
+    VALUES
+        (1, @ultimoNumero);
+END;
+GO

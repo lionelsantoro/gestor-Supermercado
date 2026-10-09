@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 
 namespace DesktopAppSupermercado.Entidades
@@ -8,7 +9,6 @@ namespace DesktopAppSupermercado.Entidades
     {
         public int IdProducto { get; set; }
         public string Nombre { get; set; }
-        public string Descripcion { get; set; }
         public decimal Precio { get; set; }
         public int Stock { get; set; }
     }
@@ -44,5 +44,17 @@ namespace DesktopAppSupermercado.Entidades
     {
         public int IdMedioPago { get; set; }
         public string Nombre { get; set; }
+    }
+
+    public class VentaEnMemoria
+    {
+        public int NumeroTicketEstimado { get; set; }
+        public int IdUsuario { get; set; }
+        public int IdMedioPago { get; set; }
+        public DateTime Fecha { get; set; }
+        public decimal MontoTotal { get; set; }
+
+        public BindingList<DetalleVentaVista> Detalles { get; set; }
+            = new BindingList<DetalleVentaVista>();
     }
 }

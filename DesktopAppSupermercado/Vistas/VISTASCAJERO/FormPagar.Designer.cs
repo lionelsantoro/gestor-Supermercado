@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             label1 = new Label();
-            label2 = new Label();
-            txtBanco = new TextBox();
             btnConfirmar = new Button();
             button2 = new Button();
             cmbMedioPago = new ComboBox();
@@ -46,26 +44,9 @@
             label1.TabIndex = 0;
             label1.Text = "Medio de Pago:";
             // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(106, 61);
-            label2.Name = "label2";
-            label2.Size = new Size(86, 31);
-            label2.TabIndex = 1;
-            label2.Text = "Banco:";
-            // 
-            // txtBanco
-            // 
-            txtBanco.Location = new Point(189, 67);
-            txtBanco.Name = "txtBanco";
-            txtBanco.Size = new Size(230, 27);
-            txtBanco.TabIndex = 3;
-            // 
             // btnConfirmar
             // 
-            btnConfirmar.Location = new Point(12, 126);
+            btnConfirmar.Location = new Point(12, 61);
             btnConfirmar.Name = "btnConfirmar";
             btnConfirmar.Size = new Size(94, 29);
             btnConfirmar.TabIndex = 4;
@@ -75,7 +56,7 @@
             // 
             // button2
             // 
-            button2.Location = new Point(325, 126);
+            button2.Location = new Point(325, 61);
             button2.Name = "button2";
             button2.Size = new Size(94, 29);
             button2.TabIndex = 5;
@@ -98,12 +79,10 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveBorder;
-            ClientSize = new Size(440, 169);
+            ClientSize = new Size(440, 99);
             Controls.Add(cmbMedioPago);
             Controls.Add(button2);
             Controls.Add(btnConfirmar);
-            Controls.Add(txtBanco);
-            Controls.Add(label2);
             Controls.Add(label1);
             Name = "FormPagar";
             Text = "FormPagar";
@@ -115,8 +94,6 @@
         #endregion
 
         private Label label1;
-        private Label label2;
-        private TextBox txtBanco;
         private Button btnConfirmar;
         private Button button2;
         private ComboBox cmbMedioPago;

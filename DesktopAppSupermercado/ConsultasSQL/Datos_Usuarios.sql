@@ -36,20 +36,7 @@ INSERT INTO usuarios (id_persona, id_rol, correo, nombre_usuario, contrasena, co
 (4, 4, 'supervisor@empresa.com', 'supervisor', '4e4c56e4a15f89f05c2f4c72613da2a18c9665d4f0d6acce16415eb06f9be776', 8888); -- Carlos es Supervisor
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-.......................................................
-
+1)  .....................
 
 
 -- ==========================================
@@ -97,7 +84,6 @@ INSERT INTO productos (id_categoria, descripcion, precio, stock, unidad_medida, 
 -- VERDULERÍA / PANADERÍA
 ((SELECT id_categoria FROM categorias WHERE nombre = 'Verdulería'), 'Papa Negra', 800.00, 50.0, 'Kg', '2000000000041', NULL, NULL),
 ((SELECT id_categoria FROM categorias WHERE nombre = 'Panadería'), 'Pan Francés Mignón', 1800.00, 18.5, 'Kg', '2000000000058', NULL, NULL);
-
 
 
 2)  .....................
