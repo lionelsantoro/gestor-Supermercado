@@ -8,6 +8,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace DesktopAppSupermercado
 {
@@ -54,9 +55,16 @@ namespace DesktopAppSupermercado
 
         private void VistaCajero_Load(object sender, EventArgs e)
         {
+
             listaDetallesVenta = new BindingList<DetalleVentaVista>();
             ventaActual = null;
             ventaConfirmada = false;
+
+            txtNumeroCompra.ReadOnly = true;
+            txtFecha.ReadOnly = true;
+            txtCodigoCliente.MaxLength = 4;
+            txtCodigoCliente.ReadOnly = false;
+            txtCodigoCliente.Clear();
 
             dataGridView1.DataSource = listaDetallesVenta;
             dataGridView1.AllowUserToAddRows = false;
@@ -80,8 +88,7 @@ namespace DesktopAppSupermercado
             }
 
             ProductoNegocio negocio = new ProductoNegocio();
-            List<string> listaDescripciones =
-                negocio.ObtenerListaParaBuscador();
+            List<string> listaDescripciones = negocio.ObtenerListaParaBuscador();
 
             coleccionProductos.AddRange(listaDescripciones.ToArray());
 
@@ -146,30 +153,6 @@ namespace DesktopAppSupermercado
             vistaSup.Show();
         }
 
-        private void BloquearPantallaParaTicket()
-        {
-            // No borrar la venta: necesitamos los datos para generar el ticket.
-            txtNombre.Clear();
-            textCant.Clear();
-
-            btnNuevaVenta.Enabled = false;
-            btnRegistro.Enabled = false;
-            btnIngresarCodigo.Enabled = false;
-            btnPagar.Enabled = false;
-            btnBorrarVenta.Enabled = false;
-            btnAgregarProducto.Enabled = false;
-            btnSalir.Enabled = false;
-
-            btnGenerarPDF.Enabled = true;
-            btnGenerarPDF.Focus();
-
-            MessageBox.Show(
-                "Pago registrado. Por favor, genere el ticket.",
-                "Atención",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
-        }
-
         private void btnPagar_Click_1(object sender, EventArgs e)
         {
             if (ventaActual == null ||
@@ -177,7 +160,7 @@ namespace DesktopAppSupermercado
                 ventaActual.Detalles.Count == 0)
             {
                 MessageBox.Show(
-                    "No hay ninguna venta activa o no se agregaron productos.",
+                    "No hay una venta activa o no se agregaron productos.",
                     "Aviso",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning);
@@ -185,24 +168,40 @@ namespace DesktopAppSupermercado
                 return;
             }
 
-            FormPagar formPago = new FormPagar();
-
-            if (formPago.ShowDialog() != DialogResult.OK)
-                return;
-
-            try
+            using (FormPagar formPago = new FormPagar())
             {
-                VentaNegocio ventaNegocio = new VentaNegocio();
+                if (formPago.ShowDialog() != DialogResult.OK)
+                    return;
 
-                // Registrar la venta y obtener el número definitivo.
-                int numeroTicketConfirmado =
-                    ventaNegocio.GuardarVentaConfirmada(
-                        ventaActual.IdUsuario,
-                        formPago.IdMedioPagoSeleccionado,
-                        ventaActual.MontoTotal,
-                        ventaActual.Detalles);
+                int numeroTicketConfirmado;
 
-                // Actualizar el estado local solamente si el guardado tuvo éxito.
+                // PRIMERA FASE: guardar la venta en SQL Server.
+                try
+                {
+                    VentaNegocio ventaNegocio = new VentaNegocio();
+
+                    numeroTicketConfirmado =
+                        ventaNegocio.GuardarVentaConfirmada(
+                            ventaActual.IdUsuario,
+                            ventaActual.ClienteActual.IdCliente,
+                            formPago.IdMedioPagoSeleccionado,
+                            ventaActual.MontoTotal,
+                            ventaActual.Detalles);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(
+                        ex.Message,
+                        "Error al registrar la venta",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+
+                    // La transacción falló: conservar la venta en memoria
+                    // para corregir el problema e intentarlo nuevamente.
+                    return;
+                }
+
+                // La venta ya fue confirmada en la base de datos.
                 ventaActual.IdMedioPago =
                     formPago.IdMedioPagoSeleccionado;
 
@@ -211,30 +210,85 @@ namespace DesktopAppSupermercado
 
                 ventaConfirmada = true;
 
-                // El ticket real puede diferir de la estimación inicial.
                 txtNumeroCompra.Text =
                     numeroTicketConfirmado.ToString();
 
-                MessageBox.Show(
-                    $"Venta registrada correctamente.\n" +
-                    $"Ticket N.º {numeroTicketConfirmado}",
-                    "Venta completada",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
+                // SEGUNDA FASE: generar automáticamente el PDF.
+                try
+                {
+                    string rutaPdf =
+                        TicketPdfGenerador.GenerarPdf(ventaActual);
 
-                BloquearPantallaParaTicket();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(
-                    ex.Message,
-                    "Error al registrar la venta",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                    // Abrir el PDF con el lector predeterminado de Windows.
+                    try
+                    {
+                        Process.Start(new ProcessStartInfo
+                        {
+                            FileName = rutaPdf,
+                            UseShellExecute = true
+                        });
+                    }
+                    catch (Exception exApertura)
+                    {
+                        MessageBox.Show(
+                            "El PDF se creó correctamente, pero no se pudo abrir " +
+                            "automáticamente.\n\n" + rutaPdf +
+                            "\n\nDetalle: " + exApertura.Message,
+                            "Ticket guardado",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
+                    }
 
-                // La compra sigue en memoria para poder reintentar.
-                // No marcarla como confirmada si el guardado falló.
+                    MessageBox.Show(
+                        $"Venta registrada correctamente.\n" +
+                        $"Ticket N.º {numeroTicketConfirmado}\n\n" +
+                        $"Archivo: {rutaPdf}",
+                        "Venta completada",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                }
+                catch (Exception exPdf)
+                {
+                    // La venta YA se confirmó en SQL Server.
+                    // No debe intentarse registrarla nuevamente.
+                    MessageBox.Show(
+                        "La venta fue registrada correctamente, pero no se pudo " +
+                        "generar el PDF.\n\n" +
+                        "No vuelva a confirmar el pago de esta venta.\n\n" +
+                        exPdf.Message,
+                        "Error al generar el ticket",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                }
+
+                // El cliente vuelve a quedar disponible para la próxima venta.
+                // No se repite ninguna operación de escritura en SQL Server.
+                FinalizarVentaEnVista();
             }
+        }
+
+        private void FinalizarVentaEnVista()
+        {
+            listaDetallesVenta.Clear();
+
+            txtNumeroCompra.Clear();
+            txtFecha.Clear();
+            txtTotal.Text = "$ 0.00";
+            txtNombre.Clear();
+            textCant.Clear();
+
+            // Liberar el código de cliente para la próxima compra.
+            txtCodigoCliente.Clear();
+            txtCodigoCliente.ReadOnly = false;
+            txtCodigoCliente.Enabled = true;
+
+            ventaActual = null;
+            ventaConfirmada = false;
+
+            txtCodigoCliente.Focus();
+
+            // No deshabilitamos botones ni es necesario reactivarlos:
+            // la venta ya se procesa y el PDF se genera automáticamente.
         }
 
         private void btnBorrarCompra_Click(object sender, EventArgs e)
@@ -254,60 +308,6 @@ namespace DesktopAppSupermercado
             this.Close();
         }
 
-        private void LiberarPantalla()
-        {
-            // Reactivamos los botones
-            btnRegistro.Enabled = true;
-            btnIngresarCodigo.Enabled = true;
-            btnPagar.Enabled = true;
-            btnBorrarVenta.Enabled = true;
-            btnAgregarProducto.Enabled = true;
-            btnSalir.Enabled = true;
-            btnNuevaVenta.Enabled = true;
-
-        }
-
-        private void btnGenerarPDF_Click(object sender, EventArgs e)
-        {
-            if (!ventaConfirmada || ventaActual == null)
-            {
-                MessageBox.Show(
-                    "No hay una venta confirmada para generar el ticket.",
-                    "Aviso",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
-
-                return;
-            }
-
-            // Aquí debes ejecutar la generación real del PDF
-            // usando ventaActual como fuente de datos.
-            //
-            // Si la generación falla, no limpies la venta.
-
-            MessageBox.Show(
-                $"Ticket N.º {ventaActual.NumeroTicketEstimado} generado.",
-                "Éxito",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
-
-            // Esta limpieza se ejecuta después de generar el PDF.
-            listaDetallesVenta.Clear();
-
-            txtNumeroCompra.Clear();
-            txtFecha.Clear();
-            txtTotal.Text = "$ 0.00";
-            txtNombre.Clear();
-            textCant.Clear();
-
-            ventaActual = null;
-            ventaConfirmada = false;
-
-            btnGenerarPDF.Enabled = false;
-
-            LiberarPantalla();
-        }
-
         private void textCant_Enter(object sender, EventArgs e)
         {
             string productoIngresado = txtNombre.Text.Trim();
@@ -317,64 +317,126 @@ namespace DesktopAppSupermercado
                 txtNombre.Focus();
             }
         }
+
         private void btnNuevaVenta_Click(object sender, EventArgs e)
         {
-            if (ventaActual != null && !ventaConfirmada && ventaActual.Detalles.Count > 0)
+            // No permitir iniciar otra compra mientras exista
+            // una venta pendiente que todavía no fue confirmada.
+            if (ventaActual != null && !ventaConfirmada)
             {
                 DialogResult respuesta = MessageBox.Show(
-                    "Hay una venta pendiente. ¿Desea descartarla e iniciar otra?",
+                    "Hay una venta pendiente. ¿Desea descartarla?",
                     "Venta pendiente",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question);
 
                 if (respuesta != DialogResult.Yes)
                     return;
+
+                // Descartar solamente la venta que está en memoria.
+                listaDetallesVenta.Clear();
+                ventaActual = null;
+
+                txtCodigoCliente.ReadOnly = false;
+                txtCodigoCliente.Clear();
+
+                txtNumeroCompra.Clear();
+                txtFecha.Clear();
+                txtTotal.Text = "$ 0.00";
+
+                MessageBox.Show(
+                    "Venta descartada. Ingrese un nuevo código de cliente " +
+                    "y vuelva a iniciar la venta.",
+                    "Información",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+
+                txtCodigoCliente.Focus();
+                return;
             }
 
-            VentaNegocio ventaNegocio = new VentaNegocio();
+            // 1. Validar el cliente antes de iniciar la compra.
+            Cliente cliente;
 
-            int idCajeroActual =
-                Sesion.UsuarioActual != null
-                    ? Sesion.UsuarioActual.IdUsuario
-                    : 1;
-
-            // Solo consulta un número estimado. No lo consume.
-            int numeroTicketEstimado =
-                ventaNegocio.ObtenerNumeroTicketEstimado();
-
-            // Crear una nueva compra en memoria.
-            listaDetallesVenta.Clear();
-
-            ventaActual = new VentaEnMemoria
+            try
             {
-                NumeroTicketEstimado = numeroTicketEstimado,
-                IdUsuario = idCajeroActual,
-                Fecha = DateTime.Now,
-                MontoTotal = 0,
-                IdMedioPago = 0,
-                Detalles = listaDetallesVenta
-            };
+                ClienteNegocio clienteNegocio = new ClienteNegocio();
 
-            ventaConfirmada = false;
+                cliente = clienteNegocio.ObtenerClienteValido(
+                    txtCodigoCliente.Text);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    ex.Message,
+                    "Cliente inválido",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
 
-            txtNumeroCompra.Text =
-                ventaActual.NumeroTicketEstimado.ToString();
+                txtCodigoCliente.Focus();
+                txtCodigoCliente.SelectAll();
+                return;
+            }
 
-            txtFecha.Text =
-                ventaActual.Fecha.ToString("dd/MM/yyyy HH:mm");
+            try
+            {
+                VentaNegocio ventaNegocio = new VentaNegocio();
 
-            txtNumeroCompra.ReadOnly = true;
-            txtFecha.ReadOnly = true;
+                int idCajeroActual =
+                    Sesion.UsuarioActual != null
+                        ? Sesion.UsuarioActual.IdUsuario
+                        : 1;
 
-            ActualizarTotal();
+                // Solo consulta el número estimado. No consume el ticket.
+                int numeroTicketEstimado =
+                    ventaNegocio.ObtenerNumeroTicketEstimado();
 
-            MessageBox.Show(
-                "Nueva venta iniciada. El número de ticket es estimado " +
-                "y quedará confirmado al realizar el pago.",
-                "Información",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
+                listaDetallesVenta.Clear();
+
+                // 2. Crear la compra en memoria con el cliente validado.
+                ventaActual = new VentaEnMemoria
+                {
+                    NumeroTicketEstimado = numeroTicketEstimado,
+                    IdUsuario = idCajeroActual,
+                    ClienteActual = cliente,
+                    Fecha = DateTime.Now,
+                    MontoTotal = 0,
+                    IdMedioPago = 0,
+                    Detalles = listaDetallesVenta
+                };
+
+                ventaConfirmada = false;
+
+                txtNumeroCompra.Text =
+                    numeroTicketEstimado.ToString();
+
+                txtFecha.Text =
+                    ventaActual.Fecha.ToString("dd/MM/yyyy HH:mm");
+
+                // El cliente queda visible, pero ya no puede modificarse.
+                txtCodigoCliente.ReadOnly = true;
+
+                ActualizarTotal();
+
+                MessageBox.Show(
+                    $"Venta iniciada para {cliente.NombreCompleto}.",
+                    "Información",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                ventaActual = null;
+
+                MessageBox.Show(
+                    ex.Message,
+                    "Error al iniciar venta",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
         }
+
+
         private void ActualizarTotal()
         {
             decimal total = 0;
@@ -625,6 +687,17 @@ namespace DesktopAppSupermercado
                 cantidadParaCalcular * precioUnitario,
                 2,
                 MidpointRounding.AwayFromZero);
+        }
+
+        private void txtCodigoCliente_KeyPress(
+             object sender,
+             KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) &&
+                (e.KeyChar < '0' || e.KeyChar > '9'))
+            {
+                e.Handled = true;
+            }
         }
 
     }

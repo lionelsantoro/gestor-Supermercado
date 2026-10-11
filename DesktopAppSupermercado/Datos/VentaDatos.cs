@@ -38,6 +38,7 @@ namespace DesktopAppSupermercado.Datos
 
         public int RegistrarVentaCompleta(
             int idUsuario,
+            int idCliente,
             int idMedioPago,
             decimal montoTotal,
             BindingList<DetalleVentaVista> detalles)
@@ -64,8 +65,7 @@ namespace DesktopAppSupermercado.Datos
 
                         int numeroTicket;
 
-                        using (SqlCommand cmdTicket =
-                            new SqlCommand(queryTicket, con, transaccion))
+                        using (SqlCommand cmdTicket = new SqlCommand(queryTicket, con, transaccion))
                         {
                             object resultado = cmdTicket.ExecuteScalar();
 
@@ -79,17 +79,14 @@ namespace DesktopAppSupermercado.Datos
                         // 2. Insertar la venta.
                         string queryVenta = @"
                     INSERT INTO dbo.ventas
-                        (numero_ticket, id_usuario,
-                         id_medio_pago, monto_total)
+                        (numero_ticket, id_usuario, id_cliente,id_medio_pago, monto_total)
                     OUTPUT INSERTED.id_venta
                     VALUES
-                        (@numeroTicket, @idUsuario,
-                         @idMedioPago, @montoTotal);";
+                        (@numeroTicket, @idUsuario, @idCliente,@idMedioPago, @montoTotal);";
 
                         int idVentaGenerada;
 
-                        using (SqlCommand cmdVenta =
-                            new SqlCommand(queryVenta, con, transaccion))
+                        using (SqlCommand cmdVenta = new SqlCommand(queryVenta, con, transaccion))
                         {
                             cmdVenta.Parameters.Add(
                                 "@numeroTicket", SqlDbType.Int).Value = numeroTicket;
@@ -98,11 +95,13 @@ namespace DesktopAppSupermercado.Datos
                                 "@idUsuario", SqlDbType.Int).Value = idUsuario;
 
                             cmdVenta.Parameters.Add(
+                                "@idCliente", SqlDbType.Int).Value = idCliente;
+                            
+                            cmdVenta.Parameters.Add(
                                 "@idMedioPago", SqlDbType.Int).Value = idMedioPago;
 
                             SqlParameter parametroMonto =
-                                cmdVenta.Parameters.Add(
-                                    "@montoTotal", SqlDbType.Decimal);
+                                cmdVenta.Parameters.Add("@montoTotal", SqlDbType.Decimal);
 
                             parametroMonto.Precision = 10;
                             parametroMonto.Scale = 2;
@@ -122,16 +121,24 @@ namespace DesktopAppSupermercado.Datos
                          @precioUnitario, @subtotal);";
 
                         string queryStock = @"
-                    UPDATE dbo.productos
-                    SET stock = stock - @cantidad
-                    OUTPUT INSERTED.id_producto
-                    WHERE id_producto = @idProducto
-                      AND stock >= @cantidad;";
-                                                
+    DECLARE @ProductosActualizados TABLE
+    (
+        id_producto INT
+    );
+
+    UPDATE dbo.productos
+    SET stock = stock - @cantidad
+    OUTPUT INSERTED.id_producto
+        INTO @ProductosActualizados (id_producto)
+    WHERE id_producto = @idProducto
+      AND stock >= @cantidad;
+
+    SELECT COUNT(*)
+    FROM @ProductosActualizados;";
+
                         foreach (var item in detalles)
                         {
-                            decimal cantidadEnUnidadBase = string.Equals(
-                                item.UnidadMedida?.Trim(),
+                            decimal cantidadEnUnidadBase = string.Equals(item.UnidadMedida?.Trim(),
                                 "Kg",
                                 StringComparison.OrdinalIgnoreCase)
                                 ? item.Cantidad / 1000m
@@ -145,13 +152,14 @@ namespace DesktopAppSupermercado.Datos
 
                             // 4. Descontar el stock y comprobar que alcanzaba.
                             using (SqlCommand cmdStock =
-                                new SqlCommand(queryStock, con, transaccion))
+    new SqlCommand(queryStock, con, transaccion))
                             {
-                                SqlParameter cantidadStock = cmdStock.Parameters.Add("@cantidad", SqlDbType.Decimal);
+                                SqlParameter parametroCantidad =
+                                    cmdStock.Parameters.Add("@cantidad", SqlDbType.Decimal);
 
-                                cantidadStock.Precision = 12;
-                                cantidadStock.Scale = 3;
-                                cantidadStock.Value = cantidadEnUnidadBase;
+                                parametroCantidad.Precision = 12;
+                                parametroCantidad.Scale = 3;
+                                parametroCantidad.Value = cantidadEnUnidadBase;
 
                                 cmdStock.Parameters.Add(
                                     "@idProducto",
@@ -160,17 +168,16 @@ namespace DesktopAppSupermercado.Datos
                                 object resultadoStock = cmdStock.ExecuteScalar();
 
                                 if (resultadoStock == null ||
-                                    resultadoStock == DBNull.Value)
+                                    resultadoStock == DBNull.Value ||
+                                    Convert.ToInt32(resultadoStock) != 1)
                                 {
                                     throw new Exception(
-                                        $"Stock insuficiente o producto inexistente: " +
-                                        $"{item.Nombre}.");
+                                        $"Stock insuficiente o producto inexistente: {item.Nombre}.");
                                 }
                             }
 
                             // 5. Insertar el detalle de la venta.
-                            using (SqlCommand cmdDetalle =
-                                new SqlCommand(queryDetalle, con, transaccion))
+                            using (SqlCommand cmdDetalle = new SqlCommand(queryDetalle, con, transaccion))
                             {
                                 cmdDetalle.Parameters.Add(
                                     "@idVenta", SqlDbType.Int).Value = idVentaGenerada;

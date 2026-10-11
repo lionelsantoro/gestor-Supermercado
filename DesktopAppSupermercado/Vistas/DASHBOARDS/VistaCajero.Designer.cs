@@ -40,9 +40,10 @@
             label6 = new Label();
             dataGridView1 = new DataGridView();
             panel3 = new Panel();
+            txtCodigoCliente = new TextBox();
+            label4 = new Label();
             btnNuevaVenta = new Button();
             btnAgregarProducto = new Button();
-            btnGenerarPDF = new Button();
             textCant = new TextBox();
             txtNombre = new TextBox();
             label3 = new Label();
@@ -146,7 +147,7 @@
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new Point(117, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(789, 644);
+            panel2.Size = new Size(849, 644);
             panel2.TabIndex = 1;
             panel2.Paint += panel2_Paint;
             // 
@@ -157,7 +158,7 @@
             panel5.Controls.Add(label6);
             panel5.Location = new Point(0, 588);
             panel5.Name = "panel5";
-            panel5.Size = new Size(789, 56);
+            panel5.Size = new Size(854, 56);
             panel5.TabIndex = 2;
             // 
             // txtTotal
@@ -185,7 +186,7 @@
             dataGridView1.Location = new Point(0, 133);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(789, 458);
+            dataGridView1.Size = new Size(854, 458);
             dataGridView1.TabIndex = 1;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick_1;
             dataGridView1.CellValidating += dataGridView1_CellValidating;
@@ -194,9 +195,10 @@
             // panel3
             // 
             panel3.BackColor = Color.FromArgb(255, 224, 192);
+            panel3.Controls.Add(txtCodigoCliente);
+            panel3.Controls.Add(label4);
             panel3.Controls.Add(btnNuevaVenta);
             panel3.Controls.Add(btnAgregarProducto);
-            panel3.Controls.Add(btnGenerarPDF);
             panel3.Controls.Add(textCant);
             panel3.Controls.Add(txtNombre);
             panel3.Controls.Add(label3);
@@ -207,12 +209,30 @@
             panel3.Controls.Add(label1);
             panel3.Location = new Point(0, 0);
             panel3.Name = "panel3";
-            panel3.Size = new Size(789, 133);
+            panel3.Size = new Size(854, 133);
             panel3.TabIndex = 0;
+            // 
+            // txtCodigoCliente
+            // 
+            txtCodigoCliente.Location = new Point(477, 8);
+            txtCodigoCliente.Name = "txtCodigoCliente";
+            txtCodigoCliente.Size = new Size(125, 27);
+            txtCodigoCliente.TabIndex = 12;
+            txtCodigoCliente.KeyPress += txtCodigoCliente_KeyPress;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label4.Location = new Point(320, 4);
+            label4.Name = "label4";
+            label4.Size = new Size(161, 31);
+            label4.TabIndex = 11;
+            label4.Text = "Nº de Cliente:";
             // 
             // btnNuevaVenta
             // 
-            btnNuevaVenta.Location = new Point(484, 57);
+            btnNuevaVenta.Location = new Point(518, 57);
             btnNuevaVenta.Name = "btnNuevaVenta";
             btnNuevaVenta.Size = new Size(94, 60);
             btnNuevaVenta.TabIndex = 10;
@@ -222,23 +242,13 @@
             // 
             // btnAgregarProducto
             // 
-            btnAgregarProducto.Location = new Point(584, 57);
+            btnAgregarProducto.Location = new Point(635, 55);
             btnAgregarProducto.Name = "btnAgregarProducto";
             btnAgregarProducto.Size = new Size(94, 62);
             btnAgregarProducto.TabIndex = 9;
             btnAgregarProducto.Text = "Agregar producto";
             btnAgregarProducto.UseVisualStyleBackColor = true;
             btnAgregarProducto.Click += btnAgregarProducto_Click_1;
-            // 
-            // btnGenerarPDF
-            // 
-            btnGenerarPDF.Location = new Point(684, 57);
-            btnGenerarPDF.Name = "btnGenerarPDF";
-            btnGenerarPDF.Size = new Size(94, 62);
-            btnGenerarPDF.TabIndex = 8;
-            btnGenerarPDF.Text = "Generar Ticket";
-            btnGenerarPDF.UseVisualStyleBackColor = true;
-            btnGenerarPDF.Click += btnGenerarPDF_Click;
             // 
             // textCant
             // 
@@ -279,7 +289,7 @@
             // 
             // txtNumeroCompra
             // 
-            txtNumeroCompra.Location = new Point(290, 17);
+            txtNumeroCompra.Location = new Point(147, 10);
             txtNumeroCompra.Name = "txtNumeroCompra";
             txtNumeroCompra.Size = new Size(125, 27);
             txtNumeroCompra.TabIndex = 3;
@@ -287,7 +297,7 @@
             // 
             // txtFecha
             // 
-            txtFecha.Location = new Point(569, 17);
+            txtFecha.Location = new Point(721, 10);
             txtFecha.Name = "txtFecha";
             txtFecha.Size = new Size(125, 27);
             txtFecha.TabIndex = 2;
@@ -296,20 +306,20 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(0, 3);
+            label2.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.Location = new Point(3, 6);
             label2.Name = "label2";
-            label2.Size = new Size(298, 41);
+            label2.Size = new Size(151, 31);
             label2.TabIndex = 1;
-            label2.Text = "Numero de compra:";
+            label2.Text = "Nº de Ticket:";
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(472, 3);
+            label1.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Location = new Point(648, 4);
             label1.Name = "label1";
-            label1.Size = new Size(106, 41);
+            label1.Size = new Size(81, 31);
             label1.TabIndex = 0;
             label1.Text = "Fecha:";
             label1.Click += label1_Click_1;
@@ -319,7 +329,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveBorder;
-            ClientSize = new Size(906, 644);
+            ClientSize = new Size(966, 644);
             Controls.Add(panel2);
             Controls.Add(panel1);
             Name = "VistaCajero";
@@ -356,9 +366,10 @@
         private Label label6;
         private TextBox txtTotal;
         private Button btnSalir;
-        private Button btnGenerarPDF;
         private Button btnBorrarVenta;
         private Button btnAgregarProducto;
         private Button btnNuevaVenta;
+        private Label label4;
+        private TextBox txtCodigoCliente;
     }
 }

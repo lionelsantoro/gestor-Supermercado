@@ -61,11 +61,23 @@ namespace DesktopAppSupermercado.Entidades
     {
         public int NumeroTicketEstimado { get; set; }
         public int IdUsuario { get; set; }
+        public Cliente ClienteActual { get; set; }
         public int IdMedioPago { get; set; }
         public DateTime Fecha { get; set; }
         public decimal MontoTotal { get; set; }
 
-        public BindingList<DetalleVentaVista> Detalles { get; set; }
-            = new BindingList<DetalleVentaVista>();
+        public BindingList<DetalleVentaVista> Detalles { get; set; } = new BindingList<DetalleVentaVista>();
     }
+
+    public class Cliente
+    {
+        public int IdCliente { get; set; }
+        public string Nombre { get; set; }
+        public string Apellido { get; set; }
+        public string CodigoCliente { get; set; }
+
+        public string NombreCompleto =>
+            $"{Nombre} {Apellido}";
+    }
+
 }
