@@ -117,13 +117,16 @@
             // 
             // txtNombreCategoria
             // 
+            txtNombreCategoria.Anchor = AnchorStyles.Bottom;
             txtNombreCategoria.Location = new Point(132, 744);
             txtNombreCategoria.Name = "txtNombreCategoria";
             txtNombreCategoria.Size = new Size(200, 39);
             txtNombreCategoria.TabIndex = 1;
+            txtNombreCategoria.TextChanged += txtNombreCategoria_TextChanged;
             // 
             // label3
             // 
+            label3.Anchor = AnchorStyles.Bottom;
             label3.AutoSize = true;
             label3.Location = new Point(30, 744);
             label3.Name = "label3";
@@ -359,7 +362,6 @@
             txtStockProducto.Name = "txtStockProducto";
             txtStockProducto.Size = new Size(287, 39);
             txtStockProducto.TabIndex = 16;
-            txtStockProducto.KeyPress += NumerosDecimales_KeyPress;
             // 
             // txtDescripcionProducto
             // 
@@ -370,11 +372,10 @@
             // 
             // txtPrecioProducto
             // 
-            txtPrecioProducto.Location = new Point(1180, 67);
+            txtPrecioProducto.Location = new Point(1191, 66);
             txtPrecioProducto.Name = "txtPrecioProducto";
             txtPrecioProducto.Size = new Size(191, 39);
             txtPrecioProducto.TabIndex = 12;
-            txtPrecioProducto.KeyPress += NumerosDecimales_KeyPress;
             // 
             // txtCodigoBarras
             // 
@@ -382,8 +383,6 @@
             txtCodigoBarras.Name = "txtCodigoBarras";
             txtCodigoBarras.Size = new Size(232, 39);
             txtCodigoBarras.TabIndex = 11;
-            txtCodigoBarras.KeyPress += SoloNumeros_KeyPress;
-            txtCodigoBarras.Leave += txtCodigoBarras_Leave;
             // 
             // labelDescripcion
             // 

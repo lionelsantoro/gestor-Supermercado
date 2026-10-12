@@ -137,6 +137,17 @@ namespace DesktopAppSupermercado.VISTASINVENTARIO
             btnGuardarCategoria.Text = "+ Nueva Categoría";
         }
 
+        private void txtNombreCategoria_TextChanged(object sender, EventArgs e)
+        {
+            // Si el usuario borra todo el texto, el sistema se reinicia para crear una categoría nueva
+            if (string.IsNullOrWhiteSpace(txtNombreCategoria.Text))
+            {
+                _idCategoriaActual = 0; // Reseteamos el ID a 0 (Modo Creación)
+                btnGuardarCategoria.Text = "+ Nueva categoría"; // Restauramos el botón
+                dataCategoria.ClearSelection(); // Desmarcamos la grilla para que no quede nada en azul
+            }
+        }
+
         // ==========================================
         // SECCIÓN CRUD: PRODUCTOS
         // ==========================================
@@ -200,6 +211,18 @@ namespace DesktopAppSupermercado.VISTASINVENTARIO
                     if (fila["id_categoria"] != DBNull.Value)
                         cmbCategoriaProducto.SelectedValue = Convert.ToInt32(fila["id_categoria"]);
 
+                    // ==========================================
+                    // NUEVOS BLOQUEOS DE CATEGORÍA
+                    // ==========================================
+                    // 1. Bloqueamos el ComboBox del producto
+                    cmbCategoriaProducto.Enabled = false;
+
+                    // 2. Bloqueamos todo el panel izquierdo de categorías para evitar accidentes
+                    txtNombreCategoria.Enabled = false;
+                    btnGuardarCategoria.Enabled = false;
+                    btnEliminarCategoria.Enabled = false;
+                    dataCategoria.Enabled = false;
+
                     btnGuardarProductosInventario.Text = "Modificar";
                     gbEdicionProducto.Text = "Editando Producto: " + txtDescripcionProducto.Text;
                 }
@@ -215,6 +238,16 @@ namespace DesktopAppSupermercado.VISTASINVENTARIO
             txtStockProducto.Clear();
             cmbCategoriaProducto.SelectedIndex = -1;
             cmbUnidadMedida.SelectedIndex = -1;
+
+            // ==========================================
+            // DESBLOQUEAMOS TODO AL CANCELAR O GUARDAR
+            // ==========================================
+            cmbCategoriaProducto.Enabled = true;
+
+            txtNombreCategoria.Enabled = true;
+            btnGuardarCategoria.Enabled = true;
+            btnEliminarCategoria.Enabled = true;
+            dataCategoria.Enabled = true;
 
             btnGuardarProductosInventario.Text = "Guardar";
             gbEdicionProducto.Text = "Crear o Editar Productos";
@@ -269,7 +302,7 @@ namespace DesktopAppSupermercado.VISTASINVENTARIO
         }
 
         // ==========================================
-        // VALIDACIONES DE ENTRADA (KEYPRESS)
+        // VALIDACIONES DE ENTRADA (KEYPRESS / LEAVE)
         // ==========================================
         private void SoloNumeros_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -295,7 +328,6 @@ namespace DesktopAppSupermercado.VISTASINVENTARIO
                 e.Handled = true;
             }
         }
-
 
         private void txtCodigoBarras_Leave(object sender, EventArgs e)
         {

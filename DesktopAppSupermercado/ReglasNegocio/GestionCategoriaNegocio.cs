@@ -19,14 +19,24 @@ namespace DesktopAppSupermercado.ReglasNegocio
                 throw new ArgumentException("El nombre de la categoría es obligatorio.");
 
             if (idCategoria == 0)
+            {
+                // Si el ID es 0, es una categoría NUEVA, la creamos normalmente.
                 datos.InsertarCategoria(nombre.Trim());
+            }
             else
+            {
+                // REGLA ESTRICTA: Si ya existe y se intenta modificar, verificamos si tiene productos.
+                if (datos.TieneProductosActivos(idCategoria))
+                {
+                    throw new InvalidOperationException("No se puede modificar esta categoría porque tiene productos asociados.");
+                }
+
                 datos.ModificarCategoria(idCategoria, nombre.Trim());
+            }
         }
 
         public void EliminarCategoria(int idCategoria)
         {
-            // Regla de negocio: No se puede borrar si hay productos usándola
             if (datos.TieneProductosActivos(idCategoria))
                 throw new InvalidOperationException("No se puede eliminar: existen productos activos usando esta categoría.");
 
