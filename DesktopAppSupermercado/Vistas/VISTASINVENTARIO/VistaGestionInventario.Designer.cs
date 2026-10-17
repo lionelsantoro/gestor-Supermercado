@@ -217,6 +217,7 @@
             dgvProductos.Size = new Size(2018, 715);
             dgvProductos.TabIndex = 2;
             dgvProductos.CellClick += dgvProductos_CellClick;
+            dgvProductos.CellContentClick += dgvProductos_CellContentClick;
             // 
             // ColCodigo
             // 

@@ -8,6 +8,9 @@ namespace DesktopAppSupermercado.Datos
     {
         private Conexion miConexion = new Conexion();
 
+        // =============================================================
+        // LISTAR
+        // =============================================================
         public DataTable ListarProductos()
         {
             DataTable tabla = new DataTable();
@@ -24,14 +27,18 @@ namespace DesktopAppSupermercado.Datos
             return tabla;
         }
 
+        // =============================================================
+        // INSERTAR
+        // =============================================================
         public void InsertarProducto(int idCategoria, string descripcion, decimal precio, decimal stock, string unidadMedida, string codigoBarra)
         {
             using (SqlConnection conexion = miConexion.ObtenerConexion())
             {
                 conexion.Open();
-                // Mandamos NULL al nombre y al kilogramo antiguo para no molestar a la base de datos
-                string query = @"INSERT INTO productos (id_categoria, descripcion, precio, stock, unidad_medida, codigo_barra, nombre, kilogramo) 
-                                 VALUES (@idCategoria, @descripcion, @precio, @stock, @unidadMedida, @codigoBarra, NULL, NULL)";
+                // La columna 'nombre' ya no existe en la tabla.
+                // 'kilogramo' es nullable, así que no hace falta nombrarla.
+                string query = @"INSERT INTO productos (id_categoria, descripcion, precio, stock, unidad_medida, codigo_barra) 
+                                 VALUES (@idCategoria, @descripcion, @precio, @stock, @unidadMedida, @codigoBarra)";
                 using (SqlCommand cmd = new SqlCommand(query, conexion))
                 {
                     cmd.Parameters.AddWithValue("@idCategoria", idCategoria);
@@ -45,6 +52,9 @@ namespace DesktopAppSupermercado.Datos
             }
         }
 
+        // =============================================================
+        // MODIFICAR
+        // =============================================================
         public void ModificarProducto(int idProducto, int idCategoria, string descripcion, decimal precio, decimal stock, string unidadMedida, string codigoBarra)
         {
             using (SqlConnection conexion = miConexion.ObtenerConexion())
@@ -68,6 +78,9 @@ namespace DesktopAppSupermercado.Datos
             }
         }
 
+        // =============================================================
+        // ELIMINAR (baja lógica)
+        // =============================================================
         public void EliminarProducto(int idProducto)
         {
             using (SqlConnection conexion = miConexion.ObtenerConexion())
@@ -82,6 +95,9 @@ namespace DesktopAppSupermercado.Datos
             }
         }
 
+        // =============================================================
+        // VALIDAR CÓDIGO DE BARRAS DUPLICADO
+        // =============================================================
         public bool ExisteCodigoBarra(string codigoBarra, int idProductoActual)
         {
             if (string.IsNullOrWhiteSpace(codigoBarra)) return false;
