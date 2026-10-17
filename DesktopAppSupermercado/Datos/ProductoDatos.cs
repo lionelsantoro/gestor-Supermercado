@@ -1,7 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using DesktopAppSupermercado.Entidades;
 
 namespace DesktopAppSupermercado.Datos
@@ -10,30 +9,36 @@ namespace DesktopAppSupermercado.Datos
     {
         public List<string> ObtenerDescripcionesAutocomplete()
         {
-            List<string> nombreProducto = new List<string>();
+            List<string> descripciones = new List<string>();
             Conexion miConexion = new Conexion();
 
             using (SqlConnection conexion = miConexion.ObtenerConexion())
             {
                 conexion.Open();
-                // Solo traemos los productos que no estén eliminados
-                string query = "SELECT nombre FROM productos WHERE eliminado = 0";
 
-                using (SqlCommand comando = new SqlCommand(query, conexion))
+                string query = @"
+                    SELECT descripcion
+                    FROM dbo.productos
+                    WHERE eliminado = 0
+                    ORDER BY descripcion;";
+
+                using (SqlCommand comando =
+                    new SqlCommand(query, conexion))
+                using (SqlDataReader lector = comando.ExecuteReader())
                 {
-                    using (SqlDataReader lector = comando.ExecuteReader())
+                    while (lector.Read())
                     {
-                        while (lector.Read())
-                        {
-                            nombreProducto.Add(lector["nombre"].ToString());
-                        }
+                        descripciones.Add(
+                            lector["descripcion"].ToString());
                     }
                 }
             }
-            return nombreProducto;
+
+            return descripciones;
         }
 
-        public Producto ObtenerProductoPorNombre(string nombre)
+        public Producto ObtenerProductoPorDescripcion(
+            string descripcion)
         {
             Producto producto = null;
             Conexion miConexion = new Conexion();
@@ -43,19 +48,23 @@ namespace DesktopAppSupermercado.Datos
                 conexion.Open();
 
                 string query = @"
-                                 SELECT
-                                        id_producto,
-                                        nombre,
-                                        precio,
-                                        stock,
-                                        unidad_medida
-                                 FROM productos
-                                 WHERE nombre = @nombre
-                                 AND eliminado = 0;";
+                    SELECT
+                        id_producto,
+                        descripcion,
+                        precio,
+                        stock,
+                        unidad_medida
+                    FROM dbo.productos
+                    WHERE descripcion = @descripcion
+                      AND eliminado = 0;";
 
-                using (SqlCommand comando = new SqlCommand(query, conexion))
+                using (SqlCommand comando =
+                    new SqlCommand(query, conexion))
                 {
-                    comando.Parameters.AddWithValue("@nombre", nombre);
+                    comando.Parameters.Add(
+                        "@descripcion",
+                        System.Data.SqlDbType.VarChar,
+                        150).Value = descripcion;
 
                     using (SqlDataReader lector = comando.ExecuteReader())
                     {
@@ -66,7 +75,9 @@ namespace DesktopAppSupermercado.Datos
                                 IdProducto = Convert.ToInt32(
                                     lector["id_producto"]),
 
-                                Nombre = lector["nombre"].ToString(),
+                                // La descripción se conserva en la
+                                // propiedad Nombre de la entidad C#.
+                                Nombre = lector["descripcion"].ToString(),
 
                                 Precio = Convert.ToDecimal(
                                     lector["precio"]),
@@ -74,7 +85,8 @@ namespace DesktopAppSupermercado.Datos
                                 Stock = Convert.ToDecimal(
                                     lector["stock"]),
 
-                                UnidadMedida = lector["unidad_medida"].ToString()
+                                UnidadMedida =
+                                    lector["unidad_medida"].ToString()
                             };
                         }
                     }

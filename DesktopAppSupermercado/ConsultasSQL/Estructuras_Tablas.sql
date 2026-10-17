@@ -31,7 +31,7 @@ CREATE TABLE categorias (
 CREATE TABLE medios_de_pago (
     id_medio_pago INT IDENTITY(1,1) PRIMARY KEY,
     medio_pago VARCHAR(50) NOT NULL,
-    banco VARCHAR(100),
+    --banco VARCHAR(100),
     creado_en DATETIME DEFAULT GETDATE()
 );
 

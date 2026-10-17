@@ -1,8 +1,7 @@
 ﻿using DesktopAppSupermercado.Datos;
+using DesktopAppSupermercado.Entidades;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using DesktopAppSupermercado.Entidades;
 
 namespace DesktopAppSupermercado.ReglasNegocio
 {
@@ -16,32 +15,37 @@ namespace DesktopAppSupermercado.ReglasNegocio
         }
 
         public Producto ValidarYObtenerProductoParaVenta(
-             string nombreSeleccionado,
-             int cantidadSolicitada)
+            string descripcionSeleccionada,
+            int cantidadSolicitada)
         {
             if (cantidadSolicitada <= 0)
+            {
                 throw new Exception(
                     "La cantidad debe ser mayor a cero.");
+            }
 
             Producto producto =
-                datos.ObtenerProductoPorNombre(nombreSeleccionado);
+                datos.ObtenerProductoPorDescripcion(
+                    descripcionSeleccionada);
 
             if (producto == null)
+            {
                 throw new Exception(
                     "El producto no existe o fue eliminado.");
+            }
 
             bool esKg = string.Equals(
                 producto.UnidadMedida?.Trim(),
                 "Kg",
                 StringComparison.OrdinalIgnoreCase);
 
-            // Si es Kg, la cantidad ingresada está en gramos.
-            // El stock está expresado en kg.
-            decimal cantidadEnStock = esKg
+            // Para Kg, la cantidad se ingresa en gramos.
+            // Para Unidad, se ingresa la cantidad de unidades.
+            decimal cantidadEnUnidadBase = esKg
                 ? cantidadSolicitada / 1000m
                 : cantidadSolicitada;
 
-            if (cantidadEnStock > producto.Stock)
+            if (cantidadEnUnidadBase > producto.Stock)
             {
                 string disponible = esKg
                     ? $"{producto.Stock * 1000m:0} gramos"
