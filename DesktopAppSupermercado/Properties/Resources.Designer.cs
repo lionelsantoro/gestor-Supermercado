@@ -123,6 +123,26 @@ namespace DesktopAppSupermercado.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap agregar_producto {
+            get {
+                object obj = ResourceManager.GetObject("agregar producto", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap agregar_producto1 {
+            get {
+                object obj = ResourceManager.GetObject("agregar producto1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap agregarprodct {
             get {
                 object obj = ResourceManager.GetObject("agregarprodct", resourceCulture);
@@ -353,6 +373,26 @@ namespace DesktopAppSupermercado.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap historial_de_ventas {
+            get {
+                object obj = ResourceManager.GetObject("historial de ventas", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap historial_de_ventas1 {
+            get {
+                object obj = ResourceManager.GetObject("historial de ventas1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ic_settings_backup_restore_128_28716 {
             get {
                 object obj = ResourceManager.GetObject("ic_settings_backup_restore_128_28716", resourceCulture);
@@ -476,6 +516,26 @@ namespace DesktopAppSupermercado.Properties {
         internal static System.Drawing.Bitmap modificar1 {
             get {
                 object obj = ResourceManager.GetObject("modificar1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap nueva_venta {
+            get {
+                object obj = ResourceManager.GetObject("nueva venta", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap nueva_venta1 {
+            get {
+                object obj = ResourceManager.GetObject("nueva venta1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

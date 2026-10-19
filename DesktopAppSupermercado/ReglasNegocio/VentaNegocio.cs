@@ -2,6 +2,7 @@
 using DesktopAppSupermercado.Entidades;
 using System;
 using System.ComponentModel;
+using System.Data;
 
 namespace DesktopAppSupermercado.ReglasNegocio
 {
@@ -34,5 +35,28 @@ namespace DesktopAppSupermercado.ReglasNegocio
                 montoTotal,
                 detalles);
         }
+
+        public DataTable ConsultarHistorialVentas(
+            int idUsuario,
+            DateTime? fechaDesde,
+            DateTime? fechaHasta)
+        {
+            if (idUsuario <= 0)
+                throw new Exception("El usuario de la sesión no es válido.");
+
+            if (fechaDesde.HasValue &&
+                fechaHasta.HasValue &&
+                fechaDesde.Value.Date > fechaHasta.Value.Date)
+            {
+                throw new Exception(
+                    "La fecha desde no puede ser posterior a la fecha hasta.");
+            }
+
+            return datos.ObtenerHistorialVentas(
+                idUsuario,
+                fechaDesde,
+                fechaHasta);
+        }
+
     }
 }

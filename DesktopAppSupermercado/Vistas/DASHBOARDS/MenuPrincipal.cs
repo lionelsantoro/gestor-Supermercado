@@ -1,5 +1,7 @@
 ﻿using DesktopAppSupermercado.DASHBOARDS;
+using DesktopAppSupermercado.Entidades;
 using DesktopAppSupermercado.ReglasNegocio;
+using DesktopAppSupermercado.VISTASINVENTARIO;
 using System;
 using System.Windows.Forms;
 
@@ -8,6 +10,7 @@ namespace DesktopAppSupermercado
     public partial class MenuPrincipal : Form
     {
         private LoginNegocio loginNegocio = new LoginNegocio();
+        private UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
 
         public MenuPrincipal()
         {
@@ -34,36 +37,60 @@ namespace DesktopAppSupermercado
         // ============================================================
         // BOTÓN INGRESAR
         // ============================================================
+
         private void btnIngresar_Click(object sender, EventArgs e)
         {
-            string usuario = txtUsuario.Text;
+            string nombreUsuario = txtUsuario.Text.Trim();
             string contrasena = txtContrasena.Text;
 
-            if (string.IsNullOrWhiteSpace(usuario) || string.IsNullOrWhiteSpace(contrasena))
+            if (string.IsNullOrWhiteSpace(nombreUsuario) ||
+                string.IsNullOrWhiteSpace(contrasena))
             {
-                MessageBox.Show("Por favor, complete tanto el usuario como la contraseña.");
+                MessageBox.Show(
+                    "Por favor, complete tanto el usuario como la contraseña.");
+
                 return;
             }
 
             try
             {
-                // Llamamos a la capa de negocio, ella se encarga de hashear y consultar a Datos
-                int idRol = loginNegocio.AutenticarUsuario(usuario, contrasena);
+                int idRol = loginNegocio.AutenticarUsuario(
+                    nombreUsuario,
+                    contrasena);
 
-                if (idRol > 0)
-                {
-                    AbrirVistaSegunRol(idRol, usuario);
-                }
-                else
+                if (idRol <= 0)
                 {
                     MessageBox.Show("Usuario o contraseña incorrectos.");
+                    return;
                 }
+
+                Usuario usuarioAutenticado =
+                    usuarioNegocio.ObtenerUsuarioParaSesion(nombreUsuario);
+
+                if (usuarioAutenticado.IdRol != idRol)
+                {
+                    MessageBox.Show(
+                        "El rol recuperado no coincide con el usuario autenticado.");
+
+                    return;
+                }
+
+                Sesion.UsuarioActual = usuarioAutenticado;
+
+                AbrirVistaSegunRol(
+                    usuarioAutenticado.IdRol,
+                    usuarioAutenticado.NombreUsuario);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al conectar con la base de datos: " + ex.Message);
+                MessageBox.Show(
+                    "Error al iniciar sesión: " + ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
         }
+
 
         // ============================================================
         // ABRE LA VISTA SEGÚN EL ROL DEL USUARIO
@@ -81,7 +108,7 @@ namespace DesktopAppSupermercado
                     vistaAAbrir = new VistaCajero();
                     break;
                 case 3:
-                    vistaAAbrir = new MenuGeneralInventario();
+                    vistaAAbrir = new VistaGestionInventario();
                     break;
                 case 4:
                     vistaAAbrir = new VistaSupervisor();

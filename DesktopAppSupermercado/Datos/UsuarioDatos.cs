@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using DesktopAppSupermercado.Entidades;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -56,5 +57,54 @@ namespace DesktopAppSupermercado.Datos
             }
             return tabla;
         }
+
+
+        public Usuario ObtenerUsuarioParaSesion(string nombreUsuario)
+        {
+            Usuario usuario = null;
+            Conexion miConexion = new Conexion();
+
+            using (SqlConnection conexion = miConexion.ObtenerConexion())
+            {
+                conexion.Open();
+
+                string query = @"
+            SELECT
+                id_usuario,
+                id_rol,
+                nombre_usuario
+            FROM dbo.usuarios
+            WHERE nombre_usuario = @nombreUsuario
+              AND eliminado = 0;";
+
+                using (SqlCommand comando = new SqlCommand(query, conexion))
+                {
+                    comando.Parameters.Add(
+                        "@nombreUsuario",
+                        SqlDbType.VarChar,
+                        100).Value = nombreUsuario;
+
+                    using (SqlDataReader lector = comando.ExecuteReader())
+                    {
+                        if (lector.Read())
+                        {
+                            usuario = new Usuario
+                            {
+                                IdUsuario = Convert.ToInt32(
+                                    lector["id_usuario"]),
+
+                                IdRol = Convert.ToInt32(
+                                    lector["id_rol"]),
+
+                                NombreUsuario = lector["nombre_usuario"].ToString()
+                            };
+                        }
+                    }
+                }
+            }
+
+            return usuario;
+        }
+
     }
 }

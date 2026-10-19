@@ -149,8 +149,10 @@ namespace DesktopAppSupermercado
 
         private void btnRegistro_Click(object sender, EventArgs e)
         {
-            FormRegistro vistaSup = new FormRegistro();
-            vistaSup.Show();
+            using (FormRegistro formulario = new FormRegistro())
+            {
+                formulario.ShowDialog(this);
+            }
         }
 
         private void btnPagar_Click_1(object sender, EventArgs e)
@@ -698,6 +700,179 @@ namespace DesktopAppSupermercado
             {
                 e.Handled = true;
             }
+        }
+
+        private void label3_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnHistorial_Click(object sender, EventArgs e)
+        {
+            if (Sesion.UsuarioActual == null || Sesion.UsuarioActual.IdUsuario <= 0)
+            {
+                MessageBox.Show(
+                    "No se pudo identificar al cajero que inició sesión.",
+                    "Sesión inválida",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+
+                return;
+            }
+
+            Form ventanaHistorial = new Form
+            {
+                Text = "Historial de ventas del cajero",
+                StartPosition = FormStartPosition.CenterParent,
+                Size = new Size(850, 520),
+                MinimumSize = new Size(700, 400),
+                FormBorderStyle = FormBorderStyle.Sizable
+            };
+
+            Label lblDesde = new Label
+            {
+                Text = "Fecha desde:",
+                Location = new Point(15, 18),
+                AutoSize = true
+            };
+
+            DateTimePicker dtpDesde = new DateTimePicker
+            {
+                Location = new Point(105, 14),
+                Width = 150,
+                Format = DateTimePickerFormat.Short,
+                ShowCheckBox = true,
+                Checked = false
+            };
+
+            Label lblHasta = new Label
+            {
+                Text = "Fecha hasta:",
+                Location = new Point(280, 18),
+                AutoSize = true
+            };
+
+            DateTimePicker dtpHasta = new DateTimePicker
+            {
+                Location = new Point(370, 14),
+                Width = 150,
+                Format = DateTimePickerFormat.Short,
+                ShowCheckBox = true,
+                Checked = false
+            };
+
+            Button btnBuscar = new Button
+            {
+                Text = "Buscar",
+                Location = new Point(545, 12),
+                Size = new Size(100, 30)
+            };
+
+            Button btnCerrar = new Button
+            {
+                Text = "Cerrar",
+                Location = new Point(655, 12),
+                Size = new Size(100, 30),
+                Anchor = AnchorStyles.Top | AnchorStyles.Right
+            };
+
+            DataGridView dgvHistorial = new DataGridView
+            {
+                Location = new Point(15, 60),
+                Size = new Size(800, 400),
+                Anchor = AnchorStyles.Top |
+                         AnchorStyles.Bottom |
+                         AnchorStyles.Left |
+                         AnchorStyles.Right,
+                ReadOnly = true,
+                AllowUserToAddRows = false,
+                AllowUserToDeleteRows = false,
+                AutoGenerateColumns = true,
+                AutoSizeColumnsMode =
+                    DataGridViewAutoSizeColumnsMode.Fill,
+                SelectionMode =
+                    DataGridViewSelectionMode.FullRowSelect,
+                MultiSelect = false
+            };
+
+            ventanaHistorial.Controls.Add(lblDesde);
+            ventanaHistorial.Controls.Add(dtpDesde);
+            ventanaHistorial.Controls.Add(lblHasta);
+            ventanaHistorial.Controls.Add(dtpHasta);
+            ventanaHistorial.Controls.Add(btnBuscar);
+            ventanaHistorial.Controls.Add(btnCerrar);
+            ventanaHistorial.Controls.Add(dgvHistorial);
+
+            VentaNegocio negocio = new VentaNegocio();
+
+            void CargarHistorial()
+            {
+                try
+                {
+                    DateTime? fechaDesde = dtpDesde.Checked
+                        ? dtpDesde.Value.Date
+                        : (DateTime?)null;
+
+                    DateTime? fechaHasta = dtpHasta.Checked
+                        ? dtpHasta.Value.Date
+                        : (DateTime?)null;
+
+                    DataTable tabla = negocio.ConsultarHistorialVentas(
+                        Sesion.UsuarioActual.IdUsuario,
+                        fechaDesde,
+                        fechaHasta);
+
+                    dgvHistorial.DataSource = tabla;
+
+                    if (dgvHistorial.Columns["numero_ticket"] != null)
+                    {
+                        dgvHistorial.Columns["numero_ticket"].HeaderText =
+                            "N.º de ticket";
+                    }
+
+                    if (dgvHistorial.Columns["monto_total"] != null)
+                    {
+                        dgvHistorial.Columns["monto_total"].HeaderText =
+                            "Monto";
+
+                        dgvHistorial.Columns["monto_total"].DefaultCellStyle.Format =
+                            "C2";
+                    }
+
+                    if (dgvHistorial.Columns["creado_en"] != null)
+                    {
+                        dgvHistorial.Columns["creado_en"].HeaderText =
+                            "Fecha de venta";
+
+                        dgvHistorial.Columns["creado_en"].DefaultCellStyle.Format =
+                            "dd/MM/yyyy HH:mm:ss";
+                    }
+
+                    if (tabla.Rows.Count == 0)
+                    {
+                        MessageBox.Show(
+                            "No se encontraron ventas para los filtros seleccionados.",
+                            "Historial de ventas",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(
+                        "No se pudo cargar el historial de ventas.\n" + ex.Message,
+                        "Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                }
+            }
+
+            btnBuscar.Click += (s, args) => CargarHistorial();
+            btnCerrar.Click += (s, args) => ventanaHistorial.Close();
+
+            CargarHistorial();
+
+            ventanaHistorial.ShowDialog(this);
         }
 
     }

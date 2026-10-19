@@ -40,6 +40,7 @@
             label6 = new Label();
             dataGridView1 = new DataGridView();
             panel3 = new Panel();
+            btnHistorial = new Button();
             txtCodigoCliente = new TextBox();
             label4 = new Label();
             btnNuevaVenta = new Button();
@@ -70,13 +71,13 @@
             panel1.Dock = DockStyle.Left;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(117, 644);
+            panel1.Size = new Size(117, 774);
             panel1.TabIndex = 0;
             // 
             // btnSalir
             // 
             btnSalir.Image = Properties.Resources.salie;
-            btnSalir.Location = new Point(12, 499);
+            btnSalir.Location = new Point(12, 644);
             btnSalir.Name = "btnSalir";
             btnSalir.Size = new Size(94, 124);
             btnSalir.TabIndex = 6;
@@ -89,7 +90,7 @@
             // 
             btnBorrarVenta.Image = Properties.Resources.cancelarcompra3;
             btnBorrarVenta.ImageAlign = ContentAlignment.TopCenter;
-            btnBorrarVenta.Location = new Point(12, 382);
+            btnBorrarVenta.Location = new Point(12, 495);
             btnBorrarVenta.Name = "btnBorrarVenta";
             btnBorrarVenta.Size = new Size(94, 111);
             btnBorrarVenta.TabIndex = 5;
@@ -103,7 +104,7 @@
             btnPagar.BackColor = SystemColors.ButtonFace;
             btnPagar.Image = Properties.Resources.pagar1;
             btnPagar.ImageAlign = ContentAlignment.TopCenter;
-            btnPagar.Location = new Point(12, 273);
+            btnPagar.Location = new Point(12, 353);
             btnPagar.Name = "btnPagar";
             btnPagar.Size = new Size(94, 103);
             btnPagar.TabIndex = 1;
@@ -118,9 +119,9 @@
             btnRegistro.ImageAlign = ContentAlignment.TopCenter;
             btnRegistro.Location = new Point(12, 17);
             btnRegistro.Name = "btnRegistro";
-            btnRegistro.Size = new Size(94, 100);
+            btnRegistro.Size = new Size(94, 122);
             btnRegistro.TabIndex = 4;
-            btnRegistro.Text = "Registro";
+            btnRegistro.Text = "Registro Cliente";
             btnRegistro.TextAlign = ContentAlignment.BottomCenter;
             btnRegistro.UseVisualStyleBackColor = true;
             btnRegistro.Click += btnRegistro_Click;
@@ -129,7 +130,7 @@
             // 
             btnIngresarCodigo.Image = Properties.Resources.codigobarra2;
             btnIngresarCodigo.ImageAlign = ContentAlignment.TopCenter;
-            btnIngresarCodigo.Location = new Point(12, 123);
+            btnIngresarCodigo.Location = new Point(12, 172);
             btnIngresarCodigo.Name = "btnIngresarCodigo";
             btnIngresarCodigo.Size = new Size(94, 144);
             btnIngresarCodigo.TabIndex = 2;
@@ -147,7 +148,7 @@
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new Point(117, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(849, 644);
+            panel2.Size = new Size(1190, 774);
             panel2.TabIndex = 1;
             panel2.Paint += panel2_Paint;
             // 
@@ -156,9 +157,9 @@
             panel5.BackColor = Color.FromArgb(255, 224, 192);
             panel5.Controls.Add(txtTotal);
             panel5.Controls.Add(label6);
-            panel5.Location = new Point(0, 588);
+            panel5.Location = new Point(0, 718);
             panel5.Name = "panel5";
-            panel5.Size = new Size(854, 56);
+            panel5.Size = new Size(1191, 56);
             panel5.TabIndex = 2;
             // 
             // txtTotal
@@ -166,7 +167,7 @@
             txtTotal.Location = new Point(97, 16);
             txtTotal.Name = "txtTotal";
             txtTotal.ReadOnly = true;
-            txtTotal.Size = new Size(368, 27);
+            txtTotal.Size = new Size(517, 27);
             txtTotal.TabIndex = 1;
             // 
             // label6
@@ -183,10 +184,10 @@
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(0, 133);
+            dataGridView1.Location = new Point(0, 159);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(854, 458);
+            dataGridView1.Size = new Size(1191, 553);
             dataGridView1.TabIndex = 1;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick_1;
             dataGridView1.CellValidating += dataGridView1_CellValidating;
@@ -195,6 +196,7 @@
             // panel3
             // 
             panel3.BackColor = Color.FromArgb(255, 224, 192);
+            panel3.Controls.Add(btnHistorial);
             panel3.Controls.Add(txtCodigoCliente);
             panel3.Controls.Add(label4);
             panel3.Controls.Add(btnNuevaVenta);
@@ -209,14 +211,27 @@
             panel3.Controls.Add(label1);
             panel3.Location = new Point(0, 0);
             panel3.Name = "panel3";
-            panel3.Size = new Size(854, 133);
+            panel3.Size = new Size(1191, 153);
             panel3.TabIndex = 0;
+            // 
+            // btnHistorial
+            // 
+            btnHistorial.Image = Properties.Resources.historial_de_ventas1;
+            btnHistorial.ImageAlign = ContentAlignment.MiddleRight;
+            btnHistorial.Location = new Point(977, 58);
+            btnHistorial.Name = "btnHistorial";
+            btnHistorial.Size = new Size(199, 81);
+            btnHistorial.TabIndex = 13;
+            btnHistorial.Text = "Historial de ventas";
+            btnHistorial.TextAlign = ContentAlignment.MiddleLeft;
+            btnHistorial.UseVisualStyleBackColor = true;
+            btnHistorial.Click += btnHistorial_Click;
             // 
             // txtCodigoCliente
             // 
-            txtCodigoCliente.Location = new Point(477, 8);
+            txtCodigoCliente.Location = new Point(579, 10);
             txtCodigoCliente.Name = "txtCodigoCliente";
-            txtCodigoCliente.Size = new Size(125, 27);
+            txtCodigoCliente.Size = new Size(295, 27);
             txtCodigoCliente.TabIndex = 12;
             txtCodigoCliente.KeyPress += txtCodigoCliente_KeyPress;
             // 
@@ -224,7 +239,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.Location = new Point(320, 4);
+            label4.Location = new Point(422, 6);
             label4.Name = "label4";
             label4.Size = new Size(161, 31);
             label4.TabIndex = 11;
@@ -232,27 +247,33 @@
             // 
             // btnNuevaVenta
             // 
-            btnNuevaVenta.Location = new Point(518, 57);
+            btnNuevaVenta.Image = Properties.Resources.nueva_venta1;
+            btnNuevaVenta.ImageAlign = ContentAlignment.TopCenter;
+            btnNuevaVenta.Location = new Point(642, 60);
             btnNuevaVenta.Name = "btnNuevaVenta";
-            btnNuevaVenta.Size = new Size(94, 60);
+            btnNuevaVenta.Size = new Size(132, 81);
             btnNuevaVenta.TabIndex = 10;
             btnNuevaVenta.Text = "Nueva Venta";
+            btnNuevaVenta.TextAlign = ContentAlignment.BottomCenter;
             btnNuevaVenta.UseVisualStyleBackColor = true;
             btnNuevaVenta.Click += btnNuevaVenta_Click;
             // 
             // btnAgregarProducto
             // 
-            btnAgregarProducto.Location = new Point(635, 55);
+            btnAgregarProducto.Image = Properties.Resources.agregar_producto1;
+            btnAgregarProducto.ImageAlign = ContentAlignment.TopCenter;
+            btnAgregarProducto.Location = new Point(809, 58);
             btnAgregarProducto.Name = "btnAgregarProducto";
-            btnAgregarProducto.Size = new Size(94, 62);
+            btnAgregarProducto.Size = new Size(149, 81);
             btnAgregarProducto.TabIndex = 9;
             btnAgregarProducto.Text = "Agregar producto";
+            btnAgregarProducto.TextAlign = ContentAlignment.BottomCenter;
             btnAgregarProducto.UseVisualStyleBackColor = true;
             btnAgregarProducto.Click += btnAgregarProducto_Click_1;
             // 
             // textCant
             // 
-            textCant.Location = new Point(136, 90);
+            textCant.Location = new Point(285, 112);
             textCant.Name = "textCant";
             textCant.Size = new Size(329, 27);
             textCant.TabIndex = 7;
@@ -260,7 +281,7 @@
             // 
             // txtNombre
             // 
-            txtNombre.Location = new Point(137, 57);
+            txtNombre.Location = new Point(285, 72);
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(328, 27);
             txtNombre.TabIndex = 6;
@@ -270,36 +291,37 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.Location = new Point(23, 86);
+            label3.Location = new Point(31, 108);
             label3.Name = "label3";
-            label3.Size = new Size(116, 31);
+            label3.Size = new Size(260, 31);
             label3.TabIndex = 5;
-            label3.Text = "Cantidad:";
+            label3.Text = "Cantidad del Producto:";
+            label3.Click += label3_Click_1;
             // 
             // label5
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.Location = new Point(31, 55);
+            label5.Location = new Point(31, 68);
             label5.Name = "label5";
-            label5.Size = new Size(108, 31);
+            label5.Size = new Size(252, 31);
             label5.TabIndex = 4;
-            label5.Text = "Nombre:";
+            label5.Text = "Nombre del Producto:";
             label5.Click += label5_Click;
             // 
             // txtNumeroCompra
             // 
             txtNumeroCompra.Location = new Point(147, 10);
             txtNumeroCompra.Name = "txtNumeroCompra";
-            txtNumeroCompra.Size = new Size(125, 27);
+            txtNumeroCompra.Size = new Size(269, 27);
             txtNumeroCompra.TabIndex = 3;
             txtNumeroCompra.TextChanged += textBox2_TextChanged;
             // 
             // txtFecha
             // 
-            txtFecha.Location = new Point(721, 10);
+            txtFecha.Location = new Point(955, 13);
             txtFecha.Name = "txtFecha";
-            txtFecha.Size = new Size(125, 27);
+            txtFecha.Size = new Size(221, 27);
             txtFecha.TabIndex = 2;
             txtFecha.TextChanged += textBox1_TextChanged;
             // 
@@ -317,7 +339,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(648, 4);
+            label1.Location = new Point(880, 9);
             label1.Name = "label1";
             label1.Size = new Size(81, 31);
             label1.TabIndex = 0;
@@ -329,7 +351,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveBorder;
-            ClientSize = new Size(966, 644);
+            ClientSize = new Size(1307, 774);
             Controls.Add(panel2);
             Controls.Add(panel1);
             Name = "VistaCajero";
@@ -371,5 +393,6 @@
         private Button btnNuevaVenta;
         private Label label4;
         private TextBox txtCodigoCliente;
+        private Button btnHistorial;
     }
 }

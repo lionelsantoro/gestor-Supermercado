@@ -236,5 +236,60 @@ namespace DesktopAppSupermercado.Datos
             }
         }
 
+        public DataTable ObtenerHistorialVentas(
+            int idUsuario,
+            DateTime? fechaDesde,
+            DateTime? fechaHasta)
+        {
+            DataTable tabla = new DataTable();
+            Conexion miConexion = new Conexion();
+
+            using (SqlConnection con = miConexion.ObtenerConexion())
+            {
+                con.Open();
+
+                string query = @"
+            SELECT
+                numero_ticket,
+                monto_total,
+                creado_en
+            FROM dbo.ventas
+            WHERE id_usuario = @idUsuario
+              AND (@fechaDesde IS NULL
+                   OR creado_en >= @fechaDesde)
+              AND (@fechaHasta IS NULL
+                   OR creado_en < DATEADD(DAY, 1, @fechaHasta))
+            ORDER BY creado_en DESC;";
+
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    cmd.Parameters.Add(
+                        "@idUsuario", SqlDbType.Int).Value = idUsuario;
+
+                    SqlParameter desde = cmd.Parameters.Add(
+                        "@fechaDesde", SqlDbType.Date);
+
+                    desde.Value = fechaDesde.HasValue
+                        ? fechaDesde.Value.Date
+                        : DBNull.Value;
+
+                    SqlParameter hasta = cmd.Parameters.Add(
+                        "@fechaHasta", SqlDbType.Date);
+
+                    hasta.Value = fechaHasta.HasValue
+                        ? fechaHasta.Value.Date
+                        : DBNull.Value;
+
+                    using (SqlDataAdapter adaptador =
+                        new SqlDataAdapter(cmd))
+                    {
+                        adaptador.Fill(tabla);
+                    }
+                }
+            }
+
+            return tabla;
+        }
+
     }
 }
