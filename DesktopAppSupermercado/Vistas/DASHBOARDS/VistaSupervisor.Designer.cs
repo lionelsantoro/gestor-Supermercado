@@ -37,12 +37,6 @@
             dgvVentas = new DataGridView();
             tabPage2 = new TabPage();
             dgvProductosVendidos = new DataGridView();
-            IdProducto = new DataGridViewTextBoxColumn();
-            Nombre = new DataGridViewTextBoxColumn();
-            Precio = new DataGridViewTextBoxColumn();
-            Cantidadd = new DataGridViewTextBoxColumn();
-            Kilogramoo = new DataGridViewTextBoxColumn();
-            Unidad = new DataGridViewTextBoxColumn();
             tabPage4 = new TabPage();
             dgvUsuarios = new DataGridView();
             IdEmpleado = new DataGridViewTextBoxColumn();
@@ -53,13 +47,9 @@
             btnSalir = new Button();
             button3 = new Button();
             button2 = new Button();
-            button1 = new Button();
-            IdVenta = new DataGridViewTextBoxColumn();
-            Monto = new DataGridViewTextBoxColumn();
-            MedioPago = new DataGridViewTextBoxColumn();
-            VentaBanco = new DataGridViewTextBoxColumn();
-            CajaVenta = new DataGridViewTextBoxColumn();
-            CajeroVenta = new DataGridViewTextBoxColumn();
+            btnReporteVentas = new Button();
+            dtpFechaDesde = new DateTimePicker();
+            dtpFechaHasta = new DateTimePicker();
             PanelContenedor.SuspendLayout();
             tabControlSupervisor.SuspendLayout();
             tabPage1.SuspendLayout();
@@ -74,6 +64,8 @@
             // PanelContenedor
             // 
             PanelContenedor.BackColor = Color.FromArgb(255, 224, 192);
+            PanelContenedor.Controls.Add(dtpFechaHasta);
+            PanelContenedor.Controls.Add(dtpFechaDesde);
             PanelContenedor.Controls.Add(cmbFiltroRol);
             PanelContenedor.Controls.Add(txtBuscar);
             PanelContenedor.Controls.Add(label1);
@@ -88,7 +80,7 @@
             // cmbFiltroRol
             // 
             cmbFiltroRol.FormattingEnabled = true;
-            cmbFiltroRol.Location = new Point(475, 14);
+            cmbFiltroRol.Location = new Point(883, 16);
             cmbFiltroRol.Name = "cmbFiltroRol";
             cmbFiltroRol.Size = new Size(224, 28);
             cmbFiltroRol.TabIndex = 3;
@@ -139,7 +131,6 @@
             // dgvVentas
             // 
             dgvVentas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvVentas.Columns.AddRange(new DataGridViewColumn[] { IdVenta, Monto, MedioPago, VentaBanco, CajaVenta, CajeroVenta });
             dgvVentas.Location = new Point(6, 6);
             dgvVentas.Name = "dgvVentas";
             dgvVentas.RowHeadersWidth = 51;
@@ -161,60 +152,11 @@
             // dgvProductosVendidos
             // 
             dgvProductosVendidos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvProductosVendidos.Columns.AddRange(new DataGridViewColumn[] { IdProducto, Nombre, Precio, Cantidadd, Kilogramoo, Unidad });
             dgvProductosVendidos.Location = new Point(6, 6);
             dgvProductosVendidos.Name = "dgvProductosVendidos";
             dgvProductosVendidos.RowHeadersWidth = 51;
             dgvProductosVendidos.Size = new Size(1091, 684);
             dgvProductosVendidos.TabIndex = 0;
-            // 
-            // IdProducto
-            // 
-            IdProducto.DataPropertyName = "Numero de Producto";
-            IdProducto.HeaderText = "Numero de Producto";
-            IdProducto.MinimumWidth = 6;
-            IdProducto.Name = "IdProducto";
-            IdProducto.Width = 125;
-            // 
-            // Nombre
-            // 
-            Nombre.DataPropertyName = "Descripcion";
-            Nombre.HeaderText = "Descripcion";
-            Nombre.MinimumWidth = 6;
-            Nombre.Name = "Nombre";
-            Nombre.Width = 125;
-            // 
-            // Precio
-            // 
-            Precio.DataPropertyName = "Precio unitario";
-            Precio.HeaderText = "Precio Unitario";
-            Precio.MinimumWidth = 6;
-            Precio.Name = "Precio";
-            Precio.Width = 125;
-            // 
-            // Cantidadd
-            // 
-            Cantidadd.DataPropertyName = "Cantidad";
-            Cantidadd.HeaderText = "Cantidad";
-            Cantidadd.MinimumWidth = 6;
-            Cantidadd.Name = "Cantidadd";
-            Cantidadd.Width = 125;
-            // 
-            // Kilogramoo
-            // 
-            Kilogramoo.DataPropertyName = "Kilogramo";
-            Kilogramoo.HeaderText = "Kilogramo";
-            Kilogramoo.MinimumWidth = 6;
-            Kilogramoo.Name = "Kilogramoo";
-            Kilogramoo.Width = 125;
-            // 
-            // Unidad
-            // 
-            Unidad.DataPropertyName = "Unidad de Medida";
-            Unidad.HeaderText = "Unidad de Medida";
-            Unidad.MinimumWidth = 6;
-            Unidad.Name = "Unidad";
-            Unidad.Width = 125;
             // 
             // tabPage4
             // 
@@ -275,7 +217,7 @@
             PanelMenu.Controls.Add(btnSalir);
             PanelMenu.Controls.Add(button3);
             PanelMenu.Controls.Add(button2);
-            PanelMenu.Controls.Add(button1);
+            PanelMenu.Controls.Add(btnReporteVentas);
             PanelMenu.Dock = DockStyle.Left;
             PanelMenu.Location = new Point(0, 0);
             PanelMenu.Margin = new Padding(2);
@@ -319,64 +261,33 @@
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
             // 
-            // button1
+            // btnReporteVentas
             // 
-            button1.Image = Properties.Resources.reporte;
-            button1.Location = new Point(12, 12);
-            button1.Name = "button1";
-            button1.Size = new Size(97, 127);
-            button1.TabIndex = 0;
-            button1.Text = "Ventas";
-            button1.TextAlign = ContentAlignment.BottomCenter;
-            button1.UseVisualStyleBackColor = true;
+            btnReporteVentas.Image = Properties.Resources.reporte;
+            btnReporteVentas.Location = new Point(12, 12);
+            btnReporteVentas.Name = "btnReporteVentas";
+            btnReporteVentas.Size = new Size(97, 127);
+            btnReporteVentas.TabIndex = 0;
+            btnReporteVentas.Text = "Ventas";
+            btnReporteVentas.TextAlign = ContentAlignment.BottomCenter;
+            btnReporteVentas.UseVisualStyleBackColor = true;
+            btnReporteVentas.Click += btnReporteVentas_Click;
             // 
-            // IdVenta
+            // dtpFechaDesde
             // 
-            IdVenta.DataPropertyName = "Numero de Venta";
-            IdVenta.HeaderText = "Numero de venta";
-            IdVenta.MinimumWidth = 6;
-            IdVenta.Name = "IdVenta";
-            IdVenta.Width = 125;
+            dtpFechaDesde.Format = DateTimePickerFormat.Short;
+            dtpFechaDesde.Location = new Point(444, 16);
+            dtpFechaDesde.Name = "dtpFechaDesde";
+            dtpFechaDesde.Size = new Size(122, 27);
+            dtpFechaDesde.TabIndex = 4;
             // 
-            // Monto
+            // dtpFechaHasta
             // 
-            Monto.DataPropertyName = "Total";
-            Monto.HeaderText = "Total";
-            Monto.MinimumWidth = 6;
-            Monto.Name = "Monto";
-            Monto.Width = 125;
-            // 
-            // MedioPago
-            // 
-            MedioPago.DataPropertyName = "Medio de Pago";
-            MedioPago.HeaderText = "Medio de Pago";
-            MedioPago.MinimumWidth = 6;
-            MedioPago.Name = "MedioPago";
-            MedioPago.Width = 125;
-            // 
-            // VentaBanco
-            // 
-            VentaBanco.DataPropertyName = "Banco";
-            VentaBanco.HeaderText = "Banco";
-            VentaBanco.MinimumWidth = 6;
-            VentaBanco.Name = "VentaBanco";
-            VentaBanco.Width = 125;
-            // 
-            // CajaVenta
-            // 
-            CajaVenta.DataPropertyName = "Numero de caja";
-            CajaVenta.HeaderText = "Numero de Caja";
-            CajaVenta.MinimumWidth = 6;
-            CajaVenta.Name = "CajaVenta";
-            CajaVenta.Width = 125;
-            // 
-            // CajeroVenta
-            // 
-            CajeroVenta.DataPropertyName = "Cajero";
-            CajeroVenta.HeaderText = "Cajero";
-            CajeroVenta.MinimumWidth = 6;
-            CajeroVenta.Name = "CajeroVenta";
-            CajeroVenta.Width = 125;
+            dtpFechaHasta.Format = DateTimePickerFormat.Short;
+            dtpFechaHasta.Location = new Point(572, 16);
+            dtpFechaHasta.Name = "dtpFechaHasta";
+            dtpFechaHasta.Size = new Size(122, 27);
+            dtpFechaHasta.TabIndex = 5;
             // 
             // VistaSupervisor
             // 
@@ -406,7 +317,7 @@
 
         private Panel PanelContenedor;
         private Panel PanelMenu;
-        private Button button1;
+        private Button btnReporteVentas;
         private TabControl tabControlSupervisor;
         private TabPage tabPage1;
         private TabPage tabPage2;
@@ -419,22 +330,12 @@
         private Button btnSalir;
         private TabPage tabPage4;
         private DataGridView dgvUsuarios;
-        private DataGridViewTextBoxColumn IdProducto;
-        private DataGridViewTextBoxColumn Nombre;
-        private DataGridViewTextBoxColumn Precio;
-        private DataGridViewTextBoxColumn Cantidadd;
-        private DataGridViewTextBoxColumn Kilogramoo;
-        private DataGridViewTextBoxColumn Unidad;
         private ComboBox cmbFiltroRol;
         private DataGridViewTextBoxColumn IdEmpleado;
         private DataGridViewTextBoxColumn NombreUsuario;
         private DataGridViewTextBoxColumn ApellidoUsuario;
         private DataGridViewTextBoxColumn RolUsuario;
-        private DataGridViewTextBoxColumn IdVenta;
-        private DataGridViewTextBoxColumn Monto;
-        private DataGridViewTextBoxColumn MedioPago;
-        private DataGridViewTextBoxColumn VentaBanco;
-        private DataGridViewTextBoxColumn CajaVenta;
-        private DataGridViewTextBoxColumn CajeroVenta;
+        private DateTimePicker dtpFechaHasta;
+        private DateTimePicker dtpFechaDesde;
     }
 }

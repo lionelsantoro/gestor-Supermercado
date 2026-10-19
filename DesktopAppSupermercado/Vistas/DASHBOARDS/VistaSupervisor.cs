@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
@@ -108,39 +109,8 @@ namespace DesktopAppSupermercado.DASHBOARDS
             dgvVentas.AutoGenerateColumns = false;
             dgvProductosVendidos.AutoGenerateColumns = false;
 
-            // --------------------------------------------------------
-            // PESTAÑA 1: Ventas Realizadas
-            // --------------------------------------------------------
-            DataTable dtVentas = new DataTable();
-            dtVentas.Columns.Add("Numero de venta", typeof(int));
-            dtVentas.Columns.Add("Total", typeof(decimal));
-            dtVentas.Columns.Add("Medio de Pago", typeof(string));
-            dtVentas.Columns.Add("Banco", typeof(string));
-            dtVentas.Columns.Add("Numero de Caja", typeof(string));
-            dtVentas.Columns.Add("Cajero", typeof(string));
-
-            dtVentas.Rows.Add(1001, 15400.50m, "Tarjeta de Crédito", "Galicia", "1", "Juan");
-            dtVentas.Rows.Add(1002, 8200.00m, "Efectivo", "-", "2", "María");
-            dtVentas.Rows.Add(1003, 43100.75m, "Tarjeta de Débito", "Santander", "3", "Pedro");
-
-            dgvVentas.DataSource = dtVentas;
-
-            // --------------------------------------------------------
-            // PESTAÑA 2: Productos Vendidos
-            // --------------------------------------------------------
-            DataTable dtProductos = new DataTable();
-            dtProductos.Columns.Add("Numero de Producto", typeof(int));
-            dtProductos.Columns.Add("Descripcion", typeof(string));
-            dtProductos.Columns.Add("Precio Unitario", typeof(decimal));
-            dtProductos.Columns.Add("Cantidad", typeof(int));
-            dtProductos.Columns.Add("Kilogramo", typeof(float));
-            dtProductos.Columns.Add("Unidad de Medida", typeof(string));
-
-            dtProductos.Rows.Add(10, "Harina 000", 850.00m, 45, 0, "Unidad");
-            dtProductos.Rows.Add(11, "Harina 0000", 920.00m, 30, 0, "Unidad");
-            dtProductos.Rows.Add(12, "Papas", 350.00m, 100, 2000, "Kg");
-
-            dgvProductosVendidos.DataSource = dtProductos;
+            dtpFechaDesde.Value = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            dtpFechaHasta.Value = DateTime.Now;
 
             // --------------------------------------------------------
             // PESTAÑA 3: Control de Usuarioss
@@ -166,6 +136,62 @@ namespace DesktopAppSupermercado.DASHBOARDS
         private void cmbFiltroRol_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             ActualizarGrilla();
+        }
+
+        private ReporteNegocio reporteNegocio = new ReporteNegocio();
+
+        private void btnReporteVentas_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DateTime fechaDesde = dtpFechaDesde.Value;
+                DateTime fechaHasta = dtpFechaHasta.Value;
+
+                // Opcional: Si también quieres refrescar tu grilla dgvVentas en pantalla:
+                // dgvVentas.DataSource = reporteNegocio.ObtenerVentasValidadas(fechaDesde, fechaHasta);
+
+                using (SaveFileDialog sfd = new SaveFileDialog())
+                {
+                    sfd.Filter = "Archivo PDF (*.pdf)|*.pdf";
+                    sfd.Title = "Guardar Reporte de Ventas";
+                    sfd.FileName = $"Reporte_Ventas_{fechaDesde:yyyyMMdd}_al_{fechaHasta:yyyyMMdd}.pdf";
+
+                    if (sfd.ShowDialog() == DialogResult.OK)
+                    {
+                        // Llamamos a la capa de negocio para validar y generar el PDF
+                        reporteNegocio.GenerarPdfReporteVentas(fechaDesde, fechaHasta, sfd.FileName);
+
+                        MessageBox.Show(
+                            "El reporte de ventas se generó correctamente.",
+                            "Reporte Generado",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information
+                        );
+
+                        // Abrimos el PDF recién creado con el visor predeterminado de Windows
+                        Process.Start(new ProcessStartInfo
+                        {
+                            FileName = sfd.FileName,
+                            UseShellExecute = true
+                        });
+                    }
+                }
+            }
+            catch (ArgumentException ex)
+            {
+                // Errores de validación de fechas (ej. Fecha Desde > Fecha Hasta)
+                MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            catch (InvalidOperationException ex)
+            {
+                // Cuando no hay ventas registradas en ese rango
+                MessageBox.Show(ex.Message, "Sin resultados", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                // Cualquier otro error inesperado (BD o permisos de archivo)
+                MessageBox.Show($"Ocurrió un error al generar el reporte: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
