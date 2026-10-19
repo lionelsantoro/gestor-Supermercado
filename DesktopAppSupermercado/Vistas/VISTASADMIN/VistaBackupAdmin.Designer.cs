@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             label1 = new Label();
             lblBaseDatos = new Label();
             txtBaseDatos = new TextBox();
@@ -81,7 +81,7 @@
             // txtBaseDatos
             // 
             txtBaseDatos.Location = new Point(155, 85);
-            txtBaseDatos.Margin = new Padding(2, 2, 2, 2);
+            txtBaseDatos.Margin = new Padding(2);
             txtBaseDatos.Name = "txtBaseDatos";
             txtBaseDatos.ReadOnly = true;
             txtBaseDatos.Size = new Size(223, 27);
@@ -91,8 +91,8 @@
             // 
             btnActualizar.BackColor = Color.FromArgb(128, 255, 128);
             btnActualizar.ForeColor = SystemColors.ActiveCaptionText;
-            btnActualizar.Location = new Point(620, 261);
-            btnActualizar.Margin = new Padding(2, 2, 2, 2);
+            btnActualizar.Location = new Point(4, 235);
+            btnActualizar.Margin = new Padding(2);
             btnActualizar.Name = "btnActualizar";
             btnActualizar.Size = new Size(111, 36);
             btnActualizar.TabIndex = 5;
@@ -108,7 +108,7 @@
             btnBackup.Image = Properties.Resources.google_backup_and_sync_macos_bigsur_icon_190135;
             btnBackup.ImageAlign = ContentAlignment.TopCenter;
             btnBackup.Location = new Point(174, 113);
-            btnBackup.Margin = new Padding(2, 2, 2, 2);
+            btnBackup.Margin = new Padding(2);
             btnBackup.Name = "btnBackup";
             btnBackup.Size = new Size(202, 103);
             btnBackup.TabIndex = 7;
@@ -121,7 +121,7 @@
             // 
             btnRestore.Enabled = false;
             btnRestore.Location = new Point(515, 62);
-            btnRestore.Margin = new Padding(2, 2, 2, 2);
+            btnRestore.Margin = new Padding(2);
             btnRestore.Name = "btnRestore";
             btnRestore.Size = new Size(153, 123);
             btnRestore.TabIndex = 8;
@@ -133,7 +133,7 @@
             // 
             chkFiltrarFechas.AutoSize = true;
             chkFiltrarFechas.Location = new Point(23, 275);
-            chkFiltrarFechas.Margin = new Padding(2, 2, 2, 2);
+            chkFiltrarFechas.Margin = new Padding(2);
             chkFiltrarFechas.Name = "chkFiltrarFechas";
             chkFiltrarFechas.Size = new Size(136, 24);
             chkFiltrarFechas.TabIndex = 9;
@@ -156,7 +156,7 @@
             dtpDesde.Enabled = false;
             dtpDesde.Format = DateTimePickerFormat.Short;
             dtpDesde.Location = new Point(258, 274);
-            dtpDesde.Margin = new Padding(2, 2, 2, 2);
+            dtpDesde.Margin = new Padding(2);
             dtpDesde.Name = "dtpDesde";
             dtpDesde.Size = new Size(138, 27);
             dtpDesde.TabIndex = 11;
@@ -177,7 +177,7 @@
             dtpHasta.Enabled = false;
             dtpHasta.Format = DateTimePickerFormat.Short;
             dtpHasta.Location = new Point(467, 279);
-            dtpHasta.Margin = new Padding(2, 2, 2, 2);
+            dtpHasta.Margin = new Padding(2);
             dtpHasta.Name = "dtpHasta";
             dtpHasta.Size = new Size(112, 27);
             dtpHasta.TabIndex = 13;
@@ -210,7 +210,7 @@
             dgvBackups.Columns.AddRange(new DataGridViewColumn[] { colFecha, colTamano, colDuracion, colUsuario, colDisponible, colRuta });
             dgvBackups.EnableHeadersVisualStyles = false;
             dgvBackups.Location = new Point(4, 301);
-            dgvBackups.Margin = new Padding(2, 2, 2, 2);
+            dgvBackups.Margin = new Padding(2);
             dgvBackups.MultiSelect = false;
             dgvBackups.Name = "dgvBackups";
             dgvBackups.ReadOnly = true;
@@ -226,8 +226,8 @@
             // colFecha
             // 
             colFecha.DataPropertyName = "fecha";
-            dataGridViewCellStyle1.Format = "dd/MM/yyyy HH:mm";
-            colFecha.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Format = "dd/MM/yyyy HH:mm";
+            colFecha.DefaultCellStyle = dataGridViewCellStyle3;
             colFecha.HeaderText = "Fecha y hora";
             colFecha.MinimumWidth = 10;
             colFecha.Name = "colFecha";
@@ -237,9 +237,9 @@
             // colTamano
             // 
             colTamano.DataPropertyName = "tamano_mb";
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle2.Format = "N2";
-            colTamano.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle4.Format = "N2";
+            colTamano.DefaultCellStyle = dataGridViewCellStyle4;
             colTamano.HeaderText = "Tamaño (MB)";
             colTamano.MinimumWidth = 10;
             colTamano.Name = "colTamano";
@@ -301,7 +301,7 @@
             Controls.Add(txtBaseDatos);
             Controls.Add(lblBaseDatos);
             Controls.Add(label1);
-            Margin = new Padding(2, 2, 2, 2);
+            Margin = new Padding(2);
             Name = "VistaBackupAdmin";
             Text = "VistaBackupAdmin";
             Load += VistaBackupAdmin_Load;
