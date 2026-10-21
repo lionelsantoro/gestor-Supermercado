@@ -19,7 +19,7 @@ namespace DesktopAppSupermercado.Datos
 
                 string query = @"
                     SELECT 
-                        v.id_venta AS IdVenta,
+                        v.numero_ticket AS NumeroTicket,
                         v.creado_en AS FechaHora,
                         u.id_usuario AS IdUsuario,
                         u.nombre_usuario AS NombreUsuario,
@@ -30,7 +30,7 @@ namespace DesktopAppSupermercado.Datos
                     INNER JOIN dbo.persona p ON u.id_persona = p.id_persona
                     WHERE v.creado_en >= @FechaDesde 
                       AND v.creado_en <= @FechaHasta
-                    ORDER BY v.creado_en DESC;";
+                    ORDER BY v.numero_ticket ASC;";
 
                 using (SqlCommand comando = new SqlCommand(query, conexion))
                 {

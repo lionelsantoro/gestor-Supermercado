@@ -16,11 +16,9 @@ namespace DesktopAppSupermercado.ReglasNegocio
 
         public DataTable ObtenerVentasValidadas(DateTime fechaDesde, DateTime fechaHasta)
         {
-            // 1. Normalizamos las horas para cubrir los días completos
             DateTime inicio = fechaDesde.Date; // 00:00:00
             DateTime fin = fechaHasta.Date.AddDays(1).AddTicks(-1); // 23:59:59.999
 
-            // 2. Validaciones de negocio
             if (inicio > fin)
             {
                 throw new ArgumentException("La 'Fecha Desde' no puede ser posterior a la 'Fecha Hasta'.");
@@ -36,7 +34,6 @@ namespace DesktopAppSupermercado.ReglasNegocio
 
         public void GenerarPdfReporteVentas(DateTime fechaDesde, DateTime fechaHasta, string rutaArchivo)
         {
-            // Validamos y obtenemos los datos
             DataTable dtVentas = ObtenerVentasValidadas(fechaDesde, fechaHasta);
 
             if (dtVentas.Rows.Count == 0)
@@ -44,25 +41,27 @@ namespace DesktopAppSupermercado.ReglasNegocio
                 throw new InvalidOperationException("No se registraron ventas en el rango de fechas seleccionado.");
             }
 
-            // Configuramos la licencia gratuita de QuestPDF
             QuestPDF.Settings.License = LicenseType.Community;
 
-            // Convertimos el DataTable a una lista tipada para calcular métricas fácilmente con LINQ
-            var listaVentas = dtVentas.AsEnumerable().Select(row => new
-            {
-                IdVenta = Convert.ToInt32(row["IdVenta"]),
-                FechaHora = Convert.ToDateTime(row["FechaHora"]),
-                IdUsuario = Convert.ToInt32(row["IdUsuario"]),
-                NombreUsuario = row["NombreUsuario"].ToString(),
-                NombreCajero = row["NombreCajero"].ToString(),
-                MontoTotal = Convert.ToDecimal(row["MontoTotal"])
-            }).ToList();
+            // Mapeamos NumeroTicket y aseguramos el orden correlativo (1, 2, 3...)
+            var listaVentas = dtVentas.AsEnumerable()
+                .Select(row => new
+                {
+                    NumeroTicket = Convert.ToInt32(row["NumeroTicket"]),
+                    FechaHora = Convert.ToDateTime(row["FechaHora"]),
+                    IdUsuario = Convert.ToInt32(row["IdUsuario"]),
+                    NombreUsuario = row["NombreUsuario"].ToString(),
+                    NombreCajero = row["NombreCajero"].ToString(),
+                    MontoTotal = Convert.ToDecimal(row["MontoTotal"])
+                })
+                .OrderBy(v => v.NumeroTicket)
+                .ToList();
 
             // Métricas Generales
             int cantidadTotalVentas = listaVentas.Count;
             decimal montoTotalGeneral = listaVentas.Sum(v => v.MontoTotal);
 
-            // Agrupación por Cajero (Cantidad de ventas y Monto recaudado por cada uno)
+            // Agrupación por Cajero
             var resumenPorCajero = listaVentas
                 .GroupBy(v => new { v.IdUsuario, v.NombreCajero, v.NombreUsuario })
                 .Select(g => new
@@ -82,7 +81,8 @@ namespace DesktopAppSupermercado.ReglasNegocio
                 {
                     page.Margin(35);
                     page.Size(PageSizes.A4);
-                    page.DefaultTextStyle(x => x.FontSize(10));
+                    page.DefaultTextStyle(x => x.FontSize(10)); // Usa la fuente Lato integrada
+
                     // ================= ENCABEZADO =================
                     page.Header().Column(col =>
                     {
@@ -118,7 +118,7 @@ namespace DesktopAppSupermercado.ReglasNegocio
                                 c.Item().PaddingTop(4).Text(cantidadTotalVentas.ToString()).FontSize(16).Bold().FontColor(Colors.Blue.Darken3);
                             });
 
-                            row.ConstantItem(15); // Espacio entre tarjetas
+                            row.ConstantItem(15);
 
                             row.RelativeItem().Border(1).BorderColor(Colors.Grey.Lighten2).Background(Colors.Grey.Lighten4).Padding(10).Column(c =>
                             {
@@ -136,10 +136,10 @@ namespace DesktopAppSupermercado.ReglasNegocio
                             {
                                 tabla.ColumnsDefinition(columns =>
                                 {
-                                    columns.RelativeColumn(3); // Nombre y Apellido
-                                    columns.RelativeColumn(2); // Usuario
-                                    columns.RelativeColumn(2); // Cantidad de Ventas
-                                    columns.RelativeColumn(2); // Total Recaudado
+                                    columns.RelativeColumn(3);
+                                    columns.RelativeColumn(2);
+                                    columns.RelativeColumn(2);
+                                    columns.RelativeColumn(2);
                                 });
 
                                 tabla.Header(header =>
@@ -160,7 +160,7 @@ namespace DesktopAppSupermercado.ReglasNegocio
                             });
                         });
 
-                        // 3. Tabla con el Detalle de Todas las Ventas del Período
+                        // 3. Tabla con el Detalle de Ventas Enumeradas por Ticket
                         col.Item().Column(c =>
                         {
                             c.Item().PaddingBottom(5).Text("Detalle de Ventas Realizadas").FontSize(13).Bold().FontColor(Colors.Blue.Darken3);
@@ -169,7 +169,7 @@ namespace DesktopAppSupermercado.ReglasNegocio
                             {
                                 tabla.ColumnsDefinition(columns =>
                                 {
-                                    columns.ConstantColumn(60); // ID Venta
+                                    columns.ConstantColumn(65); // N° Ticket
                                     columns.RelativeColumn(2);  // Fecha y Hora
                                     columns.RelativeColumn(3);  // Cajero
                                     columns.RelativeColumn(2);  // Monto
@@ -177,7 +177,7 @@ namespace DesktopAppSupermercado.ReglasNegocio
 
                                 tabla.Header(header =>
                                 {
-                                    header.Cell().Background(Colors.Grey.Darken3).Padding(5).Text("N° Venta").FontColor(Colors.White).SemiBold();
+                                    header.Cell().Background(Colors.Grey.Darken3).Padding(5).Text("N° Ticket").FontColor(Colors.White).SemiBold();
                                     header.Cell().Background(Colors.Grey.Darken3).Padding(5).Text("Fecha y Hora").FontColor(Colors.White).SemiBold();
                                     header.Cell().Background(Colors.Grey.Darken3).Padding(5).Text("Cajero").FontColor(Colors.White).SemiBold();
                                     header.Cell().Background(Colors.Grey.Darken3).Padding(5).AlignRight().Text("Monto").FontColor(Colors.White).SemiBold();
@@ -185,7 +185,7 @@ namespace DesktopAppSupermercado.ReglasNegocio
 
                                 foreach (var venta in listaVentas)
                                 {
-                                    tabla.Cell().BorderBottom(1).BorderColor(Colors.Grey.Lighten3).Padding(4).Text($"#{venta.IdVenta}");
+                                    tabla.Cell().BorderBottom(1).BorderColor(Colors.Grey.Lighten3).Padding(4).Text($"#{venta.NumeroTicket}");
                                     tabla.Cell().BorderBottom(1).BorderColor(Colors.Grey.Lighten3).Padding(4).Text(venta.FechaHora.ToString("dd/MM/yyyy HH:mm"));
                                     tabla.Cell().BorderBottom(1).BorderColor(Colors.Grey.Lighten3).Padding(4).Text($"{venta.NombreCajero} ({venta.NombreUsuario})");
                                     tabla.Cell().BorderBottom(1).BorderColor(Colors.Grey.Lighten3).Padding(4).AlignRight().Text($"$ {venta.MontoTotal:N2}");
