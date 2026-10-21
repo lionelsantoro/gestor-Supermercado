@@ -18,6 +18,7 @@ namespace DesktopAppSupermercado
         private VentaEnMemoria ventaActual;
         private bool ventaConfirmada = false;
         private AutoCompleteStringCollection coleccionProductos = new AutoCompleteStringCollection();
+        private bool actualizandoComboClientes = false;
         public VistaCajero()
         {
             InitializeComponent();
@@ -62,15 +63,26 @@ namespace DesktopAppSupermercado
 
             txtNumeroCompra.ReadOnly = true;
             txtFecha.ReadOnly = true;
-            txtCodigoCliente.MaxLength = 4;
-            txtCodigoCliente.ReadOnly = false;
-            txtCodigoCliente.Clear();
 
             dataGridView1.DataSource = listaDetallesVenta;
             dataGridView1.AllowUserToAddRows = false;
 
+            // Configuración del ComboBox buscador de clientes
+            cmbBuscarCliente.DropDownStyle = ComboBoxStyle.DropDown;
+            cmbBuscarCliente.AutoCompleteMode = AutoCompleteMode.None; // Lo manejamos manualmente para soportar DNI y Letras
+            cmbBuscarCliente.MaxLength = 160;
+            //cmbBuscarCliente.Enabled = true;
+
+            CargarComboClientes("");
+
+            // Suscripción a los eventos del ComboBox (o puedes enlazarlos desde el Diseñador)
+            cmbBuscarCliente.TextUpdate += cmbBuscarCliente_TextUpdate;
+            cmbBuscarCliente.DropDown += cmbBuscarCliente_DropDown;
+            cmbBuscarCliente.KeyPress += cmbBuscarCliente_KeyPress;
+            cmbBuscarCliente.KeyDown += cmbBuscarCliente_KeyDown;
+
             if (dataGridView1.Columns["Cantidad"] != null)
-                dataGridView1.Columns["Cantidad"].HeaderText = "Cantidad (g / u)";
+                dataGridView1.Columns["Cantidad"].HeaderText = "Cantidad (g/u)";
 
             if (dataGridView1.Columns["UnidadMedida"] != null)
                 dataGridView1.Columns["UnidadMedida"].HeaderText = "Unidad";
@@ -279,18 +291,14 @@ namespace DesktopAppSupermercado
             txtNombre.Clear();
             textCant.Clear();
 
-            // Liberar el código de cliente para la próxima compra.
-            txtCodigoCliente.Clear();
-            txtCodigoCliente.ReadOnly = false;
-            txtCodigoCliente.Enabled = true;
+            // Liberar el buscador de cliente para la próxima compra.
+            CargarComboClientes("");
+            cmbBuscarCliente.Enabled = true;
 
             ventaActual = null;
             ventaConfirmada = false;
 
-            txtCodigoCliente.Focus();
-
-            // No deshabilitamos botones ni es necesario reactivarlos:
-            // la venta ya se procesa y el PDF se genera automáticamente.
+            cmbBuscarCliente.Focus();
         }
 
         private void btnBorrarCompra_Click(object sender, EventArgs e)
@@ -322,8 +330,6 @@ namespace DesktopAppSupermercado
 
         private void btnNuevaVenta_Click(object sender, EventArgs e)
         {
-            // No permitir iniciar otra compra mientras exista
-            // una venta pendiente que todavía no fue confirmada.
             if (ventaActual != null && !ventaConfirmada)
             {
                 DialogResult respuesta = MessageBox.Show(
@@ -335,37 +341,34 @@ namespace DesktopAppSupermercado
                 if (respuesta != DialogResult.Yes)
                     return;
 
-                // Descartar solamente la venta que está en memoria.
                 listaDetallesVenta.Clear();
                 ventaActual = null;
 
-                txtCodigoCliente.ReadOnly = false;
-                txtCodigoCliente.Clear();
+                cmbBuscarCliente.Enabled = true;
+                CargarComboClientes("");
 
                 txtNumeroCompra.Clear();
                 txtFecha.Clear();
                 txtTotal.Text = "$ 0.00";
 
                 MessageBox.Show(
-                    "Venta descartada. Ingrese un nuevo código de cliente " +
+                    "Venta descartada. Ingrese un DNI o seleccione un cliente " +
                     "y vuelva a iniciar la venta.",
                     "Información",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
 
-                txtCodigoCliente.Focus();
+                cmbBuscarCliente.Focus();
                 return;
             }
 
-            // 1. Validar el cliente antes de iniciar la compra.
+            // 1. Validar el cliente antes de iniciar la compra (no permite vacío, ni DNI o nombre inexistente).
             Cliente cliente;
 
             try
             {
                 ClienteNegocio clienteNegocio = new ClienteNegocio();
-
-                cliente = clienteNegocio.ObtenerClienteValido(
-                    txtCodigoCliente.Text);
+                cliente = clienteNegocio.ObtenerClienteValido(cmbBuscarCliente.Text);
             }
             catch (Exception ex)
             {
@@ -375,8 +378,8 @@ namespace DesktopAppSupermercado
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning);
 
-                txtCodigoCliente.Focus();
-                txtCodigoCliente.SelectAll();
+                cmbBuscarCliente.Focus();
+                cmbBuscarCliente.SelectAll();
                 return;
             }
 
@@ -389,13 +392,11 @@ namespace DesktopAppSupermercado
                         ? Sesion.UsuarioActual.IdUsuario
                         : 1;
 
-                // Solo consulta el número estimado. No consume el ticket.
                 int numeroTicketEstimado =
                     ventaNegocio.ObtenerNumeroTicketEstimado();
 
                 listaDetallesVenta.Clear();
 
-                // 2. Crear la compra en memoria con el cliente validado.
                 ventaActual = new VentaEnMemoria
                 {
                     NumeroTicketEstimado = numeroTicketEstimado,
@@ -409,19 +410,19 @@ namespace DesktopAppSupermercado
 
                 ventaConfirmada = false;
 
-                txtNumeroCompra.Text =
-                    numeroTicketEstimado.ToString();
+                txtNumeroCompra.Text = numeroTicketEstimado.ToString();
+                txtFecha.Text = ventaActual.Fecha.ToString("dd/MM/yyyy HH:mm");
 
-                txtFecha.Text =
-                    ventaActual.Fecha.ToString("dd/MM/yyyy HH:mm");
-
-                // El cliente queda visible, pero ya no puede modificarse.
-                txtCodigoCliente.ReadOnly = true;
+                // Mostramos el nombre completo y bloqueamos el ComboBox durante la venta activa
+                actualizandoComboClientes = true;
+                cmbBuscarCliente.Text = cliente.NombreCompleto;
+                actualizandoComboClientes = false;
+                cmbBuscarCliente.Enabled = false;
 
                 ActualizarTotal();
 
                 MessageBox.Show(
-                    $"Venta iniciada para {cliente.NombreCompleto}.",
+                    $"Venta iniciada para {cliente.NombreCompleto} (DNI: {cliente.Dni}).",
                     "Información",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
@@ -437,7 +438,6 @@ namespace DesktopAppSupermercado
                     MessageBoxIcon.Error);
             }
         }
-
 
         private void ActualizarTotal()
         {
@@ -691,17 +691,6 @@ namespace DesktopAppSupermercado
                 MidpointRounding.AwayFromZero);
         }
 
-        private void txtCodigoCliente_KeyPress(
-             object sender,
-             KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) &&
-                (e.KeyChar < '0' || e.KeyChar > '9'))
-            {
-                e.Handled = true;
-            }
-        }
-
         private void label3_Click_1(object sender, EventArgs e)
         {
 
@@ -873,6 +862,152 @@ namespace DesktopAppSupermercado
             CargarHistorial();
 
             ventanaHistorial.ShowDialog(this);
+        }
+
+        private void CargarComboClientes(string filtroTexto, bool mantenerTexto = false)
+        {
+            actualizandoComboClientes = true;
+            try
+            {
+                string textoActual = cmbBuscarCliente.Text;
+                int posicionCursor = cmbBuscarCliente.SelectionStart;
+
+                ClienteNegocio clienteNegocio = new ClienteNegocio();
+                List<Cliente> clientes = clienteNegocio.ObtenerClientesPorFiltroTexto(filtroTexto);
+
+                cmbBuscarCliente.BeginUpdate();
+                cmbBuscarCliente.Items.Clear();
+
+                foreach (Cliente cli in clientes)
+                {
+                    cmbBuscarCliente.Items.Add(cli); // Mostrará NombreCompleto gracias al ToString()
+                }
+                cmbBuscarCliente.EndUpdate();
+
+                if (mantenerTexto)
+                {
+                    cmbBuscarCliente.Text = textoActual;
+                    cmbBuscarCliente.SelectionStart = posicionCursor;
+                    cmbBuscarCliente.SelectionLength = 0;
+                }
+                else
+                {
+                    cmbBuscarCliente.SelectedIndex = -1;
+                    cmbBuscarCliente.Text = string.Empty;
+                }
+            }
+            finally
+            {
+                actualizandoComboClientes = false;
+            }
+        }
+
+        // 1. Si no se ingresan letras y se despliega el ComboBox, carga todos los clientes ordenados alfabéticamente
+        private void cmbBuscarCliente_DropDown(object sender, EventArgs e)
+        {
+            if (actualizandoComboClientes) return;
+
+            string texto = cmbBuscarCliente.Text.Trim();
+
+            if (string.IsNullOrEmpty(texto))
+            {
+                CargarComboClientes("", mantenerTexto: true);
+            }
+        }
+
+        // 2. A medida que se escriben letras, filtra por nombre y apellido en la tabla persona (solo clientes)
+        private void cmbBuscarCliente_TextUpdate(object sender, EventArgs e)
+        {
+            if (actualizandoComboClientes) return;
+
+            string texto = cmbBuscarCliente.Text.Trim();
+
+            // Si está vacío, cargamos todos los clientes para cuando despliegue el combo
+            if (string.IsNullOrEmpty(texto))
+            {
+                cmbBuscarCliente.DroppedDown = false;
+                CargarComboClientes("", mantenerTexto: true);
+                return;
+            }
+
+            // Si está ingresando números (DNI), cerramos el desplegable y dejamos que escriba los dígitos
+            if (char.IsDigit(texto[0]))
+            {
+                cmbBuscarCliente.DroppedDown = false;
+                return;
+            }
+
+            // Si ingresó letras, buscamos coincidencias en nombre y apellido
+            CargarComboClientes(texto, mantenerTexto: true);
+
+            if (cmbBuscarCliente.Items.Count > 0)
+            {
+                cmbBuscarCliente.DroppedDown = true;
+                Cursor.Current = Cursors.Default;
+            }
+            else
+            {
+                cmbBuscarCliente.DroppedDown = false;
+            }
+        }
+
+        // 3. Permitir solo letras/espacios (para nombres) o solo números (para DNI de hasta 8 dígitos)
+        private void cmbBuscarCliente_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (char.IsControl(e.KeyChar))
+                return;
+
+            string textoActual = cmbBuscarCliente.Text;
+
+            // Si ya empezó escribiendo números, solo permitir números y limitar a 8 dígitos (DNI)
+            if (textoActual.Length > 0 && char.IsDigit(textoActual[0]))
+            {
+                if (!char.IsDigit(e.KeyChar) || (textoActual.Length >= 8 && cmbBuscarCliente.SelectionLength == 0))
+                {
+                    e.Handled = true;
+                }
+                return;
+            }
+
+            // Si ya empezó escribiendo letras, no permitir mezclar con números
+            if (textoActual.Length > 0 && char.IsLetter(textoActual[0]))
+            {
+                if (!char.IsLetter(e.KeyChar) && e.KeyChar != ' ' && e.KeyChar != '\'' && e.KeyChar != '-')
+                {
+                    e.Handled = true;
+                }
+                return;
+            }
+
+            // Si es el primer carácter, permitir letra o dígito
+            if (!char.IsLetterOrDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        // 4. Si termina de escribir un DNI y presiona Enter, valida el DNI y muestra el cliente encontrado
+        private void cmbBuscarCliente_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+                try
+                {
+                    ClienteNegocio clienteNegocio = new ClienteNegocio();
+                    Cliente cliente = clienteNegocio.ObtenerClienteValido(cmbBuscarCliente.Text);
+
+                    // Deja seleccionado el nombre del cliente validado
+                    actualizandoComboClientes = true;
+                    cmbBuscarCliente.Text = cliente.NombreCompleto;
+                    actualizandoComboClientes = false;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Cliente inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    cmbBuscarCliente.SelectAll();
+                }
+            }
         }
 
     }

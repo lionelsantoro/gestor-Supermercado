@@ -1,9 +1,10 @@
 ﻿using DesktopAppSupermercado.Datos;
 using DesktopAppSupermercado.Entidades;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Text;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace DesktopAppSupermercado.ReglasNegocio
@@ -12,26 +13,59 @@ namespace DesktopAppSupermercado.ReglasNegocio
     {
         private readonly ClienteDatos datos = new ClienteDatos();
 
-        public Cliente ObtenerClienteValido(string codigo)
+        public List<Cliente> ObtenerClientesPorFiltroTexto(string texto)
         {
-            codigo = codigo?.Trim();
+            return datos.ListarClientesPorTexto(texto?.Trim() ?? "");
+        }
 
-            if (string.IsNullOrWhiteSpace(codigo) ||
-                !Regex.IsMatch(codigo, @"^[0-9]{4}$"))
+        public Cliente ObtenerClienteValido(string entrada)
+        {
+            entrada = entrada?.Trim();
+
+            if (string.IsNullOrWhiteSpace(entrada))
             {
-                throw new Exception(
-                    "Ingrese un código de cliente de exactamente cuatro dígitos.");
+                throw new Exception("Debe ingresar un DNI o seleccionar el nombre de un cliente válido para iniciar la venta.");
             }
 
-            Cliente cliente = datos.ObtenerPorCodigo(codigo);
-
-            if (cliente == null)
+            // CASO A: Se ingresaron números (o empezó con números intentando poner un DNI)
+            if (entrada.All(char.IsDigit) || Regex.IsMatch(entrada, @"\d"))
             {
-                throw new Exception(
-                    "El código ingresado no corresponde a un cliente registrado.");
+                // Validamos que TODOS los caracteres sean números
+                if (!Regex.IsMatch(entrada, @"^[0-9]+$"))
+                {
+                    throw new Exception("El DNI ingresado no es válido. Debe contener únicamente números, o bien ingrese solo letras para buscar por nombre.");
+                }
+
+                // Validamos que tenga la longitud de un DNI (8 dígitos según tu tabla persona)
+                if (entrada.Length != 8)
+                {
+                    throw new Exception("El DNI debe tener exactamente 8 dígitos numéricos.");
+                }
+
+                Cliente clientePorDni = datos.ObtenerPorDni(entrada);
+
+                if (clientePorDni == null)
+                {
+                    throw new Exception($"No existe ningún cliente registrado con el DNI {entrada}.");
+                }
+
+                return clientePorDni;
             }
 
-            return cliente;
+            // CASO B: Se ingresaron letras (Nombre y Apellido)
+            Cliente clientePorNombre = datos.ObtenerPorNombreCompleto(entrada);
+
+            if (clientePorNombre == null)
+            {
+                throw new Exception("El nombre ingresado no corresponde a un cliente registrado. Seleccione uno de la lista desplegable.");
+            }
+
+            return clientePorNombre;
+        }
+
+        public DataTable BuscarClientes(string filtro)
+        {
+            return datos.BuscarClientes(filtro?.Trim() ?? "");
         }
 
         public Cliente RegistrarCliente(
@@ -79,9 +113,5 @@ namespace DesktopAppSupermercado.ReglasNegocio
             return datos.RegistrarCliente(nombre, apellido);
         }
 
-        public DataTable BuscarClientes(string filtro)
-        {
-            return datos.BuscarClientes(filtro?.Trim() ?? "");
-        }
     }
 }

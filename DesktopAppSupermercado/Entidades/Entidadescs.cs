@@ -72,12 +72,21 @@ namespace DesktopAppSupermercado.Entidades
     public class Cliente
     {
         public int IdCliente { get; set; }
+        public int IdPersona { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
-        public string CodigoCliente { get; set; }
+        public string Dni { get; set; }
 
-        public string NombreCompleto =>
-            $"{Nombre} {Apellido}";
+        // Mantiene compatibilidad si TicketPdfGenerador usa CodigoCliente
+        public string CodigoCliente
+        {
+            get => Dni;
+            set => Dni = value;
+        }
+
+        public string NombreCompleto => $"{Nombre} {Apellido}".Trim();
+
+        public override string ToString() => NombreCompleto;
     }
 
 }

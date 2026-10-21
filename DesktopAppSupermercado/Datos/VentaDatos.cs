@@ -121,20 +121,17 @@ namespace DesktopAppSupermercado.Datos
                          @precioUnitario, @subtotal);";
 
                         string queryStock = @"
-    DECLARE @ProductosActualizados TABLE
-    (
-        id_producto INT
-    );
+                    DECLARE @ProductosActualizados TABLE
+                        (id_producto INT);
+                    UPDATE dbo.productos
+                    SET stock = stock - @cantidad
+                    OUTPUT INSERTED.id_producto
+                    INTO @ProductosActualizados (id_producto)
+                    WHERE id_producto = @idProducto
+                    AND stock >= @cantidad;
 
-    UPDATE dbo.productos
-    SET stock = stock - @cantidad
-    OUTPUT INSERTED.id_producto
-        INTO @ProductosActualizados (id_producto)
-    WHERE id_producto = @idProducto
-      AND stock >= @cantidad;
-
-    SELECT COUNT(*)
-    FROM @ProductosActualizados;";
+                    SELECT COUNT(*)
+                    FROM @ProductosActualizados;";
 
                         foreach (var item in detalles)
                         {
@@ -151,8 +148,7 @@ namespace DesktopAppSupermercado.Datos
                             }
 
                             // 4. Descontar el stock y comprobar que alcanzaba.
-                            using (SqlCommand cmdStock =
-    new SqlCommand(queryStock, con, transaccion))
+                            using (SqlCommand cmdStock = new SqlCommand(queryStock, con, transaccion))
                             {
                                 SqlParameter parametroCantidad =
                                     cmdStock.Parameters.Add("@cantidad", SqlDbType.Decimal);

@@ -40,8 +40,8 @@
             label6 = new Label();
             dataGridView1 = new DataGridView();
             panel3 = new Panel();
+            cmbBuscarCliente = new ComboBox();
             btnHistorial = new Button();
-            txtCodigoCliente = new TextBox();
             label4 = new Label();
             btnNuevaVenta = new Button();
             btnAgregarProducto = new Button();
@@ -196,8 +196,8 @@
             // panel3
             // 
             panel3.BackColor = Color.FromArgb(255, 224, 192);
+            panel3.Controls.Add(cmbBuscarCliente);
             panel3.Controls.Add(btnHistorial);
-            panel3.Controls.Add(txtCodigoCliente);
             panel3.Controls.Add(label4);
             panel3.Controls.Add(btnNuevaVenta);
             panel3.Controls.Add(btnAgregarProducto);
@@ -214,6 +214,18 @@
             panel3.Size = new Size(1191, 153);
             panel3.TabIndex = 0;
             // 
+            // cmbBuscarCliente
+            // 
+            cmbBuscarCliente.FormattingEnabled = true;
+            cmbBuscarCliente.Location = new Point(578, 9);
+            cmbBuscarCliente.Name = "cmbBuscarCliente";
+            cmbBuscarCliente.Size = new Size(296, 28);
+            cmbBuscarCliente.TabIndex = 14;
+            cmbBuscarCliente.DropDown += cmbBuscarCliente_DropDown;
+            cmbBuscarCliente.TextUpdate += cmbBuscarCliente_TextUpdate;
+            cmbBuscarCliente.KeyDown += cmbBuscarCliente_KeyDown;
+            cmbBuscarCliente.KeyPress += cmbBuscarCliente_KeyPress;
+            // 
             // btnHistorial
             // 
             btnHistorial.Image = Properties.Resources.historial_de_ventas1;
@@ -226,14 +238,6 @@
             btnHistorial.TextAlign = ContentAlignment.MiddleLeft;
             btnHistorial.UseVisualStyleBackColor = true;
             btnHistorial.Click += btnHistorial_Click;
-            // 
-            // txtCodigoCliente
-            // 
-            txtCodigoCliente.Location = new Point(579, 10);
-            txtCodigoCliente.Name = "txtCodigoCliente";
-            txtCodigoCliente.Size = new Size(295, 27);
-            txtCodigoCliente.TabIndex = 12;
-            txtCodigoCliente.KeyPress += txtCodigoCliente_KeyPress;
             // 
             // label4
             // 
@@ -392,7 +396,8 @@
         private Button btnAgregarProducto;
         private Button btnNuevaVenta;
         private Label label4;
-        private TextBox txtCodigoCliente;
+        private TextBox cmbDNICliente;
         private Button btnHistorial;
+        private ComboBox cmbBuscarCliente;
     }
 }
