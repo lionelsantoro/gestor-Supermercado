@@ -58,5 +58,38 @@ namespace DesktopAppSupermercado.ReglasNegocio
                 fechaHasta);
         }
 
+        public DataTable ConsultarDetallesVenta(int idVenta)
+        {
+            if (idVenta <= 0)
+            {
+                throw new Exception("La venta seleccionada no es válida.");
+            }
+
+            return datos.ObtenerDetallesVenta(idVenta);
+        }
+
+
+        public DataTable ConsultarVentasParaHistorial(
+            int idUsuario,
+            DateTime? fechaDesde,
+            DateTime? fechaHasta)
+        {
+            if (idUsuario <= 0)
+                throw new Exception("El usuario de la sesión no es válido.");
+
+            if (fechaDesde.HasValue &&
+                fechaHasta.HasValue &&
+                fechaDesde.Value.Date > fechaHasta.Value.Date)
+            {
+                throw new Exception(
+                    "La fecha desde no puede ser posterior a la fecha hasta.");
+            }
+
+            return datos.ObtenerVentasParaHistorial(
+                idUsuario,
+                fechaDesde,
+                fechaHasta);
+        }
+
     }
 }

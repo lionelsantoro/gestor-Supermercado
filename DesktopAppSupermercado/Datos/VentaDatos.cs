@@ -287,5 +287,101 @@ namespace DesktopAppSupermercado.Datos
             return tabla;
         }
 
+        public DataTable ObtenerDetallesVenta(int idVenta)
+        {
+            DataTable tabla = new DataTable();
+            Conexion miConexion = new Conexion();
+
+            using (SqlConnection con = miConexion.ObtenerConexion())
+            {
+                con.Open();
+
+                string query = @"
+            SELECT
+                dv.id_detalle,
+                dv.id_venta,
+                dv.id_producto,
+                p.descripcion,
+                dv.cantidad,
+                dv.precio_unitario,
+                dv.subtotal,
+                dv.creado_en
+            FROM dbo.detalle_venta dv
+            INNER JOIN dbo.productos p
+                ON p.id_producto = dv.id_producto
+            WHERE dv.id_venta = @idVenta
+            ORDER BY dv.id_detalle;";
+
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    cmd.Parameters.Add("@idVenta", SqlDbType.Int).Value =
+                        idVenta;
+
+                    using (SqlDataAdapter adaptador = new SqlDataAdapter(cmd))
+                    {
+                        adaptador.Fill(tabla);
+                    }
+                }
+            }
+
+            return tabla;
+        }
+
+        public DataTable ObtenerVentasParaHistorial(
+            int idUsuario,
+            DateTime? fechaDesde,
+            DateTime? fechaHasta)
+        {
+            DataTable tabla = new DataTable();
+            Conexion miConexion = new Conexion();
+
+            using (SqlConnection con = miConexion.ObtenerConexion())
+            {
+                con.Open();
+
+                string query = @"
+            SELECT
+                id_venta,
+                numero_ticket,
+                monto_total,
+                creado_en
+            FROM dbo.ventas
+            WHERE id_usuario = @idUsuario
+              AND (@fechaDesde IS NULL
+                   OR creado_en >= @fechaDesde)
+              AND (@fechaHasta IS NULL
+                   OR creado_en < DATEADD(DAY, 1, @fechaHasta))
+            ORDER BY creado_en DESC;";
+
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    cmd.Parameters.Add("@idUsuario", SqlDbType.Int).Value =
+                        idUsuario;
+
+                    SqlParameter desde = cmd.Parameters.Add(
+                        "@fechaDesde", SqlDbType.Date);
+
+                    desde.Value = fechaDesde.HasValue
+                        ? fechaDesde.Value.Date
+                        : DBNull.Value;
+
+                    SqlParameter hasta = cmd.Parameters.Add(
+                        "@fechaHasta", SqlDbType.Date);
+
+                    hasta.Value = fechaHasta.HasValue
+                        ? fechaHasta.Value.Date
+                        : DBNull.Value;
+
+                    using (SqlDataAdapter adaptador = new SqlDataAdapter(cmd))
+                    {
+                        adaptador.Fill(tabla);
+                    }
+                }
+            }
+
+            return tabla;
+        }
+
+
     }
 }
