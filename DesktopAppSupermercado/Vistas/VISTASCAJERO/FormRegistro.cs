@@ -19,9 +19,7 @@ namespace DesktopAppSupermercado
             InitializeComponent();
         }
 
-        private void FormRegistro_Load(
-            object sender,
-            EventArgs e)
+        private void FormRegistro_Load(object sender, EventArgs e)
         {
             dgvRegistroCliente.AutoGenerateColumns = true;
             dgvRegistroCliente.Columns.Clear();
@@ -38,6 +36,12 @@ namespace DesktopAppSupermercado
 
             txtNombreCliente.MaxLength = 80;
             txtApellidoCliente.MaxLength = 80;
+            txtCorreo.MaxLength = 150;
+            txtDni.MaxLength = 8;
+            txtDireccion.MaxLength = 250;
+            txtTelefono.MaxLength = 20;
+            txtBuscarCliente.MaxLength = 160;
+            txtFechaNacimiento.MaxLength = 10;
 
             CargarClientes();
         }
@@ -46,25 +50,35 @@ namespace DesktopAppSupermercado
         {
             try
             {
-                DataTable tabla =
-                    negocio.BuscarClientes(txtBuscarCliente.Text);
+                DataTable tabla = negocio.BuscarClientes(txtBuscarCliente.Text);
 
                 dgvRegistroCliente.DataSource = tabla;
 
-                if (dgvRegistroCliente.Columns["id_cliente"] != null)
+                if (dgvRegistroCliente.Columns.Contains("id_cliente"))
                 {
-                    dgvRegistroCliente.Columns["id_cliente"].HeaderText = "ID";
+                    dgvRegistroCliente.Columns["id_cliente"].Visible = false;
                 }
 
-                if (dgvRegistroCliente.Columns["nombre"] != null)
-                {
+                if (dgvRegistroCliente.Columns.Contains("nombre"))
                     dgvRegistroCliente.Columns["nombre"].HeaderText = "Nombre";
-                }
 
-                if (dgvRegistroCliente.Columns["apellido"] != null)
-                {
+                if (dgvRegistroCliente.Columns.Contains("apellido"))
                     dgvRegistroCliente.Columns["apellido"].HeaderText = "Apellido";
-                }
+
+                if (dgvRegistroCliente.Columns.Contains("correo"))
+                    dgvRegistroCliente.Columns["correo"].HeaderText = "Correo";
+
+                if (dgvRegistroCliente.Columns.Contains("dni"))
+                    dgvRegistroCliente.Columns["dni"].HeaderText = "DNI";
+
+                if (dgvRegistroCliente.Columns.Contains("direccion"))
+                    dgvRegistroCliente.Columns["direccion"].HeaderText = "Dirección";
+
+                if (dgvRegistroCliente.Columns.Contains("telefono"))
+                    dgvRegistroCliente.Columns["telefono"].HeaderText = "Teléfono";
+
+                if (dgvRegistroCliente.Columns.Contains("sexo"))
+                    dgvRegistroCliente.Columns["sexo"].HeaderText = "Sexo";
             }
             catch (Exception ex)
             {
@@ -77,77 +91,37 @@ namespace DesktopAppSupermercado
         }
 
         private void btnRegistrarNuevoCliente_Click(
-            object sender,
-            EventArgs e)
+    object sender,
+    EventArgs e)
         {
-            string nombre = txtNombreCliente.Text.Trim();
-            string apellido = txtApellidoCliente.Text.Trim();
-
-            if (string.IsNullOrWhiteSpace(nombre))
-            {
-                MessageBox.Show(
-                    "Ingrese el nombre del cliente.",
-                    "Dato obligatorio",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
-
-                txtNombreCliente.Focus();
-                return;
-            }
-
-            if (string.IsNullOrWhiteSpace(apellido))
-            {
-                MessageBox.Show(
-                    "Ingrese el apellido del cliente.",
-                    "Dato obligatorio",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
-
-                txtApellidoCliente.Focus();
-                return;
-            }
-
-            if (!ValidarNombreApellido(nombre))
-            {
-                MessageBox.Show(
-                    "El nombre solo puede contener letras, espacios, apóstrofes y guiones.",
-                    "Nombre inválido",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
-
-                txtNombreCliente.Focus();
-                return;
-            }
-
-            if (!ValidarNombreApellido(apellido))
-            {
-                MessageBox.Show(
-                    "El apellido solo puede contener letras, espacios, apóstrofes y guiones.",
-                    "Apellido inválido",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
-
-                txtApellidoCliente.Focus();
-                return;
-            }
+            string sexo = rbHombre.Checked
+                ? "Hombre"
+                : rbMujer.Checked
+                    ? "Mujer"
+                    : "";
 
             try
             {
                 Cliente cliente = negocio.RegistrarCliente(
-                    nombre,
-                    apellido);
+                    txtNombreCliente.Text,
+                    txtApellidoCliente.Text,
+                    txtCorreo.Text,
+                    txtDni.Text,
+                    txtDireccion.Text,
+                    txtTelefono.Text,
+                    sexo,
+                    txtFechaNacimiento.Text);
 
                 MessageBox.Show(
-                    $"Cliente registrado correctamente.\n\n" +
-                    $"Nombre: {cliente.NombreCompleto}\n" +
-                    $"Código: {cliente.CodigoCliente}",
+                    "Cliente registrado correctamente.\n\n" +
+                    $"Nombre: {cliente.Nombre} {cliente.Apellido}\n" +
+                    $"DNI: {cliente.Dni}\n" +
+                    $"ID de cliente: {cliente.IdCliente}",
                     "Registro exitoso",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
 
-                txtNombreCliente.Clear();
-                txtApellidoCliente.Clear();
-
+                LimpiarCampos();
                 CargarClientes();
                 txtNombreCliente.Focus();
             }
@@ -162,13 +136,25 @@ namespace DesktopAppSupermercado
         }
 
 
-        private void btnLimpiar_Click(
-           object sender,
-           EventArgs e)
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            LimpiarCampos();
+            txtNombreCliente.Focus();
+        }
+
+        private void LimpiarCampos()
         {
             txtNombreCliente.Clear();
             txtApellidoCliente.Clear();
-            txtNombreCliente.Focus();
+            txtCorreo.Clear();
+            txtDni.Clear();
+            txtDireccion.Clear();
+            txtTelefono.Clear();
+            txtFechaNacimiento.Clear();
+            txtBuscarCliente.Clear();
+
+            rbHombre.Checked = false;
+            rbMujer.Checked = false;
         }
 
         private void txtBuscarCliente_TextChanged(
@@ -219,6 +205,11 @@ namespace DesktopAppSupermercado
         }
 
         private void dgvRegistro_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void rbMujer_CheckedChanged(object sender, EventArgs e)
         {
 
         }
