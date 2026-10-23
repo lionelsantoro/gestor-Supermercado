@@ -130,11 +130,11 @@
             // 
             btnIngresarCodigo.Image = Properties.Resources.codigobarra2;
             btnIngresarCodigo.ImageAlign = ContentAlignment.TopCenter;
-            btnIngresarCodigo.Location = new Point(12, 172);
+            btnIngresarCodigo.Location = new Point(12, 177);
             btnIngresarCodigo.Name = "btnIngresarCodigo";
-            btnIngresarCodigo.Size = new Size(94, 144);
+            btnIngresarCodigo.Size = new Size(94, 124);
             btnIngresarCodigo.TabIndex = 2;
-            btnIngresarCodigo.Text = "Ingresar Codido de barra";
+            btnIngresarCodigo.Text = "Buscar Producto";
             btnIngresarCodigo.TextAlign = ContentAlignment.BottomCenter;
             btnIngresarCodigo.UseVisualStyleBackColor = true;
             btnIngresarCodigo.Click += btnCargarProducto_Click;
@@ -289,13 +289,12 @@
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(328, 27);
             txtNombre.TabIndex = 6;
-            txtNombre.TextChanged += textBox3_TextChanged;
             // 
             // label3
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.Location = new Point(31, 108);
+            label3.Location = new Point(19, 108);
             label3.Name = "label3";
             label3.Size = new Size(260, 31);
             label3.TabIndex = 5;

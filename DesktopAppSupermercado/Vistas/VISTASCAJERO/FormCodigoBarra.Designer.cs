@@ -29,80 +29,72 @@
         private void InitializeComponent()
         {
             label1 = new Label();
-            textBox1 = new TextBox();
-            button1 = new Button();
-            btnSalir = new Button();
-            label3 = new Label();
-            textBox3 = new TextBox();
+            label2 = new Label();
+            txtBuscarProducto = new TextBox();
+            dgvProducto = new DataGridView();
+            cmbCategoria = new ComboBox();
+            ((System.ComponentModel.ISupportInitialize)dgvProducto).BeginInit();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(62, 20);
+            label1.Location = new Point(11, 20);
             label1.Name = "label1";
-            label1.Size = new Size(191, 31);
+            label1.Size = new Size(0, 31);
             label1.TabIndex = 0;
-            label1.Text = "Codigo de barra:";
             // 
-            // textBox1
+            // label2
             // 
-            textBox1.Location = new Point(259, 24);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(223, 27);
-            textBox1.TabIndex = 1;
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.Location = new Point(29, 20);
+            label2.Name = "label2";
+            label2.Size = new Size(196, 31);
+            label2.TabIndex = 2;
+            label2.Text = "Buscar producto:";
+            label2.Click += label2_Click;
             // 
-            // button1
+            // txtBuscarProducto
             // 
-            button1.Location = new Point(3, 110);
-            button1.Name = "button1";
-            button1.Size = new Size(139, 29);
-            button1.TabIndex = 2;
-            button1.Text = "Cargar Producto";
-            button1.UseVisualStyleBackColor = true;
+            txtBuscarProducto.Location = new Point(231, 24);
+            txtBuscarProducto.Name = "txtBuscarProducto";
+            txtBuscarProducto.Size = new Size(382, 27);
+            txtBuscarProducto.TabIndex = 3;
             // 
-            // btnSalir
+            // dgvProducto
             // 
-            btnSalir.Location = new Point(388, 110);
-            btnSalir.Name = "btnSalir";
-            btnSalir.Size = new Size(94, 29);
-            btnSalir.TabIndex = 3;
-            btnSalir.Text = "Salir";
-            btnSalir.UseVisualStyleBackColor = true;
-            btnSalir.Click += btnSalir_Click;
+            dgvProducto.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvProducto.Location = new Point(11, 68);
+            dgvProducto.Name = "dgvProducto";
+            dgvProducto.RowHeadersWidth = 51;
+            dgvProducto.Size = new Size(870, 442);
+            dgvProducto.TabIndex = 4;
             // 
-            // label3
+            // cmbCategoria
             // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.Location = new Point(137, 65);
-            label3.Name = "label3";
-            label3.Size = new Size(116, 31);
-            label3.TabIndex = 6;
-            label3.Text = "Cantidad:";
-            // 
-            // textBox3
-            // 
-            textBox3.Location = new Point(259, 69);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(223, 27);
-            textBox3.TabIndex = 7;
+            cmbCategoria.FormattingEnabled = true;
+            cmbCategoria.Location = new Point(634, 23);
+            cmbCategoria.Name = "cmbCategoria";
+            cmbCategoria.Size = new Size(247, 28);
+            cmbCategoria.TabIndex = 5;
             // 
             // FormCodigoBarra
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveBorder;
-            ClientSize = new Size(494, 153);
-            Controls.Add(textBox3);
-            Controls.Add(label3);
-            Controls.Add(btnSalir);
-            Controls.Add(button1);
-            Controls.Add(textBox1);
+            ClientSize = new Size(893, 522);
+            Controls.Add(cmbCategoria);
+            Controls.Add(dgvProducto);
+            Controls.Add(txtBuscarProducto);
+            Controls.Add(label2);
             Controls.Add(label1);
             Name = "FormCodigoBarra";
             Text = "FormCodigoBarra";
+            Load += FormCodigoBarra_Load;
+            ((System.ComponentModel.ISupportInitialize)dgvProducto).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -110,10 +102,9 @@
         #endregion
 
         private Label label1;
-        private TextBox textBox1;
-        private Button button1;
-        private Button btnSalir;
-        private Label label3;
-        private TextBox textBox3;
+        private Label label2;
+        private TextBox txtBuscarProducto;
+        private DataGridView dgvProducto;
+        private ComboBox cmbCategoria;
     }
 }

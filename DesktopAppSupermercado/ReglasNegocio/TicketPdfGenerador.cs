@@ -76,11 +76,6 @@ namespace DesktopAppSupermercado.ReglasNegocio
                                 $"Cliente: {venta.ClienteActual.NombreCompleto}")
                             .SemiBold();
 
-                        columna.Item()
-                            .Text(
-                                $"Código cliente: " +
-                                $"{venta.ClienteActual.CodigoCliente}");
-
                         columna.Item().LineHorizontal(1);
 
                         // Detalle de la compra.

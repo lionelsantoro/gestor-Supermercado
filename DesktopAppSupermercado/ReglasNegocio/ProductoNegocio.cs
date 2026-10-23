@@ -2,6 +2,7 @@
 using DesktopAppSupermercado.Entidades;
 using System;
 using System.Collections.Generic;
+using System.Data;
 
 namespace DesktopAppSupermercado.ReglasNegocio
 {
@@ -57,6 +58,15 @@ namespace DesktopAppSupermercado.ReglasNegocio
             }
 
             return producto;
+        }
+
+        public DataTable BuscarProductosParaSeleccion(
+    string filtro,
+    int? idCategoria = null)
+        {
+            return datos.BuscarProductosParaSeleccion(
+                filtro?.Trim() ?? "",
+                idCategoria);
         }
     }
 }

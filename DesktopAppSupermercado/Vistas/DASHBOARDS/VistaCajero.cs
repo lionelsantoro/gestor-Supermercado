@@ -150,11 +150,6 @@ namespace DesktopAppSupermercado
 
         }
 
-        private void textBox3_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void label6_Click(object sender, EventArgs e)
         {
 
@@ -310,8 +305,16 @@ namespace DesktopAppSupermercado
 
         private void btnCargarProducto_Click(object sender, EventArgs e)
         {
-            FormCodigoBarra vistaSup = new FormCodigoBarra();
-            vistaSup.Show();
+            using (FormCodigoBarra selector = new FormCodigoBarra())
+            {
+                if (selector.ShowDialog(this) == DialogResult.OK)
+                {
+                    txtNombre.Text = selector.DescripcionSeleccionada;
+
+                    txtNombre.Focus();
+                    txtNombre.SelectAll();
+                }
+            }
         }
 
         private void btnSalir_Click(object sender, EventArgs e)

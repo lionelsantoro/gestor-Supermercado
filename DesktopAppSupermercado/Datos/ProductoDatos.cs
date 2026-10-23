@@ -1,7 +1,8 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using DesktopAppSupermercado.Entidades;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
-using DesktopAppSupermercado.Entidades;
+using System.Data;
 
 namespace DesktopAppSupermercado.Datos
 {
@@ -94,6 +95,64 @@ namespace DesktopAppSupermercado.Datos
             }
 
             return producto;
+        }
+
+        public DataTable BuscarProductosParaSeleccion(
+    string filtro,
+    int? idCategoria)
+        {
+            DataTable tabla = new DataTable();
+            Conexion miConexion = new Conexion();
+
+            filtro = filtro?.Trim() ?? "";
+
+            using (SqlConnection conexion = miConexion.ObtenerConexion())
+            {
+                conexion.Open();
+
+                string query = @"
+            SELECT
+                p.id_categoria,
+                p.descripcion,
+                p.codigo_barra,
+                p.precio,
+                p.stock
+            FROM dbo.productos AS p
+            WHERE ISNULL(p.eliminado, 0) = 0
+              AND (
+                    @filtro = N''
+                    OR p.descripcion LIKE @patron
+                    OR CONVERT(NVARCHAR(50), p.codigo_barra) LIKE @patron
+                  )
+              AND (
+                    @idCategoria IS NULL
+                    OR p.id_categoria = @idCategoria
+                  )
+            ORDER BY p.descripcion ASC;";
+
+                using (SqlCommand comando = new SqlCommand(query, conexion))
+                {
+                    comando.Parameters.Add(
+                        "@filtro", SqlDbType.NVarChar, 100).Value = filtro;
+
+                    comando.Parameters.Add(
+                        "@patron", SqlDbType.NVarChar, 102).Value =
+                        "%" + filtro + "%";
+
+                    comando.Parameters.Add(
+                        "@idCategoria", SqlDbType.Int).Value =
+                        (object)idCategoria ?? DBNull.Value;
+
+                    comando.CommandTimeout = 10;
+
+                    using (SqlDataAdapter adaptador = new SqlDataAdapter(comando))
+                    {
+                        adaptador.Fill(tabla);
+                    }
+                }
+            }
+
+            return tabla;
         }
     }
 }
