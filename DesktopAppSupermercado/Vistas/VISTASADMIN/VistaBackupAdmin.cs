@@ -12,6 +12,7 @@ namespace DesktopAppSupermercado.VISTASADMIN
         // CAMPOS
         // =============================================================
         private BackupNegocio negocio = new BackupNegocio();
+        private UsuarioAdminNegocio usuarioNegocio = new UsuarioAdminNegocio();
 
         public VistaBackupAdmin()
         {
@@ -219,6 +220,159 @@ namespace DesktopAppSupermercado.VISTASADMIN
         }
 
         // =============================================================
+        // DIÁLOGO DE AUTORIZACIÓN DEL SUPERVISOR
+        // Se arma por código, sin formulario en el diseñador.
+        // Usa AutoSize para que no se corte con el escalado al 200%.
+        // =============================================================
+
+        /// <summary>
+        /// Pide el código de 4 dígitos y lo valida contra la base.
+        /// Devuelve true solo si un supervisor activo autorizó.
+        /// </summary>
+        private bool PedirAutorizacionSupervisor()
+        {
+            // Si no hay nadie que pueda autorizar, conviene decirlo claro
+            // en vez de dejar al administrador probando códigos.
+            try
+            {
+                if (!usuarioNegocio.HaySupervisoresConCodigo())
+                {
+                    MessageBox.Show(
+                        "No hay supervisores activos con código de autorización cargado.\n\n" +
+                        "Cargá un supervisor desde la pantalla de Usuarios antes de restaurar.",
+                        "Sin supervisores", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("No se pudo verificar los supervisores:\n" + ex.Message,
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            // --- Armado del diálogo (se dimensiona solo según el contenido) ---
+            using (Form dialogo = new Form())
+            {
+                dialogo.Text = "Autorización de supervisor";
+                dialogo.FormBorderStyle = FormBorderStyle.FixedDialog;
+                dialogo.StartPosition = FormStartPosition.CenterParent;
+                dialogo.MaximizeBox = false;
+                dialogo.MinimizeBox = false;
+                dialogo.BackColor = Color.FromArgb(255, 192, 128);
+                dialogo.AutoScaleMode = AutoScaleMode.Font;
+                dialogo.AutoSize = true;
+                dialogo.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+                dialogo.Padding = new Padding(25);
+
+                // Contenedor vertical: calcula solo el alto que necesita
+                TableLayoutPanel panel = new TableLayoutPanel();
+                panel.AutoSize = true;
+                panel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+                panel.ColumnCount = 1;
+                panel.RowCount = 4;
+                panel.Dock = DockStyle.Fill;
+                panel.BackColor = Color.Transparent;
+
+                Label lblTexto = new Label();
+                lblTexto.Text = "Ingresá el código de autorización de un supervisor:";
+                lblTexto.AutoSize = true;
+                lblTexto.Margin = new Padding(0, 0, 0, 15);
+
+                TextBox txtCodigo = new TextBox();
+                txtCodigo.MaxLength = 4;
+                txtCodigo.Font = new Font(dialogo.Font.FontFamily, 18F, FontStyle.Bold);
+                txtCodigo.TextAlign = HorizontalAlignment.Center;
+                txtCodigo.Width = 180;
+                txtCodigo.Margin = new Padding(0, 0, 0, 10);
+
+                // Solo dígitos
+                txtCodigo.KeyPress += (s, ev) =>
+                {
+                    if (!char.IsControl(ev.KeyChar) && !char.IsDigit(ev.KeyChar))
+                        ev.Handled = true;
+                };
+
+                Label lblError = new Label();
+                lblError.AutoSize = true;
+                lblError.ForeColor = Color.DarkRed;
+                lblError.Text = " ";   // reserva la línea para que no salte el layout
+                lblError.Margin = new Padding(0, 0, 0, 15);
+
+                // Fila horizontal de botones
+                FlowLayoutPanel panelBotones = new FlowLayoutPanel();
+                panelBotones.AutoSize = true;
+                panelBotones.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+                panelBotones.FlowDirection = FlowDirection.LeftToRight;
+                panelBotones.BackColor = Color.Transparent;
+                panelBotones.Margin = new Padding(0);
+
+                Button btnAceptar = new Button();
+                btnAceptar.Text = "Autorizar";
+                btnAceptar.AutoSize = true;
+                btnAceptar.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+                btnAceptar.Padding = new Padding(15, 8, 15, 8);
+                btnAceptar.Margin = new Padding(0, 0, 15, 0);
+
+                Button btnCancelar = new Button();
+                btnCancelar.Text = "Cancelar";
+                btnCancelar.AutoSize = true;
+                btnCancelar.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+                btnCancelar.Padding = new Padding(15, 8, 15, 8);
+                btnCancelar.DialogResult = DialogResult.Cancel;
+
+                // --- Validación al aceptar ---
+                btnAceptar.Click += (s, ev) =>
+                {
+                    lblError.Text = " ";
+
+                    if (!int.TryParse(txtCodigo.Text.Trim(), out int codigo))
+                    {
+                        lblError.Text = "Ingresá un código numérico.";
+                        txtCodigo.SelectAll();
+                        txtCodigo.Focus();
+                        return;
+                    }
+
+                    try
+                    {
+                        if (usuarioNegocio.ValidarCodigoSupervisor(codigo))
+                        {
+                            dialogo.DialogResult = DialogResult.OK;
+                            dialogo.Close();
+                        }
+                        else
+                        {
+                            lblError.Text = "Código incorrecto o el supervisor no está activo.";
+                            txtCodigo.SelectAll();
+                            txtCodigo.Focus();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("No se pudo validar el código:\n" + ex.Message,
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                };
+
+                panelBotones.Controls.Add(btnAceptar);
+                panelBotones.Controls.Add(btnCancelar);
+
+                panel.Controls.Add(lblTexto, 0, 0);
+                panel.Controls.Add(txtCodigo, 0, 1);
+                panel.Controls.Add(lblError, 0, 2);
+                panel.Controls.Add(panelBotones, 0, 3);
+
+                dialogo.Controls.Add(panel);
+
+                dialogo.AcceptButton = btnAceptar;    // Enter confirma
+                dialogo.CancelButton = btnCancelar;   // Esc cancela
+
+                return dialogo.ShowDialog(this) == DialogResult.OK;
+            }
+        }
+
+        // =============================================================
         // BOTÓN RESTAURAR
         // =============================================================
 
@@ -236,7 +390,7 @@ namespace DesktopAppSupermercado.VISTASADMIN
             int posicion = Convert.ToInt32(fila["posicion"]);
             string estado = fila["disponible"].ToString();
 
-            // --- Confirmación ---
+            // --- Confirmación 1: advertencia de pérdida de datos ---
             string aviso =
                 "Vas a restaurar '" + txtBaseDatos.Text + "' al estado del " +
                 fecha.ToString("dd/MM/yyyy HH:mm") + ".\n\n" +
@@ -248,14 +402,25 @@ namespace DesktopAppSupermercado.VISTASADMIN
                     MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) != DialogResult.Yes)
                 return;
 
+            // --- Confirmación 2: autorización de un supervisor ---
+            bool autorizado = PedirAutorizacionSupervisor();
+
+            if (!autorizado)
+            {
+                lblEstado.ForeColor = Color.DarkRed;
+                lblEstado.Text = "Restauración cancelada: falta autorización del supervisor.";
+                return;
+            }
+
             try
             {
                 Cursor = Cursors.WaitCursor;
                 BloquearBotones(true);
+                lblEstado.ForeColor = Color.Black;
                 lblEstado.Text = "Restaurando, no cierres la aplicación...";
                 lblEstado.Refresh();
 
-                negocio.Restaurar(txtBaseDatos.Text, ruta, posicion, estado);
+                negocio.Restaurar(txtBaseDatos.Text, ruta, posicion, estado, autorizado);
 
                 MessageBox.Show("Base restaurada al " + fecha.ToString("dd/MM/yyyy HH:mm") +
                     ".\n\nCerrá sesión y volvé a ingresar para trabajar con los datos restaurados.",
@@ -276,6 +441,7 @@ namespace DesktopAppSupermercado.VISTASADMIN
             {
                 Cursor = Cursors.Default;
                 BloquearBotones(false);
+                lblEstado.Text = "";
                 CargarHistorial();
             }
         }

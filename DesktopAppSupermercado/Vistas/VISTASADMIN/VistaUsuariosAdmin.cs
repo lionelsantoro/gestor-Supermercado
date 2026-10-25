@@ -161,15 +161,20 @@ namespace DesktopAppSupermercado.VISTASADMIN
             string sexo = rbHombre.Checked ? "Hombre" : "Mujer";
             int idRol = Convert.ToInt32(cmbPerfil.SelectedValue);
             bool cambiaClave = (_idUsuarioActual == 0) || (txtContrasena.Text != PASSWORD_MASK && !string.IsNullOrWhiteSpace(txtContrasena.Text));
+            bool esAlta = (_idUsuarioActual == 0);
 
             try
             {
-                negocio.GuardarUsuario(_idPersonaActual, _idUsuarioActual, txtNombre.Text.Trim(), txtApellido.Text.Trim(),
+                // El código de supervisor se genera en la capa de negocio.
+                // No se muestra acá: solo el supervisor debe conocerlo.
+                negocio.GuardarUsuario(_idPersonaActual, _idUsuarioActual,
+                                       txtNombre.Text.Trim(), txtApellido.Text.Trim(),
                                        txtDNI.Text.Trim(), txtDireccion.Text.Trim(), txtTelefono.Text.Trim(), sexo,
                                        dtpFechaNac.Value.Date, txtEmail.Text.Trim(), idRol, txtUsuario.Text.Trim(),
                                        txtContrasena.Text, cambiaClave);
 
-                MessageBox.Show(_idUsuarioActual == 0 ? "Usuario creado." : "Usuario modificado.");
+                MessageBox.Show(esAlta ? "Usuario creado." : "Usuario modificado.");
+
                 LimpiarFormulario();
                 ActualizarGrillas();
             }
@@ -178,7 +183,6 @@ namespace DesktopAppSupermercado.VISTASADMIN
                 MessageBox.Show("Error: " + ex.Message);
             }
         }
-
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             if (_idUsuarioActual == 0)

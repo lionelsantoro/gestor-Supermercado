@@ -116,8 +116,16 @@ namespace DesktopAppSupermercado.ReglasNegocio
         // RESTORE
         // =============================================================
 
-        public void Restaurar(string baseDatos, string ruta, int posicion, string estado)
+        /// <summary>
+        /// Restaura la base. Requiere que un supervisor haya autorizado:
+        /// la vista valida el código y pasa el resultado acá.
+        /// </summary>
+        public void Restaurar(string baseDatos, string ruta, int posicion, string estado, bool autorizadoPorSupervisor)
         {
+            if (!autorizadoPorSupervisor)
+                throw new ApplicationException(
+                    "La restauración requiere la autorización de un supervisor.");
+
             if (string.IsNullOrWhiteSpace(baseDatos))
                 throw new ApplicationException("No hay base de datos seleccionada.");
 
