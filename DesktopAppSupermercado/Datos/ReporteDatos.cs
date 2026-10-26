@@ -122,5 +122,147 @@ namespace DesktopAppSupermercado.Datos
 
             return tabla;
         }
+
+        // 3. Obtener ganancia por categoría para dgvCategoria y para el PDF
+        public DataTable ObtenerCategoriasPorRango(DateTime fechaDesde, DateTime fechaHasta)
+        {
+            DataTable tabla = new DataTable();
+            Conexion miConexion = new Conexion();
+
+            using (SqlConnection conexion = miConexion.ObtenerConexion())
+            {
+                conexion.Open();
+
+                string query = @"
+            SELECT 
+                c.nombre AS nombre_categoria,
+                ISNULL(SUM(dv.subtotal), 0) AS ganancia_generada
+            FROM dbo.categorias c
+            LEFT JOIN dbo.productos p 
+                ON c.id_categoria = p.id_categoria 
+               AND ISNULL(p.eliminado, 0) = 0
+            LEFT JOIN dbo.detalle_venta dv 
+                ON p.id_producto = dv.id_producto
+               AND dv.creado_en >= @FechaDesde 
+               AND dv.creado_en <= @FechaHasta
+            WHERE ISNULL(c.eliminado, 0) = 0
+            GROUP BY c.id_categoria, c.nombre
+            ORDER BY ganancia_generada DESC, c.nombre ASC;";
+
+                using (SqlCommand comando = new SqlCommand(query, conexion))
+                {
+                    comando.Parameters.Add("@FechaDesde", SqlDbType.DateTime).Value = fechaDesde;
+                    comando.Parameters.Add("@FechaHasta", SqlDbType.DateTime).Value = fechaHasta;
+
+                    using (SqlDataReader lector = comando.ExecuteReader())
+                    {
+                        tabla.Load(lector);
+                    }
+                }
+            }
+
+            return tabla;
+        }
+
+        // 4. Obtener productos con formato listo para mostrar en dgvProductos
+        public DataTable ObtenerProductosParaGrilla(DateTime fechaDesde, DateTime fechaHasta)
+        {
+            DataTable tabla = new DataTable();
+            Conexion miConexion = new Conexion();
+
+            using (SqlConnection conexion = miConexion.ObtenerConexion())
+            {
+                conexion.Open();
+
+                // Formatea cantidad_vendida y stock_sobrante distinguiendo Kg vs Unidad
+                string query = @"
+            SELECT 
+                p.descripcion AS nombre_producto,
+                CASE 
+                    WHEN LOWER(LTRIM(RTRIM(ISNULL(p.unidad_medida, '')))) = 'kg' 
+                        THEN FORMAT(ISNULL(SUM(dv.cantidad), 0), '0.###') + ' Kg'
+                    ELSE FORMAT(ISNULL(SUM(dv.cantidad), 0), '0') + ' u.'
+                END AS cantidad_vendida,
+                CASE 
+                    WHEN LOWER(LTRIM(RTRIM(ISNULL(p.unidad_medida, '')))) = 'kg' 
+                        THEN FORMAT(p.stock, '0.###') + ' Kg'
+                    ELSE FORMAT(p.stock, '0') + ' u.'
+                END AS stock_sobrante,
+                ISNULL(SUM(dv.subtotal), 0) AS ganancia_generada
+            FROM dbo.productos p
+            LEFT JOIN dbo.detalle_venta dv 
+                ON p.id_producto = dv.id_producto
+               AND dv.creado_en >= @FechaDesde 
+               AND dv.creado_en <= @FechaHasta
+            WHERE ISNULL(p.eliminado, 0) = 0
+            GROUP BY p.id_producto, p.descripcion, p.stock, p.unidad_medida
+            ORDER BY ganancia_generada DESC, p.descripcion ASC;";
+
+                using (SqlCommand comando = new SqlCommand(query, conexion))
+                {
+                    comando.Parameters.Add("@FechaDesde", SqlDbType.DateTime).Value = fechaDesde;
+                    comando.Parameters.Add("@FechaHasta", SqlDbType.DateTime).Value = fechaHasta;
+
+                    using (SqlDataReader lector = comando.ExecuteReader())
+                    {
+                        tabla.Load(lector);
+                    }
+                }
+            }
+
+            return tabla;
+        }
+
+        // 5. Obtener todos los datos crudos de productos para armar las 2 tablas del PDF (Vendidos y No Vendidos)
+        public DataTable ObtenerProductosDetalladoPorRango(DateTime fechaDesde, DateTime fechaHasta)
+        {
+            DataTable tabla = new DataTable();
+            Conexion miConexion = new Conexion();
+
+            using (SqlConnection conexion = miConexion.ObtenerConexion())
+            {
+                conexion.Open();
+
+                string query = @"
+            SELECT 
+                p.id_producto AS IdProducto,
+                p.descripcion AS NombreProducto,
+                c.nombre AS NombreCategoria,
+                p.precio AS PrecioUnitario,
+                ISNULL(p.unidad_medida, 'Unidad') AS UnidadMedida,
+                p.stock AS StockSobrante,
+                ISNULL(SUM(dv.cantidad), 0) AS CantidadVendida,
+                ISNULL(SUM(dv.subtotal), 0) AS GananciaGenerada
+            FROM dbo.productos p
+            INNER JOIN dbo.categorias c ON p.id_categoria = c.id_categoria
+            LEFT JOIN dbo.detalle_venta dv 
+                ON p.id_producto = dv.id_producto
+               AND dv.creado_en >= @FechaDesde 
+               AND dv.creado_en <= @FechaHasta
+            WHERE ISNULL(p.eliminado, 0) = 0
+            GROUP BY 
+                p.id_producto, 
+                p.descripcion, 
+                c.nombre, 
+                p.precio, 
+                p.unidad_medida, 
+                p.stock
+            ORDER BY GananciaGenerada DESC, p.descripcion ASC;";
+
+                using (SqlCommand comando = new SqlCommand(query, conexion))
+                {
+                    comando.Parameters.Add("@FechaDesde", SqlDbType.DateTime).Value = fechaDesde;
+                    comando.Parameters.Add("@FechaHasta", SqlDbType.DateTime).Value = fechaHasta;
+
+                    using (SqlDataReader lector = comando.ExecuteReader())
+                    {
+                        tabla.Load(lector);
+                    }
+                }
+            }
+
+            return tabla;
+        }
+
     }
 }

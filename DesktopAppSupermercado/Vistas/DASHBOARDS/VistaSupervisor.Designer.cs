@@ -40,7 +40,7 @@
             dgvVentas = new DataGridView();
             tabPage2 = new TabPage();
             dgvCategoria = new DataGridView();
-            dgvProductosVendidos = new DataGridView();
+            dgvProductos = new DataGridView();
             tabPage4 = new TabPage();
             dgvUsuarios = new DataGridView();
             IdEmpleado = new DataGridViewTextBoxColumn();
@@ -50,7 +50,7 @@
             PanelMenu = new Panel();
             btnSalir = new Button();
             button3 = new Button();
-            button2 = new Button();
+            btnReporteProducto = new Button();
             btnReporteVentas = new Button();
             PanelContenedor.SuspendLayout();
             tabControlSupervisor.SuspendLayout();
@@ -59,7 +59,7 @@
             ((System.ComponentModel.ISupportInitialize)dgvVentas).BeginInit();
             tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvCategoria).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dgvProductosVendidos).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvProductos).BeginInit();
             tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvUsuarios).BeginInit();
             PanelMenu.SuspendLayout();
@@ -173,7 +173,7 @@
             // tabPage2
             // 
             tabPage2.Controls.Add(dgvCategoria);
-            tabPage2.Controls.Add(dgvProductosVendidos);
+            tabPage2.Controls.Add(dgvProductos);
             tabPage2.Location = new Point(4, 29);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
@@ -191,14 +191,14 @@
             dgvCategoria.Size = new Size(1091, 344);
             dgvCategoria.TabIndex = 1;
             // 
-            // dgvProductosVendidos
+            // dgvProductos
             // 
-            dgvProductosVendidos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvProductosVendidos.Location = new Point(6, 6);
-            dgvProductosVendidos.Name = "dgvProductosVendidos";
-            dgvProductosVendidos.RowHeadersWidth = 51;
-            dgvProductosVendidos.Size = new Size(1091, 334);
-            dgvProductosVendidos.TabIndex = 0;
+            dgvProductos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvProductos.Location = new Point(6, 6);
+            dgvProductos.Name = "dgvProductos";
+            dgvProductos.RowHeadersWidth = 51;
+            dgvProductos.Size = new Size(1091, 334);
+            dgvProductos.TabIndex = 0;
             // 
             // tabPage4
             // 
@@ -258,7 +258,7 @@
             PanelMenu.BackColor = SystemColors.ActiveCaption;
             PanelMenu.Controls.Add(btnSalir);
             PanelMenu.Controls.Add(button3);
-            PanelMenu.Controls.Add(button2);
+            PanelMenu.Controls.Add(btnReporteProducto);
             PanelMenu.Controls.Add(btnReporteVentas);
             PanelMenu.Dock = DockStyle.Left;
             PanelMenu.Location = new Point(0, 0);
@@ -291,17 +291,17 @@
             button3.UseVisualStyleBackColor = true;
             button3.Click += button3_Click;
             // 
-            // button2
+            // btnReporteProducto
             // 
-            button2.Image = Properties.Resources.reporte;
-            button2.Location = new Point(13, 145);
-            button2.Name = "button2";
-            button2.Size = new Size(97, 127);
-            button2.TabIndex = 1;
-            button2.Text = "Productos";
-            button2.TextAlign = ContentAlignment.BottomCenter;
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
+            btnReporteProducto.Image = Properties.Resources.reporte;
+            btnReporteProducto.Location = new Point(13, 145);
+            btnReporteProducto.Name = "btnReporteProducto";
+            btnReporteProducto.Size = new Size(97, 127);
+            btnReporteProducto.TabIndex = 1;
+            btnReporteProducto.Text = "Productos";
+            btnReporteProducto.TextAlign = ContentAlignment.BottomCenter;
+            btnReporteProducto.UseVisualStyleBackColor = true;
+            btnReporteProducto.Click += btnReporteProducto_Click;
             // 
             // btnReporteVentas
             // 
@@ -334,7 +334,7 @@
             ((System.ComponentModel.ISupportInitialize)dgvVentas).EndInit();
             tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvCategoria).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dgvProductosVendidos).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvProductos).EndInit();
             tabPage4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvUsuarios).EndInit();
             PanelMenu.ResumeLayout(false);
@@ -350,11 +350,11 @@
         private TabPage tabPage1;
         private TabPage tabPage2;
         private Button button3;
-        private Button button2;
+        private Button btnReporteProducto;
         private DataGridView dgvVentas;
         private TextBox txtBuscar;
         private Label label1;
-        private DataGridView dgvProductosVendidos;
+        private DataGridView dgvProductos;
         private Button btnSalir;
         private TabPage tabPage4;
         private DataGridView dgvUsuarios;
