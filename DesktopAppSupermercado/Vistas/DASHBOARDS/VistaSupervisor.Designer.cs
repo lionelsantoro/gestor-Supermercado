@@ -31,7 +31,6 @@
             PanelContenedor = new Panel();
             dtpFechaHasta = new DateTimePicker();
             dtpFechaDesde = new DateTimePicker();
-            cmbFiltroRol = new ComboBox();
             txtBuscar = new TextBox();
             label1 = new Label();
             tabControlSupervisor = new TabControl();
@@ -41,15 +40,11 @@
             tabPage2 = new TabPage();
             dgvCategoria = new DataGridView();
             dgvProductos = new DataGridView();
-            tabPage4 = new TabPage();
-            dgvUsuarios = new DataGridView();
-            IdEmpleado = new DataGridViewTextBoxColumn();
-            NombreUsuario = new DataGridViewTextBoxColumn();
-            ApellidoUsuario = new DataGridViewTextBoxColumn();
-            RolUsuario = new DataGridViewTextBoxColumn();
+            tabPage3 = new TabPage();
+            dgvCliente = new DataGridView();
             PanelMenu = new Panel();
             btnSalir = new Button();
-            button3 = new Button();
+            btnReporteCliente = new Button();
             btnReporteProducto = new Button();
             btnReporteVentas = new Button();
             PanelContenedor.SuspendLayout();
@@ -60,8 +55,8 @@
             tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvCategoria).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvProductos).BeginInit();
-            tabPage4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvUsuarios).BeginInit();
+            tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvCliente).BeginInit();
             PanelMenu.SuspendLayout();
             SuspendLayout();
             // 
@@ -70,7 +65,6 @@
             PanelContenedor.BackColor = Color.FromArgb(255, 224, 192);
             PanelContenedor.Controls.Add(dtpFechaHasta);
             PanelContenedor.Controls.Add(dtpFechaDesde);
-            PanelContenedor.Controls.Add(cmbFiltroRol);
             PanelContenedor.Controls.Add(txtBuscar);
             PanelContenedor.Controls.Add(label1);
             PanelContenedor.Controls.Add(tabControlSupervisor);
@@ -99,15 +93,6 @@
             dtpFechaDesde.TabIndex = 4;
             dtpFechaDesde.ValueChanged += dtpFechasReporte_ValueChanged;
             // 
-            // cmbFiltroRol
-            // 
-            cmbFiltroRol.FormattingEnabled = true;
-            cmbFiltroRol.Location = new Point(883, 16);
-            cmbFiltroRol.Name = "cmbFiltroRol";
-            cmbFiltroRol.Size = new Size(224, 28);
-            cmbFiltroRol.TabIndex = 3;
-            cmbFiltroRol.SelectedIndexChanged += cmbFiltroRol_SelectedIndexChanged_1;
-            // 
             // txtBuscar
             // 
             txtBuscar.Location = new Point(92, 15);
@@ -128,9 +113,10 @@
             // 
             // tabControlSupervisor
             // 
+            tabControlSupervisor.AccessibleName = "";
             tabControlSupervisor.Controls.Add(tabPage1);
             tabControlSupervisor.Controls.Add(tabPage2);
-            tabControlSupervisor.Controls.Add(tabPage4);
+            tabControlSupervisor.Controls.Add(tabPage3);
             tabControlSupervisor.Location = new Point(0, 50);
             tabControlSupervisor.Name = "tabControlSupervisor";
             tabControlSupervisor.SelectedIndex = 0;
@@ -200,64 +186,31 @@
             dgvProductos.Size = new Size(1091, 334);
             dgvProductos.TabIndex = 0;
             // 
-            // tabPage4
+            // tabPage3
             // 
-            tabPage4.Controls.Add(dgvUsuarios);
-            tabPage4.Location = new Point(4, 29);
-            tabPage4.Name = "tabPage4";
-            tabPage4.Padding = new Padding(3);
-            tabPage4.Size = new Size(1103, 698);
-            tabPage4.TabIndex = 3;
-            tabPage4.Text = "Control de Usuarios";
-            tabPage4.UseVisualStyleBackColor = true;
+            tabPage3.BackColor = SystemColors.ActiveBorder;
+            tabPage3.Controls.Add(dgvCliente);
+            tabPage3.Location = new Point(4, 29);
+            tabPage3.Name = "tabPage3";
+            tabPage3.Padding = new Padding(3);
+            tabPage3.Size = new Size(1103, 698);
+            tabPage3.TabIndex = 2;
+            tabPage3.Text = "Ganancia por Cliente";
             // 
-            // dgvUsuarios
+            // dgvCliente
             // 
-            dgvUsuarios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvUsuarios.Columns.AddRange(new DataGridViewColumn[] { IdEmpleado, NombreUsuario, ApellidoUsuario, RolUsuario });
-            dgvUsuarios.Location = new Point(1, 3);
-            dgvUsuarios.Name = "dgvUsuarios";
-            dgvUsuarios.RowHeadersWidth = 51;
-            dgvUsuarios.Size = new Size(1096, 692);
-            dgvUsuarios.TabIndex = 0;
-            // 
-            // IdEmpleado
-            // 
-            IdEmpleado.DataPropertyName = "Id Empleado";
-            IdEmpleado.HeaderText = "Id Empleado";
-            IdEmpleado.MinimumWidth = 6;
-            IdEmpleado.Name = "IdEmpleado";
-            IdEmpleado.Width = 125;
-            // 
-            // NombreUsuario
-            // 
-            NombreUsuario.DataPropertyName = "Nombre";
-            NombreUsuario.HeaderText = "Nombre";
-            NombreUsuario.MinimumWidth = 6;
-            NombreUsuario.Name = "NombreUsuario";
-            NombreUsuario.Width = 125;
-            // 
-            // ApellidoUsuario
-            // 
-            ApellidoUsuario.DataPropertyName = "Apellido";
-            ApellidoUsuario.HeaderText = "Apellido";
-            ApellidoUsuario.MinimumWidth = 6;
-            ApellidoUsuario.Name = "ApellidoUsuario";
-            ApellidoUsuario.Width = 125;
-            // 
-            // RolUsuario
-            // 
-            RolUsuario.DataPropertyName = "Rol";
-            RolUsuario.HeaderText = "Rol";
-            RolUsuario.MinimumWidth = 6;
-            RolUsuario.Name = "RolUsuario";
-            RolUsuario.Width = 125;
+            dgvCliente.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvCliente.Location = new Point(6, 5);
+            dgvCliente.Name = "dgvCliente";
+            dgvCliente.RowHeadersWidth = 51;
+            dgvCliente.Size = new Size(1091, 693);
+            dgvCliente.TabIndex = 0;
             // 
             // PanelMenu
             // 
             PanelMenu.BackColor = SystemColors.ActiveCaption;
             PanelMenu.Controls.Add(btnSalir);
-            PanelMenu.Controls.Add(button3);
+            PanelMenu.Controls.Add(btnReporteCliente);
             PanelMenu.Controls.Add(btnReporteProducto);
             PanelMenu.Controls.Add(btnReporteVentas);
             PanelMenu.Dock = DockStyle.Left;
@@ -279,17 +232,17 @@
             btnSalir.UseVisualStyleBackColor = true;
             btnSalir.Click += btnSalir_Click_1;
             // 
-            // button3
+            // btnReporteCliente
             // 
-            button3.Image = Properties.Resources.reporte;
-            button3.Location = new Point(13, 278);
-            button3.Name = "button3";
-            button3.Size = new Size(97, 127);
-            button3.TabIndex = 2;
-            button3.Text = "Usuarios";
-            button3.TextAlign = ContentAlignment.BottomCenter;
-            button3.UseVisualStyleBackColor = true;
-            button3.Click += button3_Click;
+            btnReporteCliente.Image = Properties.Resources.reporte;
+            btnReporteCliente.Location = new Point(13, 278);
+            btnReporteCliente.Name = "btnReporteCliente";
+            btnReporteCliente.Size = new Size(97, 127);
+            btnReporteCliente.TabIndex = 2;
+            btnReporteCliente.Text = "Clientes";
+            btnReporteCliente.TextAlign = ContentAlignment.BottomCenter;
+            btnReporteCliente.UseVisualStyleBackColor = true;
+            btnReporteCliente.Click += btnReporteCliente_Click;
             // 
             // btnReporteProducto
             // 
@@ -335,8 +288,8 @@
             tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvCategoria).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvProductos).EndInit();
-            tabPage4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dgvUsuarios).EndInit();
+            tabPage3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvCliente).EndInit();
             PanelMenu.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -349,23 +302,18 @@
         private TabControl tabControlSupervisor;
         private TabPage tabPage1;
         private TabPage tabPage2;
-        private Button button3;
+        private Button btnReporteCliente;
         private Button btnReporteProducto;
         private DataGridView dgvVentas;
         private TextBox txtBuscar;
         private Label label1;
         private DataGridView dgvProductos;
         private Button btnSalir;
-        private TabPage tabPage4;
-        private DataGridView dgvUsuarios;
-        private ComboBox cmbFiltroRol;
-        private DataGridViewTextBoxColumn IdEmpleado;
-        private DataGridViewTextBoxColumn NombreUsuario;
-        private DataGridViewTextBoxColumn ApellidoUsuario;
-        private DataGridViewTextBoxColumn RolUsuario;
         private DateTimePicker dtpFechaHasta;
         private DateTimePicker dtpFechaDesde;
         private DataGridView dgvCajero;
         private DataGridView dgvCategoria;
+        private TabPage tabPage3;
+        private DataGridView dgvCliente;
     }
 }

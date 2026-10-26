@@ -264,5 +264,104 @@ namespace DesktopAppSupermercado.Datos
             return tabla;
         }
 
+        // 6. Obtener clientes y sus ventas (incluyendo los que no tienen ventas) para dgvCliente
+        public DataTable ObtenerClientesParaGrilla(DateTime fechaDesde, DateTime fechaHasta)
+        {
+            DataTable tabla = new DataTable();
+            Conexion miConexion = new Conexion();
+
+            using (SqlConnection conexion = miConexion.ObtenerConexion())
+            {
+                conexion.Open();
+
+                string query = @"
+            SELECT 
+                (p.nombre + ' ' + p.apellido) AS nombre_cliente,
+                ISNULL(p.telefono, 'Sin teléfono') AS telefono,
+                ISNULL(p.correo, 'Sin correo') AS correo,
+                COUNT(v.id_venta) AS cantidad_ventas,
+                ISNULL(SUM(v.monto_total), 0) AS monto_recaudado
+            FROM dbo.clientes c
+            INNER JOIN dbo.persona p 
+                ON c.id_persona = p.id_persona
+            LEFT JOIN dbo.ventas v 
+                ON c.id_cliente = v.id_cliente
+               AND v.creado_en >= @FechaDesde 
+               AND v.creado_en <= @FechaHasta
+            WHERE ISNULL(p.eliminado, 0) = 0
+            GROUP BY 
+                c.id_cliente,
+                p.nombre,
+                p.apellido,
+                p.telefono,
+                p.correo
+            ORDER BY monto_recaudado DESC, nombre_cliente ASC;";
+
+                using (SqlCommand comando = new SqlCommand(query, conexion))
+                {
+                    comando.Parameters.Add("@FechaDesde", SqlDbType.DateTime).Value = fechaDesde;
+                    comando.Parameters.Add("@FechaHasta", SqlDbType.DateTime).Value = fechaHasta;
+
+                    using (SqlDataReader lector = comando.ExecuteReader())
+                    {
+                        tabla.Load(lector);
+                    }
+                }
+            }
+
+            return tabla;
+        }
+
+        // 7. Obtener clientes con su fecha de alta (c.creado_en) para las métricas y tablas del PDF
+        public DataTable ObtenerClientesDetalladoPorRango(DateTime fechaDesde, DateTime fechaHasta)
+        {
+            DataTable tabla = new DataTable();
+            Conexion miConexion = new Conexion();
+
+            using (SqlConnection conexion = miConexion.ObtenerConexion())
+            {
+                conexion.Open();
+
+                string query = @"
+            SELECT 
+                c.id_cliente AS IdCliente,
+                c.creado_en AS FechaRegistroCliente,
+                (p.nombre + ' ' + p.apellido) AS NombreCliente,
+                ISNULL(p.telefono, 'Sin teléfono') AS Telefono,
+                ISNULL(p.correo, 'Sin correo') AS Correo,
+                COUNT(v.id_venta) AS CantidadVentas,
+                ISNULL(SUM(v.monto_total), 0) AS MontoRecaudado
+            FROM dbo.clientes c
+            INNER JOIN dbo.persona p 
+                ON c.id_persona = p.id_persona
+            LEFT JOIN dbo.ventas v 
+                ON c.id_cliente = v.id_cliente
+               AND v.creado_en >= @FechaDesde 
+               AND v.creado_en <= @FechaHasta
+            WHERE ISNULL(p.eliminado, 0) = 0
+            GROUP BY 
+                c.id_cliente,
+                c.creado_en,
+                p.nombre,
+                p.apellido,
+                p.telefono,
+                p.correo
+            ORDER BY MontoRecaudado DESC, NombreCliente ASC;";
+
+                using (SqlCommand comando = new SqlCommand(query, conexion))
+                {
+                    comando.Parameters.Add("@FechaDesde", SqlDbType.DateTime).Value = fechaDesde;
+                    comando.Parameters.Add("@FechaHasta", SqlDbType.DateTime).Value = fechaHasta;
+
+                    using (SqlDataReader lector = comando.ExecuteReader())
+                    {
+                        tabla.Load(lector);
+                    }
+                }
+            }
+
+            return tabla;
+        }
+
     }
 }

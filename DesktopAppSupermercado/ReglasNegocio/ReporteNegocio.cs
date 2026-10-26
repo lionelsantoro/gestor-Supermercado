@@ -477,5 +477,199 @@ namespace DesktopAppSupermercado.ReglasNegocio
             }).GeneratePdf(rutaArchivo);
         }
 
+        public DataTable ObtenerClientesFiltrados(DateTime fechaDesde, DateTime fechaHasta)
+        {
+            var rango = ValidarYObtenerRango(fechaDesde, fechaHasta);
+            return reporteDatos.ObtenerClientesParaGrilla(rango.inicio, rango.fin);
+        }
+
+        public void GenerarPdfReporteClientes(DateTime fechaDesde, DateTime fechaHasta, string rutaArchivo)
+        {
+            var rango = ValidarYObtenerRango(fechaDesde, fechaHasta);
+
+            DataTable dtClientes = reporteDatos.ObtenerClientesDetalladoPorRango(rango.inicio, rango.fin);
+
+            if (dtClientes.Rows.Count == 0)
+            {
+                throw new InvalidOperationException("No existen clientes registrados en la base de datos.");
+            }
+
+            QuestPDF.Settings.License = LicenseType.Community;
+
+            var listaClientes = dtClientes.AsEnumerable()
+                .Select(row => new
+                {
+                    IdCliente = Convert.ToInt32(row["IdCliente"]),
+                    FechaRegistro = Convert.ToDateTime(row["FechaRegistroCliente"]),
+                    NombreCliente = row["NombreCliente"].ToString(),
+                    Telefono = row["Telefono"].ToString(),
+                    Correo = row["Correo"].ToString(),
+                    CantidadVentas = Convert.ToInt32(row["CantidadVentas"]),
+                    MontoRecaudado = Convert.ToDecimal(row["MontoRecaudado"])
+                })
+                .ToList();
+
+            // Métricas de registro de clientes según el rango de fechas
+            int clientesAntesDelRango = listaClientes.Count(c => c.FechaRegistro < rango.inicio);
+            int clientesNuevosEnRango = listaClientes.Count(c => c.FechaRegistro >= rango.inicio && c.FechaRegistro <= rango.fin);
+
+            // Separamos clientes con compras (mayor a menor recaudación) y clientes sin ventas
+            var clientesConVentas = listaClientes
+                .Where(c => c.CantidadVentas > 0)
+                .OrderByDescending(c => c.MontoRecaudado)
+                .ThenBy(c => c.NombreCliente)
+                .ToList();
+
+            var clientesSinVentas = listaClientes
+                .Where(c => c.CantidadVentas == 0)
+                .OrderBy(c => c.NombreCliente)
+                .ToList();
+
+            // Creación del documento PDF
+            Document.Create(container =>
+            {
+                container.Page(page =>
+                {
+                    page.Margin(30);
+                    page.Size(PageSizes.A4);
+                    page.DefaultTextStyle(x => x.FontSize(9.5f));
+
+                    // ================= ENCABEZADO =================
+                    page.Header().Column(col =>
+                    {
+                        col.Item().Row(row =>
+                        {
+                            row.RelativeItem().Column(c =>
+                            {
+                                c.Item().Text("REPORTE DE CLIENTES").FontSize(18).Bold().FontColor(Colors.Blue.Darken3);
+                                c.Item().Text($"Período consultado: {fechaDesde:dd/MM/yyyy} al {fechaHasta:dd/MM/yyyy}").FontSize(11).SemiBold();
+                            });
+
+                            row.ConstantItem(150).AlignRight().Column(c =>
+                            {
+                                c.Item().Text($"Fecha de emisión: {DateTime.Now:dd/MM/yyyy}").FontSize(9).FontColor(Colors.Grey.Darken2);
+                                c.Item().Text($"Hora: {DateTime.Now:HH:mm}").FontSize(9).FontColor(Colors.Grey.Darken2);
+                            });
+                        });
+
+                        col.Item().PaddingTop(8).LineHorizontal(1.5f).LineColor(Colors.Blue.Darken3);
+                    });
+
+                    // ================= CONTENIDO =================
+                    page.Content().PaddingVertical(15).Column(col =>
+                    {
+                        col.Spacing(18);
+
+                        // 1. Tarjetas de Resumen de Clientes Registrados
+                        col.Item().Row(row =>
+                        {
+                            row.RelativeItem().Border(1).BorderColor(Colors.Grey.Lighten2).Background(Colors.Grey.Lighten4).Padding(10).Column(c =>
+                            {
+                                c.Item().Text("CLIENTES REGISTRADOS ANTES DEL PERÍODO").FontSize(8.5f).FontColor(Colors.Grey.Darken2).SemiBold();
+                                c.Item().PaddingTop(4).Text(clientesAntesDelRango.ToString()).FontSize(16).Bold().FontColor(Colors.Blue.Darken3);
+                            });
+
+                            row.ConstantItem(15);
+
+                            row.RelativeItem().Border(1).BorderColor(Colors.Grey.Lighten2).Background(Colors.Grey.Lighten4).Padding(10).Column(c =>
+                            {
+                                c.Item().Text("NUEVOS CLIENTES REGISTRADOS EN EL PERÍODO").FontSize(8.5f).FontColor(Colors.Grey.Darken2).SemiBold();
+                                c.Item().PaddingTop(4).Text(clientesNuevosEnRango.ToString()).FontSize(16).Bold().FontColor(Colors.Green.Darken3);
+                            });
+                        });
+
+                        // 2. Tabla de Clientes con Ventas (Ordenados de Mayor a Menor Monto Recaudado)
+                        col.Item().Column(c =>
+                        {
+                            c.Item().PaddingBottom(5).Text("1. Clientes con Compras en el Período").FontSize(12).Bold().FontColor(Colors.Blue.Darken3);
+
+                            if (clientesConVentas.Count == 0)
+                            {
+                                c.Item().Padding(8).Background(Colors.Grey.Lighten4).Text("Ningún cliente registró compras en el rango de fechas seleccionado.").Italic();
+                            }
+                            else
+                            {
+                                c.Item().Table(tabla =>
+                                {
+                                    tabla.ColumnsDefinition(columns =>
+                                    {
+                                        columns.RelativeColumn(2.6f); // Nombre y Apellido
+                                        columns.RelativeColumn(1.8f); // Teléfono
+                                        columns.RelativeColumn(2.8f); // Correo
+                                        columns.RelativeColumn(1.2f); // Cant. Ventas
+                                        columns.RelativeColumn(1.8f); // Monto Recaudado
+                                    });
+
+                                    tabla.Header(header =>
+                                    {
+                                        header.Cell().Background(Colors.Blue.Darken3).Padding(5).Text("Nombre y Apellido").FontColor(Colors.White).SemiBold();
+                                        header.Cell().Background(Colors.Blue.Darken3).Padding(5).Text("Teléfono").FontColor(Colors.White).SemiBold();
+                                        header.Cell().Background(Colors.Blue.Darken3).Padding(5).Text("Correo").FontColor(Colors.White).SemiBold();
+                                        header.Cell().Background(Colors.Blue.Darken3).Padding(5).AlignCenter().Text("Cant. Ventas").FontColor(Colors.White).SemiBold();
+                                        header.Cell().Background(Colors.Blue.Darken3).Padding(5).AlignRight().Text("Total Recaudado").FontColor(Colors.White).SemiBold();
+                                    });
+
+                                    foreach (var cli in clientesConVentas)
+                                    {
+                                        tabla.Cell().BorderBottom(1).BorderColor(Colors.Grey.Lighten3).Padding(4).Text(cli.NombreCliente);
+                                        tabla.Cell().BorderBottom(1).BorderColor(Colors.Grey.Lighten3).Padding(4).Text(cli.Telefono);
+                                        tabla.Cell().BorderBottom(1).BorderColor(Colors.Grey.Lighten3).Padding(4).Text(cli.Correo);
+                                        tabla.Cell().BorderBottom(1).BorderColor(Colors.Grey.Lighten3).Padding(4).AlignCenter().Text(cli.CantidadVentas.ToString());
+                                        tabla.Cell().BorderBottom(1).BorderColor(Colors.Grey.Lighten3).Padding(4).AlignRight().Text($"$ {cli.MontoRecaudado:N2}").SemiBold();
+                                    }
+                                });
+                            }
+                        });
+
+                        // 3. Tabla de Clientes sin Ventas Asociadas
+                        col.Item().Column(c =>
+                        {
+                            c.Item().PaddingBottom(5).Text("2. Clientes sin Ventas Asociadas en el Período").FontSize(12).Bold().FontColor(Colors.Red.Darken2);
+
+                            if (clientesSinVentas.Count == 0)
+                            {
+                                c.Item().Padding(8).Background(Colors.Grey.Lighten4).Text("Todos los clientes registraron al menos una compra en este período.").Italic();
+                            }
+                            else
+                            {
+                                c.Item().Table(tabla =>
+                                {
+                                    tabla.ColumnsDefinition(columns =>
+                                    {
+                                        columns.RelativeColumn(3); // Nombre y Apellido
+                                        columns.RelativeColumn(2); // Teléfono
+                                        columns.RelativeColumn(3.5f); // Correo
+                                    });
+
+                                    tabla.Header(header =>
+                                    {
+                                        header.Cell().Background(Colors.Red.Darken2).Padding(5).Text("Nombre y Apellido").FontColor(Colors.White).SemiBold();
+                                        header.Cell().Background(Colors.Red.Darken2).Padding(5).Text("Teléfono").FontColor(Colors.White).SemiBold();
+                                        header.Cell().Background(Colors.Red.Darken2).Padding(5).Text("Correo").FontColor(Colors.White).SemiBold();
+                                    });
+
+                                    foreach (var cli in clientesSinVentas)
+                                    {
+                                        tabla.Cell().BorderBottom(1).BorderColor(Colors.Grey.Lighten3).Padding(4).Text(cli.NombreCliente);
+                                        tabla.Cell().BorderBottom(1).BorderColor(Colors.Grey.Lighten3).Padding(4).Text(cli.Telefono);
+                                        tabla.Cell().BorderBottom(1).BorderColor(Colors.Grey.Lighten3).Padding(4).Text(cli.Correo);
+                                    }
+                                });
+                            }
+                        });
+                    });
+
+                    // ================= PIE DE PÁGINA =================
+                    page.Footer().AlignCenter().Text(x =>
+                    {
+                        x.Span("Página ");
+                        x.CurrentPageNumber();
+                        x.Span(" de ");
+                        x.TotalPages();
+                    });
+                });
+            }).GeneratePdf(rutaArchivo);
+        }
+
     }
 }
