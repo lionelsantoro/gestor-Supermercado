@@ -106,21 +106,42 @@ namespace DesktopAppSupermercado.DASHBOARDS
         private void VistaSupervisor_Load(object sender, EventArgs e)
         {
             dgvUsuarios.AutoGenerateColumns = false;
-            dgvVentas.AutoGenerateColumns = false;
             dgvProductosVendidos.AutoGenerateColumns = false;
 
+            // 1. Habilitamos la generación automática de columnas para las grillas del reporte
+            // (Si ya creaste columnas a mano en el diseñador para estas dos grillas, se limpian
+            // primero para que no se dupliquen y se generen limpias desde el DataTable)
+            dgvVentas.Columns.Clear();
+            dgvVentas.AutoGenerateColumns = true;
+            dgvVentas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvVentas.ReadOnly = true;
+            dgvVentas.AllowUserToAddRows = false;
+
+            dgvCajero.Columns.Clear();
+            dgvCajero.AutoGenerateColumns = true;
+            dgvCajero.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvCajero.ReadOnly = true;
+            dgvCajero.AllowUserToAddRows = false;
+
+            // 2. Configuramos las fechas iniciales sin disparar el evento dos veces
             dtpFechaDesde.Value = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
             dtpFechaHasta.Value = DateTime.Now;
 
+            // 3. Enlazamos el evento ValueChanged para que al cambiar cualquier fecha se actualicen solas
+            dtpFechaDesde.ValueChanged += dtpFechasReporte_ValueChanged;
+            dtpFechaHasta.ValueChanged += dtpFechasReporte_ValueChanged;
+
+            // 4. Cargamos las grillas de reportes por primera vez al abrir la ventana
+            CargarGrillasReportes();
+
             // --------------------------------------------------------
-            // PESTAÑA 3: Control de Usuarioss
+            // PESTAÑA 3: Control de Usuarios
             // --------------------------------------------------------
             RolNegocio rolNegocio = new RolNegocio();
 
             cmbFiltroRol.Items.Clear();
             cmbFiltroRol.Items.Add("Todos");
 
-            // Traemos los roles reales desde SQL y los sumamos al ComboBox
             List<string> rolesDB = rolNegocio.ListarNombresRoles();
             foreach (string rol in rolesDB)
             {
@@ -129,8 +150,22 @@ namespace DesktopAppSupermercado.DASHBOARDS
 
             cmbFiltroRol.SelectedIndex = 0;
 
-            // Cargamos la grilla de usuarios
             ActualizarGrilla();
+        }
+
+        // Evento que actualiza ambas grillas cada vez que el usuario cambia dtpFechaDesde o dtpFechaHasta
+        private void dtpFechasReporte_ValueChanged(object sender, EventArgs e)
+        {
+            // Si por algún motivo el usuario pone Fecha Desde mayor a Fecha Hasta mientras elige,
+            // no lanzamos error molesto en cada clic, simplemente vaciamos hasta que el rango sea válido
+            if (dtpFechaDesde.Value.Date > dtpFechaHasta.Value.Date)
+            {
+                dgvVentas.DataSource = null;
+                dgvCajero.DataSource = null;
+                return;
+            }
+
+            CargarGrillasReportes();
         }
 
         private void cmbFiltroRol_SelectedIndexChanged_1(object sender, EventArgs e)
@@ -193,5 +228,48 @@ namespace DesktopAppSupermercado.DASHBOARDS
                 MessageBox.Show($"Ocurrió un error al generar el reporte: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void CargarGrillasReportes()
+        {
+            try
+            {
+                DateTime fechaDesde = dtpFechaDesde.Value;
+                DateTime fechaHasta = dtpFechaHasta.Value;
+
+                // 1. Cargar dgvVentas
+                dgvVentas.DataSource = reporteNegocio.ObtenerVentasFiltradas(fechaDesde, fechaHasta);
+
+                if (dgvVentas.Columns["numero_ticket"] != null)
+                    dgvVentas.Columns["numero_ticket"].HeaderText = "N.º de Ticket";
+                if (dgvVentas.Columns["monto_total"] != null)
+                {
+                    dgvVentas.Columns["monto_total"].HeaderText = "Monto";
+                    dgvVentas.Columns["monto_total"].DefaultCellStyle.Format = "C2";
+                }
+                if (dgvVentas.Columns["creado_en"] != null)
+                {
+                    dgvVentas.Columns["creado_en"].HeaderText = "Fecha de Creación";
+                    dgvVentas.Columns["creado_en"].DefaultCellStyle.Format = "dd/MM/yyyy HH:mm";
+                }
+
+                // 2. Cargar dgvCajero
+                dgvCajero.DataSource = reporteNegocio.ObtenerResumenCajerosFiltrado(fechaDesde, fechaHasta);
+
+                if (dgvCajero.Columns["nombre_cajero"] != null)
+                    dgvCajero.Columns["nombre_cajero"].HeaderText = "Cajero";
+                if (dgvCajero.Columns["cantidad_ventas"] != null)
+                    dgvCajero.Columns["cantidad_ventas"].HeaderText = "Cantidad de Venta";
+                if (dgvCajero.Columns["monto_recaudado"] != null)
+                {
+                    dgvCajero.Columns["monto_recaudado"].HeaderText = "Monto Recaudado";
+                    dgvCajero.Columns["monto_recaudado"].DefaultCellStyle.Format = "C2";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
     }
 }

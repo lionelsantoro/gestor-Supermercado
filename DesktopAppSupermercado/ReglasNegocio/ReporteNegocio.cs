@@ -205,5 +205,36 @@ namespace DesktopAppSupermercado.ReglasNegocio
                 });
             }).GeneratePdf(rutaArchivo);
         }
+
+        private (DateTime inicio, DateTime fin) ValidarYObtenerRango(DateTime fechaDesde, DateTime fechaHasta)
+        {
+            DateTime inicio = fechaDesde.Date; // 00:00:00
+            DateTime fin = fechaHasta.Date.AddDays(1).AddTicks(-1); // 23:59:59.999
+
+            if (inicio > fin)
+            {
+                throw new ArgumentException("La 'Fecha Desde' no puede ser posterior a la 'Fecha Hasta'.");
+            }
+
+            if (inicio > DateTime.Now)
+            {
+                throw new ArgumentException("La fecha de inicio no puede ser una fecha futura.");
+            }
+
+            return (inicio, fin);
+        }
+
+        public DataTable ObtenerVentasFiltradas(DateTime fechaDesde, DateTime fechaHasta)
+        {
+            var rango = ValidarYObtenerRango(fechaDesde, fechaHasta);
+            return reporteDatos.ObtenerVentasParaGrilla(rango.inicio, rango.fin);
+        }
+
+        public DataTable ObtenerResumenCajerosFiltrado(DateTime fechaDesde, DateTime fechaHasta)
+        {
+            var rango = ValidarYObtenerRango(fechaDesde, fechaHasta);
+            return reporteDatos.ObtenerResumenCajerosParaGrilla(rango.inicio, rango.fin);
+        }
+
     }
 }

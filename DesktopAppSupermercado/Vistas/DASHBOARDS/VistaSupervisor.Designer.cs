@@ -29,13 +29,17 @@
         private void InitializeComponent()
         {
             PanelContenedor = new Panel();
+            dtpFechaHasta = new DateTimePicker();
+            dtpFechaDesde = new DateTimePicker();
             cmbFiltroRol = new ComboBox();
             txtBuscar = new TextBox();
             label1 = new Label();
             tabControlSupervisor = new TabControl();
             tabPage1 = new TabPage();
+            dgvCajero = new DataGridView();
             dgvVentas = new DataGridView();
             tabPage2 = new TabPage();
+            dgvCategoria = new DataGridView();
             dgvProductosVendidos = new DataGridView();
             tabPage4 = new TabPage();
             dgvUsuarios = new DataGridView();
@@ -48,13 +52,13 @@
             button3 = new Button();
             button2 = new Button();
             btnReporteVentas = new Button();
-            dtpFechaDesde = new DateTimePicker();
-            dtpFechaHasta = new DateTimePicker();
             PanelContenedor.SuspendLayout();
             tabControlSupervisor.SuspendLayout();
             tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvCajero).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvVentas).BeginInit();
             tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvCategoria).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvProductosVendidos).BeginInit();
             tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvUsuarios).BeginInit();
@@ -76,6 +80,24 @@
             PanelContenedor.Name = "PanelContenedor";
             PanelContenedor.Size = new Size(1114, 781);
             PanelContenedor.TabIndex = 5;
+            // 
+            // dtpFechaHasta
+            // 
+            dtpFechaHasta.Format = DateTimePickerFormat.Short;
+            dtpFechaHasta.Location = new Point(572, 16);
+            dtpFechaHasta.Name = "dtpFechaHasta";
+            dtpFechaHasta.Size = new Size(122, 27);
+            dtpFechaHasta.TabIndex = 5;
+            dtpFechaHasta.ValueChanged += dtpFechasReporte_ValueChanged;
+            // 
+            // dtpFechaDesde
+            // 
+            dtpFechaDesde.Format = DateTimePickerFormat.Short;
+            dtpFechaDesde.Location = new Point(444, 16);
+            dtpFechaDesde.Name = "dtpFechaDesde";
+            dtpFechaDesde.Size = new Size(122, 27);
+            dtpFechaDesde.TabIndex = 4;
+            dtpFechaDesde.ValueChanged += dtpFechasReporte_ValueChanged;
             // 
             // cmbFiltroRol
             // 
@@ -118,6 +140,7 @@
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(dgvCajero);
             tabPage1.Controls.Add(dgvVentas);
             tabPage1.Location = new Point(4, 29);
             tabPage1.Name = "tabPage1";
@@ -128,18 +151,28 @@
             tabPage1.UseVisualStyleBackColor = true;
             tabPage1.Click += tabPage1_Click;
             // 
+            // dgvCajero
+            // 
+            dgvCajero.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvCajero.Location = new Point(3, 332);
+            dgvCajero.Name = "dgvCajero";
+            dgvCajero.RowHeadersWidth = 51;
+            dgvCajero.Size = new Size(1091, 363);
+            dgvCajero.TabIndex = 1;
+            // 
             // dgvVentas
             // 
             dgvVentas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvVentas.Location = new Point(6, 6);
+            dgvVentas.Location = new Point(3, 0);
             dgvVentas.Name = "dgvVentas";
             dgvVentas.RowHeadersWidth = 51;
-            dgvVentas.Size = new Size(1091, 734);
+            dgvVentas.Size = new Size(1091, 326);
             dgvVentas.TabIndex = 0;
             dgvVentas.SelectionChanged += dataGridView1_SelectionChanged;
             // 
             // tabPage2
             // 
+            tabPage2.Controls.Add(dgvCategoria);
             tabPage2.Controls.Add(dgvProductosVendidos);
             tabPage2.Location = new Point(4, 29);
             tabPage2.Name = "tabPage2";
@@ -149,13 +182,22 @@
             tabPage2.Text = "Productos Vendidos";
             tabPage2.UseVisualStyleBackColor = true;
             // 
+            // dgvCategoria
+            // 
+            dgvCategoria.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvCategoria.Location = new Point(6, 346);
+            dgvCategoria.Name = "dgvCategoria";
+            dgvCategoria.RowHeadersWidth = 51;
+            dgvCategoria.Size = new Size(1091, 344);
+            dgvCategoria.TabIndex = 1;
+            // 
             // dgvProductosVendidos
             // 
             dgvProductosVendidos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvProductosVendidos.Location = new Point(6, 6);
             dgvProductosVendidos.Name = "dgvProductosVendidos";
             dgvProductosVendidos.RowHeadersWidth = 51;
-            dgvProductosVendidos.Size = new Size(1091, 684);
+            dgvProductosVendidos.Size = new Size(1091, 334);
             dgvProductosVendidos.TabIndex = 0;
             // 
             // tabPage4
@@ -273,22 +315,6 @@
             btnReporteVentas.UseVisualStyleBackColor = true;
             btnReporteVentas.Click += btnReporteVentas_Click;
             // 
-            // dtpFechaDesde
-            // 
-            dtpFechaDesde.Format = DateTimePickerFormat.Short;
-            dtpFechaDesde.Location = new Point(444, 16);
-            dtpFechaDesde.Name = "dtpFechaDesde";
-            dtpFechaDesde.Size = new Size(122, 27);
-            dtpFechaDesde.TabIndex = 4;
-            // 
-            // dtpFechaHasta
-            // 
-            dtpFechaHasta.Format = DateTimePickerFormat.Short;
-            dtpFechaHasta.Location = new Point(572, 16);
-            dtpFechaHasta.Name = "dtpFechaHasta";
-            dtpFechaHasta.Size = new Size(122, 27);
-            dtpFechaHasta.TabIndex = 5;
-            // 
             // VistaSupervisor
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -304,8 +330,10 @@
             PanelContenedor.PerformLayout();
             tabControlSupervisor.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvCajero).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvVentas).EndInit();
             tabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvCategoria).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvProductosVendidos).EndInit();
             tabPage4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvUsuarios).EndInit();
@@ -337,5 +365,7 @@
         private DataGridViewTextBoxColumn RolUsuario;
         private DateTimePicker dtpFechaHasta;
         private DateTimePicker dtpFechaDesde;
+        private DataGridView dgvCajero;
+        private DataGridView dgvCategoria;
     }
 }
