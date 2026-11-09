@@ -361,7 +361,7 @@ namespace DesktopAppSupermercado.ReglasNegocio
                         // 1. Tabla de Categorías ordenadas de mayor a menor ganancia
                         col.Item().Column(c =>
                         {
-                            c.Item().PaddingBottom(5).Text("1. Ganancia Generada por Categoría (Mayor a Menor)").FontSize(13).Bold().FontColor(Colors.Blue.Darken3);
+                            c.Item().PaddingBottom(5).Text("1. Ganancia Generada por Categoría").FontSize(13).Bold().FontColor(Colors.Blue.Darken3);
 
                             c.Item().Table(tabla =>
                             {

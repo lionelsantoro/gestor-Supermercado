@@ -70,7 +70,7 @@ namespace DesktopAppSupermercado.ReglasNegocio
             return datos.BuscarClientes(filtro?.Trim() ?? "");
         }
 
-        public Cliente RegistrarCliente(
+        public Cliente GuardarCliente(
     string nombre,
     string apellido,
     string correo,
@@ -78,8 +78,12 @@ namespace DesktopAppSupermercado.ReglasNegocio
     string direccion,
     string telefono,
     string sexo,
-    string fechaNacimientoTexto)
+    string fechaNacimientoTexto,
+    int? idClienteSeleccionado,
+    out bool fueActualizacion)
         {
+            fueActualizacion = false;
+
             nombre = nombre?.Trim();
             apellido = apellido?.Trim();
             dni = dni?.Trim();
@@ -194,6 +198,54 @@ namespace DesktopAppSupermercado.ReglasNegocio
                 throw new Exception(
                     "Debe completar al menos uno de estos campos: correo, teléfono o dirección.");
             }
+
+            // Comprobar si el DNI ya pertenece a un cliente registrado.
+            Cliente clientePorDni = datos.ObtenerPorDni(dni);
+
+            // CASO 1: Se seleccionó un cliente desde el DataGridView.
+            if (idClienteSeleccionado.HasValue)
+            {
+                // Si el DNI pertenece a otro cliente, no permitir la modificación.
+                if (clientePorDni != null &&
+                    clientePorDni.IdCliente != idClienteSeleccionado.Value)
+                {
+                    throw new Exception(
+                        "El DNI ingresado ya pertenece a otro cliente.");
+                }
+
+                fueActualizacion = true;
+
+                return datos.ActualizarCliente(
+                    idClienteSeleccionado.Value,
+                    nombre,
+                    apellido,
+                    correo,
+                    dni,
+                    direccion,
+                    telefono,
+                    sexo,
+                    fechaNacimiento.Date);
+            }
+
+            // CASO 2: No se seleccionó una fila, pero el DNI ya existe.
+            if (clientePorDni != null)
+            {
+                fueActualizacion = true;
+
+                return datos.ActualizarCliente(
+                    clientePorDni.IdCliente,
+                    nombre,
+                    apellido,
+                    correo,
+                    dni,
+                    direccion,
+                    telefono,
+                    sexo,
+                    fechaNacimiento.Date);
+            }
+
+            // CASO 3: El DNI no existe. Registrar un cliente nuevo.
+            fueActualizacion = false;
 
             return datos.RegistrarCliente(
                 nombre,

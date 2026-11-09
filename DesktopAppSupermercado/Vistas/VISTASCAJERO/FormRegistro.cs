@@ -13,10 +13,15 @@ namespace DesktopAppSupermercado
     public partial class FormRegistro : Form
     {
         private readonly ClienteNegocio negocio = new ClienteNegocio();
+        private int? idClienteSeleccionado = null;
+        private bool cargandoClientes = false;
 
         public FormRegistro()
         {
             InitializeComponent();
+
+            dgvRegistroCliente.SelectionChanged += dgvRegistroCliente_SelectionChanged;
+
         }
 
         private void FormRegistro_Load(object sender, EventArgs e)
@@ -48,11 +53,17 @@ namespace DesktopAppSupermercado
 
         private void CargarClientes()
         {
+            cargandoClientes = true;
+
             try
             {
                 DataTable tabla = negocio.BuscarClientes(txtBuscarCliente.Text);
 
                 dgvRegistroCliente.DataSource = tabla;
+
+                // Evitar que quede una fila seleccionada automáticamente.
+                dgvRegistroCliente.CurrentCell = null;
+                dgvRegistroCliente.ClearSelection();
 
                 if (dgvRegistroCliente.Columns.Contains("id_cliente"))
                 {
@@ -79,6 +90,15 @@ namespace DesktopAppSupermercado
 
                 if (dgvRegistroCliente.Columns.Contains("sexo"))
                     dgvRegistroCliente.Columns["sexo"].HeaderText = "Sexo";
+
+                if (dgvRegistroCliente.Columns.Contains("fecha_nacimiento"))
+                {
+                    dgvRegistroCliente.Columns["fecha_nacimiento"].HeaderText =
+                        "Fecha de nacimiento";
+
+                    dgvRegistroCliente.Columns["fecha_nacimiento"]
+                        .DefaultCellStyle.Format = "dd/MM/yyyy";
+                }
             }
             catch (Exception ex)
             {
@@ -88,6 +108,90 @@ namespace DesktopAppSupermercado
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
+            finally
+            {
+                cargandoClientes = false;
+            }
+        }
+
+        private void dgvRegistroCliente_SelectionChanged(
+    object sender,
+    EventArgs e)
+        {
+            // Ignorar los cambios de selección provocados por la carga de datos.
+            if (cargandoClientes)
+                return;
+
+            // Verificar que realmente haya una fila seleccionada.
+            if (dgvRegistroCliente.SelectedRows.Count == 0)
+                return;
+
+            DataGridViewRow fila = dgvRegistroCliente.SelectedRows[0];
+
+            // Obtener el ID del cliente seleccionado.
+            if (!int.TryParse(
+                Convert.ToString(fila.Cells["id_cliente"].Value),
+                out int idCliente))
+            {
+                return;
+            }
+
+            idClienteSeleccionado = idCliente;
+
+            // Completar los campos de texto.
+            txtNombreCliente.Text =
+                ObtenerTextoCelda(fila, "nombre");
+
+            txtApellidoCliente.Text =
+                ObtenerTextoCelda(fila, "apellido");
+
+            txtCorreo.Text =
+                ObtenerTextoCelda(fila, "correo");
+
+            txtDni.Text =
+                ObtenerTextoCelda(fila, "dni");
+
+            txtDireccion.Text =
+                ObtenerTextoCelda(fila, "direccion");
+
+            txtTelefono.Text =
+                ObtenerTextoCelda(fila, "telefono");
+
+            // Completar la fecha de nacimiento.
+            object valorFecha = fila.Cells["fecha_nacimiento"].Value;
+
+            if (valorFecha != null && valorFecha != DBNull.Value)
+            {
+                DateTime fecha = Convert.ToDateTime(valorFecha);
+
+                txtFechaNacimiento.Text =
+                    fecha.ToString("dd/MM/yyyy");
+            }
+            else
+            {
+                txtFechaNacimiento.Clear();
+            }
+
+            // Seleccionar el sexo correspondiente.
+            string sexo = ObtenerTextoCelda(fila, "sexo");
+
+            rbHombre.Checked =
+                sexo.Equals("Hombre", StringComparison.OrdinalIgnoreCase);
+
+            rbMujer.Checked =
+                sexo.Equals("Mujer", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private string ObtenerTextoCelda(
+    DataGridViewRow fila,
+    string nombreColumna)
+        {
+            object valor = fila.Cells[nombreColumna].Value;
+
+            if (valor == null || valor == DBNull.Value)
+                return "";
+
+            return Convert.ToString(valor);
         }
 
         private void btnRegistrarNuevoCliente_Click(
@@ -102,7 +206,9 @@ namespace DesktopAppSupermercado
 
             try
             {
-                Cliente cliente = negocio.RegistrarCliente(
+                bool fueActualizacion;
+
+                Cliente cliente = negocio.GuardarCliente(
                     txtNombreCliente.Text,
                     txtApellidoCliente.Text,
                     txtCorreo.Text,
@@ -110,31 +216,42 @@ namespace DesktopAppSupermercado
                     txtDireccion.Text,
                     txtTelefono.Text,
                     sexo,
-                    txtFechaNacimiento.Text);
+                    txtFechaNacimiento.Text,
+                    idClienteSeleccionado,
+                    out fueActualizacion);
+
+                string mensaje = fueActualizacion
+                    ? "Cliente actualizado correctamente."
+                    : "Cliente registrado correctamente.";
+
+                string titulo = fueActualizacion
+                    ? "Actualización exitosa"
+                    : "Registro exitoso";
 
                 MessageBox.Show(
-                    "Cliente registrado correctamente.\n\n" +
+                    mensaje + "\n\n" +
                     $"Nombre: {cliente.Nombre} {cliente.Apellido}\n" +
                     $"DNI: {cliente.Dni}\n" +
                     $"ID de cliente: {cliente.IdCliente}",
-                    "Registro exitoso",
+                    titulo,
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
 
                 LimpiarCampos();
+
                 CargarClientes();
+
                 txtNombreCliente.Focus();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(
                     ex.Message,
-                    "No se pudo registrar el cliente",
+                    "No se pudo guardar el cliente",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning);
             }
         }
-
 
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
@@ -144,6 +261,9 @@ namespace DesktopAppSupermercado
 
         private void LimpiarCampos()
         {
+            // Descartar el cliente que estaba seleccionado.
+            idClienteSeleccionado = null;
+
             txtNombreCliente.Clear();
             txtApellidoCliente.Clear();
             txtCorreo.Clear();
@@ -155,6 +275,8 @@ namespace DesktopAppSupermercado
 
             rbHombre.Checked = false;
             rbMujer.Checked = false;
+
+            dgvRegistroCliente.ClearSelection();
         }
 
         private void txtBuscarCliente_TextChanged(

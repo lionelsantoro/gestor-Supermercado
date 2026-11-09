@@ -53,6 +53,7 @@
             txtTelefono = new TextBox();
             label12 = new Label();
             txtFechaNacimiento = new TextBox();
+            btnBorrar = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvRegistroCliente).BeginInit();
             SuspendLayout();
             // 
@@ -142,7 +143,7 @@
             // 
             // btnLimpiar
             // 
-            btnLimpiar.Location = new Point(5, 82);
+            btnLimpiar.Location = new Point(5, 66);
             btnLimpiar.Name = "btnLimpiar";
             btnLimpiar.Size = new Size(260, 41);
             btnLimpiar.TabIndex = 11;
@@ -286,12 +287,22 @@
             txtFechaNacimiento.Size = new Size(266, 27);
             txtFechaNacimiento.TabIndex = 26;
             // 
+            // btnBorrar
+            // 
+            btnBorrar.Location = new Point(5, 113);
+            btnBorrar.Name = "btnBorrar";
+            btnBorrar.Size = new Size(260, 41);
+            btnBorrar.TabIndex = 27;
+            btnBorrar.Text = "Borrar cliente";
+            btnBorrar.UseVisualStyleBackColor = true;
+            // 
             // FormRegistro
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveBorder;
             ClientSize = new Size(1055, 654);
+            Controls.Add(btnBorrar);
             Controls.Add(txtFechaNacimiento);
             Controls.Add(label12);
             Controls.Add(txtTelefono);
@@ -351,5 +362,6 @@
         private TextBox txtTelefono;
         private Label label12;
         private TextBox txtFechaNacimiento;
+        private Button btnBorrar;
     }
 }

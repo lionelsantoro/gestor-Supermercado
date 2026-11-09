@@ -147,31 +147,31 @@ namespace DesktopAppSupermercado.Datos
                 con.Open();
 
                 string query = @"
-            SELECT
-                c.id_cliente,
-                p.nombre,
-                p.apellido,
-                p.correo,
-                p.dni,
-                p.direccion,
-                p.telefono,
-                p.sexo
-            FROM dbo.clientes c
-            INNER JOIN dbo.persona p
-                ON c.id_persona = p.id_persona
-            WHERE ISNULL(p.eliminado, 0) = 0
-              AND (
-                    @filtro = N''
-                    OR p.nombre LIKE N'%' + @filtro + N'%'
-                    OR p.apellido LIKE N'%' + @filtro + N'%'
-                    OR (p.nombre + N' ' + p.apellido)
-                       LIKE N'%' + @filtro + N'%'
-                    OR (p.apellido + N' ' + p.nombre)
-                       LIKE N'%' + @filtro + N'%'
-                    OR p.dni LIKE N'%' + @filtro + N'%'
-                  )
-            ORDER BY p.nombre ASC, p.apellido ASC;";
-
+    SELECT
+        c.id_cliente,
+        p.nombre,
+        p.apellido,
+        p.correo,
+        p.dni,
+        p.direccion,
+        p.telefono,
+        p.sexo,
+        p.fecha_nacimiento
+    FROM dbo.clientes c
+    INNER JOIN dbo.persona p
+        ON c.id_persona = p.id_persona
+    WHERE ISNULL(p.eliminado, 0) = 0
+      AND (
+            @filtro = N''
+            OR p.nombre LIKE N'%' + @filtro + N'%'
+            OR p.apellido LIKE N'%' + @filtro + N'%'
+            OR (p.nombre + N' ' + p.apellido)
+               LIKE N'%' + @filtro + N'%'
+            OR (p.apellido + N' ' + p.nombre)
+               LIKE N'%' + @filtro + N'%'
+            OR p.dni LIKE N'%' + @filtro + N'%'
+      )
+    ORDER BY p.nombre ASC, p.apellido ASC;";
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
                     cmd.Parameters.Add("@filtro", SqlDbType.NVarChar, 160)
@@ -324,6 +324,175 @@ namespace DesktopAppSupermercado.Datos
 
                             idCliente = Convert.ToInt32(
                                 cmdCliente.ExecuteScalar());
+                        }
+
+                        transaccion.Commit();
+
+                        return new Cliente
+                        {
+                            IdCliente = idCliente,
+                            IdPersona = idPersona,
+                            Nombre = nombre,
+                            Apellido = apellido,
+                            Dni = dni
+                        };
+                    }
+                    catch
+                    {
+                        try
+                        {
+                            transaccion.Rollback();
+                        }
+                        catch
+                        {
+                            // Se conserva la excepción original.
+                        }
+
+                        throw;
+                    }
+                }
+            }
+        }
+
+        public Cliente ActualizarCliente(
+    int idCliente,
+    string nombre,
+    string apellido,
+    string correo,
+    string dni,
+    string direccion,
+    string telefono,
+    string sexo,
+    DateTime fechaNacimiento)
+        {
+            Conexion miConexion = new Conexion();
+
+            using (SqlConnection con = miConexion.ObtenerConexion())
+            {
+                con.Open();
+
+                using (SqlTransaction transaccion =
+                    con.BeginTransaction(IsolationLevel.Serializable))
+                {
+                    try
+                    {
+                        // Obtener el id_persona correspondiente al cliente.
+                        string queryPersona = @"
+                    SELECT p.id_persona
+                    FROM dbo.clientes c
+                    INNER JOIN dbo.persona p WITH (UPDLOCK, HOLDLOCK)
+                        ON c.id_persona = p.id_persona
+                    WHERE c.id_cliente = @idCliente
+                      AND ISNULL(p.eliminado, 0) = 0;";
+
+                        int idPersona;
+
+                        using (SqlCommand cmdPersona =
+                            new SqlCommand(queryPersona, con, transaccion))
+                        {
+                            cmdPersona.Parameters.Add(
+                                "@idCliente", SqlDbType.Int).Value = idCliente;
+
+                            object resultado = cmdPersona.ExecuteScalar();
+
+                            if (resultado == null || resultado == DBNull.Value)
+                            {
+                                throw new Exception(
+                                    "No se encontró el cliente que desea modificar.");
+                            }
+
+                            idPersona = Convert.ToInt32(resultado);
+                        }
+
+                        // Comprobar que el DNI no pertenezca a otra persona.
+                        string queryDni = @"
+                    SELECT COUNT(1)
+                    FROM dbo.persona WITH (UPDLOCK, HOLDLOCK)
+                    WHERE dni = @dni
+                      AND id_persona <> @idPersona;";
+
+                        using (SqlCommand cmdDni =
+                            new SqlCommand(queryDni, con, transaccion))
+                        {
+                            cmdDni.Parameters.Add(
+                                "@dni", SqlDbType.VarChar, 20).Value = dni;
+
+                            cmdDni.Parameters.Add(
+                                "@idPersona", SqlDbType.Int).Value = idPersona;
+
+                            int existe = Convert.ToInt32(
+                                cmdDni.ExecuteScalar());
+
+                            if (existe > 0)
+                            {
+                                throw new Exception(
+                                    "El DNI ingresado ya pertenece a otro cliente.");
+                            }
+                        }
+
+                        // Actualizar los datos de la persona.
+                        string queryActualizar = @"
+                    UPDATE p
+                    SET
+                        nombre = @nombre,
+                        apellido = @apellido,
+                        correo = @correo,
+                        dni = @dni,
+                        direccion = @direccion,
+                        telefono = @telefono,
+                        sexo = @sexo,
+                        fecha_nacimiento = @fechaNacimiento
+                    FROM dbo.persona p
+                    INNER JOIN dbo.clientes c
+                        ON c.id_persona = p.id_persona
+                    WHERE c.id_cliente = @idCliente
+                      AND p.id_persona = @idPersona
+                      AND ISNULL(p.eliminado, 0) = 0;";
+
+                        using (SqlCommand cmdActualizar =
+                            new SqlCommand(queryActualizar, con, transaccion))
+                        {
+                            cmdActualizar.Parameters.Add(
+                                "@idCliente", SqlDbType.Int).Value = idCliente;
+
+                            cmdActualizar.Parameters.Add(
+                                "@idPersona", SqlDbType.Int).Value = idPersona;
+
+                            cmdActualizar.Parameters.Add(
+                                "@nombre", SqlDbType.NVarChar, 80).Value = nombre;
+
+                            cmdActualizar.Parameters.Add(
+                                "@apellido", SqlDbType.NVarChar, 80).Value = apellido;
+
+                            cmdActualizar.Parameters.Add(
+                                "@correo", SqlDbType.NVarChar, 150).Value =
+                                (object)correo ?? DBNull.Value;
+
+                            cmdActualizar.Parameters.Add(
+                                "@dni", SqlDbType.VarChar, 20).Value = dni;
+
+                            cmdActualizar.Parameters.Add(
+                                "@direccion", SqlDbType.NVarChar, 250).Value =
+                                (object)direccion ?? DBNull.Value;
+
+                            cmdActualizar.Parameters.Add(
+                                "@telefono", SqlDbType.NVarChar, 20).Value =
+                                (object)telefono ?? DBNull.Value;
+
+                            cmdActualizar.Parameters.Add(
+                                "@sexo", SqlDbType.NVarChar, 10).Value = sexo;
+
+                            cmdActualizar.Parameters.Add(
+                                "@fechaNacimiento", SqlDbType.Date).Value =
+                                fechaNacimiento.Date;
+
+                            int filasAfectadas = cmdActualizar.ExecuteNonQuery();
+
+                            if (filasAfectadas == 0)
+                            {
+                                throw new Exception(
+                                    "No se pudieron actualizar los datos del cliente.");
+                            }
                         }
 
                         transaccion.Commit();
