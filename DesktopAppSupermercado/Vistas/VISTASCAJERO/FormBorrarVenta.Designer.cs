@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             label4 = new Label();
-            button1 = new Button();
-            button2 = new Button();
+            btnConfirmar = new Button();
+            btnSalir = new Button();
             label1 = new Label();
-            textBox1 = new TextBox();
+            txtCodigo = new TextBox();
             SuspendLayout();
             // 
             // label4
@@ -44,25 +44,25 @@
             label4.Size = new Size(0, 28);
             label4.TabIndex = 3;
             // 
-            // button1
+            // btnConfirmar
             // 
-            button1.Location = new Point(12, 78);
-            button1.Name = "button1";
-            button1.Size = new Size(94, 29);
-            button1.TabIndex = 10;
-            button1.Text = "Confirmar";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            btnConfirmar.Location = new Point(12, 78);
+            btnConfirmar.Name = "btnConfirmar";
+            btnConfirmar.Size = new Size(94, 29);
+            btnConfirmar.TabIndex = 10;
+            btnConfirmar.Text = "Confirmar";
+            btnConfirmar.UseVisualStyleBackColor = true;
+            btnConfirmar.Click += btnConfirmar_Click;
             // 
-            // button2
+            // btnSalir
             // 
-            button2.Location = new Point(384, 78);
-            button2.Name = "button2";
-            button2.Size = new Size(94, 29);
-            button2.TabIndex = 11;
-            button2.Text = "Salir";
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
+            btnSalir.Location = new Point(384, 78);
+            btnSalir.Name = "btnSalir";
+            btnSalir.Size = new Size(94, 29);
+            btnSalir.TabIndex = 11;
+            btnSalir.Text = "Salir";
+            btnSalir.UseVisualStyleBackColor = true;
+            btnSalir.Click += btnSalir_Click;
             // 
             // label1
             // 
@@ -74,12 +74,13 @@
             label1.TabIndex = 12;
             label1.Text = "Ingrese codigo de supervisor:";
             // 
-            // textBox1
+            // txtCodigo
             // 
-            textBox1.Location = new Point(340, 30);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(138, 27);
-            textBox1.TabIndex = 13;
+            txtCodigo.Location = new Point(340, 30);
+            txtCodigo.Name = "txtCodigo";
+            txtCodigo.Size = new Size(138, 27);
+            txtCodigo.TabIndex = 13;
+            txtCodigo.KeyPress += txtCodigo_KeyPress;
             // 
             // FormBorrarVenta
             // 
@@ -87,22 +88,23 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveBorder;
             ClientSize = new Size(490, 123);
-            Controls.Add(textBox1);
+            Controls.Add(txtCodigo);
             Controls.Add(label1);
-            Controls.Add(button2);
-            Controls.Add(button1);
+            Controls.Add(btnSalir);
+            Controls.Add(btnConfirmar);
             Controls.Add(label4);
             Name = "FormBorrarVenta";
             Text = "FormBorrarVenta";
+            Load += FormBorrarVenta_Load;
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
         private Label label4;
-        private Button button1;
-        private Button button2;
+        private Button btnConfirmar;
+        private Button btnSalir;
         private Label label1;
-        private TextBox textBox1;
+        private TextBox txtCodigo;
     }
 }

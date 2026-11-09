@@ -299,8 +299,34 @@ namespace DesktopAppSupermercado
 
         private void btnBorrarCompra_Click(object sender, EventArgs e)
         {
-            FormBorrarVenta vistaSup = new FormBorrarVenta();
-            vistaSup.Show();
+            // Comprobar que exista una venta pendiente.
+            if (ventaActual == null || ventaConfirmada)
+            {
+                MessageBox.Show(
+                    "No hay una venta pendiente que se pueda descartar.",
+                    "Aviso",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+
+                return;
+            }
+
+            // Solicitar autorización al supervisor.
+            using (FormBorrarVenta vistaSup = new FormBorrarVenta())
+            {
+                if (vistaSup.ShowDialog(this) != DialogResult.OK)
+                    return;
+
+                // La autorización fue correcta.
+                // Descartar la venta y restablecer los controles.
+                FinalizarVentaEnVista();
+
+                MessageBox.Show(
+                    "La venta pendiente fue descartada correctamente.",
+                    "Venta cancelada",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+            }
         }
 
         private void btnCargarProducto_Click(object sender, EventArgs e)
