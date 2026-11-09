@@ -101,7 +101,7 @@
             dgvRegistroCliente.Location = new Point(8, 215);
             dgvRegistroCliente.Name = "dgvRegistroCliente";
             dgvRegistroCliente.RowHeadersWidth = 51;
-            dgvRegistroCliente.Size = new Size(1342, 436);
+            dgvRegistroCliente.Size = new Size(1342, 521);
             dgvRegistroCliente.TabIndex = 6;
             dgvRegistroCliente.CellContentClick += dgvRegistro_CellContentClick;
             // 
@@ -295,13 +295,14 @@
             btnBorrar.TabIndex = 27;
             btnBorrar.Text = "Borrar cliente";
             btnBorrar.UseVisualStyleBackColor = true;
+            btnBorrar.Click += btnBorrar_Click;
             // 
             // FormRegistro
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveBorder;
-            ClientSize = new Size(1362, 654);
+            ClientSize = new Size(1362, 748);
             Controls.Add(btnBorrar);
             Controls.Add(txtFechaNacimiento);
             Controls.Add(label12);

@@ -523,5 +523,34 @@ namespace DesktopAppSupermercado.Datos
             }
         }
 
+        public bool EliminarCliente(int idCliente)
+        {
+            Conexion miConexion = new Conexion();
+
+            using (SqlConnection con = miConexion.ObtenerConexion())
+            {
+                con.Open();
+
+                string query = @"
+            UPDATE p
+            SET p.eliminado = 1
+            FROM dbo.persona p
+            INNER JOIN dbo.clientes c
+                ON c.id_persona = p.id_persona
+            WHERE c.id_cliente = @idCliente
+              AND ISNULL(p.eliminado, 0) = 0;";
+
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    cmd.Parameters.Add(
+                        "@idCliente", SqlDbType.Int).Value = idCliente;
+
+                    int filasAfectadas = cmd.ExecuteNonQuery();
+
+                    return filasAfectadas > 0;
+                }
+            }
+        }
+
     }
 }

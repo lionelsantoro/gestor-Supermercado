@@ -257,5 +257,24 @@ namespace DesktopAppSupermercado.ReglasNegocio
                 sexo,
                 fechaNacimiento.Date);
         }
+
+        public void EliminarCliente(int idCliente)
+        {
+            // Comprobar que el identificador sea válido.
+            if (idCliente <= 0)
+            {
+                throw new Exception(
+                    "Debe seleccionar un cliente válido para eliminar.");
+            }
+
+            // Solicitar la eliminación lógica a la capa Datos.
+            bool eliminado = datos.EliminarCliente(idCliente);
+
+            if (!eliminado)
+            {
+                throw new Exception(
+                    "No se encontró el cliente seleccionado o ya fue eliminado.");
+            }
+        }
     }
 }

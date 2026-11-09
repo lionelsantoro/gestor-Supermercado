@@ -54,6 +54,7 @@ namespace DesktopAppSupermercado
         private void CargarClientes()
         {
             cargandoClientes = true;
+            idClienteSeleccionado = null;
 
             try
             {
@@ -259,9 +260,9 @@ namespace DesktopAppSupermercado
             txtNombreCliente.Focus();
         }
 
-        private void LimpiarCampos()
+        private void LimpiarCampos(bool limpiarBusqueda = true)
         {
-            // Descartar el cliente que estaba seleccionado.
+            // Descartar el cliente seleccionado.
             idClienteSeleccionado = null;
 
             txtNombreCliente.Clear();
@@ -271,7 +272,9 @@ namespace DesktopAppSupermercado
             txtDireccion.Clear();
             txtTelefono.Clear();
             txtFechaNacimiento.Clear();
-            txtBuscarCliente.Clear();
+
+            if (limpiarBusqueda)
+                txtBuscarCliente.Clear();
 
             rbHombre.Checked = false;
             rbMujer.Checked = false;
@@ -319,6 +322,70 @@ namespace DesktopAppSupermercado
         {
             // Permitir escribir, borrar y desplazarse.
             e.Handled = false;
+        }
+
+        private void btnBorrar_Click(object sender, EventArgs e)
+        {
+            // Comprobar que exista un cliente seleccionado.
+            if (!idClienteSeleccionado.HasValue ||
+                dgvRegistroCliente.SelectedRows.Count == 0)
+            {
+                MessageBox.Show(
+                    "Seleccione un cliente de la grilla para eliminarlo.",
+                    "Cliente no seleccionado",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+
+                return;
+            }
+
+            try
+            {
+                // Obtener los datos para mostrar la confirmación.
+                string nombreCliente =
+                    txtNombreCliente.Text + " " + txtApellidoCliente.Text;
+
+                string dniCliente = txtDni.Text;
+
+                DialogResult respuesta = MessageBox.Show(
+                    "¿Está seguro de que desea eliminar al siguiente cliente?\n\n" +
+                    $"Nombre: {nombreCliente}\n" +
+                    $"DNI: {dniCliente}\n\n" +
+                    "El cliente dejará de aparecer en los registros activos, " +
+                    "pero sus datos se conservarán en la base de datos.",
+                    "Confirmar eliminación",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                // Si el usuario cancela, no realizar ninguna operación.
+                if (respuesta != DialogResult.Yes)
+                    return;
+
+                // Ejecutar la eliminación lógica.
+                negocio.EliminarCliente(idClienteSeleccionado.Value);
+
+                // Limpiar los campos sin borrar el filtro de búsqueda.
+                LimpiarCampos(false);
+
+                // Actualizar la grilla.
+                CargarClientes();
+
+                MessageBox.Show(
+                    "El cliente fue eliminado correctamente.",
+                    "Eliminación exitosa",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+
+                txtNombreCliente.Focus();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    ex.Message,
+                    "No se pudo eliminar el cliente",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+            }
         }
 
         private void label3_Click(object sender, EventArgs e)
