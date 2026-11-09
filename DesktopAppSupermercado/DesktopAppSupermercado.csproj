@@ -37,4 +37,15 @@
     <PackageReference Include="QuestPDF" Version="2026.9.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Datos\Admin\" />
+    <Folder Include="Datos\Inventario\" />
+    <Folder Include="Datos\Cajero\" />
+    <Folder Include="Datos\Supervisor\" />
+    <Folder Include="ReglasNegocio\Admin\" />
+    <Folder Include="ReglasNegocio\Inventario\" />
+    <Folder Include="ReglasNegocio\Cajero\" />
+    <Folder Include="ReglasNegocio\Supervisor\" />
+  </ItemGroup>
+
 </Project>
