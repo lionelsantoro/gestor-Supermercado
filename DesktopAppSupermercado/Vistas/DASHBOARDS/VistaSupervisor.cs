@@ -12,6 +12,13 @@ namespace DesktopAppSupermercado.DASHBOARDS
 {
     public partial class VistaSupervisor : Form
     {
+        // Tablas originales obtenidas desde la base de datos.
+        private DataTable tablaVentasOriginal;
+        private DataTable tablaCajerosOriginal;
+        private DataTable tablaProductosOriginal;
+        private DataTable tablaCategoriasOriginal;
+        private DataTable tablaClientesOriginal;
+
         public VistaSupervisor()
         {
             InitializeComponent();
@@ -40,6 +47,15 @@ namespace DesktopAppSupermercado.DASHBOARDS
         private void label3_Click(object sender, EventArgs e)
         {
 
+        }
+        private void dtpFechaDesde_ValueChanged(object sender, EventArgs e)
+        {
+            CargarGrillasReportes();
+        }
+
+        private void dtpFechaHasta_ValueChanged(object sender, EventArgs e)
+        {
+            CargarGrillasReportes();
         }
 
         private void btnReporteProducto_Click(object sender, EventArgs e)
@@ -144,13 +160,24 @@ namespace DesktopAppSupermercado.DASHBOARDS
 
         }
 
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        private void tabControlSupervisor_SelectedIndexChanged(object sender, EventArgs e)
         {
+            bool habiaTexto = txtBuscar.TextLength > 0;
 
+            // Limpiar el buscador al cambiar de pestaña.
+            txtBuscar.Clear();
+
+            // Si ya estaba vacío, el evento TextChanged no se dispara.
+            // En ese caso aplicamos manualmente el filtro vacío.
+            if (!habiaTexto)
+            {
+                AplicarFiltroPestana();
+            }
         }
 
         private void txtBuscar_TextChanged(object sender, EventArgs e)
         {
+            AplicarFiltroPestana();
         }
 
         private void btnSalir_Click_1(object sender, EventArgs e)
@@ -211,19 +238,24 @@ namespace DesktopAppSupermercado.DASHBOARDS
         // Evento que actualiza ambas grillas cada vez que el usuario cambia dtpFechaDesde o dtpFechaHasta
         private void dtpFechasReporte_ValueChanged(object sender, EventArgs e)
         {
-            // Si por algún motivo el usuario pone Fecha Desde mayor a Fecha Hasta mientras elige,
-            // no lanzamos error molesto en cada clic, simplemente vaciamos hasta que el rango sea válido
             if (dtpFechaDesde.Value.Date > dtpFechaHasta.Value.Date)
             {
+                // Descartar los resultados originales.
+                tablaVentasOriginal = null;
+                tablaCajerosOriginal = null;
+                tablaProductosOriginal = null;
+                tablaCategoriasOriginal = null;
+                tablaClientesOriginal = null;
+
+                // Limpiar las grillas.
                 dgvVentas.DataSource = null;
                 dgvCajero.DataSource = null;
                 dgvProductos.DataSource = null;
                 dgvCategoria.DataSource = null;
                 dgvCliente.DataSource = null;
+
                 return;
             }
-
-            CargarGrillasReportes();
 
         }
 
@@ -290,82 +322,181 @@ namespace DesktopAppSupermercado.DASHBOARDS
                 DateTime fechaDesde = dtpFechaDesde.Value;
                 DateTime fechaHasta = dtpFechaHasta.Value;
 
-                // 1. Cargar dgvVentas
-                dgvVentas.DataSource = reporteNegocio.ObtenerVentasFiltradas(fechaDesde, fechaHasta);
+                // 1. Obtener primero los resultados originales desde la capa Negocio.
+
+                tablaVentasOriginal =
+                    reporteNegocio.ObtenerVentasFiltradas(fechaDesde, fechaHasta);
+
+                tablaCajerosOriginal =
+                    reporteNegocio.ObtenerResumenCajerosFiltrado(fechaDesde, fechaHasta);
+
+                tablaProductosOriginal =
+                    reporteNegocio.ObtenerProductosFiltrados(fechaDesde, fechaHasta);
+
+                tablaCategoriasOriginal =
+                    reporteNegocio.ObtenerCategoriasFiltradas(fechaDesde, fechaHasta);
+
+                tablaClientesOriginal =
+                    reporteNegocio.ObtenerClientesFiltrados(fechaDesde, fechaHasta);
+
+
+                // 2. Asignar copias de los resultados a los DataGridView.
+
+                dgvVentas.DataSource = tablaVentasOriginal.Copy();
+                dgvCajero.DataSource = tablaCajerosOriginal.Copy();
+                dgvProductos.DataSource = tablaProductosOriginal.Copy();
+                dgvCategoria.DataSource = tablaCategoriasOriginal.Copy();
+                dgvCliente.DataSource = tablaClientesOriginal.Copy();
+
+
+                // 3. Configurar encabezados y formatos de dgvVentas.
 
                 if (dgvVentas.Columns["numero_ticket"] != null)
                     dgvVentas.Columns["numero_ticket"].HeaderText = "N.º de Ticket";
+
                 if (dgvVentas.Columns["monto_total"] != null)
                 {
                     dgvVentas.Columns["monto_total"].HeaderText = "Monto";
                     dgvVentas.Columns["monto_total"].DefaultCellStyle.Format = "C2";
                 }
+
                 if (dgvVentas.Columns["creado_en"] != null)
                 {
                     dgvVentas.Columns["creado_en"].HeaderText = "Fecha de Creación";
-                    dgvVentas.Columns["creado_en"].DefaultCellStyle.Format = "dd/MM/yyyy HH:mm";
+                    dgvVentas.Columns["creado_en"].DefaultCellStyle.Format =
+                        "dd/MM/yyyy HH:mm";
                 }
 
-                // 2. Cargar dgvCajero
-                dgvCajero.DataSource = reporteNegocio.ObtenerResumenCajerosFiltrado(fechaDesde, fechaHasta);
+
+                // 4. Configurar encabezados y formatos de dgvCajero.
 
                 if (dgvCajero.Columns["nombre_cajero"] != null)
                     dgvCajero.Columns["nombre_cajero"].HeaderText = "Cajero";
+
                 if (dgvCajero.Columns["cantidad_ventas"] != null)
                     dgvCajero.Columns["cantidad_ventas"].HeaderText = "Cantidad de Venta";
+
                 if (dgvCajero.Columns["monto_recaudado"] != null)
                 {
                     dgvCajero.Columns["monto_recaudado"].HeaderText = "Monto Recaudado";
                     dgvCajero.Columns["monto_recaudado"].DefaultCellStyle.Format = "C2";
                 }
 
-                // 3. Cargar dgvProductos (Nombre, Cantidad Vendida, Stock Sobrante, Ganancia Generada)
-                dgvProductos.DataSource = reporteNegocio.ObtenerProductosFiltrados(fechaDesde, fechaHasta);
+
+                // 5. Configurar encabezados y formatos de dgvProductos.
 
                 if (dgvProductos.Columns["nombre_producto"] != null)
                     dgvProductos.Columns["nombre_producto"].HeaderText = "Nombre";
+
                 if (dgvProductos.Columns["cantidad_vendida"] != null)
                     dgvProductos.Columns["cantidad_vendida"].HeaderText = "Cantidad Vendida";
+
                 if (dgvProductos.Columns["stock_sobrante"] != null)
                     dgvProductos.Columns["stock_sobrante"].HeaderText = "Stock Sobrante";
+
                 if (dgvProductos.Columns["ganancia_generada"] != null)
                 {
                     dgvProductos.Columns["ganancia_generada"].HeaderText = "Ganancia Generada";
                     dgvProductos.Columns["ganancia_generada"].DefaultCellStyle.Format = "C2";
                 }
 
-                // 4. Cargar dgvCategoria (Nombre y Ganancia Generada)
-                dgvCategoria.DataSource = reporteNegocio.ObtenerCategoriasFiltradas(fechaDesde, fechaHasta);
+
+                // 6. Configurar encabezados y formatos de dgvCategoria.
 
                 if (dgvCategoria.Columns["nombre_categoria"] != null)
                     dgvCategoria.Columns["nombre_categoria"].HeaderText = "Categoría";
+
                 if (dgvCategoria.Columns["ganancia_generada"] != null)
                 {
                     dgvCategoria.Columns["ganancia_generada"].HeaderText = "Ganancia Generada";
                     dgvCategoria.Columns["ganancia_generada"].DefaultCellStyle.Format = "C2";
                 }
 
-                // 5. Cargar dgvCliente (Nombre y Apellido, Teléfono, Correo, Cantidad de Ventas y Monto Total Recaudado)
-                dgvCliente.DataSource = reporteNegocio.ObtenerClientesFiltrados(fechaDesde, fechaHasta);
+
+                // 7. Configurar encabezados y formatos de dgvCliente.
 
                 if (dgvCliente.Columns["nombre_cliente"] != null)
                     dgvCliente.Columns["nombre_cliente"].HeaderText = "Nombre y Apellido";
+
                 if (dgvCliente.Columns["telefono"] != null)
                     dgvCliente.Columns["telefono"].HeaderText = "Teléfono";
+
                 if (dgvCliente.Columns["correo"] != null)
                     dgvCliente.Columns["correo"].HeaderText = "Correo";
+
                 if (dgvCliente.Columns["cantidad_ventas"] != null)
                     dgvCliente.Columns["cantidad_ventas"].HeaderText = "Cantidad de Ventas";
+
                 if (dgvCliente.Columns["monto_recaudado"] != null)
                 {
-                    dgvCliente.Columns["monto_recaudado"].HeaderText = "Monto Total Recaudado";
+                    dgvCliente.Columns["monto_recaudado"].HeaderText =
+                        "Monto Total Recaudado";
+
                     dgvCliente.Columns["monto_recaudado"].DefaultCellStyle.Format = "C2";
                 }
 
+
+                // 8. Aplicar el filtro de la pestaña actualmente seleccionada.
+
+                AplicarFiltroPestana();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(
+                    ex.Message,
+                    "Atención",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+            }
+        }
+
+        private void AplicarFiltroPestana()
+        {
+            string filtro = txtBuscar.Text.Trim();
+
+            switch (tabControlSupervisor.SelectedIndex)
+            {
+                // PESTAÑA 0: VENTAS
+                case 0:
+
+                    dgvVentas.DataSource =
+                        reporteNegocio.BuscarVentasPorNumeroTicket(
+                            tablaVentasOriginal,
+                            filtro);
+
+                    dgvCajero.DataSource =
+                        reporteNegocio.BuscarCajerosPorNombre(
+                            tablaCajerosOriginal,
+                            filtro);
+
+                    break;
+
+
+                // PESTAÑA 1: PRODUCTOS
+                case 1:
+
+                    dgvProductos.DataSource =
+                        reporteNegocio.BuscarProductosPorNombre(
+                            tablaProductosOriginal,
+                            filtro);
+
+                    dgvCategoria.DataSource =
+                        reporteNegocio.BuscarCategoriasPorNombre(
+                            tablaCategoriasOriginal,
+                            filtro);
+
+                    break;
+
+
+                // PESTAÑA 2: CLIENTES
+                case 2:
+
+                    dgvCliente.DataSource =
+                        reporteNegocio.BuscarClientesPorNombre(
+                            tablaClientesOriginal,
+                            filtro);
+
+                    break;
             }
         }
 

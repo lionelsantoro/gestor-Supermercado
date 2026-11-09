@@ -1,12 +1,13 @@
 ﻿using DesktopAppSupermercado.Datos;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Text;
-using QuestPDF.Fluent;
-using QuestPDF.Helpers;
+using System.Globalization;
 using System.Linq;
+using System.Text;
 
 namespace DesktopAppSupermercado.ReglasNegocio
 {
@@ -669,6 +670,132 @@ namespace DesktopAppSupermercado.ReglasNegocio
                     });
                 });
             }).GeneratePdf(rutaArchivo);
+        }
+
+        private static string NormalizarTextoBusqueda(string texto)
+        {
+            if (string.IsNullOrEmpty(texto))
+                return string.Empty;
+
+            // Evitamos que la ñ se transforme en n al quitar los acentos.
+            texto = texto.Replace("ñ", "\uE000")
+                         .Replace("Ñ", "\uE001");
+
+            // Separamos las letras de sus marcas de acentuación.
+            string textoDescompuesto = texto.Normalize(NormalizationForm.FormD);
+
+            StringBuilder resultado = new StringBuilder();
+
+            foreach (char caracter in textoDescompuesto)
+            {
+                UnicodeCategory categoria =
+                    CharUnicodeInfo.GetUnicodeCategory(caracter);
+
+                // Omitimos las marcas diacríticas, como los acentos.
+                if (categoria != UnicodeCategory.NonSpacingMark)
+                {
+                    resultado.Append(caracter);
+                }
+            }
+
+            // Volvemos a proteger las letras ñ y Ñ.
+            return resultado.ToString()
+                            .Normalize(NormalizationForm.FormC)
+                            .Replace("\uE000", "ñ")
+                            .Replace("\uE001", "Ñ");
+        }
+
+        private static DataTable FiltrarPorColumna(
+    DataTable tablaOriginal,
+    string nombreColumna,
+    string filtro)
+        {
+            if (tablaOriginal == null)
+                return new DataTable();
+
+            // Si no se escribió nada, devolvemos todos los registros.
+            if (string.IsNullOrWhiteSpace(filtro))
+                return tablaOriginal.Copy();
+
+            // Creamos una tabla con las mismas columnas.
+            DataTable resultado = tablaOriginal.Clone();
+
+            if (!tablaOriginal.Columns.Contains(nombreColumna))
+                return resultado;
+
+            // Normalizamos el texto ingresado una sola vez.
+            string filtroNormalizado = NormalizarTextoBusqueda(filtro);
+
+            foreach (DataRow fila in tablaOriginal.Rows)
+            {
+                if (fila.IsNull(nombreColumna))
+                    continue;
+
+                string valorOriginal = Convert.ToString(fila[nombreColumna]);
+
+                string valorNormalizado =
+                    NormalizarTextoBusqueda(valorOriginal);
+
+                // Comparamos sin distinguir mayúsculas ni acentos.
+                if (valorNormalizado.IndexOf(
+                        filtroNormalizado,
+                        StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    resultado.ImportRow(fila);
+                }
+            }
+
+            return resultado;
+        }
+
+        public DataTable BuscarVentasPorNumeroTicket(
+    DataTable tabla,
+    string filtro)
+        {
+            return FiltrarPorColumna(
+                tabla,
+                "numero_ticket",
+                filtro);
+        }
+
+        public DataTable BuscarCajerosPorNombre(
+            DataTable tabla,
+            string filtro)
+        {
+            return FiltrarPorColumna(
+                tabla,
+                "nombre_cajero",
+                filtro);
+        }
+
+        public DataTable BuscarProductosPorNombre(
+            DataTable tabla,
+            string filtro)
+        {
+            return FiltrarPorColumna(
+                tabla,
+                "nombre_producto",
+                filtro);
+        }
+
+        public DataTable BuscarCategoriasPorNombre(
+            DataTable tabla,
+            string filtro)
+        {
+            return FiltrarPorColumna(
+                tabla,
+                "nombre_categoria",
+                filtro);
+        }
+
+        public DataTable BuscarClientesPorNombre(
+            DataTable tabla,
+            string filtro)
+        {
+            return FiltrarPorColumna(
+                tabla,
+                "nombre_cliente",
+                filtro);
         }
 
     }

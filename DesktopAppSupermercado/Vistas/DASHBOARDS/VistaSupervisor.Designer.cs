@@ -82,7 +82,7 @@
             dtpFechaHasta.Name = "dtpFechaHasta";
             dtpFechaHasta.Size = new Size(122, 27);
             dtpFechaHasta.TabIndex = 5;
-            dtpFechaHasta.ValueChanged += dtpFechasReporte_ValueChanged;
+            dtpFechaHasta.ValueChanged += dtpFechaHasta_ValueChanged;
             // 
             // dtpFechaDesde
             // 
@@ -91,7 +91,7 @@
             dtpFechaDesde.Name = "dtpFechaDesde";
             dtpFechaDesde.Size = new Size(122, 27);
             dtpFechaDesde.TabIndex = 4;
-            dtpFechaDesde.ValueChanged += dtpFechasReporte_ValueChanged;
+            dtpFechaDesde.ValueChanged += dtpFechaDesde_ValueChanged;
             // 
             // txtBuscar
             // 
@@ -122,7 +122,7 @@
             tabControlSupervisor.SelectedIndex = 0;
             tabControlSupervisor.Size = new Size(1111, 731);
             tabControlSupervisor.TabIndex = 0;
-            tabControlSupervisor.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
+            tabControlSupervisor.SelectedIndexChanged += tabControlSupervisor_SelectedIndexChanged;
             // 
             // tabPage1
             // 
