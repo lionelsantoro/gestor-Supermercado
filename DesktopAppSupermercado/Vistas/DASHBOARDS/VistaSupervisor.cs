@@ -1,4 +1,6 @@
-﻿using DesktopAppSupermercado.ReglasNegocio;
+﻿using DesktopAppSupermercado.Entidades;
+using DesktopAppSupermercado.ReglasNegocio;
+using DesktopAppSupermercado.Vistas.DASHBOARDS;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -497,6 +499,27 @@ namespace DesktopAppSupermercado.DASHBOARDS
                             filtro);
 
                     break;
+            }
+        }
+
+        private void btnConsultar_Click(object sender, EventArgs e)
+        {
+            if (Sesion.UsuarioActual == null ||
+                Sesion.UsuarioActual.IdRol != 4)
+            {
+                MessageBox.Show(
+                    "Esta funcionalidad está disponible únicamente para supervisores.",
+                    "Acceso denegado",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+
+                return;
+            }
+
+            using (FormConsultarCodigoAutorizacion formulario =
+                   new FormConsultarCodigoAutorizacion())
+            {
+                formulario.ShowDialog(this);
             }
         }
 

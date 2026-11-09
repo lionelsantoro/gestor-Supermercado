@@ -35,5 +35,6 @@ namespace DesktopAppSupermercado.Datos
             }
             return idRol;
         }
+
     }
 }

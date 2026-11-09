@@ -19,7 +19,7 @@ namespace DesktopAppSupermercado.ReglasNegocio
             return datos.ValidarUsuario(usuario, contrasenaHash);
         }
 
-        private string HashearSHA256(string texto)
+        internal static string HashearSHA256(string texto)
         {
             using (SHA256 sha256 = SHA256.Create())
             {
@@ -30,5 +30,6 @@ namespace DesktopAppSupermercado.ReglasNegocio
                 return sb.ToString();
             }
         }
+
     }
 }

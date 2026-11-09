@@ -43,6 +43,7 @@
             tabPage3 = new TabPage();
             dgvCliente = new DataGridView();
             PanelMenu = new Panel();
+            btnConsultar = new Button();
             btnSalir = new Button();
             btnReporteCliente = new Button();
             btnReporteProducto = new Button();
@@ -209,6 +210,7 @@
             // PanelMenu
             // 
             PanelMenu.BackColor = SystemColors.ActiveCaption;
+            PanelMenu.Controls.Add(btnConsultar);
             PanelMenu.Controls.Add(btnSalir);
             PanelMenu.Controls.Add(btnReporteCliente);
             PanelMenu.Controls.Add(btnReporteProducto);
@@ -219,6 +221,16 @@
             PanelMenu.Name = "PanelMenu";
             PanelMenu.Size = new Size(115, 781);
             PanelMenu.TabIndex = 4;
+            // 
+            // btnConsultar
+            // 
+            btnConsultar.Location = new Point(13, 411);
+            btnConsultar.Name = "btnConsultar";
+            btnConsultar.Size = new Size(97, 127);
+            btnConsultar.TabIndex = 4;
+            btnConsultar.Text = "Consultar Codigo";
+            btnConsultar.UseVisualStyleBackColor = true;
+            btnConsultar.Click += btnConsultar_Click;
             // 
             // btnSalir
             // 
@@ -315,5 +327,6 @@
         private DataGridView dgvCategoria;
         private TabPage tabPage3;
         private DataGridView dgvCliente;
+        private Button btnConsultar;
     }
 }
