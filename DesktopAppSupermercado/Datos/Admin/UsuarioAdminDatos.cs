@@ -8,6 +8,8 @@ namespace DesktopAppSupermercado.Datos.Admin
 {
     public class UsuarioAdminDatos
     {
+
+        // Trae los roles ordenados por nombre, para llenar el combo.
         public DataTable ObtenerRoles()
         {
             DataTable dt = new DataTable();
@@ -28,10 +30,7 @@ namespace DesktopAppSupermercado.Datos.Admin
         // ROL SUPERVISOR
         // =============================================================
 
-        /// <summary>
-        /// Indica si el id_rol corresponde al rol de supervisor.
-        /// Se busca por nombre para no depender del id, que puede cambiar.
-        /// </summary>
+        // Indica si ese id_rol es el de supervisor, buscando por nombre para no depender del id.
         public bool EsRolSupervisor(int idRol)
         {
             Conexion miConexion = new Conexion();
@@ -52,10 +51,7 @@ namespace DesktopAppSupermercado.Datos.Admin
         // CÓDIGO DE AUTORIZACIÓN
         // =============================================================
 
-        /// <summary>
-        /// Verifica si un código ya está asignado a algún usuario.
-        /// Se usa para garantizar unicidad antes de insertar.
-        /// </summary>
+        // Indica si ese código ya está asignado a algún usuario, para garantizar que sea único.
         public bool ExisteCodigoAutorizacion(int codigo)
         {
             Conexion miConexion = new Conexion();
@@ -71,10 +67,7 @@ namespace DesktopAppSupermercado.Datos.Admin
             }
         }
 
-        /// <summary>
-        /// Valida que el código pertenezca a un supervisor ACTIVO.
-        /// Es la consulta que autoriza la restauración de la base.
-        /// </summary>
+        // Valida que el código pertenezca a un supervisor activo; es la consulta que autoriza la restauración.
         public bool ValidarCodigoSupervisor(int codigo)
         {
             Conexion miConexion = new Conexion();
@@ -95,10 +88,7 @@ namespace DesktopAppSupermercado.Datos.Admin
             }
         }
 
-        /// <summary>
-        /// Cuenta los supervisores activos que tienen código cargado.
-        /// Si da 0, nadie puede autorizar y conviene avisarlo claramente.
-        /// </summary>
+        // Cuenta los supervisores activos que tienen código cargado; si da 0, nadie puede autorizar.
         public int ContarSupervisoresConCodigo()
         {
             Conexion miConexion = new Conexion();
@@ -118,9 +108,7 @@ namespace DesktopAppSupermercado.Datos.Admin
             }
         }
 
-        /// <summary>
-        /// Devuelve el código de un usuario, o null si no tiene.
-        /// </summary>
+        // Devuelve el código de un usuario, o null si no tiene.
         public int? ObtenerCodigoDeUsuario(int idUsuario)
         {
             Conexion miConexion = new Conexion();
@@ -143,6 +131,7 @@ namespace DesktopAppSupermercado.Datos.Admin
         // LISTADO
         // =============================================================
 
+        // Trae los usuarios con sus datos personales y su rol, aplicando solo los filtros que vengan cargados.
         public DataTable ObtenerUsuarios(string nombre, int idRol, object? fechaDesde, object? fechaHasta, int estadoEliminado)
         {
             DataTable dt = new DataTable();
@@ -183,6 +172,7 @@ namespace DesktopAppSupermercado.Datos.Admin
             return dt;
         }
 
+        // Chequeo genérico de duplicados, excluyendo el registro que se está editando.
         public bool ExisteDato(string columna, string tabla, string valor, string columnaExcluir, int idExcluir)
         {
             Conexion miConexion = new Conexion();
@@ -203,10 +193,7 @@ namespace DesktopAppSupermercado.Datos.Admin
         // ALTA
         // =============================================================
 
-        /// <summary>
-        /// Crea persona + usuario. El código de autorización llega ya
-        /// generado desde la capa de negocio (null si no es supervisor).
-        /// </summary>
+        // Inserta la persona y, con el id que devuelve SCOPE_IDENTITY(), inserta el usuario.
         public void GuardarNuevoUsuario(string nom, string ape, string dni, string dir, string tel, string sex, DateTime nac, string mail, int rol, string user, string hash, int? codigoAutorizacion)
         {
             Conexion miConexion = new Conexion();
@@ -249,11 +236,7 @@ namespace DesktopAppSupermercado.Datos.Admin
         // MODIFICACIÓN
         // =============================================================
 
-        /// <summary>
-        /// Modifica persona + usuario.
-        /// codigoAutorizacion: el nuevo código si pasa a supervisor,
-        /// null si deja de serlo. actualizaCodigo indica si hay que tocarlo.
-        /// </summary>
+        // Actualiza persona y usuario; la contraseña y el código solo se tocan si los booleanos lo indican.
         public void ModificarUsuario(int idPersona, int idUsuario, string nom, string ape, string dni, string dir, string tel, string sex, DateTime nac, string mail, int rol, string user, string hash, bool cambiaClave, int? codigoAutorizacion, bool actualizaCodigo)
         {
             Conexion miConexion = new Conexion();
@@ -295,6 +278,7 @@ namespace DesktopAppSupermercado.Datos.Admin
             }
         }
 
+        // Baja lógica: marca eliminado = 1 con la fecha, no borra la fila.
         public void BajaLogicaUsuario(int idUsuario)
         {
             Conexion miConexion = new Conexion();
