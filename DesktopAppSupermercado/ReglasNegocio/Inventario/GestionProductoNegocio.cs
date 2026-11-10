@@ -55,7 +55,7 @@ namespace DesktopAppSupermercado.ReglasNegocio.Inventario
             datos.EliminarProducto(idProducto);
         }
 
-        // Expone la consulta de códigos duplicados para que la vista pueda avisar mientras el usuario carga.
+        // Expone la consulta de códigos duplicados para que la vista pueda avisar mientras el usuario carga..
         public bool VerificarCodigoExistente(string codigoBarra, int idProductoActual)
         {
             return datos.ExisteCodigoBarra(codigoBarra, idProductoActual);
