@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Security;
 using System.Text;
 
-namespace DesktopAppSupermercado.ReglasNegocio
+namespace DesktopAppSupermercado.ReglasNegocio.Supervisor
 {
     public static class GraficoReporteSvg
     {

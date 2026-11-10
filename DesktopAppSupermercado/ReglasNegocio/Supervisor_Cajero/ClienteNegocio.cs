@@ -1,5 +1,4 @@
-﻿using DesktopAppSupermercado.Datos;
-using DesktopAppSupermercado.Entidades;
+﻿using DesktopAppSupermercado.Entidades;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
@@ -8,8 +7,9 @@ using System.Linq;
 using System.Net.Mail;
 using System.Text.RegularExpressions;
 using System.Globalization;
+using DesktopAppSupermercado.Datos.Supervisor_Cajero;
 
-namespace DesktopAppSupermercado.ReglasNegocio
+namespace DesktopAppSupermercado.ReglasNegocio.Supervisor_Cajero
 {
     public class ClienteNegocio
     {

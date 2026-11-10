@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Text;
 
-namespace DesktopAppSupermercado.Datos
+namespace DesktopAppSupermercado.Datos.Cajero
 {
     public class AutorizacionDatos
     {

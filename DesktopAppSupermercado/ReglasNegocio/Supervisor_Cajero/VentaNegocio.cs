@@ -1,10 +1,10 @@
-﻿using DesktopAppSupermercado.Datos;
+﻿using DesktopAppSupermercado.Datos.Supervisor_Cajero;
 using DesktopAppSupermercado.Entidades;
 using System;
 using System.ComponentModel;
 using System.Data;
 
-namespace DesktopAppSupermercado.ReglasNegocio
+namespace DesktopAppSupermercado.ReglasNegocio.Supervisor_Cajero
 {
     internal class VentaNegocio
     {

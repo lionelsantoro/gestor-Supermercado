@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Text.RegularExpressions;
 
-namespace DesktopAppSupermercado.Datos
+namespace DesktopAppSupermercado.Datos.Supervisor_Cajero
 {
     public class ClienteDatos
     {

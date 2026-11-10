@@ -4,7 +4,7 @@ using System;
 using System.ComponentModel;
 using System.Data;
 
-namespace DesktopAppSupermercado.Datos
+namespace DesktopAppSupermercado.Datos.Supervisor_Cajero
 {
     internal class VentaDatos
     {

@@ -1,5 +1,4 @@
 ﻿using DesktopAppSupermercado.DASHBOARDS;
-using DesktopAppSupermercado.ReglasNegocio;
 using DesktopAppSupermercado.Entidades;
 using System;
 using System.Collections.Generic;
@@ -10,6 +9,8 @@ using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
 using DesktopAppSupermercado.VISTASCAJERO;
+using DesktopAppSupermercado.ReglasNegocio.Supervisor_Cajero;
+using DesktopAppSupermercado.ReglasNegocio.Cajero;
 
 namespace DesktopAppSupermercado
 {

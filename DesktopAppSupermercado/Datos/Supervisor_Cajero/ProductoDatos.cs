@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 
-namespace DesktopAppSupermercado.Datos
+namespace DesktopAppSupermercado.Datos.Supervisor_Cajero
 {
     public class ProductoDatos
     {

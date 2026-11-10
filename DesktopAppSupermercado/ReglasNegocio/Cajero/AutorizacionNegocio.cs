@@ -1,10 +1,10 @@
-﻿using DesktopAppSupermercado.Datos;
+﻿using DesktopAppSupermercado.Datos.Cajero;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace DesktopAppSupermercado.ReglasNegocio
+namespace DesktopAppSupermercado.ReglasNegocio.Cajero
 {
     public class AutorizacionNegocio
     {

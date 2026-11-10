@@ -1,4 +1,4 @@
-﻿using DesktopAppSupermercado.Datos;
+﻿using DesktopAppSupermercado.Datos.Supervisor;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
@@ -9,7 +9,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 
-namespace DesktopAppSupermercado.ReglasNegocio
+namespace DesktopAppSupermercado.ReglasNegocio.Supervisor
 {
     public class ReporteNegocio
     {

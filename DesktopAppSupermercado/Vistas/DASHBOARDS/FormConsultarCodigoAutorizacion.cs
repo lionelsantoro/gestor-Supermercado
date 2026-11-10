@@ -1,5 +1,5 @@
 ﻿using DesktopAppSupermercado.Entidades;
-using DesktopAppSupermercado.ReglasNegocio;
+using DesktopAppSupermercado.ReglasNegocio.Supervisor;
 using System;
 using System.Collections.Generic;
 using System.Text;

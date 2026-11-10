@@ -1,11 +1,11 @@
-﻿using DesktopAppSupermercado.Datos;
+﻿using DesktopAppSupermercado.Datos.Supervisor;
 using DesktopAppSupermercado.Entidades;
 using DesktopAppSupermercado.ReglasNegocio.InicioSesion;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DesktopAppSupermercado.ReglasNegocio
+namespace DesktopAppSupermercado.ReglasNegocio.Supervisor
 {
     public class CodigoAutorizacionNegocio
     {

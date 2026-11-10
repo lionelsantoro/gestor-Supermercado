@@ -1,5 +1,5 @@
-﻿using DesktopAppSupermercado.ReglasNegocio;
-using DesktopAppSupermercado.ReglasNegocio.Inventario;
+﻿using DesktopAppSupermercado.ReglasNegocio.Inventario;
+using DesktopAppSupermercado.ReglasNegocio.Supervisor_Cajero;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
