@@ -21,6 +21,7 @@ namespace DesktopAppSupermercado.ReglasNegocio.Admin
         // DATOS GENERALES
         // =============================================================
 
+        // Pide el nombre de la base y avisa si la cadena de conexión no lo trae.
         public string ObtenerNombreBaseDatos()
         {
             string nombre = datos.ObtenerNombreBaseDatos();
@@ -32,6 +33,7 @@ namespace DesktopAppSupermercado.ReglasNegocio.Admin
             return nombre;
         }
 
+        // Indica si un backup con ese estado se puede restaurar.
         public bool EstaDisponible(string estado)
         {
             return estado == DISPONIBLE;
@@ -41,6 +43,7 @@ namespace DesktopAppSupermercado.ReglasNegocio.Admin
         // HISTORIAL + FILTRO DE FECHAS
         // =============================================================
 
+        // Valida el rango de fechas, pide el historial y le agrega la columna disponible: Sí, No encontrado o Reemplazado.
         public DataTable ListarHistorial(string baseDatos, DateTime? desde, DateTime? hasta)
         {
             if (string.IsNullOrWhiteSpace(baseDatos))
@@ -81,11 +84,14 @@ namespace DesktopAppSupermercado.ReglasNegocio.Admin
         // BACKUP
         // =============================================================
 
+
+        // Arma el nombre de archivo sugerido, con fecha y hora para no pisar el backup anterior.
         public string SugerirNombreArchivo(string baseDatos)
         {
             return baseDatos + "_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".bak";
         }
 
+        // Devuelve la carpeta de backups si existe, y si no, Mis Documentos.
         public string ObtenerCarpetaInicial()
         {
             if (Directory.Exists(CARPETA_BACKUPS))
@@ -94,6 +100,7 @@ namespace DesktopAppSupermercado.ReglasNegocio.Admin
             return Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
         }
 
+        // Valida base, ruta, extensión .bak y carpeta de destino antes de mandar a crear el backup.
         public void CrearBackup(string baseDatos, string rutaDestino)
         {
             if (string.IsNullOrWhiteSpace(baseDatos))
@@ -116,10 +123,7 @@ namespace DesktopAppSupermercado.ReglasNegocio.Admin
         // RESTORE
         // =============================================================
 
-        /// <summary>
-        /// Restaura la base. Requiere que un supervisor haya autorizado:
-        /// la vista valida el código y pasa el resultado acá.
-        /// </summary>
+        // Puerta del restore: exige autorización del supervisor, y que el archivo exista, no esté sobrescrito ni dañado.
         public void Restaurar(string baseDatos, string ruta, int posicion, string estado, bool autorizadoPorSupervisor)
         {
             if (!autorizadoPorSupervisor)
