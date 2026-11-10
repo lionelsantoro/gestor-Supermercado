@@ -7,12 +7,14 @@ namespace DesktopAppSupermercado.ReglasNegocio.Inventario
     public class GestionProductoNegocio
     {
         private GestionProductoDatos datos = new GestionProductoDatos();
-        
+
+        // Devuelve los productos activos con su categoría, para la grilla y los filtros.
         public DataTable ListarProductos()
         {
             return datos.ListarProductos();
         }
 
+        // Valida en cadena todos los campos, convierte precio y stock de texto a número y recién ahí inserta o modifica.
         public void GuardarProducto(int idProducto, int idCategoria, string descripcion, string precioTexto, string stockTexto, string unidadMedida, string codigoBarra)
         {
             // 1. Validaciones de campos obligatorios
@@ -47,11 +49,13 @@ namespace DesktopAppSupermercado.ReglasNegocio.Inventario
                 datos.ModificarProducto(idProducto, idCategoria, descripcion.Trim(), precio, stock, unidadMedida, codigoLimpio!);
         }
 
+        // Da de baja lógica el producto, sin validaciones previas.
         public void EliminarProducto(int idProducto)
         {
             datos.EliminarProducto(idProducto);
         }
 
+        // Expone la consulta de códigos duplicados para que la vista pueda avisar mientras el usuario carga.
         public bool VerificarCodigoExistente(string codigoBarra, int idProductoActual)
         {
             return datos.ExisteCodigoBarra(codigoBarra, idProductoActual);
