@@ -8,6 +8,7 @@ namespace DesktopAppSupermercado.Datos.Inventario
     {
         private Conexion miConexion = new Conexion();
 
+        // Trae solo las categorías activas, para la grilla y para los dos combos.
         public DataTable ListarCategorias()
         {
             DataTable tabla = new DataTable();
@@ -21,6 +22,7 @@ namespace DesktopAppSupermercado.Datos.Inventario
             return tabla;
         }
 
+        // Inserta una categoría nueva; el id lo genera la base.
         public void InsertarCategoria(string nombre)
         {
             using (SqlConnection conexion = miConexion.ObtenerConexion())
@@ -35,6 +37,8 @@ namespace DesktopAppSupermercado.Datos.Inventario
             }
         }
 
+
+        // Cambia el nombre de una categoría y registra la fecha de actualización.
         public void ModificarCategoria(int idCategoria, string nombre)
         {
             using (SqlConnection conexion = miConexion.ObtenerConexion())
@@ -50,6 +54,7 @@ namespace DesktopAppSupermercado.Datos.Inventario
             }
         }
 
+        // Indica si la categoría tiene productos activos; es lo que protege la integridad antes de modificar o eliminar.
         public bool TieneProductosActivos(int idCategoria)
         {
             using (SqlConnection conexion = miConexion.ObtenerConexion())
@@ -64,6 +69,7 @@ namespace DesktopAppSupermercado.Datos.Inventario
             }
         }
 
+        // Baja lógica: marca eliminado = 1 con la fecha, no borra la fila.
         public void EliminarCategoriaLogico(int idCategoria)
         {
             using (SqlConnection conexion = miConexion.ObtenerConexion())
