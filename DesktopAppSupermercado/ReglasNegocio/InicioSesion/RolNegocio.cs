@@ -1,9 +1,9 @@
-﻿using DesktopAppSupermercado.Datos;
+﻿using DesktopAppSupermercado.Datos.InicioSesion;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DesktopAppSupermercado.ReglasNegocio
+namespace DesktopAppSupermercado.ReglasNegocio.InicioSesion
 {
     public class RolNegocio
     {

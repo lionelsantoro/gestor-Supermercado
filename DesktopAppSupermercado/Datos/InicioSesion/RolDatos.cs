@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DesktopAppSupermercado.Datos
+namespace DesktopAppSupermercado.Datos.InicioSesion
 {
     public class RolDatos
     {

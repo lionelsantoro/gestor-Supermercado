@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Text;
 
-namespace DesktopAppSupermercado.Datos
+namespace DesktopAppSupermercado.Datos.InicioSesion
 {
     public class UsuarioDatos
     {

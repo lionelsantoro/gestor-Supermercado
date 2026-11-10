@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using DesktopAppSupermercado.Datos;
 using System.Security.Cryptography;
+using DesktopAppSupermercado.Datos.InicioSesion;
 
-namespace DesktopAppSupermercado.ReglasNegocio
+namespace DesktopAppSupermercado.ReglasNegocio.InicioSesion
 {
     public class LoginNegocio
     {

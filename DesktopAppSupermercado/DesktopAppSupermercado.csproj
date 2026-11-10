@@ -39,10 +39,8 @@
 
   <ItemGroup>
     <Folder Include="Datos\Cajero\" />
-    <Folder Include="Datos\InicioSesion\" />
     <Folder Include="Datos\Supervisor\" />
     <Folder Include="ReglasNegocio\Cajero\" />
-    <Folder Include="ReglasNegocio\InicioSesion\" />
     <Folder Include="ReglasNegocio\Supervisor\" />
   </ItemGroup>
 

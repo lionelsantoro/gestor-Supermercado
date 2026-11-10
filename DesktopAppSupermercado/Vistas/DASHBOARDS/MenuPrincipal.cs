@@ -1,6 +1,6 @@
 ﻿using DesktopAppSupermercado.DASHBOARDS;
 using DesktopAppSupermercado.Entidades;
-using DesktopAppSupermercado.ReglasNegocio;
+using DesktopAppSupermercado.ReglasNegocio.InicioSesion;
 using DesktopAppSupermercado.VISTASINVENTARIO;
 using System;
 using System.Windows.Forms;

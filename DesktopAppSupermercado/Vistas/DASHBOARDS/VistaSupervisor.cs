@@ -1,5 +1,6 @@
 ﻿using DesktopAppSupermercado.Entidades;
 using DesktopAppSupermercado.ReglasNegocio;
+using DesktopAppSupermercado.ReglasNegocio.InicioSesion;
 using DesktopAppSupermercado.Vistas.DASHBOARDS;
 using System;
 using System.Collections.Generic;

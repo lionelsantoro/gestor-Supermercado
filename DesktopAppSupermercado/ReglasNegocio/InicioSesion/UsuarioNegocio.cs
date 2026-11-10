@@ -1,11 +1,11 @@
-﻿using DesktopAppSupermercado.Datos;
+﻿using DesktopAppSupermercado.Datos.InicioSesion;
 using DesktopAppSupermercado.Entidades;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Text;
 
-namespace DesktopAppSupermercado.ReglasNegocio
+namespace DesktopAppSupermercado.ReglasNegocio.InicioSesion
 {
     public class UsuarioNegocio
     {
