@@ -13,6 +13,7 @@ namespace DesktopAppSupermercado.ReglasNegocio.Inventario
             return datos.ListarCategorias();
         }
 
+        // Crea o modifica la categoría según el id; exige nombre y no deja renombrar una categoría con productos.
         public void GuardarCategoria(int idCategoria, string nombre)
         {
             if (string.IsNullOrWhiteSpace(nombre))
@@ -35,6 +36,7 @@ namespace DesktopAppSupermercado.ReglasNegocio.Inventario
             }
         }
 
+        // Da de baja lógica la categoría, pero solo si no tiene ningún producto activo usándola.
         public void EliminarCategoria(int idCategoria)
         {
             if (datos.TieneProductosActivos(idCategoria))
