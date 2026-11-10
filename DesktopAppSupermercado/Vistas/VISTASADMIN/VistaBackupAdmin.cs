@@ -14,6 +14,7 @@ namespace DesktopAppSupermercado.VISTASADMIN
         private BackupNegocio negocio = new BackupNegocio();
         private UsuarioAdminNegocio usuarioNegocio = new UsuarioAdminNegocio();
 
+        // Arma los controles del diseñador; los datos se cargan en el Load.
         public VistaBackupAdmin()
         {
             InitializeComponent();
@@ -31,6 +32,10 @@ namespace DesktopAppSupermercado.VISTASADMIN
         // CARGA INICIAL
         // =============================================================
 
+
+
+
+        // Configura la grilla y los filtros, trae el nombre de la base y carga el historial.
         private void VistaBackupAdmin_Load(object sender, EventArgs e)
         {
             // Solo las 6 columnas del diseñador; no generar las ocultas
@@ -71,6 +76,8 @@ namespace DesktopAppSupermercado.VISTASADMIN
         // CARGAR EL DATAGRID
         // =============================================================
 
+   
+        // Pide el historial al negocio y lo muestra en la grilla, o avisa el error en el label.
         private void CargarHistorial()
         {
             lblEstado.ForeColor = Color.Black;
@@ -118,12 +125,14 @@ namespace DesktopAppSupermercado.VISTASADMIN
         // SELECCIÓN Y ESTADO DEL BOTÓN RESTAURAR
         // =============================================================
 
+        // Devuelve la fila seleccionada, para poder leer también las columnas que no se muestran.
         private DataRowView FilaSeleccionada()
         {
             if (dgvBackups.CurrentRow == null) return null;
             return dgvBackups.CurrentRow.DataBoundItem as DataRowView;
         }
 
+        // Habilita Restaurar solo si el backup seleccionado está disponible.
         private void ActualizarBotonRestore()
         {
             DataRowView fila = FilaSeleccionada();
@@ -131,6 +140,7 @@ namespace DesktopAppSupermercado.VISTASADMIN
                                  negocio.EstaDisponible(fila["disponible"].ToString());
         }
 
+        // Al cambiar de fila, recalcula el estado del botón Restaurar.
         private void dgvBackups_SelectionChanged(object sender, EventArgs e)
         {
             ActualizarBotonRestore();
@@ -149,6 +159,7 @@ namespace DesktopAppSupermercado.VISTASADMIN
             }
         }
 
+        // Apaga o enciende los tres botones mientras corre una operación.
         private void BloquearBotones(bool bloquear)
         {
             btnBackup.Enabled = !bloquear;
@@ -160,6 +171,7 @@ namespace DesktopAppSupermercado.VISTASADMIN
         // FILTRO DE FECHAS
         // =============================================================
 
+        // Activa o desactiva el filtro de fechas y recarga el historial.
         private void chkFiltrarFechas_CheckedChanged(object sender, EventArgs e)
         {
             dtpDesde.Enabled = chkFiltrarFechas.Checked;
@@ -167,16 +179,20 @@ namespace DesktopAppSupermercado.VISTASADMIN
             CargarHistorial();
         }
 
+        // Recarga el historial al cambiar la fecha Desde, si el filtro está activo.
         private void dtpDesde_ValueChanged(object sender, EventArgs e)
         {
             if (chkFiltrarFechas.Checked) CargarHistorial();
         }
 
+
+        // Recarga el historial al cambiar la fecha Hasta, si el filtro está activo.
         private void dtpHasta_ValueChanged(object sender, EventArgs e)
         {
             if (chkFiltrarFechas.Checked) CargarHistorial();
         }
 
+        // Recarga el historial a pedido del usuario.
         private void btnActualizar_Click(object sender, EventArgs e)
         {
             CargarHistorial();
@@ -186,6 +202,7 @@ namespace DesktopAppSupermercado.VISTASADMIN
         // BOTÓN BACK UP (abre el explorador de archivos)
         // =============================================================
 
+        // Abre para guardar y manda crear el backup en la ruta elegida.
         private void btnBackup_Click(object sender, EventArgs e)
         {
             sfdBackup.InitialDirectory = negocio.ObtenerCarpetaInicial();
@@ -220,19 +237,14 @@ namespace DesktopAppSupermercado.VISTASADMIN
         }
 
         // =============================================================
-        // DIÁLOGO DE AUTORIZACIÓN DEL SUPERVISOR
+        // AUTORIZACIÓN DEL SUPERVISOR
         // Se arma por código, sin formulario en el diseñador.
-        // Usa AutoSize para que no se corte con el escalado al 200%.
         // =============================================================
 
-        /// <summary>
-        /// Pide el código de 4 dígitos y lo valida contra la base.
-        /// Devuelve true solo si un supervisor activo autorizó.
-        /// </summary>
+        // Pide el código de 4 dígitos y devuelve true solo si un supervisor activo autorizó.
         private bool PedirAutorizacionSupervisor()
         {
-            // Si no hay nadie que pueda autorizar, conviene decirlo claro
-            // en vez de dejar al administrador probando códigos.
+            
             try
             {
                 if (!usuarioNegocio.HaySupervisoresConCodigo())
@@ -376,6 +388,8 @@ namespace DesktopAppSupermercado.VISTASADMIN
         // BOTÓN RESTAURAR
         // =============================================================
 
+
+        // Restaura el backup elegido, previa advertencia de pérdida de datos y autorización del supervisor.
         private void btnRestore_Click(object sender, EventArgs e)
         {
             DataRowView fila = FilaSeleccionada();
