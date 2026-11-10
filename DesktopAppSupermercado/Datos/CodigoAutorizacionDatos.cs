@@ -51,10 +51,14 @@ namespace DesktopAppSupermercado.Datos
 
                     object resultado = comando.ExecuteScalar();
 
-                    if (resultado != null &&
-                        resultado != DBNull.Value)
+                    if (resultado != null && resultado != DBNull.Value)
                     {
-                        codigo = Convert.ToString(resultado);
+                        codigo = Convert.ToString(resultado).Trim();
+
+                        if (int.TryParse(codigo, out int codigoNumerico))
+                        {
+                            codigo = codigoNumerico.ToString("D4");
+                        }
                     }
                 }
             }

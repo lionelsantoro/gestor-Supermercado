@@ -75,6 +75,13 @@ namespace DesktopAppSupermercado.ReglasNegocio
                 .OrderByDescending(r => r.TotalRecaudado)
                 .ToList();
 
+            // Gráfico: los 8 cajeros con mayor recaudación.
+            string graficoCajeros = GraficoReporteSvg.CrearBarrasHorizontales(
+                resumenPorCajero
+                    .Take(8)
+                    .Select(r => (r.Cajero, r.TotalRecaudado))
+            );
+
             // Creación del documento PDF
             Document.Create(container =>
             {
@@ -126,6 +133,21 @@ namespace DesktopAppSupermercado.ReglasNegocio
                                 c.Item().Text("MONTO TOTAL RECAUDADO").FontSize(9).FontColor(Colors.Grey.Darken2).SemiBold();
                                 c.Item().PaddingTop(4).Text($"$ {montoTotalGeneral:N2}").FontSize(16).Bold().FontColor(Colors.Green.Darken3);
                             });
+                        });
+
+                        // Gráfico de recaudación por cajero.
+                        col.Item().Column(grafico =>
+                        {
+                            grafico.Item()
+                                .PaddingBottom(5)
+                                .Text("Monto recaudado por cajero")
+                                .FontSize(13)
+                                .Bold()
+                                .FontColor(Colors.Blue.Darken3);
+
+                            grafico.Item()
+                                .Svg(graficoCajeros)
+                                .FitWidth();
                         });
 
                         // 2. Tabla de Rendimiento por Cajero
@@ -306,6 +328,22 @@ namespace DesktopAppSupermercado.ReglasNegocio
 
             decimal gananciaTotalGeneral = listaCategorias.Sum(c => c.Ganancia);
 
+            // Gráfico de montos vendidos por categoría.
+            string graficoCategorias = GraficoReporteSvg.CrearBarrasHorizontales(
+                listaCategorias
+                    .Take(8)
+                    .Select(c => (c.Categoria, c.Ganancia)),
+                "#2F75B5"
+            );
+
+            // Gráfico de los 10 productos que más ventas generaron.
+            string graficoProductos = GraficoReporteSvg.CrearBarrasHorizontales(
+                productosVendidos
+                    .Take(10)
+                    .Select(p => (p.Nombre, p.Ganancia)),
+                "#2E8B57"
+            );
+
             // Creación del documento PDF
             Document.Create(container =>
             {
@@ -358,6 +396,39 @@ namespace DesktopAppSupermercado.ReglasNegocio
                                 c.Item().PaddingTop(4).Text($"$ {gananciaTotalGeneral:N2}").FontSize(15).Bold().FontColor(Colors.Green.Darken3);
                             });
                         });
+
+                        // Gráfico de categorías.
+                        col.Item().Column(grafico =>
+                        {
+                            grafico.Item()
+                                .PaddingBottom(5)
+                                .Text("1. Monto vendido por categoría")
+                                .FontSize(13)
+                                .Bold()
+                                .FontColor(Colors.Blue.Darken3);
+
+                            grafico.Item()
+                                .Svg(graficoCategorias)
+                                .FitWidth();
+                        });
+
+                        // Gráfico de productos.
+                        if (productosVendidos.Count > 0)
+                        {
+                            col.Item().Column(grafico =>
+                            {
+                                grafico.Item()
+                                    .PaddingBottom(5)
+                                    .Text("2. Productos con mayor monto vendido")
+                                    .FontSize(13)
+                                    .Bold()
+                                    .FontColor(Colors.Green.Darken3);
+
+                                grafico.Item()
+                                    .Svg(graficoProductos)
+                                    .FitWidth();
+                            });
+                        }
 
                         // 1. Tabla de Categorías ordenadas de mayor a menor ganancia
                         col.Item().Column(c =>
@@ -526,6 +597,32 @@ namespace DesktopAppSupermercado.ReglasNegocio
                 .OrderBy(c => c.NombreCliente)
                 .ToList();
 
+            // Gráfico: clientes que más dinero gastaron.
+            string graficoTopClientes = GraficoReporteSvg.CrearBarrasHorizontales(
+                clientesConVentas
+                    .Take(10)
+                    .Select(c => (c.NombreCliente, c.MontoRecaudado)),
+                "#2F75B5"
+            );
+
+            // Gráfico: clientes con compras y sin compras.
+            string graficoActividadClientes = GraficoReporteSvg.CrearGraficoDona(
+                new List<(string Etiqueta, decimal Valor, string Color)>
+                {
+        (
+            "Clientes con compras",
+            clientesConVentas.Count,
+            "#2E8B57"
+        ),
+        (
+            "Clientes sin compras",
+            clientesSinVentas.Count,
+            "#D9534F"
+        )
+                },
+                "Clientes"
+            );
+
             // Creación del documento PDF
             Document.Create(container =>
             {
@@ -577,6 +674,39 @@ namespace DesktopAppSupermercado.ReglasNegocio
                                 c.Item().Text("NUEVOS CLIENTES REGISTRADOS EN EL PERÍODO").FontSize(8.5f).FontColor(Colors.Grey.Darken2).SemiBold();
                                 c.Item().PaddingTop(4).Text(clientesNuevosEnRango.ToString()).FontSize(16).Bold().FontColor(Colors.Green.Darken3);
                             });
+                        });
+
+                        // Gráfico de los principales clientes.
+                        if (clientesConVentas.Count > 0)
+                        {
+                            col.Item().Column(grafico =>
+                            {
+                                grafico.Item()
+                                    .PaddingBottom(5)
+                                    .Text("1. Clientes con mayor monto de compras")
+                                    .FontSize(12)
+                                    .Bold()
+                                    .FontColor(Colors.Blue.Darken3);
+
+                                grafico.Item()
+                                    .Svg(graficoTopClientes)
+                                    .FitWidth();
+                            });
+                        }
+
+                        // Gráfico de actividad de clientes.
+                        col.Item().Column(grafico =>
+                        {
+                            grafico.Item()
+                                .PaddingBottom(5)
+                                .Text("2. Actividad de los clientes")
+                                .FontSize(12)
+                                .Bold()
+                                .FontColor(Colors.Blue.Darken3);
+
+                            grafico.Item()
+                                .Svg(graficoActividadClientes)
+                                .FitWidth();
                         });
 
                         // 2. Tabla de Clientes con Ventas (Ordenados de Mayor a Menor Monto Recaudado)
