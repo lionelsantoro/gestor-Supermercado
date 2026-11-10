@@ -11,11 +11,7 @@ namespace DesktopAppSupermercado.Datos.Admin
         // CONEXIÓN
         // =============================================================
 
-        /// <summary>
-        /// Toma la cadena de conexión de la clase Conexion existente
-        /// y la redirige a master. Backup y restore se ejecutan desde
-        /// master porque no se puede restaurar una base estando conectado a ella.
-        /// </summary>
+        // Devuelve la cadena de conexión apuntando a master, porque no se puede restaurar una base estando conectado a ella.
         private string CadenaMaster()
         {
             string original = new Conexion().ObtenerConexion().ConnectionString;
@@ -24,18 +20,13 @@ namespace DesktopAppSupermercado.Datos.Admin
             return builder.ConnectionString;
         }
 
-        /// <summary>
-        /// Pone el nombre de la base entre corchetes de forma segura.
-        /// BACKUP y RESTORE no aceptan parámetros para el nombre de la base.
-        /// </summary>
+        // Encierra el nombre de la base entre corchetes de forma segura, ya que BACKUP y RESTORE no aceptan parámetros.
         private string Corchetes(string nombre)
         {
             return "[" + nombre.Replace("]", "]]") + "]";
         }
 
-        /// <summary>
-        /// Devuelve el nombre de la base configurada en Conexion.cs.
-        /// </summary>
+        // Devuelve el nombre de la base configurado en la cadena de conexión.
         public string ObtenerNombreBaseDatos()
         {
             string original = new Conexion().ObtenerConexion().ConnectionString;
@@ -47,10 +38,7 @@ namespace DesktopAppSupermercado.Datos.Admin
         // HISTORIAL DE BACKUPS (se lee de msdb)
         // =============================================================
 
-        /// <summary>
-        /// Trae los backups completos registrados en msdb.
-        /// Pasar desde/hasta en null para traer todo el historial.
-        /// </summary>
+        // Trae de msdb los backups completos de la base, con fecha, tamaño, ruta, posición y si fue sobrescrito.
         public DataTable ListarHistorial(string baseDatos, DateTime? desde, DateTime? hasta)
         {
             string sql = @"
@@ -102,6 +90,7 @@ namespace DesktopAppSupermercado.Datos.Admin
         // CREAR BACKUP
         // =============================================================
 
+        // Ejecuta el BACKUP DATABASE sobre el archivo .bak elegido, reescribiéndolo y sin límite de tiempo.
         public void CrearBackup(string baseDatos, string rutaDestino)
         {
             string sql = "BACKUP DATABASE " + Corchetes(baseDatos) +
@@ -124,6 +113,7 @@ namespace DesktopAppSupermercado.Datos.Admin
         // VERIFICAR QUE EL ARCHIVO .BAK NO ESTÉ DAÑADO
         // =============================================================
 
+        // Comprueba con RESTORE VERIFYONLY que el .bak no esté dañado, sin tocar la base.
         public bool VerificarBackup(string ruta, int posicion)
         {
             try
@@ -151,11 +141,7 @@ namespace DesktopAppSupermercado.Datos.Admin
         // RESTAURAR
         // =============================================================
 
-        /// <summary>
-        /// Restaura la base al estado del backup indicado.
-        /// Cierra todas las conexiones, pone la base en SINGLE_USER,
-        /// restaura y devuelve a MULTI_USER pase lo que pase.
-        /// </summary>
+    // Restaura la base: echa a los usuarios conectados con SINGLE_USER, ejecuta el RESTORE y siempre la devuelve a MULTI_USER.
         public void Restaurar(string baseDatos, string ruta, int posicion)
         {
             string db = Corchetes(baseDatos);
