@@ -20,6 +20,7 @@ namespace DesktopAppSupermercado.VISTASINVENTARIO
             InitializeComponent();
         }
 
+        // Configura las grillas, carga combos y datos, limpia los formularios y engancha los eventos de filtro.
         private void VistaGestionInventario_Load(object sender, EventArgs e)
         {
             txtCodigoBarras.MaxLength = 6;
@@ -40,6 +41,7 @@ namespace DesktopAppSupermercado.VISTASINVENTARIO
             cmbFiltroCategoria.SelectedIndexChanged += FiltrarProductos;
         }
 
+        // Llena los tres combos: categorías del producto, categorías del filtro (con "Todas") y unidad de medida.
         private void CargarCombos()
         {
             DataTable dtCategorias = categoriaNegocio.ListarCategorias();
@@ -68,6 +70,7 @@ namespace DesktopAppSupermercado.VISTASINVENTARIO
             cmbUnidadMedida.Items.Add("Kg");
         }
 
+        // Recarga las dos grillas y guarda los productos en memoria, que es sobre lo que trabajan los filtros.
         private void ActualizarGrillas()
         {
             dataCategoria.DataSource = categoriaNegocio.ListarCategorias();
@@ -80,6 +83,8 @@ namespace DesktopAppSupermercado.VISTASINVENTARIO
         // ==========================================
         // SECCIÓN CRUD: CATEGORÍAS
         // ==========================================
+
+        // Crea o modifica la categoría según el id guardado, y si el negocio rechaza la operación muestra el motivo.
         private void btnGuardarCategoria_Click(object sender, EventArgs e)
         {
             try
@@ -94,6 +99,7 @@ namespace DesktopAppSupermercado.VISTASINVENTARIO
             catch (Exception ex) { MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
         }
 
+        // Elimina la categoría seleccionada previa confirmación; el negocio la rechaza si tiene productos activos.
         private void btnEliminarCategoria_Click(object sender, EventArgs e)
         {
             if (_idCategoriaActual == 0)
@@ -116,6 +122,7 @@ namespace DesktopAppSupermercado.VISTASINVENTARIO
             }
         }
 
+        // Al hacer clic en una fila, pasa la pantalla a modo edición: guarda el id y carga el nombre.
         private void dataCategoria_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -130,6 +137,7 @@ namespace DesktopAppSupermercado.VISTASINVENTARIO
             }
         }
 
+        // Vuelve la sección de categorías a modo creación: id en 0, campo vacío y botón de alta.
         private void LimpiarFormularioCategoria()
         {
             _idCategoriaActual = 0;
@@ -137,6 +145,7 @@ namespace DesktopAppSupermercado.VISTASINVENTARIO
             btnGuardarCategoria.Text = "+ Nueva Categoría";
         }
 
+        // Si el usuario borra todo el texto, sale solo del modo edición sin necesidad de un botón de cancelar.
         private void txtNombreCategoria_TextChanged(object sender, EventArgs e)
         {
             // Si el usuario borra todo el texto, el sistema se reinicia para crear una categoría nueva
@@ -151,6 +160,8 @@ namespace DesktopAppSupermercado.VISTASINVENTARIO
         // ==========================================
         // SECCIÓN CRUD: PRODUCTOS
         // ==========================================
+
+        // Junta lo escrito en el formulario y se lo manda al negocio, que valida y decide si inserta o modifica.
         private void btnGuardarProductosInventario_Click(object sender, EventArgs e)
         {
             try
@@ -172,6 +183,7 @@ namespace DesktopAppSupermercado.VISTASINVENTARIO
             catch (Exception ex) { MessageBox.Show(ex.Message, "Error de validación", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
         }
 
+        // Elimina el producto seleccionado previa confirmación.
         private void btnEliminarProductoInventario_Click(object sender, EventArgs e)
         {
             if (_idProductoActual == 0)
@@ -189,11 +201,13 @@ namespace DesktopAppSupermercado.VISTASINVENTARIO
             }
         }
 
+        // Descarta la edición en curso y deja el formulario listo para cargar un producto nuevo.
         private void btnCancelarProductosInventario_Click(object sender, EventArgs e)
         {
             LimpiarFormularioProducto();
         }
 
+        // Carga el producto en el formulario y bloquea el panel de categorías mientras dure la edición.
         private void dgvProductos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -229,6 +243,7 @@ namespace DesktopAppSupermercado.VISTASINVENTARIO
             }
         }
 
+        // Vacía el formulario, vuelve el id a 0 y desbloquea todo lo que el modo edición había bloqueado.
         private void LimpiarFormularioProducto()
         {
             _idProductoActual = 0;
@@ -256,6 +271,8 @@ namespace DesktopAppSupermercado.VISTASINVENTARIO
         // ==========================================
         // FILTROS EN TIEMPO REAL
         // ==========================================
+
+        // Arma la expresión de filtro con las condiciones que apliquen y la aplica en memoria, sin consultar la base.
         private void FiltrarProductos(object sender, EventArgs e)
         {
             if (dtProductosGlobal == null) return;
@@ -293,6 +310,7 @@ namespace DesktopAppSupermercado.VISTASINVENTARIO
             dtProductosGlobal.DefaultView.RowFilter = filtro;
         }
 
+        // Vacía las tres cajas y vuelve el combo a "Todas", lo que dispara el filtro y muestra todo de nuevo.
         private void btnLimpiarFiltros_Click(object sender, EventArgs e)
         {
             txtBuscarProducto.Clear();
@@ -304,6 +322,8 @@ namespace DesktopAppSupermercado.VISTASINVENTARIO
         // ==========================================
         // VALIDACIONES DE ENTRADA (KEYPRESS / LEAVE)
         // ==========================================
+
+        // Deja escribir solo dígitos en la caja.
         private void SoloNumeros_KeyPress(object sender, KeyPressEventArgs e)
         {
             // Solo permite números y la tecla de borrar (Backspace)
@@ -312,7 +332,7 @@ namespace DesktopAppSupermercado.VISTASINVENTARIO
                 e.Handled = true; // Ignora la tecla presionada si es letra
             }
         }
-
+        // Deja escribir dígitos y una sola coma decimal por campo.
         private void NumerosDecimales_KeyPress(object sender, KeyPressEventArgs e)
         {
             // Permite números, borrar y la coma
@@ -329,6 +349,7 @@ namespace DesktopAppSupermercado.VISTASINVENTARIO
             }
         }
 
+        // Al salir de la caja con los 6 dígitos cargados, avisa en el acto si el código ya está usado.
         private void txtCodigoBarras_Leave(object sender, EventArgs e)
         {
             // Verificamos "al instante" cuando el usuario termina de escribir y pasa a la siguiente caja
