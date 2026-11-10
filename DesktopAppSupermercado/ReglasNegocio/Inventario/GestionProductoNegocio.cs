@@ -7,7 +7,7 @@ namespace DesktopAppSupermercado.ReglasNegocio.Inventario
     public class GestionProductoNegocio
     {
         private GestionProductoDatos datos = new GestionProductoDatos();
-
+        
         public DataTable ListarProductos()
         {
             return datos.ListarProductos();
