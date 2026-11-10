@@ -11,6 +11,8 @@ namespace DesktopAppSupermercado.Datos.Inventario
         // =============================================================
         // LISTAR
         // =============================================================
+
+        // Trae los productos activos unidos con su categoría, incluyendo el nombre que muestra la grilla y el id que usa el combo.
         public DataTable ListarProductos()
         {
             DataTable tabla = new DataTable();
@@ -30,6 +32,8 @@ namespace DesktopAppSupermercado.Datos.Inventario
         // =============================================================
         // INSERTAR
         // =============================================================
+
+        // Inserta un producto nuevo; el código de barras entra como NULL si viene vacío.
         public void InsertarProducto(int idCategoria, string descripcion, decimal precio, decimal stock, string unidadMedida, string codigoBarra)
         {
             using (SqlConnection conexion = miConexion.ObtenerConexion())
@@ -55,6 +59,8 @@ namespace DesktopAppSupermercado.Datos.Inventario
         // =============================================================
         // MODIFICAR
         // =============================================================
+
+        // Actualiza todos los campos del producto y registra la fecha de actualización.
         public void ModificarProducto(int idProducto, int idCategoria, string descripcion, decimal precio, decimal stock, string unidadMedida, string codigoBarra)
         {
             using (SqlConnection conexion = miConexion.ObtenerConexion())
@@ -81,6 +87,8 @@ namespace DesktopAppSupermercado.Datos.Inventario
         // =============================================================
         // ELIMINAR (baja lógica)
         // =============================================================
+
+        // Baja lógica: marca eliminado = 1 con la fecha, no borra la fila.
         public void EliminarProducto(int idProducto)
         {
             using (SqlConnection conexion = miConexion.ObtenerConexion())
@@ -98,6 +106,8 @@ namespace DesktopAppSupermercado.Datos.Inventario
         // =============================================================
         // VALIDAR CÓDIGO DE BARRAS DUPLICADO
         // =============================================================
+
+        // Indica si otro producto activo ya usa ese código, excluyendo el que se está editando.
         public bool ExisteCodigoBarra(string codigoBarra, int idProductoActual)
         {
             if (string.IsNullOrWhiteSpace(codigoBarra)) return false;
