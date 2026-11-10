@@ -1,4 +1,5 @@
 ﻿using DesktopAppSupermercado.ReglasNegocio;
+using DesktopAppSupermercado.ReglasNegocio.Inventario;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

@@ -4,7 +4,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Drawing;
-using DesktopAppSupermercado.ReglasNegocio;
+using DesktopAppSupermercado.ReglasNegocio.Admin;
 
 namespace DesktopAppSupermercado.VISTASADMIN
 {

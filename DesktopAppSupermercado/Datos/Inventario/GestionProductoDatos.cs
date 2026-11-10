@@ -2,7 +2,7 @@
 using System;
 using System.Data;
 
-namespace DesktopAppSupermercado.Datos
+namespace DesktopAppSupermercado.Datos.Inventario
 {
     public class GestionProductoDatos
     {

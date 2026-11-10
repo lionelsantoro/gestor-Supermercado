@@ -38,13 +38,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Datos\Admin\" />
-    <Folder Include="Datos\Inventario\" />
     <Folder Include="Datos\Cajero\" />
+    <Folder Include="Datos\InicioSesion\" />
     <Folder Include="Datos\Supervisor\" />
-    <Folder Include="ReglasNegocio\Admin\" />
-    <Folder Include="ReglasNegocio\Inventario\" />
     <Folder Include="ReglasNegocio\Cajero\" />
+    <Folder Include="ReglasNegocio\InicioSesion\" />
     <Folder Include="ReglasNegocio\Supervisor\" />
   </ItemGroup>
 

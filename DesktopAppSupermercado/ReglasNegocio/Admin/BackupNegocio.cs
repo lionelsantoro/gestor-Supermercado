@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Data;
 using System.IO;
-using DesktopAppSupermercado.Datos;
+using DesktopAppSupermercado.Datos.Admin;
 
-namespace DesktopAppSupermercado.ReglasNegocio
+namespace DesktopAppSupermercado.ReglasNegocio.Admin
 {
     internal class BackupNegocio
     {

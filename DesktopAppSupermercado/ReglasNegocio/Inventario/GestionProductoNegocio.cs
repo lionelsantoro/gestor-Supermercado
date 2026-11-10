@@ -1,8 +1,8 @@
-﻿using DesktopAppSupermercado.Datos;
+﻿using DesktopAppSupermercado.Datos.Inventario;
 using System;
 using System.Data;
 
-namespace DesktopAppSupermercado.ReglasNegocio
+namespace DesktopAppSupermercado.ReglasNegocio.Inventario
 {
     public class GestionProductoNegocio
     {
