@@ -18,16 +18,19 @@ namespace DesktopAppSupermercado
             InitializeComponent();
         }
 
+        // Cierra el formulario de pago sin confirmar la operación.
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
+        // Manejador del segundo botón; actualmente no realiza ninguna acción.
         private void button2_Click(object sender, EventArgs e)
         {
 
         }
 
+        // Comprueba que se haya seleccionado un medio de pago y devuelve su identificador a VistaCajero.
         private void btnConfirmar_Click(object sender, EventArgs e)
         {
             if (cmbMedioPago.SelectedIndex == -1)
@@ -41,6 +44,7 @@ namespace DesktopAppSupermercado
             this.Close();
         }
 
+        // Carga los medios de pago disponibles y configura los campos de visualización y valor del ComboBox.
         private void FormPagar_Load(object sender, EventArgs e)
         {
             MedioPagoNegocio negocio = new MedioPagoNegocio();

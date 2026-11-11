@@ -8,14 +8,15 @@ namespace DesktopAppSupermercado.ReglasNegocio.Supervisor
 {
     public static class GraficoReporteSvg
     {
-        private static readonly CultureInfo Cultura =
-            CultureInfo.GetCultureInfo("es-AR");
+        private static readonly CultureInfo Cultura = CultureInfo.GetCultureInfo("es-AR");
 
+        // Filtra los clientes por nombre y apellido.
         private static string Escapar(string texto)
         {
             return SecurityElement.Escape(texto ?? "") ?? "";
         }
 
+        // Convierte un número al formato decimal invariable requerido por SVG.
         private static string NumeroSvg(double valor)
         {
             return valor.ToString(
@@ -23,13 +24,8 @@ namespace DesktopAppSupermercado.ReglasNegocio.Supervisor
                 CultureInfo.InvariantCulture);
         }
 
-        // =====================================================
-        // GRÁFICO DE BARRAS HORIZONTALES
-        // =====================================================
-
-        public static string CrearBarrasHorizontales(
-            IEnumerable<(string Etiqueta, decimal Valor)> datos,
-            string colorBarras = "#2F75B5")
+        // Genera un gráfico SVG de barras horizontales a partir de etiquetas y valores
+        public static string CrearBarrasHorizontales(IEnumerable<(string Etiqueta, decimal Valor)> datos,string colorBarras = "#2F75B5")
         {
             var lista = datos == null
                 ? new List<(string Etiqueta, decimal Valor)>()
@@ -139,13 +135,8 @@ namespace DesktopAppSupermercado.ReglasNegocio.Supervisor
             return svg.ToString();
         }
 
-        // =====================================================
-        // GRÁFICO DE DONA
-        // =====================================================
-
-        public static string CrearGraficoDona(
-            IEnumerable<(string Etiqueta, decimal Valor, string Color)> datos,
-            string textoCentro)
+        // Genera un gráfico SVG de torta con segmentos, cantidades, porcentajes y leyenda.
+        public static string CrearGraficoDona(IEnumerable<(string Etiqueta, decimal Valor, string Color)> datos,string textoCentro)
         {
             var lista = datos == null
                 ? new List<(string Etiqueta, decimal Valor, string Color)>()

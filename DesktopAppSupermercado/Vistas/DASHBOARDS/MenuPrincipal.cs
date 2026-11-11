@@ -17,13 +17,6 @@ namespace DesktopAppSupermercado
             InitializeComponent();
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e) { }
-        private void label2_Click(object sender, EventArgs e) { }
-        private void label1_Click(object sender, EventArgs e) { }
-        private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e) { }
-        private void MenuPrincipal_Load(object sender, EventArgs e) { }
-        private void txtUsuario_TextChanged(object sender, EventArgs e) { }
-
         // ============================================================
         // BOTÓN LIMPIAR
         // ============================================================
@@ -133,5 +126,14 @@ namespace DesktopAppSupermercado
                 vistaAAbrir.Show();
             }
         }
+
+        //Metodos vacios
+        private void textBox1_TextChanged(object sender, EventArgs e) { }
+        private void label2_Click(object sender, EventArgs e) { }
+        private void label1_Click(object sender, EventArgs e) { }
+        private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e) { }
+        private void MenuPrincipal_Load(object sender, EventArgs e) { }
+        private void txtUsuario_TextChanged(object sender, EventArgs e) { }
+
     }
 }

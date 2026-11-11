@@ -11,6 +11,7 @@ namespace DesktopAppSupermercado.ReglasNegocio.Cajero
 {
     internal static class TicketPdfGenerador
     {
+        // Genera el ticket de la venta en formato PDF con los datos del cliente, los productos, las cantidades y el total.
         public static string GenerarPdf(VentaEnMemoria venta)
         {
             if (venta == null)

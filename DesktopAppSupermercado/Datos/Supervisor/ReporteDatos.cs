@@ -8,6 +8,8 @@ namespace DesktopAppSupermercado.Datos.Supervisor
 {
     public class ReporteDatos
     {
+
+        // Consulta las ventas del período junto con el ticket, la fecha, el cajero y el importe.
         public DataTable ObtenerVentasPorRango(DateTime fechaDesde, DateTime fechaHasta)
         {
             DataTable tabla = new DataTable();
@@ -52,7 +54,8 @@ namespace DesktopAppSupermercado.Datos.Supervisor
             return tabla;
         }
 
-        // 1. Obtener el detalle de ventas para dgvVentas
+
+        // Consulta los campos resumidos de cada venta que se muestran en la grilla de ventas.
         public DataTable ObtenerVentasParaGrilla(DateTime fechaDesde, DateTime fechaHasta)
         {
             DataTable tabla = new DataTable();
@@ -86,7 +89,7 @@ namespace DesktopAppSupermercado.Datos.Supervisor
             return tabla;
         }
 
-        // 2. Obtener el resumen por cajero para dgvCajero
+        // Agrupa las ventas por nombre de cajero y calcula la cantidad de operaciones y el total recaudado.
         public DataTable ObtenerResumenCajerosParaGrilla(DateTime fechaDesde, DateTime fechaHasta)
         {
             DataTable tabla = new DataTable();
@@ -123,7 +126,7 @@ namespace DesktopAppSupermercado.Datos.Supervisor
             return tabla;
         }
 
-        // 3. Obtener ganancia por categoría para dgvCategoria y para el PDF
+        // Calcula el importe de ventas asociado a cada categoría durante el período.
         public DataTable ObtenerCategoriasPorRango(DateTime fechaDesde, DateTime fechaHasta)
         {
             DataTable tabla = new DataTable();
@@ -164,7 +167,7 @@ namespace DesktopAppSupermercado.Datos.Supervisor
             return tabla;
         }
 
-        // 4. Obtener productos con formato listo para mostrar en dgvProductos
+        // Consulta los productos activos con cantidades vendidas, stock actual e importes para la grilla.
         public DataTable ObtenerProductosParaGrilla(DateTime fechaDesde, DateTime fechaHasta)
         {
             DataTable tabla = new DataTable();
@@ -213,7 +216,7 @@ namespace DesktopAppSupermercado.Datos.Supervisor
             return tabla;
         }
 
-        // 5. Obtener todos los datos crudos de productos para armar las 2 tablas del PDF (Vendidos y No Vendidos)
+        // Obtiene los datos completos de productos, categorías, cantidades y stock para construir el PDF.
         public DataTable ObtenerProductosDetalladoPorRango(DateTime fechaDesde, DateTime fechaHasta)
         {
             DataTable tabla = new DataTable();
@@ -264,7 +267,7 @@ namespace DesktopAppSupermercado.Datos.Supervisor
             return tabla;
         }
 
-        // 6. Obtener clientes y sus ventas (incluyendo los que no tienen ventas) para dgvCliente
+        // Consulta todos los clientes activos y resume sus compras dentro del período, incluso si no compraron.
         public DataTable ObtenerClientesParaGrilla(DateTime fechaDesde, DateTime fechaHasta)
         {
             DataTable tabla = new DataTable();
@@ -312,7 +315,7 @@ namespace DesktopAppSupermercado.Datos.Supervisor
             return tabla;
         }
 
-        // 7. Obtener clientes con su fecha de alta (c.creado_en) para las métricas y tablas del PDF
+        // Obtiene los datos detallados de clientes, fecha de alta y compras para construir el PDF.
         public DataTable ObtenerClientesDetalladoPorRango(DateTime fechaDesde, DateTime fechaHasta)
         {
             DataTable tabla = new DataTable();

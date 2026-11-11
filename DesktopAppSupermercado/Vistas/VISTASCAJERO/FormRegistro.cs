@@ -24,6 +24,7 @@ namespace DesktopAppSupermercado
 
         }
 
+        // Configura la grilla, establece los límites de los campos y carga los clientes registrados.
         private void FormRegistro_Load(object sender, EventArgs e)
         {
             dgvRegistroCliente.AutoGenerateColumns = true;
@@ -51,6 +52,7 @@ namespace DesktopAppSupermercado
             CargarClientes();
         }
 
+        // Consulta los clientes según el texto de búsqueda y actualiza las columnas y la selección de la grilla.
         private void CargarClientes()
         {
             cargandoClientes = true;
@@ -114,10 +116,9 @@ namespace DesktopAppSupermercado
                 cargandoClientes = false;
             }
         }
-
-        private void dgvRegistroCliente_SelectionChanged(
-    object sender,
-    EventArgs e)
+        
+        // Carga en los controles los datos del cliente seleccionado y conserva su identificador para modificarlo o eliminarlo.
+        private void dgvRegistroCliente_SelectionChanged(object sender, EventArgs e)
         {
             // Ignorar los cambios de selección provocados por la carga de datos.
             if (cargandoClientes)
@@ -183,9 +184,8 @@ namespace DesktopAppSupermercado
                 sexo.Equals("Mujer", StringComparison.OrdinalIgnoreCase);
         }
 
-        private string ObtenerTextoCelda(
-    DataGridViewRow fila,
-    string nombreColumna)
+        // Obtiene el texto de una celda y devuelve una cadena vacía cuando su valor es nulo.
+        private string ObtenerTextoCelda(DataGridViewRow fila, string nombreColumna)
         {
             object valor = fila.Cells[nombreColumna].Value;
 
@@ -195,9 +195,8 @@ namespace DesktopAppSupermercado
             return Convert.ToString(valor);
         }
 
-        private void btnRegistrarNuevoCliente_Click(
-    object sender,
-    EventArgs e)
+        // Valida y registra un cliente nuevo o actualiza el cliente seleccionado, informa el resultado y recarga la grilla.
+        private void btnRegistrarNuevoCliente_Click(object sender, EventArgs e)
         {
             string sexo = rbHombre.Checked
                 ? "Hombre"
@@ -254,12 +253,14 @@ namespace DesktopAppSupermercado
             }
         }
 
+        // Limpia los campos del formulario y devuelve el foco al campo de nombre.
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
             LimpiarCampos();
             txtNombreCliente.Focus();
         }
 
+        // Restablece los campos, los botones de sexo, la selección y opcionalmente el texto de búsqueda.
         private void LimpiarCampos(bool limpiarBusqueda = true)
         {
             // Descartar el cliente seleccionado.
@@ -282,13 +283,13 @@ namespace DesktopAppSupermercado
             dgvRegistroCliente.ClearSelection();
         }
 
-        private void txtBuscarCliente_TextChanged(
-            object sender,
-            EventArgs e)
+        // Actualiza la grilla cada vez que cambia el filtro de búsqueda de clientes.
+        private void txtBuscarCliente_TextChanged(object sender, EventArgs e)
         {
             CargarClientes();
         }
 
+        // Comprueba que un nombre o apellido contenga únicamente letras, espacios, apóstrofes o guiones.
         private bool ValidarNombreApellido(string texto)
         {
             if (string.IsNullOrWhiteSpace(texto))
@@ -307,23 +308,22 @@ namespace DesktopAppSupermercado
 
             return true;
         }
-
-        private void txtNombreCliente_KeyPress(
-            object sender,
-            KeyPressEventArgs e)
+        
+        // Deja pasar las teclas del campo nombre sin aplicar restricciones adicionales.
+        private void txtNombreCliente_KeyPress(object sender, KeyPressEventArgs e)
         {
             // Permitir escribir, borrar y desplazarse.
             e.Handled = false;
         }
 
-        private void txtApellidoCliente_KeyPress(
-            object sender,
-            KeyPressEventArgs e)
+        // Deja pasar las teclas del campo apellido sin aplicar restricciones adicionales.
+        private void txtApellidoCliente_KeyPress(object sender, KeyPressEventArgs e)
         {
             // Permitir escribir, borrar y desplazarse.
             e.Handled = false;
         }
 
+        // Confirma la baja lógica del cliente seleccionado y actualiza la grilla sin borrar el filtro de búsqueda.
         private void btnBorrar_Click(object sender, EventArgs e)
         {
             // Comprobar que exista un cliente seleccionado.
@@ -388,16 +388,16 @@ namespace DesktopAppSupermercado
             }
         }
 
+
+        //Metodos vacios
         private void label3_Click(object sender, EventArgs e)
         {
 
         }
-
         private void dgvRegistro_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
-
         private void rbMujer_CheckedChanged(object sender, EventArgs e)
         {
 

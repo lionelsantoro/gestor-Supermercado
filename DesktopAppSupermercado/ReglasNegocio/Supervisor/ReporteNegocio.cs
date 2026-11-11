@@ -15,6 +15,7 @@ namespace DesktopAppSupermercado.ReglasNegocio.Supervisor
     {
         private readonly ReporteDatos reporteDatos = new ReporteDatos();
 
+        // Valida el período solicitado y obtiene las ventas para el reporte detallado.
         public DataTable ObtenerVentasValidadas(DateTime fechaDesde, DateTime fechaHasta)
         {
             DateTime inicio = fechaDesde.Date; // 00:00:00
@@ -33,6 +34,7 @@ namespace DesktopAppSupermercado.ReglasNegocio.Supervisor
             return reporteDatos.ObtenerVentasPorRango(inicio, fin);
         }
 
+        // Construye el PDF de ventas con totales, resumen por cajero, gráfico y detalle por ticket.
         public void GenerarPdfReporteVentas(DateTime fechaDesde, DateTime fechaHasta, string rutaArchivo)
         {
             DataTable dtVentas = ObtenerVentasValidadas(fechaDesde, fechaHasta);
@@ -229,6 +231,7 @@ namespace DesktopAppSupermercado.ReglasNegocio.Supervisor
             }).GeneratePdf(rutaArchivo);
         }
 
+        // Valida las fechas y convierte el período en un intervalo inclusivo desde el inicio hasta el final del día.
         private (DateTime inicio, DateTime fin) ValidarYObtenerRango(DateTime fechaDesde, DateTime fechaHasta)
         {
             DateTime inicio = fechaDesde.Date; // 00:00:00
@@ -247,36 +250,42 @@ namespace DesktopAppSupermercado.ReglasNegocio.Supervisor
             return (inicio, fin);
         }
 
+        // Obtiene las ventas del período en el formato utilizado por la grilla.
         public DataTable ObtenerVentasFiltradas(DateTime fechaDesde, DateTime fechaHasta)
         {
             var rango = ValidarYObtenerRango(fechaDesde, fechaHasta);
             return reporteDatos.ObtenerVentasParaGrilla(rango.inicio, rango.fin);
         }
 
+        // Obtiene el resumen de cantidad de ventas y monto recaudado por cajero.
         public DataTable ObtenerResumenCajerosFiltrado(DateTime fechaDesde, DateTime fechaHasta)
         {
             var rango = ValidarYObtenerRango(fechaDesde, fechaHasta);
             return reporteDatos.ObtenerResumenCajerosParaGrilla(rango.inicio, rango.fin);
         }
 
+        // Obtiene el monto vendido por cada categoría durante el período.
         public DataTable ObtenerCategoriasFiltradas(DateTime fechaDesde, DateTime fechaHasta)
         {
             var rango = ValidarYObtenerRango(fechaDesde, fechaHasta);
             return reporteDatos.ObtenerCategoriasPorRango(rango.inicio, rango.fin);
         }
 
+        // Obtiene las cantidades vendidas, el stock actual y los importes por producto.
         public DataTable ObtenerProductosFiltrados(DateTime fechaDesde, DateTime fechaHasta)
         {
             var rango = ValidarYObtenerRango(fechaDesde, fechaHasta);
             return reporteDatos.ObtenerProductosParaGrilla(rango.inicio, rango.fin);
         }
-
+        
+        // Formatea una cantidad indicando kilogramos o unidades según la unidad de medida.
         private string FormatearCantidadSegunUnidad(decimal valor, string unidadMedida)
         {
             bool esKg = string.Equals(unidadMedida?.Trim(), "Kg", StringComparison.OrdinalIgnoreCase);
             return esKg ? $"{valor:0.###} Kg" : $"{valor:0} u.";
         }
 
+        // Genera el PDF de productos y categorías con gráficos, métricas y tablas de productos vendidos y no vendidos.
         public void GenerarPdfReporteProductosYCategorias(DateTime fechaDesde, DateTime fechaHasta, string rutaArchivo)
         {
             var rango = ValidarYObtenerRango(fechaDesde, fechaHasta);
@@ -549,12 +558,14 @@ namespace DesktopAppSupermercado.ReglasNegocio.Supervisor
             }).GeneratePdf(rutaArchivo);
         }
 
+        // Obtiene los clientes y sus métricas de ventas para la grilla.
         public DataTable ObtenerClientesFiltrados(DateTime fechaDesde, DateTime fechaHasta)
         {
             var rango = ValidarYObtenerRango(fechaDesde, fechaHasta);
             return reporteDatos.ObtenerClientesParaGrilla(rango.inicio, rango.fin);
         }
 
+        // Genera el PDF de clientes con altas, actividad de compra, gráficos y listados.
         public void GenerarPdfReporteClientes(DateTime fechaDesde, DateTime fechaHasta, string rutaArchivo)
         {
             var rango = ValidarYObtenerRango(fechaDesde, fechaHasta);
@@ -802,6 +813,7 @@ namespace DesktopAppSupermercado.ReglasNegocio.Supervisor
             }).GeneratePdf(rutaArchivo);
         }
 
+        // Normaliza un texto quitando acentos y conservando correctamente las letras ñ y Ñ.
         private static string NormalizarTextoBusqueda(string texto)
         {
             if (string.IsNullOrEmpty(texto))
@@ -835,10 +847,8 @@ namespace DesktopAppSupermercado.ReglasNegocio.Supervisor
                             .Replace("\uE001", "Ñ");
         }
 
-        private static DataTable FiltrarPorColumna(
-    DataTable tablaOriginal,
-    string nombreColumna,
-    string filtro)
+        // Filtra una tabla por una columna, ignorando mayúsculas y diferencias de acentuación.
+        private static DataTable FiltrarPorColumna(DataTable tablaOriginal,string nombreColumna,string filtro)
         {
             if (tablaOriginal == null)
                 return new DataTable();
@@ -878,9 +888,8 @@ namespace DesktopAppSupermercado.ReglasNegocio.Supervisor
             return resultado;
         }
 
-        public DataTable BuscarVentasPorNumeroTicket(
-    DataTable tabla,
-    string filtro)
+        // Filtra las ventas por número de ticket
+        public DataTable BuscarVentasPorNumeroTicket(DataTable tabla,string filtro)
         {
             return FiltrarPorColumna(
                 tabla,
@@ -888,9 +897,8 @@ namespace DesktopAppSupermercado.ReglasNegocio.Supervisor
                 filtro);
         }
 
-        public DataTable BuscarCajerosPorNombre(
-            DataTable tabla,
-            string filtro)
+        // Filtra el resumen de cajeros por nombre.
+        public DataTable BuscarCajerosPorNombre(DataTable tabla,string filtro)
         {
             return FiltrarPorColumna(
                 tabla,
@@ -898,9 +906,8 @@ namespace DesktopAppSupermercado.ReglasNegocio.Supervisor
                 filtro);
         }
 
-        public DataTable BuscarProductosPorNombre(
-            DataTable tabla,
-            string filtro)
+        // Filtra los productos por descripción.
+        public DataTable BuscarProductosPorNombre(DataTable tabla,string filtro)
         {
             return FiltrarPorColumna(
                 tabla,
@@ -908,9 +915,8 @@ namespace DesktopAppSupermercado.ReglasNegocio.Supervisor
                 filtro);
         }
 
-        public DataTable BuscarCategoriasPorNombre(
-            DataTable tabla,
-            string filtro)
+        // Filtra las categorías por nombre.
+        public DataTable BuscarCategoriasPorNombre(DataTable tabla,string filtro)
         {
             return FiltrarPorColumna(
                 tabla,
@@ -918,9 +924,8 @@ namespace DesktopAppSupermercado.ReglasNegocio.Supervisor
                 filtro);
         }
 
-        public DataTable BuscarClientesPorNombre(
-            DataTable tabla,
-            string filtro)
+        // Filtra los clientes por nombre y apellido.
+        public DataTable BuscarClientesPorNombre(DataTable tabla,string filtro)
         {
             return FiltrarPorColumna(
                 tabla,

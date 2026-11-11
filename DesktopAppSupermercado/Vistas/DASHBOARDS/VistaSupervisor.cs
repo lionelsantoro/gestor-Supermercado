@@ -21,46 +21,27 @@ namespace DesktopAppSupermercado.DASHBOARDS
         private DataTable tablaProductosOriginal;
         private DataTable tablaCategoriasOriginal;
         private DataTable tablaClientesOriginal;
+        private UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
+        private ReporteNegocio reporteNegocio = new ReporteNegocio();
 
         public VistaSupervisor()
         {
             InitializeComponent();
         }
 
-        private void btnReportesC_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnSalirC_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnSalirSUPERVISOR_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
+        // Recarga las grillas de reportes cuando cambia la fecha inicial.
         private void dtpFechaDesde_ValueChanged(object sender, EventArgs e)
         {
             CargarGrillasReportes();
         }
 
+        // Recarga las grillas de reportes cuando cambia la fecha final.
         private void dtpFechaHasta_ValueChanged(object sender, EventArgs e)
         {
             CargarGrillasReportes();
         }
 
+        // Genera y abre un PDF con el resumen de productos vendidos y categorías.
         private void btnReporteProducto_Click(object sender, EventArgs e)
         {
             try
@@ -106,7 +87,8 @@ namespace DesktopAppSupermercado.DASHBOARDS
                 MessageBox.Show($"Ocurrió un error al generar el reporte: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
+        
+        // Genera y abre un PDF con las métricas y el detalle de clientes.
         private void btnReporteCliente_Click(object sender, EventArgs e)
         {
             try
@@ -153,16 +135,7 @@ namespace DesktopAppSupermercado.DASHBOARDS
             }
         }
 
-        private void tabPage1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
-        {
-
-        }
-
+        // Limpia el texto de búsqueda al cambiar de pestaña y restablece sus filtros.
         private void tabControlSupervisor_SelectedIndexChanged(object sender, EventArgs e)
         {
             bool habiaTexto = txtBuscar.TextLength > 0;
@@ -178,18 +151,19 @@ namespace DesktopAppSupermercado.DASHBOARDS
             }
         }
 
+        // Aplica el filtro de búsqueda correspondiente a la pestaña seleccionada.
         private void txtBuscar_TextChanged(object sender, EventArgs e)
         {
             AplicarFiltroPestana();
         }
 
+        // Cierra la ventana del supervisor y vuelve a la pantalla anterior.
         private void btnSalir_Click_1(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
-
+        // Configura las grillas, establece el período inicial y carga los reportes al abrir la ventana.
         private void VistaSupervisor_Load(object sender, EventArgs e)
         {
             dgvProductos.AutoGenerateColumns = false;
@@ -238,7 +212,7 @@ namespace DesktopAppSupermercado.DASHBOARDS
 
         }
 
-        // Evento que actualiza ambas grillas cada vez que el usuario cambia dtpFechaDesde o dtpFechaHasta
+        // Limpia los resultados cuando la fecha inicial es posterior a la fecha final.
         private void dtpFechasReporte_ValueChanged(object sender, EventArgs e)
         {
             if (dtpFechaDesde.Value.Date > dtpFechaHasta.Value.Date)
@@ -262,8 +236,7 @@ namespace DesktopAppSupermercado.DASHBOARDS
 
         }
 
-        private ReporteNegocio reporteNegocio = new ReporteNegocio();
-
+        // Genera y abre un PDF con el detalle de ventas y el rendimiento de los cajeros.
         private void btnReporteVentas_Click(object sender, EventArgs e)
         {
             try
@@ -318,6 +291,7 @@ namespace DesktopAppSupermercado.DASHBOARDS
             }
         }
 
+        // Consulta los datos de los reportes, carga las cinco grillas y configura sus columnas.
         private void CargarGrillasReportes()
         {
             try
@@ -453,6 +427,7 @@ namespace DesktopAppSupermercado.DASHBOARDS
             }
         }
 
+        // Filtra las grillas de ventas, cajeros, productos, categorías o clientes según la pestaña activa.
         private void AplicarFiltroPestana()
         {
             string filtro = txtBuscar.Text.Trim();
@@ -503,6 +478,7 @@ namespace DesktopAppSupermercado.DASHBOARDS
             }
         }
 
+        // Verifica que la sesión tenga rol de supervisor y abre el formulario para consultar el código de autorización.
         private void btnConsultar_Click(object sender, EventArgs e)
         {
             if (Sesion.UsuarioActual == null ||
@@ -522,6 +498,17 @@ namespace DesktopAppSupermercado.DASHBOARDS
             {
                 formulario.ShowDialog(this);
             }
+        }
+
+
+        //Metodos vacios
+        private void tabPage1_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+
         }
 
     }

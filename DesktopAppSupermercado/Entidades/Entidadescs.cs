@@ -45,6 +45,7 @@ namespace DesktopAppSupermercado.Entidades
     {
         public static Usuario UsuarioActual { get; set; }
 
+        // Limpia el usuario autenticado almacenado en la sesión global
         public static void CerrarSesion()
         {
             UsuarioActual = null;

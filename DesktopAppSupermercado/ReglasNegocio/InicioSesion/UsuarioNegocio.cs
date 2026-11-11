@@ -15,8 +15,8 @@ namespace DesktopAppSupermercado.ReglasNegocio.InicioSesion
         {
             return datos.ObtenerUsuariosFiltrados(textoBuscado, nombreRol);
         }
-    
 
+        // Valida el nombre de usuario y obtiene sus datos para construir la sesión.
         public Usuario ObtenerUsuarioParaSesion(string nombreUsuario)
         {
             if (string.IsNullOrWhiteSpace(nombreUsuario))

@@ -8,6 +8,7 @@ namespace DesktopAppSupermercado.Datos.Supervisor_Cajero
 {
     internal class VentaDatos
     {
+        // Consulta el siguiente número de ticket estimado sin reservarlo ni incrementar el contador.
         public int ObtenerNumeroTicketEstimado()
         {
             Conexion miConexion = new Conexion();
@@ -36,12 +37,8 @@ namespace DesktopAppSupermercado.Datos.Supervisor_Cajero
             }
         }
 
-        public int RegistrarVentaCompleta(
-            int idUsuario,
-            int idCliente,
-            int idMedioPago,
-            decimal montoTotal,
-            BindingList<DetalleVentaVista> detalles)
+        // Registra la venta, sus detalles, el número definitivo de ticket y el descuento de stock en una transacción.
+        public int RegistrarVentaCompleta(int idUsuario,int idCliente,int idMedioPago,decimal montoTotal,BindingList<DetalleVentaVista> detalles)
         {
             if (detalles == null || detalles.Count == 0)
                 throw new Exception("No hay productos para registrar.");
@@ -96,7 +93,7 @@ namespace DesktopAppSupermercado.Datos.Supervisor_Cajero
 
                             cmdVenta.Parameters.Add(
                                 "@idCliente", SqlDbType.Int).Value = idCliente;
-                            
+
                             cmdVenta.Parameters.Add(
                                 "@idMedioPago", SqlDbType.Int).Value = idMedioPago;
 
@@ -139,7 +136,7 @@ namespace DesktopAppSupermercado.Datos.Supervisor_Cajero
                                 "Kg",
                                 StringComparison.OrdinalIgnoreCase)
                                 ? item.Cantidad / 1000m
-                                : item.Cantidad;        
+                                : item.Cantidad;
 
                             if (item.Cantidad <= 0)
                             {
@@ -232,10 +229,8 @@ namespace DesktopAppSupermercado.Datos.Supervisor_Cajero
             }
         }
 
-        public DataTable ObtenerHistorialVentas(
-            int idUsuario,
-            DateTime? fechaDesde,
-            DateTime? fechaHasta)
+        // Consulta el historial resumido de ventas de un cajero dentro de un rango de fechas.
+        public DataTable ObtenerHistorialVentas(int idUsuario,DateTime? fechaDesde,DateTime? fechaHasta)
         {
             DataTable tabla = new DataTable();
             Conexion miConexion = new Conexion();
@@ -287,6 +282,7 @@ namespace DesktopAppSupermercado.Datos.Supervisor_Cajero
             return tabla;
         }
 
+        // Obtiene los productos, cantidades y precios correspondientes a una venta determinada.
         public DataTable ObtenerDetallesVenta(int idVenta)
         {
             DataTable tabla = new DataTable();
@@ -327,10 +323,8 @@ namespace DesktopAppSupermercado.Datos.Supervisor_Cajero
             return tabla;
         }
 
-        public DataTable ObtenerVentasParaHistorial(
-            int idUsuario,
-            DateTime? fechaDesde,
-            DateTime? fechaHasta)
+        // Consulta las ventas de un cajero con sus identificadores para permitir seleccionar una y ver sus detalles.
+        public DataTable ObtenerVentasParaHistorial(int idUsuario,DateTime? fechaDesde,DateTime? fechaHasta)
         {
             DataTable tabla = new DataTable();
             Conexion miConexion = new Conexion();
@@ -381,7 +375,6 @@ namespace DesktopAppSupermercado.Datos.Supervisor_Cajero
 
             return tabla;
         }
-
 
     }
 }

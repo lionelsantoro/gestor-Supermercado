@@ -10,14 +10,14 @@ namespace DesktopAppSupermercado.ReglasNegocio.Supervisor_Cajero
     {
         private ProductoDatos datos = new ProductoDatos();
 
+        // Obtiene de la capa Datos las descripciones utilizadas por el autocompletado de productos.
         public List<string> ObtenerListaParaBuscador()
         {
             return datos.ObtenerDescripcionesAutocomplete();
         }
 
-        public Producto ValidarYObtenerProductoParaVenta(
-            string descripcionSeleccionada,
-            int cantidadSolicitada)
+        // Valida la cantidad solicitada, obtiene el producto y comprueba previamente que alcance el stock consultado.
+        public Producto ValidarYObtenerProductoParaVenta(string descripcionSeleccionada,int cantidadSolicitada)
         {
             if (cantidadSolicitada <= 0)
             {
@@ -60,13 +60,10 @@ namespace DesktopAppSupermercado.ReglasNegocio.Supervisor_Cajero
             return producto;
         }
 
-        public DataTable BuscarProductosParaSeleccion(
-    string filtro,
-    int? idCategoria = null)
+        // Normaliza el filtro y solicita los productos que coinciden con el texto y la categoría seleccionada.
+        public DataTable BuscarProductosParaSeleccion(string filtro,int? idCategoria = null)
         {
-            return datos.BuscarProductosParaSeleccion(
-                filtro?.Trim() ?? "",
-                idCategoria);
+            return datos.BuscarProductosParaSeleccion(filtro?.Trim() ?? "",idCategoria);
         }
     }
 }

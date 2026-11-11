@@ -37,29 +37,27 @@ namespace DesktopAppSupermercado.VISTASCAJERO
             Load += Historial_Load;
         }
 
+        // Configura las grillas de ventas y detalles como solo lectura y con selección de fila completa.
         private void ConfigurarGrillas()
         {
             dvgVenta.ReadOnly = true;
             dvgVenta.AllowUserToAddRows = false;
             dvgVenta.AllowUserToDeleteRows = false;
             dvgVenta.AutoGenerateColumns = true;
-            dvgVenta.AutoSizeColumnsMode =
-                DataGridViewAutoSizeColumnsMode.Fill;
-            dvgVenta.SelectionMode =
-                DataGridViewSelectionMode.FullRowSelect;
+            dvgVenta.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dvgVenta.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dvgVenta.MultiSelect = false;
 
             dvgDetalleVenta.ReadOnly = true;
             dvgDetalleVenta.AllowUserToAddRows = false;
             dvgDetalleVenta.AllowUserToDeleteRows = false;
             dvgDetalleVenta.AutoGenerateColumns = true;
-            dvgDetalleVenta.AutoSizeColumnsMode =
-                DataGridViewAutoSizeColumnsMode.Fill;
-            dvgDetalleVenta.SelectionMode =
-                DataGridViewSelectionMode.FullRowSelect;
+            dvgDetalleVenta.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dvgDetalleVenta.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dvgDetalleVenta.MultiSelect = false;
         }
 
+        // Comprueba que haya un cajero autenticado y carga su historial de ventas.
         private void Historial_Load(object sender, EventArgs e)
         {
             if (Sesion.UsuarioActual == null ||
@@ -78,11 +76,13 @@ namespace DesktopAppSupermercado.VISTASCAJERO
             CargarVentas();
         }
 
+        // Ejecuta nuevamente la consulta del historial utilizando el rango de fechas seleccionado.
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             CargarVentas();
         }
-
+        
+        // Valida la sesión y el rango de fechas, consulta las ventas del cajero y aplica el filtro de ticket.
         private void CargarVentas()
         {
             try
@@ -148,12 +148,13 @@ namespace DesktopAppSupermercado.VISTASCAJERO
             }
         }
 
-        private void txtBuscarVenta_TextChanged(
-            object sender, EventArgs e)
+        // Aplica el filtro de número de ticket mientras el usuario escribe.
+        private void txtBuscarVenta_TextChanged(object sender, EventArgs e)
         {
             AplicarFiltroTicket();
         }
 
+        // Filtra localmente las ventas cargadas por coincidencia parcial del número de ticket y actualiza la grilla.
         private void AplicarFiltroTicket()
         {
             if (tablaVentas == null ||
@@ -185,6 +186,7 @@ namespace DesktopAppSupermercado.VISTASCAJERO
             }
         }
 
+        // Oculta el identificador interno y configura los títulos y formatos de las columnas de ventas.
         private void ConfigurarColumnasVentas()
         {
             if (dvgVenta.Columns.Contains("id_venta"))
@@ -211,8 +213,8 @@ namespace DesktopAppSupermercado.VISTASCAJERO
             }
         }
 
-        private void dvgVenta_SelectionChanged(
-            object sender, EventArgs e)
+        // Consulta y muestra los detalles de la venta seleccionada en la segunda grilla.
+        private void dvgVenta_SelectionChanged(object sender, EventArgs e)
         {
             try
             {
@@ -247,15 +249,15 @@ namespace DesktopAppSupermercado.VISTASCAJERO
             }
         }
 
-
+        // Deja visibles solamente las columnas relevantes del detalle y configura sus títulos y formatos.
         private void ConfigurarColumnasDetalles()
         {
             string[] columnasVisibles =
             {
-        "descripcion",
-        "cantidad",
-        "precio_unitario",
-        "subtotal"
+              "descripcion",
+              "cantidad",
+              "precio_unitario",
+              "subtotal"
             };
 
             foreach (DataGridViewColumn columna in dvgDetalleVenta.Columns)
@@ -289,7 +291,7 @@ namespace DesktopAppSupermercado.VISTASCAJERO
             }
         }
 
-
+        // Cierra la ventana del historial de ventas.
         private void btnCerrar_Click(object sender, EventArgs e)
         {
             Close();

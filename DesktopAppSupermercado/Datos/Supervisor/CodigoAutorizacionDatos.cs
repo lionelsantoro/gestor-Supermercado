@@ -7,10 +7,8 @@ namespace DesktopAppSupermercado.Datos.Supervisor
 {
     public class CodigoAutorizacionDatos
     {
-        public string ObtenerCodigoAutorizacion(
-            int idUsuario,
-            string dni,
-            string contrasenaHash)
+        // Consulta en SQL Server el código de autorización del supervisor identificado por usuario, DNI y hash de contraseña.
+        public string ObtenerCodigoAutorizacion(int idUsuario,string dni,string contrasenaHash)
         {
             string codigo = null;
 

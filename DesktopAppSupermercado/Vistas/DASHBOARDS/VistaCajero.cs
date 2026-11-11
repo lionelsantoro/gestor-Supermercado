@@ -21,41 +21,13 @@ namespace DesktopAppSupermercado
         private bool ventaConfirmada = false;
         private AutoCompleteStringCollection coleccionProductos = new AutoCompleteStringCollection();
         private bool actualizandoComboClientes = false;
+        // Inicializa el formulario cajero y sus controles visuales.
         public VistaCajero()
         {
             InitializeComponent();
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnAgregarProducto_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnPagar_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        // Prepara la venta en memoria, configura las grillas y carga los clientes y productos para los buscadores.
         private void VistaCajero_Load(object sender, EventArgs e)
         {
 
@@ -71,7 +43,7 @@ namespace DesktopAppSupermercado
 
             // Configuración del ComboBox buscador de clientes
             cmbBuscarCliente.DropDownStyle = ComboBoxStyle.DropDown;
-            cmbBuscarCliente.AutoCompleteMode = AutoCompleteMode.None; // Lo manejamos manualmente para soportar DNI y Letras
+            cmbBuscarCliente.AutoCompleteMode = AutoCompleteMode.None;
             cmbBuscarCliente.MaxLength = 160;
             //cmbBuscarCliente.Enabled = true;
 
@@ -110,52 +82,8 @@ namespace DesktopAppSupermercado
             txtNombre.AutoCompleteSource = AutoCompleteSource.CustomSource;
             txtNombre.AutoCompleteCustomSource = coleccionProductos;
         }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        
+        // Abre el formulario de registro y administración de clientes.
         private void btnRegistro_Click(object sender, EventArgs e)
         {
             using (FormRegistro formulario = new FormRegistro())
@@ -164,6 +92,7 @@ namespace DesktopAppSupermercado
             }
         }
 
+        // Valida la venta activa, solicita el medio de pago, registra la venta y sus detalles, genera el ticket PDF y finaliza la operación en pantalla.
         private void btnPagar_Click_1(object sender, EventArgs e)
         {
             if (ventaActual == null ||
@@ -278,6 +207,7 @@ namespace DesktopAppSupermercado
             }
         }
 
+        // Limpia los controles y restablece el estado del formulario para comenzar otra venta sin modificar la base de datos.
         private void FinalizarVentaEnVista()
         {
             listaDetallesVenta.Clear();
@@ -298,6 +228,7 @@ namespace DesktopAppSupermercado
             cmbBuscarCliente.Focus();
         }
 
+        // Solicita autorización del supervisor y, si se concede, descarta la venta pendiente que todavía está en memoria.
         private void btnBorrarCompra_Click(object sender, EventArgs e)
         {
             // Comprobar que exista una venta pendiente.
@@ -330,6 +261,7 @@ namespace DesktopAppSupermercado
             }
         }
 
+        // Abre el selector de productos y coloca en el buscador la descripción del producto elegido.
         private void btnCargarProducto_Click(object sender, EventArgs e)
         {
             using (FormCodigoBarra selector = new FormCodigoBarra())
@@ -344,11 +276,13 @@ namespace DesktopAppSupermercado
             }
         }
 
+        // Cierra el formulario cajero.
         private void btnSalir_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
+        // Comprueba que se haya ingresado un producto válido antes de permitir continuar con la carga de cantidad.
         private void textCant_Enter(object sender, EventArgs e)
         {
             string productoIngresado = txtNombre.Text.Trim();
@@ -359,6 +293,7 @@ namespace DesktopAppSupermercado
             }
         }
 
+        // Descarta una venta pendiente previa cuando corresponde, valida al cliente y crea una nueva venta en memoria con su número de ticket estimado.
         private void btnNuevaVenta_Click(object sender, EventArgs e)
         {
             if (ventaActual != null && !ventaConfirmada)
@@ -470,6 +405,7 @@ namespace DesktopAppSupermercado
             }
         }
 
+        // Suma los subtotales de los detalles y actualiza el total de la venta y el importe mostrado en pantalla.
         private void ActualizarTotal()
         {
             decimal total = 0;
@@ -489,6 +425,8 @@ namespace DesktopAppSupermercado
 
             txtTotal.Text = "$ " + total.ToString("0.00");
         }
+
+        // Valida el producto y la cantidad, comprueba el stock acumulado y agrega el detalle a la venta en memoria.
         private void btnAgregarProducto_Click_1(object sender, EventArgs e)
         {
             if (ventaActual == null || ventaConfirmada)
@@ -595,10 +533,8 @@ namespace DesktopAppSupermercado
             }
         }
 
-        // Este evento "atrapa" el dato antes de que se guarde en la celda y lo valida
-        private void dataGridView1_CellValidating(
-            object sender,
-            DataGridViewCellValidatingEventArgs e)
+        // Valida la nueva cantidad editada en la grilla y evita que supere el stock disponible del producto.
+        private void dataGridView1_CellValidating(object sender,DataGridViewCellValidatingEventArgs e)
         {
             if (e.RowIndex < 0 ||
                 dataGridView1.Columns[e.ColumnIndex].Name != "Cantidad")
@@ -667,10 +603,8 @@ namespace DesktopAppSupermercado
             }
         }
 
-        // Este evento recalcula los totales una vez que la validación anterior fue exitosa
-        private void dataGridView1_CellValueChanged(
-            object sender,
-            DataGridViewCellEventArgs e)
+        // Recalcula el subtotal de la línea modificada y actualiza el total general de la venta.
+        private void dataGridView1_CellValueChanged(object sender,DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0 || e.ColumnIndex < 0 || dataGridView1.Columns[e.ColumnIndex].Name != "Cantidad")
                 return;
@@ -687,6 +621,7 @@ namespace DesktopAppSupermercado
             ActualizarTotal();
         }
 
+        // Indica si la unidad de medida del producto corresponde a kilogramos.
         private bool EsProductoPorKg(string unidadMedida)
         {
             return string.Equals(
@@ -695,23 +630,16 @@ namespace DesktopAppSupermercado
                 StringComparison.OrdinalIgnoreCase);
         }
 
-        // Convierte la cantidad ingresada a la unidad del stock.
-        // Kg: gramos / 1000.
-        // Unidad: cantidad de unidades.
-        private decimal ConvertirCantidadAStock(
-            int cantidad,
-            string unidadMedida)
+        // Convierte la cantidad ingresada a la unidad utilizada por el stock: gramos a kilogramos o unidades sin conversión.
+        private decimal ConvertirCantidadAStock(int cantidad, string unidadMedida)
         {
             return EsProductoPorKg(unidadMedida)
                 ? cantidad / 1000m
                 : cantidad;
         }
 
-        // Calcula el subtotal con el precio por kg o por unidad.
-        private decimal CalcularSubtotal(
-            int cantidad,
-            decimal precioUnitario,
-            string unidadMedida)
+        // Calcula y redondea el subtotal según la cantidad ingresada y si el producto se vende por kilogramo o por unidad.
+        private decimal CalcularSubtotal(int cantidad,decimal precioUnitario,string unidadMedida)
         {
             decimal cantidadParaCalcular =
                 ConvertirCantidadAStock(cantidad, unidadMedida);
@@ -722,11 +650,7 @@ namespace DesktopAppSupermercado
                 MidpointRounding.AwayFromZero);
         }
 
-        private void label3_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
+        // Verifica que exista una sesión de cajero válida y abre el formulario de historial de ventas.
         private void btnHistorial_Click(object sender, EventArgs e)
         {
 
@@ -748,6 +672,7 @@ namespace DesktopAppSupermercado
 
         }
 
+        // Consulta los clientes que coinciden con el filtro y actualiza el ComboBox, conservando opcionalmente el texto y la posición del cursor.
         private void CargarComboClientes(string filtroTexto, bool mantenerTexto = false)
         {
             actualizandoComboClientes = true;
@@ -786,7 +711,7 @@ namespace DesktopAppSupermercado
             }
         }
 
-        // 1. Si no se ingresan letras y se despliega el ComboBox, carga todos los clientes ordenados alfabéticamente
+        // Carga todos los clientes cuando se despliega el buscador sin texto ingresado.
         private void cmbBuscarCliente_DropDown(object sender, EventArgs e)
         {
             if (actualizandoComboClientes) return;
@@ -799,7 +724,7 @@ namespace DesktopAppSupermercado
             }
         }
 
-        // 2. A medida que se escriben letras, filtra por nombre y apellido en la tabla persona (solo clientes)
+        // Filtra los clientes mientras se escribe un nombre y permite ingresar el DNI sin desplegar resultados por letras.
         private void cmbBuscarCliente_TextUpdate(object sender, EventArgs e)
         {
             if (actualizandoComboClientes) return;
@@ -835,7 +760,7 @@ namespace DesktopAppSupermercado
             }
         }
 
-        // 3. Permitir solo letras/espacios (para nombres) o solo números (para DNI de hasta 8 dígitos)
+        // Restringe los caracteres del buscador para evitar mezclar letras y números y limita el DNI a ocho dígitos.
         private void cmbBuscarCliente_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (char.IsControl(e.KeyChar))
@@ -870,7 +795,7 @@ namespace DesktopAppSupermercado
             }
         }
 
-        // 4. Si termina de escribir un DNI y presiona Enter, valida el DNI y muestra el cliente encontrado
+        // Valida el cliente cuando se presiona Enter y reemplaza el texto ingresado por el nombre completo del cliente encontrado.
         private void cmbBuscarCliente_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -894,6 +819,39 @@ namespace DesktopAppSupermercado
             }
         }
 
-    }
+        //Metodos vacios
+        private void label3_Click_1(object sender, EventArgs e)
+        {
 
+        }
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void label1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+    }
 }
