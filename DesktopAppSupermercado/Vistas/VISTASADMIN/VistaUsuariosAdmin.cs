@@ -16,11 +16,13 @@ namespace DesktopAppSupermercado.VISTASADMIN
         private bool _editandoInactivo = false;
         private const string PASSWORD_MASK = "••••••••";
 
+        // Constructor: inicializa los controles del diseñador.
         public VistaUsuariosAdmin()
         {
             InitializeComponent();
         }
 
+        // Al abrir: configura formatos y topes de los controles, deja apagados los filtros de fecha, engancha las validaciones de salida y carga columnas, combos y grillas.
         private void VistaUsuariosAdmin_Load(object sender, EventArgs e)
         {
             txtContrasena.UseSystemPasswordChar = true;
@@ -77,6 +79,7 @@ namespace DesktopAppSupermercado.VISTASADMIN
             colFechaAltaInact.DataPropertyName = "fecha_alta";
         }
 
+        // Llena el combo de perfil con los roles y el de filtro con una copia que arranca en la opción "Todos" (id_rol = 0).
         private void CargarCombos()
         {
             DataTable dtRoles = negocio.ObtenerListaRoles();
@@ -98,6 +101,8 @@ namespace DesktopAppSupermercado.VISTASADMIN
             cmbFiltroRol.SelectedIndex = 0;
         }
 
+
+        // Lee los filtros de la pantalla y recarga las dos grillas: activos en una y dados de baja en la otra.
         private void ActualizarGrillas()
         {
             string nombre = txtBuscarNombre.Text.Trim();
@@ -149,11 +154,15 @@ namespace DesktopAppSupermercado.VISTASADMIN
             ActualizarGrillas();
         }
 
+
+        // Recarga al mover la fecha "Hasta".
         private void dtpFechaHasta_ValueChanged(object sender, EventArgs e)
         {
             ActualizarGrillas();
         }
 
+
+        // Valida el formulario, decide si hay que cambiar la contraseña y manda a negocio el alta o la modificación según _idUsuarioActual.
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             if (!ValidarFormularioVisual()) return;
@@ -183,6 +192,9 @@ namespace DesktopAppSupermercado.VISTASADMIN
                 MessageBox.Show("Error: " + ex.Message);
             }
         }
+
+
+        // Da de baja lógica al usuario que está cargado en el formulario.
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             if (_idUsuarioActual == 0)
@@ -197,6 +209,7 @@ namespace DesktopAppSupermercado.VISTASADMIN
             ActualizarGrillas();
         }
 
+        // Deja los cuatro filtros en su estado inicial y recarga las grillas.
         private void btnLimpiarFiltros_Click(object sender, EventArgs e)
         {
             txtBuscarNombre.Clear();
@@ -206,16 +219,21 @@ namespace DesktopAppSupermercado.VISTASADMIN
             ActualizarGrillas();
         }
 
+
+        // Al clickear una fila de activos, carga ese usuario en el formulario.
         private void dgvActivos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0) AutocompletarGrilla(dgvActivos, e.RowIndex, false);
         }
 
+        // Al clickear una fila de dados de baja, carga ese usuario en el formulario.
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0) AutocompletarGrilla(dataGridView1, e.RowIndex, true);
         }
 
+
+        // Pasa los datos de la fila seleccionada al formulario, guarda los dos ids, enmascara la contraseña y pone el botón en modo "Modificar".
         private void AutocompletarGrilla(DataGridView dgv, int fila, bool inactivo)
         {
             DataRowView? drv = dgv.Rows[fila].DataBoundItem as DataRowView;
@@ -243,6 +261,8 @@ namespace DesktopAppSupermercado.VISTASADMIN
             btnGuardar.Text = "Modificar";
         }
 
+
+        // Al salir del DNI, avisa si ya existe otra persona con ese número.
         private void txtDNI_Leave(object sender, EventArgs e)
         {
             if (Regex.IsMatch(txtDNI.Text, @"^\d{8}$") && negocio.ExisteDni(txtDNI.Text, _idPersonaActual))
@@ -273,6 +293,8 @@ namespace DesktopAppSupermercado.VISTASADMIN
             return true;
         }
 
+
+        // Vacía el formulario y lo devuelve al modo alta (_idUsuarioActual en 0 y el botón en "Guardar").
         private void LimpiarFormulario()
         {
             txtNombre.Clear(); txtApellido.Clear(); txtUsuario.Clear(); txtContrasena.Clear(); txtEmail.Clear();
