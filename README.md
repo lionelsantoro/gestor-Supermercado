@@ -4,8 +4,6 @@ Aplicación de escritorio desarrollada en C# y Windows Forms para administrar la
 
 El sistema utiliza acceso por roles para separar las pantallas y las operaciones disponibles para cada tipo de usuario. La solución está organizada en capas para separar la interfaz, las reglas de negocio y el acceso a SQL Server.
 
-> **Estado de la documentación:** este README describe las funcionalidades que se encuentran implementadas en el código de la rama `master` revisado. Las pantallas que todavía son estructuras vacías o incompletas se identifican expresamente para no presentarlas como funcionalidades terminadas.
-
 ---
 
 ## 1. Tecnologías utilizadas
@@ -61,8 +59,6 @@ El proceso de autenticación:
 6. Abre el menú correspondiente al rol.
 
 Al cerrar la vista abierta, la aplicación vuelve a mostrar la pantalla de inicio de sesión y limpia los campos.
-
-**Nota de seguridad:** el código actual utiliza SHA-256 sin una sal individual por contraseña. Es una implementación funcional para el proyecto, pero se recomienda migrar a un algoritmo específico para almacenamiento de contraseñas, como PBKDF2, bcrypt o Argon2, antes de utilizar el sistema en un entorno real.
 
 ### 3.2. Módulo de cajero
 
@@ -184,10 +180,6 @@ La vista `VistaBackupAdmin` permite:
 
 La restauración reemplaza el estado actual de la base de datos por el contenido de la copia seleccionada. Debe realizarse con precaución y solamente después de verificar que el archivo corresponde a la base correcta.
 
-#### Reportes del administrador
-
-El menú contiene una opción llamada Reportes y existe la vista `VistaReportesAdmin`, pero actualmente su evento de carga no contiene lógica de reportes. Por lo tanto, **no se considera una funcionalidad de reportes administrativos implementada**.
-
 ### 3.5. Módulo de supervisor
 
 La vista `VistaSupervisor` permite consultar información de ventas, productos, categorías y clientes dentro de un período seleccionado.
@@ -217,8 +209,6 @@ Las grillas se actualizan al cambiar las fechas y ofrecen búsqueda textual seg�
 - Incluye clientes sin ventas asociadas dentro del período.
 - Permite buscar clientes por nombre.
 - Genera un reporte PDF con métricas y detalle de clientes.
-
-**Aclaración sobre los importes:** en los reportes, los campos denominados `Ganancia Generada` suman los subtotales de las ventas. Representan importes vendidos o recaudados, no una ganancia neta contable, ya que el sistema no descuenta costos de adquisición ni otros gastos.
 
 #### Autorización y consulta del código
 
@@ -295,8 +285,6 @@ Los scripts se encuentran en `DesktopAppSupermercado/ConsultasSQL/`:
 | `Clientes.sql` | Ajusta y migra la estructura de clientes para relacionarla con `persona`. |
 | `Ventas.sql` | Incorpora `numero_ticket`, establece su unicidad y prepara `ControlNumeracionTicket`. |
 | `Restore.sql` | Crea el índice único filtrado de códigos de autorización y asigna códigos a supervisores activos que todavía no tengan uno. |
-
-> **Importante: revisar antes de instalar desde cero.** Estos scripts reflejan distintas etapas de evolución de la base de datos; no forman actualmente un instalador lineal y autónomo para una base vacía. Por ejemplo, `Estructuras_Tablas.sql` no crea la tabla `clientes`, mientras que `Clientes.sql` espera que esa tabla ya exista. Además, la estructura inicial de productos conserva definiciones antiguas que deben contrastarse con las columnas y tipos que utiliza el código actual. Antes de desplegar una instalación nueva, es necesario consolidar y probar un único script de estructura actualizado. No ejecutes scripts de migración sobre una base con información importante sin realizar previamente una copia de seguridad.
 
 ### Conexión a SQL Server
 
