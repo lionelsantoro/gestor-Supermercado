@@ -236,7 +236,7 @@ namespace DesktopAppSupermercado.Datos.Admin
         // MODIFICACIÓN
         // =============================================================
 
-        // Actualiza persona y usuario; la contraseña y el código solo se tocan si los booleanos lo indican.
+        // Actualiza persona y usuario; la contraseña solo se toca si los booleanos lo indican.
         public void ModificarUsuario(int idPersona, int idUsuario, string nom, string ape, string dni, string dir, string tel, string sex, DateTime nac, string mail, int rol, string user, string hash, bool cambiaClave, int? codigoAutorizacion, bool actualizaCodigo)
         {
             Conexion miConexion = new Conexion();
