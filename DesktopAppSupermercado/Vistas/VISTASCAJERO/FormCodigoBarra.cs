@@ -29,11 +29,13 @@ namespace DesktopAppSupermercado
             dgvProducto.KeyDown += dgvProducto_KeyDown;
         }
 
+        // Cierra el selector de productos sin devolver una selección.
         private void btnSalir_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
+        // Configura la grilla de productos y carga las categorías y los productos disponibles.
         private void FormCodigoBarra_Load(object sender, EventArgs e)
         {
             txtBuscarProducto.MaxLength = 100;
@@ -53,13 +55,13 @@ namespace DesktopAppSupermercado
             CargarProductos();
         }
 
-        private void txtBuscarProducto_TextChanged(
-            object sender,
-            EventArgs e)
+        // Vuelve a consultar los productos cada vez que cambia el texto de búsqueda.
+        private void txtBuscarProducto_TextChanged(object sender, EventArgs e)
         {
             CargarProductos();
         }
 
+        // Busca productos por descripción o código de barras, aplica el filtro de categoría y muestra los resultados en la grilla.
         private void CargarProductos()
         {
             try
@@ -112,6 +114,7 @@ namespace DesktopAppSupermercado
             }
         }
 
+        // Obtiene las categorías y agrega la opción Todas las categorías al ComboBox.
         private void CargarCategorias()
         {
             try
@@ -146,9 +149,8 @@ namespace DesktopAppSupermercado
             }
         }
 
-        private void dgvProducto_CellDoubleClick(
-            object sender,
-            DataGridViewCellEventArgs e)
+        // Selecciona el producto de la fila cuando el usuario hace doble clic sobre ella.
+        private void dgvProducto_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0)
                 return;
@@ -156,6 +158,7 @@ namespace DesktopAppSupermercado
             SeleccionarProducto(e.RowIndex);
         }
 
+        // Permite seleccionar el producto actual de la grilla presionando Enter.
         private void dgvProducto_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode != Keys.Enter)
@@ -171,6 +174,7 @@ namespace DesktopAppSupermercado
             }
         }
 
+        // Obtiene la descripción del producto elegido y devuelve la selección al formulario que abrió el selector.
         private void SeleccionarProducto(int indiceFila)
         {
             if (indiceFila < 0 ||
@@ -191,14 +195,14 @@ namespace DesktopAppSupermercado
             Close();
         }
 
-        private void cmbCategoria_SelectionChangeCommitted(
-    object sender,
-    EventArgs e)
+        // Actualiza la lista de productos cuando el usuario selecciona otra categoría.
+        private void cmbCategoria_SelectionChangeCommitted(object sender, EventArgs e)
         {
             if (!cargandoCategorias)
                 CargarProductos();
         }
 
+        //Metodo vacio
         private void label2_Click(object sender, EventArgs e)
         {
 

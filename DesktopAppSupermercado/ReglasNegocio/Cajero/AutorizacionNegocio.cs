@@ -8,9 +8,9 @@ namespace DesktopAppSupermercado.ReglasNegocio.Cajero
 {
     public class AutorizacionNegocio
     {
-        private readonly AutorizacionDatos datos =
-            new AutorizacionDatos();
+        private readonly AutorizacionDatos datos = new AutorizacionDatos();
 
+        // Comprueba que el código sea obligatorio, tenga cuatro dígitos y exista en la base de datos.
         public bool ValidarCodigoSupervisor(string codigo)
         {
             codigo = codigo?.Trim();

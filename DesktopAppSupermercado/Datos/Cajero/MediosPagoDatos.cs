@@ -8,6 +8,7 @@ namespace DesktopAppSupermercado.Datos.Cajero
 {
     internal class MediosPagoDatos
     {
+        `// Consulta los medios de pago disponibles y los convierte en una lista de objetos MedioPago.
         public List<MedioPago> ObtenerMediosDePago()
         {
             List<MedioPago> lista = new List<MedioPago>();

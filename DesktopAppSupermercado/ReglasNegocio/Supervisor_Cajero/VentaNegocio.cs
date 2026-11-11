@@ -10,17 +10,14 @@ namespace DesktopAppSupermercado.ReglasNegocio.Supervisor_Cajero
     {
         private VentaDatos datos = new VentaDatos();
 
+        // Delega la consulta del próximo número de ticket estimado en la capa Datos.
         public int ObtenerNumeroTicketEstimado()
         {
             return datos.ObtenerNumeroTicketEstimado();
         }
 
-        public int GuardarVentaConfirmada(
-            int idUsuario,
-            int idCliente,
-            int idMedioPago,
-            decimal montoTotal,
-            BindingList<DetalleVentaVista> detalles)
+        // Comprueba que exista un cliente válido y al menos un detalle antes de delegar el registro definitivo de la venta.
+        public int GuardarVentaConfirmada(int idUsuario,int idCliente,int idMedioPago,decimal montoTotal,BindingList<DetalleVentaVista> detalles)
         {
             if (idCliente <= 0)
                 throw new Exception("El cliente no es válido.");
@@ -36,10 +33,8 @@ namespace DesktopAppSupermercado.ReglasNegocio.Supervisor_Cajero
                 detalles);
         }
 
-        public DataTable ConsultarHistorialVentas(
-            int idUsuario,
-            DateTime? fechaDesde,
-            DateTime? fechaHasta)
+        // Valida el cajero y el rango de fechas antes de solicitar el historial resumido de ventas.
+        public DataTable ConsultarHistorialVentas(int idUsuario,DateTime? fechaDesde,DateTime? fechaHasta)
         {
             if (idUsuario <= 0)
                 throw new Exception("El usuario de la sesión no es válido.");
@@ -58,6 +53,7 @@ namespace DesktopAppSupermercado.ReglasNegocio.Supervisor_Cajero
                 fechaHasta);
         }
 
+        // Valida el identificador de venta y solicita los productos que componen esa operación.
         public DataTable ConsultarDetallesVenta(int idVenta)
         {
             if (idVenta <= 0)
@@ -68,11 +64,8 @@ namespace DesktopAppSupermercado.ReglasNegocio.Supervisor_Cajero
             return datos.ObtenerDetallesVenta(idVenta);
         }
 
-
-        public DataTable ConsultarVentasParaHistorial(
-            int idUsuario,
-            DateTime? fechaDesde,
-            DateTime? fechaHasta)
+        // Valida el cajero y las fechas antes de obtener las ventas que se muestran en el historial.
+        public DataTable ConsultarVentasParaHistorial(int idUsuario,DateTime? fechaDesde,DateTime? fechaHasta)
         {
             if (idUsuario <= 0)
                 throw new Exception("El usuario de la sesión no es válido.");

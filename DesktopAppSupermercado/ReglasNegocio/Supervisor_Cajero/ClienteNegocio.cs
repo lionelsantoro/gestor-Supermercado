@@ -15,11 +15,13 @@ namespace DesktopAppSupermercado.ReglasNegocio.Supervisor_Cajero
     {
         private readonly ClienteDatos datos = new ClienteDatos();
 
+        // Solicita a la capa Datos los clientes que coinciden con el texto ingresado en el buscador.
         public List<Cliente> ObtenerClientesPorFiltroTexto(string texto)
         {
             return datos.ListarClientesPorTexto(texto?.Trim() ?? "");
         }
 
+        // Valida si la entrada es un DNI de ocho dígitos o un nombre completo y devuelve el cliente encontrado.
         public Cliente ObtenerClienteValido(string entrada)
         {
             entrada = entrada?.Trim();
@@ -65,22 +67,14 @@ namespace DesktopAppSupermercado.ReglasNegocio.Supervisor_Cajero
             return clientePorNombre;
         }
 
+        // Normaliza el filtro y solicita los datos de clientes que se mostrarán en la grilla de registro.
         public DataTable BuscarClientes(string filtro)
         {
             return datos.BuscarClientes(filtro?.Trim() ?? "");
         }
 
-        public Cliente GuardarCliente(
-    string nombre,
-    string apellido,
-    string correo,
-    string dni,
-    string direccion,
-    string telefono,
-    string sexo,
-    string fechaNacimientoTexto,
-    int? idClienteSeleccionado,
-    out bool fueActualizacion)
+        // Valida los datos del formulario y decide si debe registrar un cliente nuevo o actualizar uno existente.
+        public Cliente GuardarCliente(string nombre,string apellido,string correo,string dni,string direccion,string telefono,string sexo,string fechaNacimientoTexto,int? idClienteSeleccionado,out bool fueActualizacion)
         {
             fueActualizacion = false;
 
@@ -258,6 +252,7 @@ namespace DesktopAppSupermercado.ReglasNegocio.Supervisor_Cajero
                 fechaNacimiento.Date);
         }
 
+        // Valida el identificador y solicita a la capa Datos la baja lógica del cliente.
         public void EliminarCliente(int idCliente)
         {
             // Comprobar que el identificador sea válido.

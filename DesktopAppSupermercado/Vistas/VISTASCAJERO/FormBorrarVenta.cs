@@ -20,13 +20,10 @@ namespace DesktopAppSupermercado
             txtCodigo.MaxLength = 4;
             txtCodigo.PasswordChar = '●';
 
-            // Permitir confirmar presionando Enter.
             this.AcceptButton = btnConfirmar;
         }
-
-        private void txtCodigo_KeyPress(
-    object sender,
-    KeyPressEventArgs e)
+        // Permite ingresar únicamente dígitos numéricos en el campo del código de autorización.
+        private void txtCodigo_KeyPress(object sender, KeyPressEventArgs e)
         {
             // Permitir únicamente números y teclas de control.
             if (!char.IsControl(e.KeyChar) &&
@@ -36,9 +33,8 @@ namespace DesktopAppSupermercado
             }
         }
 
-        private void btnConfirmar_Click(
-            object sender,
-            EventArgs e)
+        // Valida el código del supervisor y devuelve OK a VistaCajero cuando la autorización es correcta.
+        private void btnConfirmar_Click(object sender, EventArgs e)
         {
             try
             {
@@ -63,11 +59,13 @@ namespace DesktopAppSupermercado
             }
         }
 
+        // Cierra el formulario sin autorizar la cancelación de la venta.
         private void btnSalir_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
+        //Metodo vacio
         private void FormBorrarVenta_Load(object sender, EventArgs e)
         {
 

@@ -9,7 +9,7 @@ namespace DesktopAppSupermercado.Datos.Supervisor_Cajero
 {
     public class ClienteDatos
     {
-        // 1. Obtener cliente por DNI exacto
+        // Busca un cliente activo por su DNI exacto y devuelve sus datos como entidad Cliente.
         public Cliente ObtenerPorDni(string dni)
         {
             Cliente cliente = null;
@@ -48,7 +48,7 @@ namespace DesktopAppSupermercado.Datos.Supervisor_Cajero
             return cliente;
         }
 
-        // 2. Obtener cliente por Nombre y Apellido exacto (al seleccionarlo o escribirlo)
+        // Busca un cliente activo por nombre y apellido, admitiendo ambos órdenes de escritura.
         public Cliente ObtenerPorNombreCompleto(string texto)
         {
             Cliente cliente = null;
@@ -90,7 +90,7 @@ namespace DesktopAppSupermercado.Datos.Supervisor_Cajero
             return cliente;
         }
 
-        // 3. Listar o filtrar clientes por letras para el ComboBox
+        // Obtiene los clientes activos y los filtra por nombre o apellido para el buscador desplegable.
         public List<Cliente> ListarClientesPorTexto(string filtroTexto)
         {
             List<Cliente> lista = new List<Cliente>();
@@ -136,7 +136,7 @@ namespace DesktopAppSupermercado.Datos.Supervisor_Cajero
             return lista;
         }
 
-        // 4. Búsqueda general en DataTable
+        // Consulta los datos de los clientes activos y devuelve una tabla para la grilla de registro.
         public DataTable BuscarClientes(string filtro)
         {
             DataTable tabla = new DataTable();
@@ -187,6 +187,7 @@ namespace DesktopAppSupermercado.Datos.Supervisor_Cajero
             return tabla;
         }
 
+        // Convierte la fila actual del lector SQL en un objeto Cliente.
         private Cliente MapearCliente(SqlDataReader reader)
         {
             return new Cliente
@@ -199,15 +200,8 @@ namespace DesktopAppSupermercado.Datos.Supervisor_Cajero
             };
         }
 
-        public Cliente RegistrarCliente(
-    string nombre,
-    string apellido,
-    string correo,
-    string dni,
-    string direccion,
-    string telefono,
-    string sexo,
-    DateTime fechaNacimiento)
+        // Registra los datos personales y crea su registro de cliente dentro de una transacción SQL.
+        public Cliente RegistrarCliente(string nombre,string apellido,string correo,string dni,string direccion,string telefono,string sexo,DateTime fechaNacimiento)
         {
             Conexion miConexion = new Conexion();
 
@@ -354,16 +348,8 @@ namespace DesktopAppSupermercado.Datos.Supervisor_Cajero
             }
         }
 
-        public Cliente ActualizarCliente(
-    int idCliente,
-    string nombre,
-    string apellido,
-    string correo,
-    string dni,
-    string direccion,
-    string telefono,
-    string sexo,
-    DateTime fechaNacimiento)
+        // Actualiza los datos personales del cliente y controla que el DNI no pertenezca a otra persona.
+        public Cliente ActualizarCliente(int idCliente,string nombre,string apellido,string correo,string dni,string direccion,string telefono,string sexo,DateTime fechaNacimiento)
         {
             Conexion miConexion = new Conexion();
 
@@ -523,6 +509,7 @@ namespace DesktopAppSupermercado.Datos.Supervisor_Cajero
             }
         }
 
+        // Realiza la baja lógica del cliente marcando como eliminado a su persona asociada.
         public bool EliminarCliente(int idCliente)
         {
             Conexion miConexion = new Conexion();

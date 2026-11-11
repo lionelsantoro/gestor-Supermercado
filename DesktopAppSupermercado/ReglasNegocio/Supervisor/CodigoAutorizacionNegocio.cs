@@ -9,12 +9,10 @@ namespace DesktopAppSupermercado.ReglasNegocio.Supervisor
 {
     public class CodigoAutorizacionNegocio
     {
-        private CodigoAutorizacionDatos datos =
-            new CodigoAutorizacionDatos();
+        private CodigoAutorizacionDatos datos = new CodigoAutorizacionDatos();
 
-        public string ConsultarCodigoAutorizacion(
-            string dni,
-            string contrasena)
+        // Comprueba la sesión de supervisor, valida DNI y contraseña, genera el hash y solicita el código a Datos.
+        public string ConsultarCodigoAutorizacion(string dni, string contrasena)
         {
             Usuario usuarioActual = Sesion.UsuarioActual;
 

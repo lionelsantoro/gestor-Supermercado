@@ -8,6 +8,7 @@ namespace DesktopAppSupermercado.Datos.Cajero
 {
     public class AutorizacionDatos
     {
+        // Consulta en SQL Server si existe un usuario activo con el código de autorización indicado.
         public bool ExisteCodigoAutorizacionSupervisor(string codigo)
         {
             Conexion miConexion = new Conexion();

@@ -9,6 +9,7 @@ namespace DesktopAppSupermercado.Datos.InicioSesion
 {
     public class UsuarioDatos
     {
+
         public DataTable ObtenerUsuariosFiltrados(string textoBuscado, string nombreRol)
         {
             DataTable tabla = new DataTable();
@@ -58,7 +59,7 @@ namespace DesktopAppSupermercado.Datos.InicioSesion
             return tabla;
         }
 
-
+        // Recupera el identificador, rol y nombre de usuario necesarios para la sesión.
         public Usuario ObtenerUsuarioParaSesion(string nombreUsuario)
         {
             Usuario usuario = null;

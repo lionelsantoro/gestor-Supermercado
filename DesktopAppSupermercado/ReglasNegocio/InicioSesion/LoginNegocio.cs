@@ -10,6 +10,7 @@ namespace DesktopAppSupermercado.ReglasNegocio.InicioSesion
     {
         private LoginDatos datos = new LoginDatos();
 
+        // Genera el hash de la contraseña y solicita a Datos que autentique al usuario.
         public int AutenticarUsuario(string usuario, string contrasenaPlana)
         {
             // 1. Encriptamos la contraseña
@@ -19,6 +20,7 @@ namespace DesktopAppSupermercado.ReglasNegocio.InicioSesion
             return datos.ValidarUsuario(usuario, contrasenaHash);
         }
 
+        // Calcula el hash SHA-256 de una contraseña para compararlo con el valor almacenado.
         internal static string HashearSHA256(string texto)
         {
             using (SHA256 sha256 = SHA256.Create())

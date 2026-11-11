@@ -8,6 +8,7 @@ namespace DesktopAppSupermercado.Datos.Supervisor_Cajero
 {
     public class ProductoDatos
     {
+        // Obtiene ordenadas las descripciones de los productos activos para el autocompletado.
         public List<string> ObtenerDescripcionesAutocomplete()
         {
             List<string> descripciones = new List<string>();
@@ -38,8 +39,8 @@ namespace DesktopAppSupermercado.Datos.Supervisor_Cajero
             return descripciones;
         }
 
-        public Producto ObtenerProductoPorDescripcion(
-            string descripcion)
+        // Busca un producto activo por su descripción y devuelve sus datos para validar una venta.
+        public Producto ObtenerProductoPorDescripcion(string descripcion)
         {
             Producto producto = null;
             Conexion miConexion = new Conexion();
@@ -97,9 +98,8 @@ namespace DesktopAppSupermercado.Datos.Supervisor_Cajero
             return producto;
         }
 
-        public DataTable BuscarProductosParaSeleccion(
-    string filtro,
-    int? idCategoria)
+        // Busca productos activos por descripción o código de barras y aplica el filtro de categoría opcional.
+        public DataTable BuscarProductosParaSeleccion(string filtro, int? idCategoria)
         {
             DataTable tabla = new DataTable();
             Conexion miConexion = new Conexion();

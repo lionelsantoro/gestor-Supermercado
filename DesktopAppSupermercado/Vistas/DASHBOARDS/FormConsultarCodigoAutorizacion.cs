@@ -16,14 +16,14 @@ namespace DesktopAppSupermercado.Vistas.DASHBOARDS
         private Button btnVerificar;
         private Button btnCancelar;
 
-        private CodigoAutorizacionNegocio negocio =
-            new CodigoAutorizacionNegocio();
+        private CodigoAutorizacionNegocio negocio = new CodigoAutorizacionNegocio();
 
         public FormConsultarCodigoAutorizacion()
         {
             CrearControles();
         }
 
+        // Crea y configura dinámicamente los controles, campos y botones del formulario.
         private void CrearControles()
         {
             Text = "Consultar código de autorización";
@@ -129,9 +129,8 @@ namespace DesktopAppSupermercado.Vistas.DASHBOARDS
             CancelButton = btnCancelar;
         }
 
-        private void btnVerificar_Click(
-            object sender,
-            EventArgs e)
+        // Verifica la sesión, solicita la validación de identidad y muestra el código de autorización.
+        private void btnVerificar_Click(object sender,EventArgs e)
         {
             try
             {

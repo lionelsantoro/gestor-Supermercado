@@ -7,6 +7,7 @@ namespace DesktopAppSupermercado.Datos.InicioSesion
 {
     public class LoginDatos
     {
+        // Comprueba las credenciales en la base de datos y devuelve el rol del usuario activo.
         public int ValidarUsuario(string usuario, string contrasenaHash)
         {
             int idRol = 0; // 0 significará que no se encontró el usuario

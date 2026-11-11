@@ -10,6 +10,7 @@ namespace DesktopAppSupermercado.ReglasNegocio.Cajero
     {
         private MediosPagoDatos datos = new MediosPagoDatos();
 
+        // Solicita a la capa Datos la lista de medios de pago disponibles.
         public List<MedioPago> ObtenerListaMediosPago()
         {
             return datos.ObtenerMediosDePago();
